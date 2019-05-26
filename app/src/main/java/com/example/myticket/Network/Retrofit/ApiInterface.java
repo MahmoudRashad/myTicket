@@ -29,17 +29,18 @@ public interface ApiInterface {
 
     );
 
-    @Headers("lang: ar")
+
     @POST("register")
-    Call<MainResponceReg> registerResult(@Body UserRegister userRegister);
+    Call<MainResponceReg> registerResult(@Header("lang") String lang,@Body UserRegister userRegister);
 
-    @Headers("lang: ar")
+
     @POST("login")
-    Call<ModelLogin> loginResult(@Body User userLogin);
+    Call<ModelLogin> loginResult(@Header("lang") String lang,@Body User userLogin);
 
-    @Headers("lang: ar")
+
+
     @POST("forget_password")
-    Call<ForgetPasswordResponce> forgetPassword(@Body ForgetPasswordModel model);
+    Call<ForgetPasswordResponce> forgetPassword(@Header("lang") String lang, @Body ForgetPasswordModel model);
 
 
     @GET("slider")

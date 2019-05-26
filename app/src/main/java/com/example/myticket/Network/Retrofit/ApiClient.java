@@ -1,6 +1,9 @@
 package com.example.myticket.Network.Retrofit;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.example.myticket.Model.ForgetPasswordResponce.ForgetPasswordModel;
 import com.example.myticket.Model.ForgetPasswordResponce.ForgetPasswordResponce;
 import com.example.myticket.Model.LoginModel.ModelLogin;
@@ -28,6 +31,7 @@ public class ApiClient {
     User userLogin;
     ForgetPasswordModel forgetPasswordModel;
     SliderResponce sliderResponce;
+    Context context;
     public ApiClient(String latlng, Integer radius, String placeType, String keyword, String apiKey,onResponceInterface onResponceInterface ) {
         this.latlng = latlng;
         this.radius = radius;
@@ -46,7 +50,8 @@ public class ApiClient {
         this.onResponceInterface = onResponceInterface;
     }
 
-    public ApiClient(ForgetPasswordModel forgetPasswordModeldel, onResponceInterface onResponceInterface){
+    public ApiClient(ForgetPasswordModel forgetPasswordModeldel, onResponceInterface onResponceInterface, Context context){
+        this.context = context;
         this.forgetPasswordModel = forgetPasswordModeldel;
         this.onResponceInterface = onResponceInterface;
     }
@@ -69,9 +74,11 @@ public class ApiClient {
     //iscoapps.com/cinema/api/register
     public void initializeClientRegister(String API_REG_URL) {
         ApiInterface client = ApiSingelton.getInstance(API_REG_URL).getClient();
+        SharedPreferences sharedPreferences = context.getSharedPreferences("com.example.android.shared",Context.MODE_PRIVATE);
+        String lang = sharedPreferences.getString("lang","ar");
 
         Call<MainResponceReg> call =
-                client.registerResult(userRegister);
+                client.registerResult(lang,userRegister);
         ApiCalling apiCalling = new ApiCalling();
         apiCalling.regCall(call,onResponceInterface);
 
@@ -80,9 +87,11 @@ public class ApiClient {
     //iscoapps.com/cinema/api/register
     public void initializeClientLogin(String API_LOGIN_URL) {
         ApiInterface client = ApiSingelton.getInstance(API_LOGIN_URL).getClient();
+        SharedPreferences sharedPreferences = context.getSharedPreferences("com.example.android.shared",Context.MODE_PRIVATE);
+        String lang = sharedPreferences.getString("lang","ar");
 
         Call<ModelLogin> call =
-                client.loginResult(userLogin);
+                client.loginResult(lang,userLogin);
         ApiCalling apiCalling = new ApiCalling();
         apiCalling.loginCall(call,onResponceInterface);
 
@@ -90,9 +99,11 @@ public class ApiClient {
 
     public void initializeClientForget(String API_FORGET_URL) {
         ApiInterface client = ApiSingelton.getInstance(API_FORGET_URL).getClient();
+        SharedPreferences sharedPreferences = context.getSharedPreferences("com.example.android.shared",Context.MODE_PRIVATE);
+        String lang = sharedPreferences.getString("lang","ar");
 
         Call<ForgetPasswordResponce> call =
-                client.forgetPassword(forgetPasswordModel);
+                client.forgetPassword(lang, forgetPasswordModel);
         ApiCalling apiCalling = new ApiCalling();
         apiCalling.forgetCall(call,onResponceInterface);
 

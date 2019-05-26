@@ -32,7 +32,7 @@ public class ForgetPassword extends AppCompatActivity implements onResponceInter
             public void onClick(View v) {
                 mEmail = email.getText().toString();
                 ForgetPasswordModel model = new ForgetPasswordModel(mEmail);
-                ApiClient apiClient = new ApiClient(model,ForgetPassword.this);
+                ApiClient apiClient = new ApiClient(model,ForgetPassword.this,ForgetPassword.this);
                 apiClient.initializeClientForget("http://iscoapps.com/cinema/api/");
             }
         });

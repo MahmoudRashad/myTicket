@@ -55,6 +55,7 @@
             android:text="FULL NAME"
             android:textAlignment="center"
             android:gravity="center_vertical"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/register_title"
             />
@@ -64,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:background="#8E0920"
+
             />
 
     </LinearLayout>
@@ -96,7 +97,7 @@
             android:id="@+id/password_reg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#8E0920"
+
             android:layout_margin="3dp"
             />
 
@@ -128,7 +129,7 @@
             android:id="@+id/rep_password_reg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#8E0920"
+
             android:layout_margin="3dp"
 
             />
@@ -160,7 +161,7 @@
         android:id="@+id/username_reg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#8E0920"
+
         android:layout_margin="3dp"
 
         />
@@ -194,7 +195,7 @@
         android:id="@+id/address_reg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#8E0920"
+
         android:layout_margin="3dp"
 
         />
@@ -225,7 +226,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="3dp"
-        android:background="#8E0920"
 
         />
     </LinearLayout>
