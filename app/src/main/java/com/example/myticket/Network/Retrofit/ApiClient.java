@@ -32,22 +32,26 @@ public class ApiClient {
     ForgetPasswordModel forgetPasswordModel;
     SliderResponce sliderResponce;
     Context context;
-    public ApiClient(String latlng, Integer radius, String placeType, String keyword, String apiKey,onResponceInterface onResponceInterface ) {
+    public ApiClient(String latlng, Integer radius, String placeType, String keyword, String apiKey,onResponceInterface onResponceInterfacem,
+                     Context context) {
         this.latlng = latlng;
         this.radius = radius;
         this.placeType = placeType;
         this.keyword = keyword;
         this.apiKey = apiKey;
         this.onResponceInterface = onResponceInterface;
+        this.context = context;
     }
-    public ApiClient(UserRegister userRegister, onResponceInterface onResponceInterface){
+    public ApiClient(UserRegister userRegister, onResponceInterface onResponceInterface, Context context){
         this.userRegister = userRegister;
         this.onResponceInterface = onResponceInterface;
+        this.context = context;
     }
 
-    public ApiClient(User loginUser, onResponceInterface onResponceInterface){
+    public ApiClient(User loginUser, onResponceInterface onResponceInterface, Context context){
         this.userLogin = loginUser;
         this.onResponceInterface = onResponceInterface;
+        this.context = context;
     }
 
     public ApiClient(ForgetPasswordModel forgetPasswordModeldel, onResponceInterface onResponceInterface, Context context){
@@ -56,7 +60,8 @@ public class ApiClient {
         this.onResponceInterface = onResponceInterface;
     }
 
-    public ApiClient(SliderResponce sliderResponce, onResponceInterface onResponceInterface){
+    public ApiClient(SliderResponce sliderResponce, onResponceInterface onResponceInterface , Context context){
+        this.context = context;
         this.sliderResponce = sliderResponce;
         this.onResponceInterface = onResponceInterface;
     }

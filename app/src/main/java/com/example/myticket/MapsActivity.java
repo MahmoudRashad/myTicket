@@ -170,7 +170,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void sendNetworkRequest(String latLng, int radius, String placeCinema, String keywordCinema, String apiKey) {
-        ApiClient apiClient = new ApiClient(latLng,radius,placeCinema,keywordCinema,apiKey,this);
+        ApiClient apiClient = new ApiClient(latLng,radius,placeCinema,keywordCinema,apiKey,this,this);
         apiClient.initializeClient();
 
     }
