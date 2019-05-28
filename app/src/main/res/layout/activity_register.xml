@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<android.support.v4.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,9 +10,9 @@
 <android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="24dp"
 
    >
-
     <ImageView
         android:id="@+id/main_logo"
         android:layout_width="wrap_content"
@@ -24,20 +24,20 @@
         android:src="@drawable/my_ticket_white_logo"/>
     <TextView
         android:id="@+id/register_title"
-        android:layout_width="90dp"
-        android:layout_height="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/main_logo"
         app:layout_constraintEnd_toEndOf="@id/main_logo"
         app:layout_constraintTop_toBottomOf="@id/main_logo"
-        android:layout_marginTop="24dp"
+      android:layout_marginTop="16dp"
         android:text="REGISTER"
         android:textSize="18dp"
         android:textAlignment="center"
         android:textColor="#fff"
         />
 
-    <LinearLayout
-        android:id="@+id/fullname_linear"
+    <EditText
+        android:id="@+id/fullname_reg"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,233 +45,116 @@
         app:layout_constraintTop_toBottomOf="@id/register_title"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/rounded_corners"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/fullname_title"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="FULL NAME"
-            android:textAlignment="center"
-            android:gravity="center_vertical"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/register_title"
-            />
-
-        <EditText
-            android:id="@+id/fullname_reg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="3dp"
-
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/password_linear"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fullname_linear"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/rounded_corners"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/password_title"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="PASSWORD"
-            android:textAlignment="center"
-            android:gravity="center_vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/register_title"
-            />
-
-        <EditText
-            android:id="@+id/password_reg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="3dp"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/rep_password_linear"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password_linear"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/rounded_corners"
-        android:orientation="horizontal">
-
-    <TextView
-        android:id="@+id/rep_password_title"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="PASSWORD"
-        android:textAlignment="center"
-        android:gravity="center_vertical"
-        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/white_rect"
+        android:drawableStart="@drawable/ic_person_black_24dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:drawablePadding="16dp"
         />
 
-        <EditText
-            android:id="@+id/rep_password_reg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:layout_margin="3dp"
-
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/username_linear"
+    <EditText
+        android:id="@+id/password_reg"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rep_password_linear"
+        app:layout_constraintTop_toBottomOf="@id/fullname_reg"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/rounded_corners"
-        android:orientation="horizontal">
+        android:background="@drawable/white_rect"
+        android:drawableStart="@drawable/ic_lock_black_24dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:drawablePadding="16dp"/>
 
-    <TextView
-        android:id="@+id/username_title"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="USER NAME"
-        android:textAlignment="center"
-        android:gravity="center_vertical"
-        />
+    <EditText
+        android:id="@+id/rep_password_reg"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/password_reg"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/white_rect"
+        android:drawableStart="@drawable/ic_lock_black_24dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:drawablePadding="16dp"/>
 
 
     <EditText
         android:id="@+id/username_reg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        android:layout_margin="3dp"
-
-        />
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:id="@+id/phone_linear"
-        android:layout_width="match_parent"
         android:layout_height="52dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/address_linear"
+        app:layout_constraintTop_toBottomOf="@id/rep_password_reg"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/rounded_corners"
-        android:orientation="horizontal">
+        android:background="@drawable/white_rect"
+        android:drawableStart="@drawable/ic_person_black_24dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:drawablePadding="16dp"/>
 
-    <TextView
-        android:id="@+id/phone_title"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:text="MOBILE"
-        android:textAlignment="center"
-        android:gravity="center_vertical"
-        />
+
+
+
     <EditText
         android:id="@+id/phone_reg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:inputType="phone"
-        android:layout_margin="3dp"
-
-        />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/email_linear"
-        android:layout_width="match_parent"
         android:layout_height="52dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/username_linear"
+        app:layout_constraintTop_toBottomOf="@id/address_reg"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/rounded_corners"
-        android:orientation="horizontal">
+        android:background="@drawable/white_rect"
+        android:drawableStart="@drawable/ic_phone_black_24dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:drawablePadding="16dp"/>
 
-        <TextView
-            android:id="@+id/email_title"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="EMAIL"
-            android:textAlignment="center"
-            android:gravity="center_vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/register_title"
-            />
 
-        <EditText
-            android:id="@+id/email_reg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="textEmailAddress"
-            android:layout_margin="3dp"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/address_linear"
+    <EditText
+        android:id="@+id/email_reg"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email_linear"
+        app:layout_constraintTop_toBottomOf="@id/username_reg"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/rounded_corners"
-        android:orientation="horizontal">
+        android:inputType="textEmailAddress"
+        android:background="@drawable/white_rect"
+        android:drawableStart="@drawable/ic_mail_black_24dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:drawablePadding="16dp"/>
 
-        <TextView
-            android:id="@+id/address_title"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="ADDRESS"
-            android:textAlignment="center"
-            android:gravity="center_vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/register_title"
-            />
-
-
-        <EditText
-            android:id="@+id/address_reg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:layout_margin="3dp"
-
-            />
-    </LinearLayout>
+    <EditText
+        android:id="@+id/address_reg"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/email_reg"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/white_rect"
+        android:drawableStart="@drawable/ic_location_on_black_24dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:drawablePadding="16dp"/>
 
     <FrameLayout
         android:id="@+id/frame_reg"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/phone_linear"
+        app:layout_constraintTop_toBottomOf="@+id/phone_reg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         >
@@ -280,20 +163,31 @@
             android:id="@+id/progressBar_reg"
             android:layout_width="wrap_content"
             android:layout_height="42dp"
+            android:elevation="4dp"
             android:layout_gravity="center" />
         <Button
             android:id="@+id/reg_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:background="@drawable/rounded_corners"
+            android:background="@drawable/white_rect_bk"
             android:text="Register"
-            app:layout_constraintTop_toBottomOf="@id/phone_linear"
-            app:layout_constraintStart_toStartOf="parent"
+            android:textColor="#8E0920"
             android:layout_marginStart="48dp"
             android:layout_marginEnd="48dp"
             />
     </FrameLayout>
 
+    <TextView
+        android:id="@+id/reg_already"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Already have an account ?"
+        android:textColor="#fff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frame_reg"
+        android:layout_marginTop="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
 </android.support.constraint.ConstraintLayout>
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>

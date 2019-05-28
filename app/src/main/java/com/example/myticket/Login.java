@@ -102,12 +102,14 @@ public class Login extends AppCompatActivity implements onResponceInterface {
     @Override
     protected void onPause() {
         super.onPause();
-        SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
-        preferencesEditor.putString(TOKEN_KEY,deviceToken);
-        preferencesEditor.putString(EMAIL_KEY, mPrefEmail);
-        preferencesEditor.putString(USERNAME_KEY, mPerfUsername);
-        preferencesEditor.putString(FULLNAME_KEY,mPrefFullname);
-        preferencesEditor.apply();
+        if (sharedPreferences != null) {
+            SharedPreferences.Editor preferencesEditor = sharedPreferences.edit();
+            preferencesEditor.putString(TOKEN_KEY, deviceToken);
+            preferencesEditor.putString(EMAIL_KEY, mPrefEmail);
+            preferencesEditor.putString(USERNAME_KEY, mPerfUsername);
+            preferencesEditor.putString(FULLNAME_KEY, mPrefFullname);
+            preferencesEditor.apply();
+        }
     }
 
 }
