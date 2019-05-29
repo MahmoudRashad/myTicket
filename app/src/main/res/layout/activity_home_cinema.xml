@@ -1,11 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeCinema">
+    tools:context=".HomeCinema"
+    android:background="@drawable/back">
 
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="24dp">
 
+        <android.support.v4.view.ViewPager
+            android:id="@+id/C_home_slider"
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <ProgressBar
+            android:id="@+id/C_home_progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/C_home_slider"
+
+            />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/cinema_tabLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:tabIndicatorHeight="0dp"
+            app:tabGravity="center"
+            app:tabBackground="@drawable/indicator_selector"
+            app:layout_constraintTop_toBottomOf="@id/C_home_slider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            >
+        </android.support.design.widget.TabLayout>
+
+        <TextView
+            android:id="@+id/nowPlaying_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cinema_tabLayout"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="Now Playing"
+            android:textSize="16sp"
+            android:textColor="#fff"
+            />
+        
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/now_playing_rv"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nowPlaying_title"/>
 
 </android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.NestedScrollView>

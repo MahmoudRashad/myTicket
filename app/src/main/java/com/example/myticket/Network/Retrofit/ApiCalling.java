@@ -111,8 +111,7 @@ public class ApiCalling {
             public void onResponse(Call<SliderResponce> call, Response<SliderResponce> response) {
                 if (response.isSuccessful()) {
                     Log.v("SliderSuccess", "SliderSuccess");
-                    SliderResponce mainResponceReg = response.body();
-                    onResponceInterface.onSuccess(mainResponceReg);
+                    onResponceInterface.onSuccess(response.body());
                     Log.e("SliderSuccess", "SliderSuccess");
                 }
             }

@@ -60,9 +60,7 @@ public class ApiClient {
         this.onResponceInterface = onResponceInterface;
     }
 
-    public ApiClient(SliderResponce sliderResponce, onResponceInterface onResponceInterface , Context context){
-        this.context = context;
-        this.sliderResponce = sliderResponce;
+    public ApiClient(onResponceInterface onResponceInterface){
         this.onResponceInterface = onResponceInterface;
     }
 
