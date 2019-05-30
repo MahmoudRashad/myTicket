@@ -27,6 +27,7 @@ public class ForgetPassword extends AppCompatActivity implements onResponceInter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_forget_password);
 
         email = findViewById(R.id.email_forget);

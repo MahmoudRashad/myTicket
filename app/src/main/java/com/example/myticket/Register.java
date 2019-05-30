@@ -64,6 +64,7 @@ public class Register extends AppCompatActivity implements onResponceInterface {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_register);
         fullname = findViewById(R.id.fullname_reg);
         password = findViewById(R.id.password_reg);

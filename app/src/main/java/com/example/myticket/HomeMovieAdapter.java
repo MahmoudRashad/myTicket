@@ -33,7 +33,7 @@ public class HomeMovieAdapter extends RecyclerView.Adapter<HomeMovieAdapter.Movi
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
         //MovieDetails movie = movieDetails.get(i);
-        movieViewHolder.moviePhoto.setImageResource(R.drawable.back);
+        movieViewHolder.moviePhoto.setImageResource(R.drawable.movie);
         movieViewHolder.movieTitle.setText("movie name");
         movieViewHolder.reviewsTotal.setText("1500");
         movieViewHolder.reviewRate.setText("9.5");

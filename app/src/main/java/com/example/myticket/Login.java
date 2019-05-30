@@ -47,6 +47,7 @@ public class Login extends AppCompatActivity implements onResponceInterface {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
         userName = findViewById(R.id.username_login);
         password = findViewById(R.id.password_login);

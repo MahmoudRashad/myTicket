@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">MyTicket</string>
     <string name="title_activity_maps">mapsTitle</string>
+    <string name="open_nav">open</string>
+    <string name="close_nav">close</string>
 </resources>

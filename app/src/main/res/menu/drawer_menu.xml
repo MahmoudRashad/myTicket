@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:id="@+id/profile" android:title="Profile" android:icon="@drawable/ic_perm_contact_calendar_24px"/>
+    <item android:id="@+id/my_tickets" android:title="My Tickets" android:icon="@drawable/ic_tickets"/>
+    <item android:id="@+id/cinema_map" android:title="Find a Cinema" android:icon="@drawable/ic_places"/>
+    <item android:id="@+id/movies_list" android:title="Now Playing" android:icon="@drawable/ic_theaters_24px"/>
+    <item android:id="@+id/settings" android:title="Settings" android:icon="@drawable/ic_settings_24px"/>
+    <item android:id="@+id/back_to_gate" android:title="Gate" android:icon="@drawable/ic_keyboard_return_24px"/>
+
+
+
+
+</menu>
