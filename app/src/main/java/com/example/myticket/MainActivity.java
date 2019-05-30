@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private Button ForgetBtn;
     private Button GoHomeBtn;
     private Button GoGateBtn;
+    private Button GoDetailsBtn;
     private String language;
     private SharedPreferences sharedPreferences;
     private String prefFile = "com.example.android.shared";
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         ForgetBtn = findViewById(R.id.ForgetBtn);
         GoHomeBtn = findViewById(R.id.GoHomeBtn);
         GoGateBtn = findViewById(R.id.GoGateBtn);
+        GoDetailsBtn = findViewById(R.id.GoMovieDetailsBtn);
         sharedPreferences = getSharedPreferences(
                 prefFile, MODE_PRIVATE);
         language = sharedPreferences.getString(LANG_KEY, "ar");
@@ -83,6 +85,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,Gate.class);
+                startActivity(intent);
+            }
+        });
+        GoDetailsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,MovieDetails.class);
                 startActivity(intent);
             }
         });
