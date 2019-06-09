@@ -2,6 +2,7 @@ package com.example.myticket;
 
 import android.content.Intent;
 import android.support.annotation.Px;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,16 +16,25 @@ public class MovieDetails extends AppCompatActivity {
     private Button dropDown;
     private com.robertlevonyan.views.customfloatingactionbutton.FloatingActionButton floatingActionButton;
     private android.support.v7.widget.Toolbar toolbar;
+    private CollapsingToolbarLayout collapsingToolbarLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+     //   getSupportActionBar().hide();
         setContentView(R.layout.activity_movie_details);
         dropDown = findViewById(R.id.dropdown_revs);
         floatingActionButton = findViewById(R.id.custom_fab);
-//        toolbar = findViewById(R.id.toolbar);
-//        toolbar.setTitle("Movie Name");
+       // toolbar = findViewById(R.id.toolbar);
+        collapsingToolbarLayout = findViewById(R.id.toolbar_layout);
+        int height = collapsingToolbarLayout.getHeight();
+//        if (height <= 48){
+//            collapsingToolbarLayout.setLayoutMode();
+//        }
+     //   toolbar.setTitle("Movie Name");
+//        collapsingToolbarLayout.setTitleEnabled(true);
+//        collapsingToolbarLayout.setTitle("The Name");
+
 
         dropDown.setOnClickListener(new View.OnClickListener() {
             @Override
