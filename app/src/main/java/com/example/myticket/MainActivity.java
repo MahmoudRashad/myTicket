@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     private Button GoHomeBtn;
     private Button GoGateBtn;
     private Button GoDetailsBtn;
+    private Button GoResetBtn;
+    private Button GoSearchPageBtn;
     private String language;
     private SharedPreferences sharedPreferences;
     private String prefFile = "com.example.android.shared";
@@ -35,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
         ForgetBtn = findViewById(R.id.ForgetBtn);
         GoHomeBtn = findViewById(R.id.GoHomeBtn);
         GoGateBtn = findViewById(R.id.GoGateBtn);
+        GoResetBtn = findViewById(R.id.GoResetBtn);
         GoDetailsBtn = findViewById(R.id.GoMovieDetailsBtn);
+        GoSearchPageBtn = findViewById(R.id.GoToSearch);
         sharedPreferences = getSharedPreferences(
                 prefFile, MODE_PRIVATE);
         language = sharedPreferences.getString(LANG_KEY, "ar");
@@ -92,6 +96,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,MovieDetails.class);
+                startActivity(intent);
+            }
+        });
+        GoResetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,ResetPassword.class);
+                startActivity(intent);
+            }
+        });
+        MapBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,SearchPage.class);
                 startActivity(intent);
             }
         });

@@ -56,7 +56,7 @@ public class MovieDetails extends AppCompatActivity {
             }
         });
 
-        reviewsRv = findViewById(R.id.details_rev_rv);
+       // reviewsRv = findViewById(R.id.details_rev_rv);
         ArrayList<String> texts = new ArrayList<>();
         texts.add("basma");
         texts.add("Reda");
@@ -66,8 +66,8 @@ public class MovieDetails extends AppCompatActivity {
         texts.add("hanan");
         texts.add("ahmed");
         AllReviewsAdapter allReviewsAdapter = new AllReviewsAdapter(this,texts);
-        reviewsRv.setAdapter(allReviewsAdapter);
-        reviewsRv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
+//        reviewsRv.setAdapter(allReviewsAdapter);
+  //      reviewsRv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
 
 
 
