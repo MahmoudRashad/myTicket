@@ -3,8 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="300dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:elevation="12dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/white_rect_bk">
+    android:background="#fff">
     <TextView
         android:id="@+id/name_rev_title"
         android:layout_width="match_parent"
