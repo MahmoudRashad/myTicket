@@ -26,7 +26,7 @@ public class HomeMovieAdapter extends RecyclerView.Adapter<HomeMovieAdapter.Movi
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.now_playing_item,viewGroup,false);
+        View view = inflater.inflate(R.layout.recyclerview_item,viewGroup,false);
         return new MovieViewHolder(view);
     }
 

@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Button GoDetailsBtn;
     private Button GoResetBtn;
     private Button GoSearchPageBtn;
+    private Button GoListsPage;
     private String language;
     private SharedPreferences sharedPreferences;
     private String prefFile = "com.example.android.shared";
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         GoResetBtn = findViewById(R.id.GoResetBtn);
         GoDetailsBtn = findViewById(R.id.GoMovieDetailsBtn);
         GoSearchPageBtn = findViewById(R.id.GoToSearch);
+        GoListsPage = findViewById(R.id.GoToLists);
         sharedPreferences = getSharedPreferences(
                 prefFile, MODE_PRIVATE);
         language = sharedPreferences.getString(LANG_KEY, "ar");
@@ -110,6 +112,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,SearchPage.class);
+                startActivity(intent);
+            }
+        });
+        GoListsPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,AnyResultsPage.class);
                 startActivity(intent);
             }
         });
