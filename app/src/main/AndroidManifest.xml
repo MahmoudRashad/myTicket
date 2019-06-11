@@ -18,10 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AnyResultsPage"></activity>
+        <activity android:name=".CinemaDetailsPage"></activity>
+        <activity android:name=".AnyResultsPage" />
         <activity android:name=".SearchPage" />
         <activity android:name=".ResetPassword" />
-        <activity android:name=".MovieDetails" />
+        <activity android:name=".MovieDetailsPage" />
         <activity android:name=".CustomAppCompat" />
         <activity android:name=".Gate" />
         <activity android:name=".MainActivity" />

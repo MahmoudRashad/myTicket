@@ -29,7 +29,7 @@ public class AllReviewsAdapter extends RecyclerView.Adapter<AllReviewsAdapter.Re
 
     @Override
     public void onBindViewHolder(@NonNull ReviewsViewHolder reviewsViewHolder, int i) {
-        //MovieDetails movie = movieDetails.get(i);
+        //MovieDetailsPage movie = movieDetails.get(i);
         reviewsViewHolder.movieTitle.setText("movie name");
 
     }
