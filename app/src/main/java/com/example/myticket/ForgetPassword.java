@@ -50,7 +50,7 @@ public class ForgetPassword extends AppCompatActivity implements onResponceInter
                     progressBar.setVisibility(View.VISIBLE);
                     ForgetPasswordModel model = new ForgetPasswordModel(mEmail);
                     ApiClient apiClient = new ApiClient(model, ForgetPassword.this, ForgetPassword.this);
-                    apiClient.initializeClientForget("http://iscoapps.com/cinema/api/");
+                    apiClient.initializeClientForget();
                 }
             }
         });

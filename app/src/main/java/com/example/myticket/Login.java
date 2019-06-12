@@ -69,7 +69,7 @@ public class Login extends AppCompatActivity implements onResponceInterface {
 
                     loginUser = new User(mUsername, mPassword, deviceToken, deviceType, macAddress);
                     ApiClient apiClient = new ApiClient(loginUser, Login.this, Login.this);
-                    apiClient.initializeClientLogin("http://iscoapps.com/cinema/api/");
+                    apiClient.initializeClientLogin();
                 }
             }
         });

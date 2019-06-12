@@ -8,25 +8,25 @@ public class ApiSingelton {
     private static ApiSingelton instance = null;
     private ApiInterface client;
 
-    public static ApiSingelton getInstance(String url) {
+    public static ApiSingelton getInstance() {
         if (instance == null) {
-            instance = new ApiSingelton(url);
+            instance = new ApiSingelton();
         }
 
         return instance;
     }
     // Build retrofit once when creating a single instance
-    private ApiSingelton(String url) {
+    private ApiSingelton() {
         // Implement a method to build your retrofit
-        buildRetrofit(url);
+        buildRetrofit();
     }
 
-    private void buildRetrofit(String url) {
+    private void buildRetrofit() {
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
         Retrofit.Builder builder =
                 new Retrofit.Builder()
-                        .baseUrl(url)
+                        .baseUrl("http://iscoapps.com/cinema/api/")
                         .addConverterFactory(
                                 GsonConverterFactory.create()
                         );

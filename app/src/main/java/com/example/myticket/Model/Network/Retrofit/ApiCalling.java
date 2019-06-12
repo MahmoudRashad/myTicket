@@ -2,6 +2,7 @@ package com.example.myticket.Model.Network.Retrofit;
 
 import android.util.Log;
 
+import com.example.myticket.Model.MainResult;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordResponce;
 import com.example.myticket.Model.Network.DataModel.LoginModel.ModelLogin;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderResponce;
@@ -123,10 +124,10 @@ public class ApiCalling {
             }
         });
     }
-public void ApiCall(Call<Object> call, final onResponceInterface onResponceInterface) {
-    call.enqueue(new Callback<Object>() {
+public void ApiCall(Call<MainResult> call, final onResponceInterface onResponceInterface) {
+    call.enqueue(new Callback<MainResult>() {
         @Override
-        public void onResponse(Call<Object> call, Response<Object> response) {
+        public void onResponse(Call<MainResult> call, Response<MainResult> response) {
             if (response.isSuccessful()) {
                 Log.v("Success", "Success");
                 onResponceInterface.onSuccess(response.body());
@@ -135,7 +136,7 @@ public void ApiCall(Call<Object> call, final onResponceInterface onResponceInter
         }
 
         @Override
-        public void onFailure(Call<Object> call, Throwable t) {
+        public void onFailure(Call<MainResult> call, Throwable t) {
             Log.e("Error","API ERROR");
             Log.e("Error",t.getMessage());
         }

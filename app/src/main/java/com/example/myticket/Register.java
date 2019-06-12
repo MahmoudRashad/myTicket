@@ -102,7 +102,7 @@ public class Register extends AppCompatActivity implements onResponceInterface {
                     progressBar.setVisibility(View.VISIBLE);
                     userRegister = new UserRegister(mFullname, mEmail, mUsername, mPhone, mAddress, deviceToken, mPassword, deviceType, macAddress);
                     ApiClient apiClient = new ApiClient(userRegister, Register.this, Register.this);
-                    apiClient.initializeClientRegister("http://iscoapps.com/cinema/api/");
+                    apiClient.initializeClientRegister();
                 }
             }
         });

@@ -1,5 +1,6 @@
 package com.example.myticket.Model.Network.Retrofit;
 
+import com.example.myticket.Model.MainResult;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordModel;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordResponce;
 import com.example.myticket.Model.Network.DataModel.LoginModel.User;
@@ -44,6 +45,9 @@ public interface ApiInterface {
 
     @GET("slider")
     Call<SliderResponce> mainSlider();
+
+    @GET("home")
+    Call<MainResult> homeResponce();
 
 
 

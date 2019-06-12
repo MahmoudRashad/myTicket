@@ -1,15 +1,14 @@
 
-package com.example.myticket.Model.HomeResult;
+package com.example.myticket.Model.Network.DataModel.HomeResult;
 
 import java.io.Serializable;
-import java.util.List;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Recently implements Serializable, Parcelable
+public class Cinema implements Serializable, Parcelable
 {
 
     @SerializedName("id")
@@ -27,78 +26,78 @@ public class Recently implements Serializable, Parcelable
     @SerializedName("reviews")
     @Expose
     private Integer reviews;
-    @SerializedName("date")
+    @SerializedName("address")
     @Expose
-    private String date;
+    private String address;
     @SerializedName("youtube")
     @Expose
-    private String youtube;
-    @SerializedName("category")
+    private Object youtube;
+    @SerializedName("open")
     @Expose
-    private List<Category> category = null;
-    @SerializedName("period")
+    private String open;
+    @SerializedName("close")
     @Expose
-    private String period;
-    public final static Creator<Recently> CREATOR = new Creator<Recently>() {
+    private String close;
+    public final static Creator<Cinema> CREATOR = new Creator<Cinema>() {
 
 
         @SuppressWarnings({
             "unchecked"
         })
-        public Recently createFromParcel(Parcel in) {
-            return new Recently(in);
+        public Cinema createFromParcel(Parcel in) {
+            return new Cinema(in);
         }
 
-        public Recently[] newArray(int size) {
-            return (new Recently[size]);
+        public Cinema[] newArray(int size) {
+            return (new Cinema[size]);
         }
 
     }
     ;
-    private final static long serialVersionUID = 4839407562280224556L;
+    private final static long serialVersionUID = 6504794720100532657L;
 
-    protected Recently(Parcel in) {
+    protected Cinema(Parcel in) {
         this.id = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.image = ((String) in.readValue((String.class.getClassLoader())));
         this.name = ((String) in.readValue((String.class.getClassLoader())));
         this.rate = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.reviews = ((Integer) in.readValue((Integer.class.getClassLoader())));
-        this.date = ((String) in.readValue((String.class.getClassLoader())));
-        this.youtube = ((String) in.readValue((String.class.getClassLoader())));
-        in.readList(this.category, (com.example.myticket.Model.Category.class.getClassLoader()));
-        this.period = ((String) in.readValue((String.class.getClassLoader())));
+        this.address = ((String) in.readValue((String.class.getClassLoader())));
+        this.youtube = ((Object) in.readValue((Object.class.getClassLoader())));
+        this.open = ((String) in.readValue((String.class.getClassLoader())));
+        this.close = ((String) in.readValue((String.class.getClassLoader())));
     }
 
     /**
      * No args constructor for use in serialization
      * 
      */
-    public Recently() {
+    public Cinema() {
     }
 
     /**
      * 
      * @param id
-     * @param category
+     * @param open
      * @param reviews
      * @param rate
+     * @param address
      * @param name
      * @param youtube
      * @param image
-     * @param period
-     * @param date
+     * @param close
      */
-    public Recently(Integer id, String image, String name, Integer rate, Integer reviews, String date, String youtube, List<Category> category, String period) {
+    public Cinema(Integer id, String image, String name, Integer rate, Integer reviews, String address, Object youtube, String open, String close) {
         super();
         this.id = id;
         this.image = image;
         this.name = name;
         this.rate = rate;
         this.reviews = reviews;
-        this.date = date;
+        this.address = address;
         this.youtube = youtube;
-        this.category = category;
-        this.period = period;
+        this.open = open;
+        this.close = close;
     }
 
     public Integer getId() {
@@ -141,36 +140,36 @@ public class Recently implements Serializable, Parcelable
         this.reviews = reviews;
     }
 
-    public String getDate() {
-        return date;
+    public String getAddress() {
+        return address;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getYoutube() {
+    public Object getYoutube() {
         return youtube;
     }
 
-    public void setYoutube(String youtube) {
+    public void setYoutube(Object youtube) {
         this.youtube = youtube;
     }
 
-    public List<Category> getCategory() {
-        return category;
+    public String getOpen() {
+        return open;
     }
 
-    public void setCategory(List<Category> category) {
-        this.category = category;
+    public void setOpen(String open) {
+        this.open = open;
     }
 
-    public String getPeriod() {
-        return period;
+    public String getClose() {
+        return close;
     }
 
-    public void setPeriod(String period) {
-        this.period = period;
+    public void setClose(String close) {
+        this.close = close;
     }
 
     public void writeToParcel(Parcel dest, int flags) {
@@ -179,10 +178,10 @@ public class Recently implements Serializable, Parcelable
         dest.writeValue(name);
         dest.writeValue(rate);
         dest.writeValue(reviews);
-        dest.writeValue(date);
+        dest.writeValue(address);
         dest.writeValue(youtube);
-        dest.writeList(category);
-        dest.writeValue(period);
+        dest.writeValue(open);
+        dest.writeValue(close);
     }
 
     public int describeContents() {

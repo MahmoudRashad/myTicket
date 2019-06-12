@@ -1,15 +1,15 @@
 
-package com.example.myticket.Model.HomeResult;
+package com.example.myticket.Model.Network.DataModel.HomeResult;
 
 import java.io.Serializable;
 import java.util.List;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Coming implements Serializable, Parcelable
+public class Recently implements Serializable, Parcelable
 {
 
     @SerializedName("id")
@@ -35,29 +35,29 @@ public class Coming implements Serializable, Parcelable
     private String youtube;
     @SerializedName("category")
     @Expose
-    private List<Object> category = null;
+    private List<Category> category = null;
     @SerializedName("period")
     @Expose
     private String period;
-    public final static Creator<Coming> CREATOR = new Creator<Coming>() {
+    public final static Creator<Recently> CREATOR = new Creator<Recently>() {
 
 
         @SuppressWarnings({
             "unchecked"
         })
-        public Coming createFromParcel(Parcel in) {
-            return new Coming(in);
+        public Recently createFromParcel(Parcel in) {
+            return new Recently(in);
         }
 
-        public Coming[] newArray(int size) {
-            return (new Coming[size]);
+        public Recently[] newArray(int size) {
+            return (new Recently[size]);
         }
 
     }
     ;
-    private final static long serialVersionUID = -6730771828017038808L;
+    private final static long serialVersionUID = 4839407562280224556L;
 
-    protected Coming(Parcel in) {
+    protected Recently(Parcel in) {
         this.id = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.image = ((String) in.readValue((String.class.getClassLoader())));
         this.name = ((String) in.readValue((String.class.getClassLoader())));
@@ -65,7 +65,7 @@ public class Coming implements Serializable, Parcelable
         this.reviews = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.date = ((String) in.readValue((String.class.getClassLoader())));
         this.youtube = ((String) in.readValue((String.class.getClassLoader())));
-        in.readList(this.category, (Object.class.getClassLoader()));
+        in.readList(this.category, (Category.class.getClassLoader()));
         this.period = ((String) in.readValue((String.class.getClassLoader())));
     }
 
@@ -73,7 +73,7 @@ public class Coming implements Serializable, Parcelable
      * No args constructor for use in serialization
      * 
      */
-    public Coming() {
+    public Recently() {
     }
 
     /**
@@ -88,7 +88,7 @@ public class Coming implements Serializable, Parcelable
      * @param period
      * @param date
      */
-    public Coming(Integer id, String image, String name, Integer rate, Integer reviews, String date, String youtube, List<Object> category, String period) {
+    public Recently(Integer id, String image, String name, Integer rate, Integer reviews, String date, String youtube, List<Category> category, String period) {
         super();
         this.id = id;
         this.image = image;
@@ -157,11 +157,11 @@ public class Coming implements Serializable, Parcelable
         this.youtube = youtube;
     }
 
-    public List<Object> getCategory() {
+    public List<Category> getCategory() {
         return category;
     }
 
-    public void setCategory(List<Object> category) {
+    public void setCategory(List<Category> category) {
         this.category = category;
     }
 

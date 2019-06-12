@@ -4,9 +4,8 @@ package com.example.myticket.Model;
 import java.io.Serializable;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
 
-import com.example.myticket.Model.HomeResult.Result;
+import com.example.myticket.Model.Network.DataModel.HomeResult.Result;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

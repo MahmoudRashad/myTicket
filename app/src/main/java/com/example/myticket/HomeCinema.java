@@ -56,7 +56,7 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
 
 
         ApiClient apiClient = new ApiClient(this);
-        apiClient.initializeClientMainSlider("http://iscoapps.com/cinema/api/");
+        apiClient.initializeClientMainSlider();
 
         ArrayList<MovieDetails> movies = new ArrayList<>();
         HomeMovieAdapter homeMovieAdapter = new HomeMovieAdapter(this,movies);

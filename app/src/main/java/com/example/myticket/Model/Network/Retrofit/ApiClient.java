@@ -4,6 +4,7 @@ package com.example.myticket.Model.Network.Retrofit;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.myticket.Model.MainResult;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordModel;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordResponce;
 import com.example.myticket.Model.Network.DataModel.LoginModel.ModelLogin;
@@ -60,20 +61,20 @@ public class ApiClient {
     public ApiClient(onResponceInterface onResponceInterface){
         this.onResponceInterface = onResponceInterface;
     }
-
-    public void initializeClient() {
-        ApiInterface client = ApiSingelton.getInstance(API_MAP_URL).getClient();
-
-        Call<NearByFullModel> call =
-                client.getPlaces(latlng,radius,placeType,keyword,apiKey);
-        ApiCalling apiCalling = new ApiCalling();
-        apiCalling.apiCall(call,onResponceInterface);
-
-    }
+//Map not working because I changed the url
+//    public void initializeClient() {
+//        ApiInterface client = ApiSingelton.getInstance(API_MAP_URL).getClient();
+//
+//        Call<NearByFullModel> call =
+//                client.getPlaces(latlng,radius,placeType,keyword,apiKey);
+//        ApiCalling apiCalling = new ApiCalling();
+//        apiCalling.apiCall(call,onResponceInterface);
+//
+//    }
 
     //iscoapps.com/cinema/api/register
-    public void initializeClientRegister(String API_REG_URL) {
-        ApiInterface client = ApiSingelton.getInstance(API_REG_URL).getClient();
+    public void initializeClientRegister() {
+        ApiInterface client = ApiSingelton.getInstance().getClient();
         SharedPreferences sharedPreferences = context.getSharedPreferences("com.example.android.shared",Context.MODE_PRIVATE);
         String lang = sharedPreferences.getString("lang","ar");
 
@@ -85,8 +86,8 @@ public class ApiClient {
     }
 
     //iscoapps.com/cinema/api/register
-    public void initializeClientLogin(String API_LOGIN_URL) {
-        ApiInterface client = ApiSingelton.getInstance(API_LOGIN_URL).getClient();
+    public void initializeClientLogin() {
+        ApiInterface client = ApiSingelton.getInstance().getClient();
         SharedPreferences sharedPreferences = context.getSharedPreferences("com.example.android.shared",Context.MODE_PRIVATE);
         String lang = sharedPreferences.getString("lang","ar");
 
@@ -97,8 +98,8 @@ public class ApiClient {
 
     }
 
-    public void initializeClientForget(String API_FORGET_URL) {
-        ApiInterface client = ApiSingelton.getInstance(API_FORGET_URL).getClient();
+    public void initializeClientForget() {
+        ApiInterface client = ApiSingelton.getInstance().getClient();
         SharedPreferences sharedPreferences = context.getSharedPreferences("com.example.android.shared",Context.MODE_PRIVATE);
         String lang = sharedPreferences.getString("lang","ar");
 
@@ -108,12 +109,19 @@ public class ApiClient {
         apiCalling.forgetCall(call,onResponceInterface);
 
     }
-    public void initializeClientMainSlider(String API_SLIDER_URL) {
-        ApiInterface client = ApiSingelton.getInstance(API_SLIDER_URL).getClient();
+    public void initializeClientMainSlider() {
+        ApiInterface client = ApiSingelton.getInstance().getClient();
         Call<SliderResponce> call =
                 client.mainSlider();
         ApiCalling apiCalling = new ApiCalling();
         apiCalling.mainSliderCall(call,onResponceInterface);
 
+    }
+    public void intializeHomeResponce(){
+        ApiInterface client = ApiSingelton.getInstance().getClient();
+        Call<MainResult> call =
+                client.homeResponce();
+        ApiCalling apiCalling = new ApiCalling();
+        apiCalling.ApiCall(call,onResponceInterface);
     }
 }
