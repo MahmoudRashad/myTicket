@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditDetail"
+    android:orientation="vertical"
+    android:background="@drawable/back">
+
+    <TextView
+        android:id="@+id/edited_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Full Name"
+        android:textColor="#fff"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_marginTop="92dp"
+        android:layout_marginStart="16dp"/>
+    <EditText
+        android:id="@+id/edit_for_profile"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@drawable/white_rect"
+        android:layout_margin="16dp"/>
+
+    <Button
+        android:id="@+id/submit_edit_profile_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/white_rect_bk"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="82dp"
+        android:text="Update"
+        android:textColor="@color/colorAccent"
+        />
+
+</LinearLayout>

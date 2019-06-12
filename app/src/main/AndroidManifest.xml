@@ -18,7 +18,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CinemaDetailsPage"></activity>
+        <activity android:name=".EditDetail"></activity>
+        <activity android:name=".EditAccount" />
+        <activity android:name=".CinemaDetailsPage" />
         <activity android:name=".AnyResultsPage" />
         <activity android:name=".SearchPage" />
         <activity android:name=".ResetPassword" />
