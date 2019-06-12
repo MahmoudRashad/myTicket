@@ -12,11 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.example.myticket.Model.MainSliderResponce.Result;
-import com.example.myticket.Model.MainSliderResponce.SliderResponce;
-import com.example.myticket.Model.MovieModel.MovieDetails;
-import com.example.myticket.Network.Retrofit.ApiClient;
-import com.example.myticket.Network.Retrofit.onResponceInterface;
+import com.example.myticket.Model.Network.DataModel.MainSliderResponce.Result;
+import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderResponce;
+import com.example.myticket.Model.Network.DataModel.MovieModel.MovieDetails;
+import com.example.myticket.Model.Network.Retrofit.ApiClient;
+import com.example.myticket.Model.Network.Retrofit.onResponceInterface;
+import com.example.myticket.View.Adapter.HomeMovieAdapter;
+import com.example.myticket.View.Adapter.SliderAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

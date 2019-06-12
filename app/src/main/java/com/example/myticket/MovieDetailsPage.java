@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.myticket.View.Adapter.AllReviewsAdapter;
+
 import java.util.ArrayList;
 
 public class MovieDetailsPage extends AppCompatActivity {

@@ -1,10 +1,6 @@
 package com.example.myticket;
 
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.wifi.ScanResult;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,14 +10,11 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.myticket.Model.Resgister.MainResponceReg;
-import com.example.myticket.Model.Resgister.UserRegister;
-import com.example.myticket.Network.Retrofit.ApiClient;
-import com.example.myticket.Network.Retrofit.onResponceInterface;
+import com.example.myticket.Model.Network.DataModel.Resgister.MainResponceReg;
+import com.example.myticket.Model.Network.DataModel.Resgister.UserRegister;
+import com.example.myticket.Model.Network.Retrofit.ApiClient;
+import com.example.myticket.Model.Network.Retrofit.onResponceInterface;
 
-import java.net.NetworkInterface;
-import java.util.Collections;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

@@ -27,7 +27,7 @@
         <activity android:name=".MovieDetailsPage" />
         <activity android:name=".CustomAppCompat" />
         <activity android:name=".Gate" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".View.Activity.MainActivity" />
         <activity android:name=".HomeCinema" />
         <activity android:name=".ForgetPassword" />
         <activity android:name=".Register" />
@@ -48,7 +48,7 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".View.Activity.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".Splash">
             <intent-filter>
