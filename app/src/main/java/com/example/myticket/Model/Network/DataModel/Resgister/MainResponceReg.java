@@ -22,7 +22,7 @@ public class MainResponceReg implements Serializable
     private String refreshToken;
     @SerializedName("result")
     @Expose
-    private Result result;
+    private com.example.myticket.Model.Network.DataModel.LoginModel.Result result;
     @SerializedName("status")
     @Expose
     private Boolean status;
@@ -52,7 +52,8 @@ public class MainResponceReg implements Serializable
      * @param refreshToken
      * @param success
      */
-    public MainResponceReg(String tokenType, Integer expiresIn, String accessToken, String refreshToken, Result result, Boolean status, Boolean success, String message) {
+    public MainResponceReg(String tokenType, Integer expiresIn, String accessToken, String refreshToken,
+                           com.example.myticket.Model.Network.DataModel.LoginModel.Result result, Boolean status, Boolean success, String message) {
         super();
         this.tokenType = tokenType;
         this.expiresIn = expiresIn;
@@ -96,11 +97,11 @@ public class MainResponceReg implements Serializable
         this.refreshToken = refreshToken;
     }
 
-    public Result getResult() {
+    public com.example.myticket.Model.Network.DataModel.LoginModel.Result getResult() {
         return result;
     }
 
-    public void setResult(Result result) {
+    public void setResult(com.example.myticket.Model.Network.DataModel.LoginModel.Result result) {
         this.result = result;
     }
 

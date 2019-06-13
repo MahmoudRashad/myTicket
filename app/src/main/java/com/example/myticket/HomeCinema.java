@@ -79,8 +79,8 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
         SliderProgressBar.getIndeterminateDrawable().setColorFilter(0xFFFFFFFF, android.graphics.PorterDuff.Mode.MULTIPLY);
 
 
-        ApiClient apiClient = new ApiClient(this);
-        apiClient.initializeClientMainSlider();
+//        ApiClient apiClient = new ApiClient(this);
+//        apiClient.initializeClientMainSlider();
 
         ApiClient clientTwo = new ApiClient(new onResponceInterface() {
             @Override
