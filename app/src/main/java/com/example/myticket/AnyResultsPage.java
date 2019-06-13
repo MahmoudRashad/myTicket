@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.example.myticket.Model.Network.DataModel.HomeResult.Recently;
 import com.example.myticket.Model.Network.DataModel.MovieModel.MovieDetails;
 import com.example.myticket.View.Adapter.HomeMovieAdapter;
 
@@ -29,13 +30,13 @@ public class AnyResultsPage extends AppCompatActivity {
         titleOne.setText("Title One");
         titleTwo.setText("Title Two");
 
-        ArrayList<MovieDetails> movies = new ArrayList<>();
-        HomeMovieAdapter homeMovieAdapter = new HomeMovieAdapter(this,movies);
+        ArrayList<Recently> movies = new ArrayList<>();
+        HomeMovieAdapter homeMovieAdapter = new HomeMovieAdapter(this,movies,null,null);
         recyclerViewOne.setAdapter(homeMovieAdapter);
         recyclerViewOne.setLayoutManager(new GridLayoutManager(this,3));
 
-        ArrayList<MovieDetails> moviesSoon = new ArrayList<>();
-        HomeMovieAdapter ComingSoonAdapter = new HomeMovieAdapter(this,moviesSoon);
+        ArrayList<Recently> moviesSoon = new ArrayList<>();
+        HomeMovieAdapter ComingSoonAdapter = new HomeMovieAdapter(this,moviesSoon,null,null);
         recyclerViewTwo.setAdapter(ComingSoonAdapter);
         recyclerViewTwo.setLayoutManager(new GridLayoutManager(this,3));
 

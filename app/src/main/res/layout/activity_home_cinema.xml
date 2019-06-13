@@ -106,6 +106,28 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/comingSoon_title"/>
 
+        <TextView
+            android:id="@+id/cinema_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/coming_soon_rv"
+            android:layout_marginStart="16dp"
+            android:text="Cinemas"
+            android:textSize="16sp"
+            android:textColor="#fff"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/cinemas_rv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cinema_title"/>
+
 </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.v4.widget.DrawerLayout>

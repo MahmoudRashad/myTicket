@@ -9,18 +9,26 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myticket.Model.Network.DataModel.HomeResult.Cinema;
+import com.example.myticket.Model.Network.DataModel.HomeResult.Coming;
+import com.example.myticket.Model.Network.DataModel.HomeResult.Recently;
 import com.example.myticket.Model.Network.DataModel.MovieModel.MovieDetails;
 import com.example.myticket.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeMovieAdapter extends RecyclerView.Adapter<HomeMovieAdapter.MovieViewHolder> {
     private Context context;
-    private ArrayList<MovieDetails> movieDetails;
+    private List<Recently> movieDetails;
+    private List<Coming> comingList;
+    private List<Cinema> cinemaList;
 
-    public HomeMovieAdapter(Context context, ArrayList<MovieDetails> movieDetails) {
+    public HomeMovieAdapter(Context context, List<Recently> movieDetails, List<Coming> comingList,List<Cinema> cinemaList ) {
         this.context = context;
         this.movieDetails = movieDetails;
+        this.comingList = comingList;
+        this.cinemaList = cinemaList;
     }
 
     @NonNull
@@ -33,17 +41,59 @@ public class HomeMovieAdapter extends RecyclerView.Adapter<HomeMovieAdapter.Movi
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
-        //MovieDetailsPage movie = movieDetails.get(i);
-        movieViewHolder.moviePhoto.setImageResource(R.drawable.movie);
-        movieViewHolder.movieTitle.setText("movie name");
-        movieViewHolder.reviewsTotal.setText("1500");
-        movieViewHolder.reviewRate.setText("9.5");
+        if (movieDetails != null) {
+            Recently movie = movieDetails.get(i);
+            movieViewHolder.moviePhoto.setImageResource(R.drawable.movie);
+            movieViewHolder.movieTitle.setText(movie.getName());
+            if (movie.getReviews() != null) {
+                String reviews = movie.getReviews().toString();
+                movieViewHolder.reviewRate.setText(reviews);
+            }
+            if (movie.getReviews() != null) {
+                String rate = movie.getRate().toString();
+                movieViewHolder.reviewsTotal.setText(rate);
+            }
+        }
+        else if (comingList != null){
+            Coming movie = comingList.get(i);
+            movieViewHolder.moviePhoto.setImageResource(R.drawable.movie);
+            movieViewHolder.movieTitle.setText(movie.getName());
+            if (movie.getReviews() != null) {
+                String reviews = movie.getReviews().toString();
+                movieViewHolder.reviewRate.setText(reviews);
+            }
+            if (movie.getReviews() != null) {
+                String rate = movie.getRate().toString();
+                movieViewHolder.reviewsTotal.setText(rate);
+            }
+
+        }
+        else if (cinemaList != null){
+            Cinema cinema = cinemaList.get(i);
+            movieViewHolder.moviePhoto.setImageResource(R.drawable.movie);
+            movieViewHolder.movieTitle.setText(cinema.getName());
+            if (cinema.getReviews() != null) {
+                String reviews = cinema.getReviews().toString();
+                movieViewHolder.reviewRate.setText(reviews);
+            }
+            if (cinema.getReviews() != null) {
+                String rate = cinema.getRate().toString();
+                movieViewHolder.reviewsTotal.setText(rate);
+            }
+        }
 
     }
 
     @Override
     public int getItemCount() {
-        return 8;
+        if (movieDetails != null)
+        return movieDetails.size();
+        else if (comingList != null)
+            return comingList.size();
+        else if (cinemaList != null)
+            return cinemaList.size();
+        else
+            return 0;
     }
 
     public class MovieViewHolder extends RecyclerView.ViewHolder{

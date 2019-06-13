@@ -11,7 +11,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.example.myticket.Model.MainResult;
+import com.example.myticket.Model.Network.DataModel.HomeResult.Cinema;
+import com.example.myticket.Model.Network.DataModel.HomeResult.Coming;
+import com.example.myticket.Model.Network.DataModel.HomeResult.Recently;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.Result;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderResponce;
 import com.example.myticket.Model.Network.DataModel.MovieModel.MovieDetails;
@@ -28,6 +33,11 @@ import java.util.TimerTask;
 public class HomeCinema extends AppCompatActivity implements onResponceInterface {
 
     private List<Result> listSlide;
+    private List<Cinema> CinemaLists;
+    private List<Recently> RecentlyLists;
+    private List<Coming> ComingLists;
+    private com.example.myticket.Model.Network.DataModel.HomeResult.Result homeResult;
+
     private ViewPager sliderPager;
     private SliderAdapter adapter;
     private ProgressBar SliderProgressBar;
@@ -35,6 +45,7 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
     private Timer timer;
     private RecyclerView moviesRV;
     private RecyclerView comingSoonRV;
+    private RecyclerView cinemasRV;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
 
@@ -47,6 +58,7 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
         tabLayout = findViewById(R.id.cinema_tabLayout);
         moviesRV = findViewById(R.id.now_playing_rv);
         comingSoonRV = findViewById(R.id.coming_soon_rv);
+        cinemasRV = findViewById(R.id.cinemas_rv);
         drawerLayout = findViewById(R.id.home_cinema_drawer_layout);
         toggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.open_nav,R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
@@ -58,15 +70,46 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
         ApiClient apiClient = new ApiClient(this);
         apiClient.initializeClientMainSlider();
 
+        ApiClient clientTwo = new ApiClient(new onResponceInterface() {
+            @Override
+            public void onSuccess(Object responce) {
+                getHomeData(responce);
+            }
+
+            @Override
+            public void onFail(Object responce) {
+                Toast.makeText(HomeCinema.this,"Failed To Load",Toast.LENGTH_LONG).show();
+            }
+        });
+        clientTwo.intializeHomeResponce();
+
         ArrayList<MovieDetails> movies = new ArrayList<>();
-        HomeMovieAdapter homeMovieAdapter = new HomeMovieAdapter(this,movies);
+
+
+
+//        ArrayList<MovieDetails> moviesSoon = new ArrayList<>();
+
+
+    }
+
+    private void getHomeData(Object responce) {
+        MainResult mainResult = (MainResult) responce;
+        homeResult = mainResult.getResult();
+        CinemaLists = homeResult.getCinema();
+        RecentlyLists = homeResult.getRecently();
+        ComingLists = homeResult.getComing();
+
+        HomeMovieAdapter homeMovieAdapter = new HomeMovieAdapter(this,RecentlyLists,null,null);
         moviesRV.setAdapter(homeMovieAdapter);
         moviesRV.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
-        ArrayList<MovieDetails> moviesSoon = new ArrayList<>();
-        HomeMovieAdapter ComingSoonAdapter = new HomeMovieAdapter(this,moviesSoon);
+        HomeMovieAdapter ComingSoonAdapter = new HomeMovieAdapter(this,null,ComingLists,null);
         comingSoonRV.setAdapter(ComingSoonAdapter);
         comingSoonRV.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+
+        HomeMovieAdapter CinemaAdapter = new HomeMovieAdapter(this,null,null,CinemaLists);
+        cinemasRV.setAdapter(CinemaAdapter);
+        cinemasRV.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
     }
 
@@ -87,6 +130,8 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
     public void onFail(Object responce) {
 
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
