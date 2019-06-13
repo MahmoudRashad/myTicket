@@ -1,6 +1,8 @@
 package com.example.myticket.View.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,11 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myticket.CinemaDetailsPage;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Cinema;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Coming;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Recently;
 import com.example.myticket.Model.Network.DataModel.MovieModel.MovieDetails;
+import com.example.myticket.MovieDetailsPage;
 import com.example.myticket.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,9 +46,13 @@ public class HomeMovieAdapter extends RecyclerView.Adapter<HomeMovieAdapter.Movi
 
     @Override
     public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
+
+
         if (movieDetails != null) {
             Recently movie = movieDetails.get(i);
-            movieViewHolder.moviePhoto.setImageResource(R.drawable.movie);
+            Picasso.get()
+                    .load(movie.getImage())
+                    .into(movieViewHolder.moviePhoto);
             movieViewHolder.movieTitle.setText(movie.getName());
             if (movie.getReviews() != null) {
                 String reviews = movie.getReviews().toString();
@@ -56,7 +65,9 @@ public class HomeMovieAdapter extends RecyclerView.Adapter<HomeMovieAdapter.Movi
         }
         else if (comingList != null){
             Coming movie = comingList.get(i);
-            movieViewHolder.moviePhoto.setImageResource(R.drawable.movie);
+            Picasso.get()
+                    .load(movie.getImage())
+                    .into(movieViewHolder.moviePhoto);
             movieViewHolder.movieTitle.setText(movie.getName());
             if (movie.getReviews() != null) {
                 String reviews = movie.getReviews().toString();
@@ -70,7 +81,9 @@ public class HomeMovieAdapter extends RecyclerView.Adapter<HomeMovieAdapter.Movi
         }
         else if (cinemaList != null){
             Cinema cinema = cinemaList.get(i);
-            movieViewHolder.moviePhoto.setImageResource(R.drawable.movie);
+            Picasso.get()
+                    .load(cinema.getImage())
+                    .into(movieViewHolder.moviePhoto);
             movieViewHolder.movieTitle.setText(cinema.getName());
             if (cinema.getReviews() != null) {
                 String reviews = cinema.getReviews().toString();
@@ -81,6 +94,7 @@ public class HomeMovieAdapter extends RecyclerView.Adapter<HomeMovieAdapter.Movi
                 movieViewHolder.reviewsTotal.setText(rate);
             }
         }
+
 
     }
 
@@ -96,7 +110,7 @@ public class HomeMovieAdapter extends RecyclerView.Adapter<HomeMovieAdapter.Movi
             return 0;
     }
 
-    public class MovieViewHolder extends RecyclerView.ViewHolder{
+    public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private ImageView moviePhoto;
         private TextView movieTitle;
         private TextView reviewsTotal;
@@ -107,6 +121,34 @@ public class HomeMovieAdapter extends RecyclerView.Adapter<HomeMovieAdapter.Movi
             movieTitle = itemView.findViewById(R.id.nowPlaying_name);
             reviewRate = itemView.findViewById(R.id.home_rate_value);
             reviewsTotal = itemView.findViewById(R.id.reviewsNumber);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+            if (movieDetails != null){
+                Recently recently = movieDetails.get(position);
+                Intent intent = new Intent(context, MovieDetailsPage.class);
+                intent.putExtra("recently", (Parcelable) recently);
+                context.startActivity(intent);
+            }
+            else if (comingList != null){
+                Coming coming = comingList.get(position);
+                Intent intent = new Intent(context, MovieDetailsPage.class);
+                intent.putExtra("coming", (Parcelable) coming);
+                context.startActivity(intent);
+            }
+
+            else if (cinemaList != null){
+                Cinema cinema = cinemaList.get(position);
+                Intent intent = new Intent(context, CinemaDetailsPage.class);
+                intent.putExtra("recently", (Parcelable) cinema);
+                context.startActivity(intent);
+
+            }
+
         }
     }
 }

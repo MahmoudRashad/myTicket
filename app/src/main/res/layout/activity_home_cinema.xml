@@ -73,6 +73,18 @@
             android:textSize="16sp"
             android:textColor="#fff"
             />
+        <TextView
+            android:id="@+id/nowPlaying_seeAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cinema_tabLayout"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="See All"
+            android:textSize="16sp"
+            android:textColor="#fff"
+            />
         
         <android.support.v7.widget.RecyclerView
             android:id="@+id/now_playing_rv"
@@ -92,6 +104,18 @@
             app:layout_constraintTop_toBottomOf="@id/now_playing_rv"
             android:layout_marginStart="16dp"
             android:text="Coming Soon"
+            android:textSize="16sp"
+            android:textColor="#fff"
+            />
+        <TextView
+            android:id="@+id/comingSoon_seeAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/now_playing_rv"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="See All"
             android:textSize="16sp"
             android:textColor="#fff"
             />
@@ -117,6 +141,40 @@
             android:textSize="16sp"
             android:textColor="#fff"
             />
+
+        <TextView
+            android:id="@+id/cinema_seeAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/coming_soon_rv"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="See All"
+            android:textSize="16sp"
+            android:textColor="#fff"
+            />
+        <TextView
+            android:id="@+id/cinema_seeNearBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cinemas_rv"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="Near By Cinemas"
+            android:textSize="16sp"
+            android:textColor="#fff"
+            />
+        <ImageView
+            android:id="@+id/nearby_image_pin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_location_on_black_24dp"
+            app:layout_constraintEnd_toStartOf="@id/cinema_seeNearBy"
+            app:layout_constraintTop_toBottomOf="@id/cinemas_rv"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="16dp"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/cinemas_rv"

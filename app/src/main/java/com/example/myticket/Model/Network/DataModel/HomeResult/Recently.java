@@ -65,6 +65,7 @@ public class Recently implements Serializable, Parcelable
         this.reviews = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.date = ((String) in.readValue((String.class.getClassLoader())));
         this.youtube = ((String) in.readValue((String.class.getClassLoader())));
+        if (this.category != null)
         in.readList(this.category, (Category.class.getClassLoader()));
         this.period = ((String) in.readValue((String.class.getClassLoader())));
     }
