@@ -82,19 +82,19 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
 //        ApiClient apiClient = new ApiClient(this);
 //        apiClient.initializeClientMainSlider();
 
-        ApiClient clientTwo = new ApiClient(new onResponceInterface() {
-            @Override
-            public void onSuccess(Object responce) {
-                getHomeData(responce);
-            }
-
-            @Override
-            public void onFail(Object responce) {
-                Toast.makeText(HomeCinema.this,"Failed To Load",Toast.LENGTH_LONG).show();
-            }
-        });
-        clientTwo.intializeHomeResponce();
-
+//    initializeClientMainSlider    ApiClient clientTwo = new ApiClient(new onResponceInterface() {
+//            @Override
+//            public void onSuccess(Object responce) {
+//                getHomeData(responce);
+//            }
+//
+//            @Override
+//            public void onFail(Object responce) {
+//                Toast.makeText(HomeCinema.this,"Failed To Load",Toast.LENGTH_LONG).show();
+//            }
+//        });
+//        clientTwo.intializeHomeResponce();
+//
 
 
 

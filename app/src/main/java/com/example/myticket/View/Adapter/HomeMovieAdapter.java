@@ -16,7 +16,7 @@ import com.example.myticket.Model.Network.DataModel.HomeResult.Cinema;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Coming;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Recently;
 import com.example.myticket.Model.Network.DataModel.MovieModel.MovieDetails;
-import com.example.myticket.MovieDetailsPage;
+import com.example.myticket.View.Activity.MovieDetailsPage;
 import com.example.myticket.R;
 import com.squareup.picasso.Picasso;
 
