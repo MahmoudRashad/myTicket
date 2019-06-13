@@ -9,11 +9,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.myticket.Model.ForgetPasswordResponce.ForgetPasswordModel;
-import com.example.myticket.Model.ForgetPasswordResponce.ForgetPasswordResponce;
-import com.example.myticket.Model.LoginModel.User;
-import com.example.myticket.Network.Retrofit.ApiClient;
-import com.example.myticket.Network.Retrofit.onResponceInterface;
+import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordModel;
+import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordResponce;
+import com.example.myticket.Model.Network.Retrofit.ApiClient;
+import com.example.myticket.Model.Network.Retrofit.onResponceInterface;
 
 import static com.example.myticket.Register.isEmailValid;
 

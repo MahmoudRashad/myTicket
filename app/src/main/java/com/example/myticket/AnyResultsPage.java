@@ -1,15 +1,13 @@
 package com.example.myticket;
 
-import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.widget.TextView;
 
-import com.example.myticket.Model.MovieModel.MovieDetails;
+import com.example.myticket.Model.Network.DataModel.MovieModel.MovieDetails;
+import com.example.myticket.View.Adapter.HomeMovieAdapter;
 
 import java.util.ArrayList;
 

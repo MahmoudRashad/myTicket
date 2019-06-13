@@ -10,16 +10,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.myticket.Model.LoginModel.ModelLogin;
-import com.example.myticket.Model.LoginModel.User;
-import com.example.myticket.Network.Retrofit.ApiClient;
-import com.example.myticket.Network.Retrofit.onResponceInterface;
-import com.firebase.ui.auth.AuthUI;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.example.myticket.Model.Network.DataModel.LoginModel.ModelLogin;
+import com.example.myticket.Model.Network.DataModel.LoginModel.User;
+import com.example.myticket.Model.Network.Retrofit.ApiClient;
+import com.example.myticket.Model.Network.Retrofit.onResponceInterface;
 
 public class Login extends AppCompatActivity implements onResponceInterface {
     private EditText userName;
