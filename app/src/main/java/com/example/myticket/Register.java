@@ -1,5 +1,6 @@
 package com.example.myticket;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,17 +9,29 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myticket.Enum.ErrorTypeEnum;
+import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.Network.DataModel.Resgister.MainResponceReg;
 import com.example.myticket.Model.Network.DataModel.Resgister.UserRegister;
+import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.ApiClient;
+import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.Model.Network.Retrofit.onResponceInterface;
+import com.example.myticket.View.Activity.Login;
+import com.example.myticket.View.Activity.MainActivity;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Register extends AppCompatActivity implements onResponceInterface {
+public class Register extends AppCompatActivity implements
+        GeneralListener {
+
+    /////------------------- reference of views -----------------------//
     private EditText fullname;
     private EditText password;
     private EditText repPassword;
@@ -28,6 +41,9 @@ public class Register extends AppCompatActivity implements onResponceInterface {
     private EditText email;
     private Button btnReg;
     private ProgressBar progressBar;
+    TextView loginTv;
+
+    ///////////////////////////////////////////////////////////////////
 
     private String mFullname;
     private String mPassword;
@@ -52,13 +68,20 @@ public class Register extends AppCompatActivity implements onResponceInterface {
     private String FULLNAME_KEY = "fullname";
     private String ID_KEY = "user_id";
 
+    SessionManager sessionManager ;
+
     private UserRegister userRegister;
+    ApiCalling apiCalling;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_register);
+
+        apiCalling = new ApiCalling(this);
+
+        sessionManager = new SessionManager(this);
         fullname = findViewById(R.id.fullname_reg);
         password = findViewById(R.id.password_reg);
         repPassword = findViewById(R.id.rep_password_reg);
@@ -67,6 +90,7 @@ public class Register extends AppCompatActivity implements onResponceInterface {
         phone = findViewById(R.id.phone_reg);
         email = findViewById(R.id.email_reg);
         btnReg = findViewById(R.id.reg_btn);
+        loginTv = findViewById(R.id.reg_already);
         progressBar = findViewById(R.id.progressBar_reg);
         progressBar.setVisibility(View.GONE);
 
@@ -99,11 +123,32 @@ public class Register extends AppCompatActivity implements onResponceInterface {
                     Toast.makeText(Register.this, "Email Not Valid", Toast.LENGTH_LONG).show();
                 }
                 else {
+                    btnReg.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
                     userRegister = new UserRegister(mFullname, mEmail, mUsername, mPhone, mAddress, deviceToken, mPassword, deviceType, macAddress);
-                    ApiClient apiClient = new ApiClient(userRegister, Register.this, Register.this);
-                    apiClient.initializeClientRegister();
+
+                    Map<String , String> queryMap = new HashMap<>();
+                    queryMap.put("user_name" , mFullname);
+                    queryMap.put("username" , mUsername);
+                    queryMap.put("email" , mEmail);
+                    queryMap.put("phone" , mPhone);
+                    queryMap.put("address" , mAddress);
+                    queryMap.put("device_token" , deviceToken);
+                    queryMap.put("password" , mPassword);
+                    queryMap.put("device_type" , deviceType);
+                    queryMap.put("mac" , macAddress);
+
+
+                    apiCalling.register("ar" , queryMap,Register.this);
                 }
+            }
+        });
+
+        loginTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Register.this, Login.class);
+                startActivity(intent);
             }
         });
 
@@ -135,24 +180,32 @@ public class Register extends AppCompatActivity implements onResponceInterface {
         return "02:00:00:00:00:00";
     }
 
-    @Override
-    public void onSuccess(Object responce) {
-        MainResponceReg responceReg = (MainResponceReg) responce;
-        progressBar.setVisibility(View.GONE);
-        deviceToken = responceReg.getTokenType()+responceReg.getAccessToken();
-        mPrefEmail = responceReg.getResult().getEmail();
-        mPerfUsername= responceReg.getResult().getUsername();
-        mPrefFullname= responceReg.getResult().getUserName();
-        Toast.makeText(this,responceReg.getMessage(),Toast.LENGTH_SHORT).show();
-    }
+//    @Override
+//    public void onSuccess(Object responce)
+//    {
+//        MainResponceReg responceReg = (MainResponceReg) responce;
+//        progressBar.setVisibility(View.GONE);
+////        deviceToken = responceReg.getTokenType()+responceReg.getAccessToken();
+////        mPrefEmail = responceReg.getResult().getEmail();
+////        mPerfUsername= responceReg.getResult().getUsername();
+////        mPrefFullname= responceReg.getResult().getUserName();
+//
+//        sessionManager.setNameOfUser(responceReg.getResult().getUserName());
+//        sessionManager.setUserId(responceReg.getResult().getId());
+//        sessionManager.setUserImage(responceReg.getResult().getImage());
+//        sessionManager.setUserPhone(responceReg.getResult().getPhone());
+//        sessionManager.setUserAddress(responceReg.getResult().getAddress());
+//        sessionManager.setUserEmail(responceReg.getResult().getEmail());
+//        sessionManager.setUserToken(responceReg.getAccessToken());
+//
+//        Intent intent = new Intent(Register.this, MainActivity.class);
+//        startActivity(intent);
+//
+//        Toast.makeText(this,responceReg.getMessage(),Toast.LENGTH_SHORT).show();
+//
+//    }
 
-    @Override
-    public void onFail(Object responce) {
-        MainResponceReg responceReg = (MainResponceReg) responce;
-        progressBar.setVisibility(View.GONE);
-        Toast.makeText(this,responceReg.getMessage(),Toast.LENGTH_SHORT).show();
 
-    }
     @Override
     protected void onPause() {
         super.onPause();
@@ -176,5 +229,38 @@ public class Register extends AppCompatActivity implements onResponceInterface {
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
+    }
+
+    @Override
+    public void getApiResponse(int status, String message, Object tApiResponse) {
+
+
+        if(status == ErrorTypeEnum.noError.getValue())
+        {
+            MainResponceReg responceReg = (MainResponceReg) tApiResponse;
+            progressBar.setVisibility(View.GONE);
+
+
+            sessionManager.setNameOfUser(responceReg.getResult().getUserName());
+            sessionManager.setUserId(responceReg.getResult().getId());
+            sessionManager.setUserImage(responceReg.getResult().getImage());
+            sessionManager.setUserPhone(responceReg.getResult().getPhone());
+            sessionManager.setUserAddress(responceReg.getResult().getAddress());
+            sessionManager.setUserEmail(responceReg.getResult().getEmail());
+            sessionManager.setUserToken(responceReg.getAccessToken());
+
+            Intent intent = new Intent(Register.this, MainActivity.class);
+            startActivity(intent);
+
+
+
+        }
+        else
+        {
+            progressBar.setVisibility(View.GONE);
+            btnReg.setVisibility(View.VISIBLE);
+            Toast.makeText(this,message,Toast.LENGTH_LONG).show();
+
+        }
     }
 }

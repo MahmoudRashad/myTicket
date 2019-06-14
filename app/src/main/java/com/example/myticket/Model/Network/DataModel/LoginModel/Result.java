@@ -17,9 +17,45 @@ public class Result implements Serializable
     @SerializedName("user_name")
     @Expose
     private String userName;
-    @SerializedName("username")
+
+
+    @SerializedName("address")
     @Expose
-    private String username;
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    @SerializedName("image")
+    @Expose
+    private String image;
+
+
+    @SerializedName("phone")
+    @Expose
+    private String phone;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     private final static long serialVersionUID = 2675788981277921113L;
 
     /**
@@ -41,7 +77,7 @@ public class Result implements Serializable
         this.id = id;
         this.email = email;
         this.userName = userName;
-        this.username = username;
+
     }
 
     public Integer getId() {
@@ -68,12 +104,6 @@ public class Result implements Serializable
         this.userName = userName;
     }
 
-    public String getUsername() {
-        return username;
-    }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
 }

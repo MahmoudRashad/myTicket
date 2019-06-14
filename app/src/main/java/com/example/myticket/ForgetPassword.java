@@ -49,8 +49,8 @@ public class ForgetPassword extends AppCompatActivity implements onResponceInter
                 else {
                     progressBar.setVisibility(View.VISIBLE);
                     ForgetPasswordModel model = new ForgetPasswordModel(mEmail);
-                    ApiClient apiClient = new ApiClient(model, ForgetPassword.this, ForgetPassword.this);
-                    apiClient.initializeClientForget();
+//                    ApiClient apiClient = new ApiClient(model, ForgetPassword.this, ForgetPassword.this);
+//                    apiClient.initializeClientForget();
                 }
             }
         });

@@ -40,114 +40,138 @@
         android:id="@+id/fullname_reg"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/register_title"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/white_rect"
         android:drawableStart="@drawable/ic_person_black_24dp"
+        android:drawablePadding="16dp"
+        android:hint="@string/username"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:drawablePadding="16dp"
-        />
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/register_title" />
 
     <EditText
         android:id="@+id/password_reg"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fullname_reg"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/white_rect"
         android:drawableStart="@drawable/ic_lock_black_24dp"
+        android:drawablePadding="16dp"
+        android:hint="@string/password"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:drawablePadding="16dp"/>
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fullname_reg" />
 
     <EditText
         android:id="@+id/rep_password_reg"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password_reg"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/white_rect"
         android:drawableStart="@drawable/ic_lock_black_24dp"
+        android:drawablePadding="16dp"
+        android:hint="@string/confirmpassword"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:drawablePadding="16dp"/>
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/password_reg" />
 
 
     <EditText
         android:id="@+id/username_reg"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rep_password_reg"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/white_rect"
         android:drawableStart="@drawable/ic_person_black_24dp"
+        android:drawablePadding="16dp"
+        android:hint="@string/nameofuser"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:drawablePadding="16dp"/>
-
-
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rep_password_reg" />
 
 
     <EditText
         android:id="@+id/phone_reg"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/address_reg"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/white_rect"
         android:drawableStart="@drawable/ic_phone_black_24dp"
+        android:drawablePadding="16dp"
+        android:hint="@string/phone"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:drawablePadding="16dp"/>
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/address_reg" />
 
 
     <EditText
         android:id="@+id/email_reg"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/username_reg"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:inputType="textEmailAddress"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/white_rect"
         android:drawableStart="@drawable/ic_mail_black_24dp"
+        android:drawablePadding="16dp"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:drawablePadding="16dp"/>
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/username_reg" />
 
     <EditText
         android:id="@+id/address_reg"
         android:layout_width="match_parent"
         android:layout_height="52dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email_reg"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/white_rect"
         android:drawableStart="@drawable/ic_location_on_black_24dp"
+        android:drawablePadding="16dp"
+        android:hint="@string/address"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
-        android:drawablePadding="16dp"/>
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/email_reg" />
 
     <FrameLayout
         android:id="@+id/frame_reg"

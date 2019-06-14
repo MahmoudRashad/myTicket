@@ -10,12 +10,15 @@ import com.example.myticket.Model.Network.DataModel.LoginModel.ModelLogin;
 import com.example.myticket.Model.Network.DataModel.Resgister.MainResponceReg;
 import com.example.myticket.Model.Network.DataModel.Resgister.UserRegister;
 
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 public interface ApiInterface {
 
@@ -31,11 +34,11 @@ public interface ApiInterface {
 
 
     @POST("register")
-    Call<MainResponceReg> registerResult(@Header("lang") String lang,@Body UserRegister userRegister);
+    Call<MainResponceReg> registerResult(@Header("lang") String lang,@QueryMap Map<String, String> queryMap);
 
 
     @POST("login")
-    Call<ModelLogin> loginResult(@Header("lang") String lang,@Body User userLogin);
+    Call<MainResponceReg> loginResult(@Header("lang") String lang,@QueryMap Map<String, String> queryMap);
 
 
 

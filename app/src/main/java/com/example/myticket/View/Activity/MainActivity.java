@@ -13,8 +13,7 @@ import com.example.myticket.CinemaDetailsPage;
 import com.example.myticket.ForgetPassword;
 import com.example.myticket.Gate;
 import com.example.myticket.HomeCinema;
-import com.example.myticket.Login;
-import com.example.myticket.MovieDetailsPage;
+import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.R;
 import com.example.myticket.Register;
 import com.example.myticket.ResetPassword;
@@ -24,6 +23,9 @@ import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
+
+
+    ///---------------  reference of views -------------------------//
     private Button MapBtn;
     private Button LoginBtn;
     private Button RegBtn;
@@ -35,15 +37,23 @@ public class MainActivity extends AppCompatActivity {
     private Button GoSearchPageBtn;
     private Button GoListsPage;
     private Button GoCinemaDetailsPage;
+    private Button userProfileBtn;
+
+
+
+    ////////////////////////////////////////////////////////////////////
     private String language;
     private SharedPreferences sharedPreferences;
     private String prefFile = "com.example.android.shared";
     private String LANG_KEY = "lang";
+    SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sessionManager = new SessionManager(this);
 
         MapBtn = findViewById(R.id.MapsBtn);
         LoginBtn = findViewById(R.id.LoginBtn);
@@ -54,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
         GoResetBtn = findViewById(R.id.GoResetBtn);
         GoDetailsBtn = findViewById(R.id.GoMovieDetailsBtn);
         GoSearchPageBtn = findViewById(R.id.GoToSearch);
+        userProfileBtn = findViewById(R.id.button2);
+
         GoListsPage = findViewById(R.id.GoToLists);
         GoCinemaDetailsPage = findViewById(R.id.GoToCinemaDetails);
         sharedPreferences = getSharedPreferences(
@@ -142,6 +154,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, CinemaDetailsPage.class);
                 startActivity(intent);
+            }
+        });
+
+        userProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(sessionManager.getUserToken() == null ||
+                        sessionManager.getUserToken() == "")
+                {
+                    Intent intent = new Intent(MainActivity.this, Login.class);
+                    startActivity(intent);
+                }
             }
         });
 
