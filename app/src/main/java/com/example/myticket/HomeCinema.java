@@ -1,7 +1,11 @@
 package com.example.myticket;
 
 import android.content.Intent;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -9,6 +13,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -34,7 +40,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class HomeCinema extends AppCompatActivity implements onResponceInterface {
+public class HomeCinema extends AppCompatActivity implements onResponceInterface ,
+        NavigationView.OnNavigationItemSelectedListener
+{
 
     private List<Result> listSlide;
     private List<Cinema> CinemaLists;
@@ -78,6 +86,25 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         SliderProgressBar.getIndeterminateDrawable().setColorFilter(0xFFFFFFFF, android.graphics.PorterDuff.Mode.MULTIPLY);
 
+        setNavigationViewListener();
+
+//        NavigationView navigationView = (NavigationView) findViewById(R.id.navmenu);
+//
+//        // get menu from navigationView
+//        Menu menu = navigationView.getMenu();
+//
+//        // find MenuItem you want to change
+//        MenuItem nav_profile = menu.findItem(R.id.profile);
+//
+//        nav_profile.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+//            @Override
+//            public boolean onMenuItemClick(MenuItem item) {
+//                Intent intent = new Intent(HomeCinema.this , EditAccount.class);
+//                startActivity(intent);
+//                Toast.makeText(HomeCinema.this,"test" , Toast.LENGTH_LONG).show();
+//                return false;
+//            }
+//        });
 
 //        ApiClient apiClient = new ApiClient(this);
 //        apiClient.initializeClientMainSlider();
@@ -95,10 +122,47 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
 //        });
 //        clientTwo.intializeHomeResponce();
 //
+//        ApiClient clientTwo = new ApiClient(new onResponceInterface() {
+//            @Override
+//            public void onSuccess(Object responce) {
+//                getHomeData(responce);
+//            }
+//
+//            @Override
+//            public void onFail(Object responce) {
+//                Toast.makeText(HomeCinema.this,"Failed To Load",Toast.LENGTH_LONG).show();
+//            }
+//        });
+//        clientTwo.intializeHomeResponce();
 
 
 
 
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        Toast.makeText(HomeCinema.this,"test" , Toast.LENGTH_LONG).show();
+        Log.e("test**" , "nav item");
+        switch (item.getItemId()) {
+
+            case R.id.profile: {
+                //do somthing
+                Intent intent = new Intent(HomeCinema.this , EditAccount.class);
+                startActivity(intent);
+                break;
+            }
+        }
+        //close navigation drawer
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private void setNavigationViewListener() {
+        NavigationView navigationView =  findViewById(R.id.navmenu);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     private void getHomeData(Object responce) {
@@ -173,7 +237,6 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
         tabLayout.setupWithViewPager(sliderPager, true);
         timer = new Timer();
         timer.scheduleAtFixedRate(new HomeCinema.SliderTimer(),3000,4000);
-
     }
 
     @Override
