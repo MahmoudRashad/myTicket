@@ -1,13 +1,15 @@
-package com.example.myticket;
+package com.example.myticket.View.Activity;
 
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.myticket.View.Activity.MainActivity;
+import com.example.myticket.Gate;
+import com.example.myticket.R;
 
-public class Splash extends AppCompatActivity {
+public class Splash extends AppCompatActivity
+{
     private static int SPLASH_TIME_OUT = 500;
 
     @Override

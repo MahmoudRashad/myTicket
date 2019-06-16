@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.myticket.View.Activity.Home;
+
 public class Gate extends AppCompatActivity {
     ConstraintLayout layout;
 
@@ -18,7 +20,7 @@ public class Gate extends AppCompatActivity {
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Gate.this, HomeCinema.class);
+                Intent intent = new Intent(Gate.this, Home.class);
                 startActivity(intent);
             }
         });
