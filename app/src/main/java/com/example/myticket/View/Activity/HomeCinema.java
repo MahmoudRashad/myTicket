@@ -1,6 +1,7 @@
 package com.example.myticket.View.Activity;
 
 import android.content.Intent;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -17,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myticket.EditAccount;
@@ -28,6 +30,8 @@ import com.example.myticket.Model.Network.DataModel.MainSliderResponce.Result;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderResponce;
 import com.example.myticket.Model.Network.DataModel.MovieModel.MovieDetails;
 import com.example.myticket.Model.Network.Retrofit.onResponceInterface;
+import com.example.myticket.View.Activity.MainActivity;
+import com.example.myticket.View.Activity.MapsActivity;
 import com.example.myticket.R;
 import com.example.myticket.View.Adapter.HomeMovieAdapter;
 import com.example.myticket.View.Adapter.SliderAdapter;
@@ -57,6 +61,10 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
     private RecyclerView cinemasRV;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
+    private TextView seeAllRecently;
+    private TextView seeAllComingSoon;
+    private TextView seeAllCinema;
+    private TextView seeAllNearby;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +76,10 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
         moviesRV = findViewById(R.id.now_playing_rv);
         comingSoonRV = findViewById(R.id.coming_soon_rv);
         cinemasRV = findViewById(R.id.cinemas_rv);
+        seeAllRecently = findViewById(R.id.nowPlaying_seeAll);
+        seeAllComingSoon = findViewById(R.id.comingSoon_seeAll);
+        seeAllCinema = findViewById(R.id.cinema_seeAll);
+        seeAllNearby = findViewById(R.id.cinema_seeNearBy);
         drawerLayout = findViewById(R.id.home_cinema_drawer_layout);
         toggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.open_nav,R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
@@ -98,6 +110,19 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
 //        ApiClient apiClient = new ApiClient(this);
 //        apiClient.initializeClientMainSlider();
 
+//    initializeClientMainSlider    ApiClient clientTwo = new ApiClient(new onResponceInterface() {
+//            @Override
+//            public void onSuccess(Object responce) {
+//                getHomeData(responce);
+//            }
+//
+//            @Override
+//            public void onFail(Object responce) {
+//                Toast.makeText(HomeCinema.this,"Failed To Load",Toast.LENGTH_LONG).show();
+//            }
+//        });
+//        clientTwo.intializeHomeResponce();
+//
 //        ApiClient clientTwo = new ApiClient(new onResponceInterface() {
 //            @Override
 //            public void onSuccess(Object responce) {
@@ -111,11 +136,7 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
 //        });
 //        clientTwo.intializeHomeResponce();
 
-        ArrayList<MovieDetails> movies = new ArrayList<>();
 
-
-
-//        ArrayList<MovieDetails> moviesSoon = new ArrayList<>();
 
 
 
@@ -202,6 +223,47 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
         HomeMovieAdapter CinemaAdapter = new HomeMovieAdapter(this,null,null,CinemaLists);
         cinemasRV.setAdapter(CinemaAdapter);
         cinemasRV.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+
+
+        seeAllRecently.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeCinema.this, AnyResultsPage.class);
+                Bundle bundle = new Bundle();
+                intent.setAction("viewMoviesRecently");
+                ArrayList<Recently> list = (ArrayList<Recently>) RecentlyLists;
+           //     bundle.putParcelableArrayList("list",list);
+                intent.putParcelableArrayListExtra("list",list);
+                startActivity(intent);
+            }
+        });
+        seeAllComingSoon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeCinema.this, AnyResultsPage.class);
+                intent.setAction("viewMoviesSoon");
+                ArrayList<Coming> list = (ArrayList<Coming>) ComingLists;
+                intent.putParcelableArrayListExtra("list",list);
+                startActivity(intent);
+            }
+        });
+        seeAllCinema.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeCinema.this, AnyResultsPage.class);
+                ArrayList<Cinema> list = (ArrayList<Cinema>) CinemaLists;
+                intent.putParcelableArrayListExtra("list",list);
+                intent.setAction("viewCinemas");
+                startActivity(intent);
+            }
+        });
+        seeAllNearby.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeCinema.this, MapsActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
