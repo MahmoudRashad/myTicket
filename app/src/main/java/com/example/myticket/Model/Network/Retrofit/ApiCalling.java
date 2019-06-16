@@ -248,6 +248,117 @@ public class ApiCalling
 
     }
 
+    public void mainSliderCall(final GeneralListener generalListener) {
+
+        Call<SliderResponce> call = apiInterface.mainSlider();
+        call.enqueue(new Callback<SliderResponce>() {
+            @Override
+            public void onResponse(Call<SliderResponce> call, Response<SliderResponce> response) {
+                Log.e("onResponse", response.raw().toString());
+                if (response.body().getSuccess()) {
+                    generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                            null, response.body());
+                }
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                            response.body().getMessage(), response.body());
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<SliderResponce> call, Throwable t) {
+                Log.e("onResponse" ,call.request().toString());
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
+    }
+
+    public void homeApiCall(final GeneralListener generalListener) {
+        Call<MainResult> call = apiInterface.homeResponce();
+        call.enqueue(new Callback<MainResult>() {
+        @Override
+        public void onResponse(Call<MainResult> call, Response<MainResult> response) {
+            if (response.isSuccessful()) {
+                Log.e("onResponse", response.raw().toString());
+                if (response.body().getSuccess()) {
+                    generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                            null, response.body());
+                }
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                            response.body().getMessage(), response.body());
+                }
+            }
+        }
+
+        @Override
+        public void onFailure(Call<MainResult> call, Throwable t) {
+            //fail internet connection
+            if (t instanceof IOException)
+            {
+                Log.e("ApiCheck**" , "no internet connection");
+                generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                        t.getMessage() , null);
+            }
+            //fail conversion issue
+            else {
+                generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                        t.getMessage() , null);
+            }
+        }
+    });
+}
+    public void forgetPasswordCall(String lang, String email , final GeneralListener generalListener) {
+        Call<ForgetPasswordResponce> call = apiInterface.forgetPassword(lang,email);
+        call.enqueue(new Callback<ForgetPasswordResponce>() {
+            @Override
+            public void onResponse(Call<ForgetPasswordResponce> call, Response<ForgetPasswordResponce> response) {
+                if (response.isSuccessful()) {
+                    Log.e("onResponse", response.raw().toString());
+                    if (response.body().getSuccess()) {
+                        generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                                null, response.body());
+                    }
+                    else {
+                        generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                                response.body().getMessage(), response.body());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ForgetPasswordResponce> call, Throwable t) {
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
+
+    }
+
 //    public void loginCall(Call<ModelLogin> call, final onResponceInterface onResponceInterface) {
 //        call.enqueue(new Callback<ModelLogin>() {
 //            @Override
@@ -293,24 +404,7 @@ public class ApiCalling
 //
 //    }
 //
-//    public void mainSliderCall(Call<SliderResponce> call, final onResponceInterface onResponceInterface) {
-//        call.enqueue(new Callback<SliderResponce>() {
-//            @Override
-//            public void onResponse(Call<SliderResponce> call, Response<SliderResponce> response) {
-//                if (response.isSuccessful()) {
-//                    Log.v("SliderSuccess", "SliderSuccess");
-//                    onResponceInterface.onSuccess(response.body());
-//                    Log.e("SliderSuccess", "SliderSuccess");
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<SliderResponce> call, Throwable t) {
-//                Log.e("SliderError","Slider");
-//                Log.e("SliderError",t.getMessage());
-//            }
-//        });
-//    }
+
 //public void ApiCall(Call<MainResult> call, final onResponceInterface onResponceInterface) {
 //    call.enqueue(new Callback<MainResult>() {
 //        @Override

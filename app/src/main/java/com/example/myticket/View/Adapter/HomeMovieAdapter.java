@@ -2,6 +2,7 @@ package com.example.myticket.View.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import com.example.myticket.Model.Network.DataModel.HomeResult.Recently;
 import com.example.myticket.Model.Network.DataModel.MovieModel.MovieDetails;
 import com.example.myticket.View.Activity.MovieDetailsPage;
 import com.example.myticket.R;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -131,20 +133,23 @@ public class HomeMovieAdapter extends RecyclerView.Adapter<HomeMovieAdapter.Movi
             if (movieDetails != null){
                 Recently recently = movieDetails.get(position);
                 Intent intent = new Intent(context, MovieDetailsPage.class);
-                intent.putExtra("recently", (Parcelable) recently);
+                String dumb = new Gson().toJson(recently);
+                intent.setData(Uri.fromParts("scheme",dumb,null));
                 context.startActivity(intent);
             }
             else if (comingList != null){
                 Coming coming = comingList.get(position);
                 Intent intent = new Intent(context, MovieDetailsPage.class);
-                intent.putExtra("coming", (Parcelable) coming);
+                String dumb = new Gson().toJson(coming);
+                intent.setData(Uri.fromParts("scheme",dumb,null));
                 context.startActivity(intent);
             }
 
             else if (cinemaList != null){
                 Cinema cinema = cinemaList.get(position);
                 Intent intent = new Intent(context, CinemaDetailsPage.class);
-                intent.putExtra("recently", (Parcelable) cinema);
+                String dumb = new Gson().toJson(cinema);
+                intent.setData(Uri.fromParts("scheme",dumb,null));
                 context.startActivity(intent);
 
             }
