@@ -14,15 +14,11 @@ import android.widget.Toast;
 
 import com.example.myticket.Enum.ErrorTypeEnum;
 import com.example.myticket.Model.Data.SessionManager;
-import com.example.myticket.Model.Network.DataModel.LoginModel.ModelLogin;
 import com.example.myticket.Model.Network.DataModel.LoginModel.User;
 import com.example.myticket.Model.Network.DataModel.Resgister.MainResponceReg;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
-import com.example.myticket.Model.Network.Retrofit.ApiClient;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
-import com.example.myticket.Model.Network.Retrofit.onResponceInterface;
 import com.example.myticket.R;
-import com.example.myticket.Register;
 
 public class Login extends AppCompatActivity implements
         GeneralListener

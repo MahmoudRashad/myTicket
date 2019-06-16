@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
 <item android:id="@+id/profile" android:title="Profile" android:icon="@drawable/ic_perm_contact_calendar_24px"/>
     <item android:id="@+id/my_tickets" android:title="My Tickets" android:icon="@drawable/ic_tickets"/>
     <item android:id="@+id/cinema_map" android:title="Find a Cinema" android:icon="@drawable/ic_places"/>

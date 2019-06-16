@@ -12,10 +12,8 @@ import com.example.myticket.AnyResultsPage;
 import com.example.myticket.CinemaDetailsPage;
 import com.example.myticket.ForgetPassword;
 import com.example.myticket.Gate;
-import com.example.myticket.HomeCinema;
 import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.R;
-import com.example.myticket.Register;
 import com.example.myticket.ResetPassword;
 import com.example.myticket.SearchPage;
 

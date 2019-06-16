@@ -1,4 +1,4 @@
-package com.example.myticket;
+package com.example.myticket.View.Activity;
 
 import android.content.Intent;
 import android.content.Intent;
@@ -22,6 +22,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myticket.AnyResultsPage;
+import com.example.myticket.EditAccount;
 import com.example.myticket.Model.MainResult;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Cinema;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Coming;
@@ -35,6 +37,7 @@ import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.Model.Network.Retrofit.onResponceInterface;
 import com.example.myticket.View.Activity.MainActivity;
 import com.example.myticket.View.Activity.MapsActivity;
+import com.example.myticket.R;
 import com.example.myticket.View.Adapter.HomeMovieAdapter;
 import com.example.myticket.View.Adapter.SliderAdapter;
 import com.google.gson.Gson;
@@ -45,7 +48,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class HomeCinema extends AppCompatActivity implements
-        NavigationView.OnNavigationItemSelectedListener,
+        //NavigationView.OnNavigationItemSelectedListener,
         GeneralListener
 {
 
@@ -63,8 +66,8 @@ public class HomeCinema extends AppCompatActivity implements
     private RecyclerView moviesRV;
     private RecyclerView comingSoonRV;
     private RecyclerView cinemasRV;
-    private DrawerLayout drawerLayout;
-    private ActionBarDrawerToggle toggle;
+//    private DrawerLayout drawerLayout;
+//    private ActionBarDrawerToggle toggle;
     private TextView seeAllRecently;
     private TextView seeAllComingSoon;
     private TextView seeAllCinema;
@@ -88,16 +91,17 @@ public class HomeCinema extends AppCompatActivity implements
         seeAllComingSoon = findViewById(R.id.comingSoon_seeAll);
         seeAllCinema = findViewById(R.id.cinema_seeAll);
         seeAllNearby = findViewById(R.id.cinema_seeNearBy);
-        drawerLayout = findViewById(R.id.home_cinema_drawer_layout);
-        toggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.open_nav,R.string.close_nav);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        drawerLayout = findViewById(R.id.home_cinema_drawer_layout);
+//        toggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.open_nav,R.string.close_nav);
+//        drawerLayout.addDrawerListener(toggle);
+//        toggle.syncState();
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         SliderProgressBar.getIndeterminateDrawable().setColorFilter(0xFFFFFFFF, android.graphics.PorterDuff.Mode.MULTIPLY);
 
-        setNavigationViewListener();
+        //setNavigationViewListener();
         apiCalling.homeApiCall(this);
         apiCalling.mainSliderCall(this);
+//        setNavigationViewListener();
 
 //        NavigationView navigationView = (NavigationView) findViewById(R.id.navmenu);
 //
@@ -149,32 +153,71 @@ public class HomeCinema extends AppCompatActivity implements
 
 
 
+
+//        logTest("here");
+//        NavigationView navigation =  findViewById(R.id.navmenu);
+//        navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(MenuItem menuItem) {
+//                int id = menuItem.getItemId();
+//                logTest(" " + id);
+//                switch (id) {
+//                    case R.id.profile:
+//                        //Do some thing here
+//                        // add navigation drawer item onclick method here
+//                        logTest("myProfile");
+//                        break;
+//                }
+//                return true;
+//            }
+//        });
+
+
+
+
+//        NavigationView navigationView = (NavigationView) findViewById(R.id.navmenu);
+//        navigationView.setNavigationItemSelectedListener(this);
+
     }
 
-
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        // Handle navigation view item clicks here.
-        Toast.makeText(HomeCinema.this,"test" , Toast.LENGTH_LONG).show();
-        Log.e("test**" , "nav item");
-        switch (item.getItemId()) {
-
-            case R.id.profile: {
-                //do somthing
-                Intent intent = new Intent(HomeCinema.this , EditAccount.class);
-                startActivity(intent);
-                break;
-            }
-        }
-        //close navigation drawer
-        drawerLayout.closeDrawer(GravityCompat.START);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.drawer_menu , menu);
         return true;
     }
 
-    private void setNavigationViewListener() {
-        NavigationView navigationView =  findViewById(R.id.navmenu);
-        navigationView.setNavigationItemSelectedListener(this);
+    public void logTest(String message)
+    {
+        Log.e("test**" , message);
+
     }
+
+
+
+//    @Override
+//    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//        // Handle navigation view item clicks here.
+//        Toast.makeText(HomeCinema.this,"test" , Toast.LENGTH_LONG).show();
+//        Log.e("test**" , "nav item");
+//        switch (item.getItemId()) {
+//
+//            case R.id.profile: {
+//                //do somthing
+//                Intent intent = new Intent(HomeCinema.this , EditAccount.class);
+//                startActivity(intent);
+//                break;
+//            }
+//        }
+//        //close navigation drawer
+//        drawerLayout.closeDrawer(GravityCompat.START);
+//        return true;
+//    }
+//
+//    private void setNavigationViewListener() {
+//        NavigationView navigationView =  findViewById(R.id.navmenu);
+//        navigationView.setNavigationItemSelectedListener(this);
+//    }
 
     private void getHomeData(Object responce) {
         MainResult mainResult = (MainResult) responce;
@@ -239,9 +282,9 @@ public class HomeCinema extends AppCompatActivity implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (toggle.onOptionsItemSelected(item)) {
-            return true;
-        }
+//        if (toggle.onOptionsItemSelected(item)) {
+//            return true;
+//        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -261,6 +304,27 @@ public class HomeCinema extends AppCompatActivity implements
             getHomeData(tApiResponse);
         }
     }
+
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (toggle.onOptionsItemSelected(item)) {
+//
+//            logTest(" item menu = " + item.getItemId());
+//            logTest(" item menu = " + R.id.profile);
+//            switch (item.getItemId()) {
+//                case R.id.profile:
+//                    //Do some thing here
+//                    // add navigation drawer item onclick method here
+//                    logTest("myProfile");
+//                    break;
+//            }
+//
+//
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
     class SliderTimer extends TimerTask {
 
