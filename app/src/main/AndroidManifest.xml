@@ -20,10 +20,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity
-            android:name=".View.Activity.Home"
-            android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".EditDetail" />
         <activity android:name=".EditAccount" />
         <activity android:name=".CinemaDetailsPage" />
@@ -31,7 +27,7 @@
         <activity android:name=".SearchPage" />
         <activity android:name=".ResetPassword" />
         <activity android:name=".View.Activity.MovieDetailsPage" />
-        <activity android:name=".CustomAppCompat" />
+
         <activity android:name=".Gate" />
         <activity android:name=".View.Activity.MainActivity" />
         <activity android:name=".View.Activity.HomeCinema" />

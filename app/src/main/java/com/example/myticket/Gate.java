@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.myticket.View.Activity.Home;
+import com.example.myticket.View.Activity.HomeCinema;
 
 public class Gate extends AppCompatActivity {
     ConstraintLayout layout;
@@ -14,13 +14,13 @@ public class Gate extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
         setContentView(R.layout.activity_gate);
         layout = findViewById(R.id.cinema_gate);
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Gate.this, Home.class);
+                Intent intent = new Intent(Gate.this, HomeCinema.class);
                 startActivity(intent);
             }
         });
