@@ -133,6 +133,7 @@ public class HomeMovieAdapter extends RecyclerView.Adapter<HomeMovieAdapter.Movi
             if (movieDetails != null){
                 Recently recently = movieDetails.get(position);
                 Intent intent = new Intent(context, MovieDetailsPage.class);
+                intent.setAction("recently");
                 String dumb = new Gson().toJson(recently);
                 intent.setData(Uri.fromParts("scheme",dumb,null));
                 context.startActivity(intent);
@@ -140,6 +141,7 @@ public class HomeMovieAdapter extends RecyclerView.Adapter<HomeMovieAdapter.Movi
             else if (comingList != null){
                 Coming coming = comingList.get(position);
                 Intent intent = new Intent(context, MovieDetailsPage.class);
+                intent.setAction("coming");
                 String dumb = new Gson().toJson(coming);
                 intent.setData(Uri.fromParts("scheme",dumb,null));
                 context.startActivity(intent);

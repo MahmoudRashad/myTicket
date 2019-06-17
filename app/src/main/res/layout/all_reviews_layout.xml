@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="72dp"
+    android:visibility="gone"
     android:background="#66000000"
+    android:id="@+id/all_revs_layout"
     >
         <android.support.v7.widget.RecyclerView
         android:id="@+id/details_rev_rv"

@@ -1,6 +1,7 @@
 package com.example.myticket.Model.Network.Retrofit;
 
 import com.example.myticket.Model.MainResult;
+import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordModel;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordResponce;
 import com.example.myticket.Model.Network.DataModel.LoginModel.User;
@@ -51,6 +52,12 @@ public interface ApiInterface {
 
     @GET("home")
     Call<MainResult> homeResponce();
+
+    @POST("show_comments")
+    Call<Comments> getAllComments(@Body String filmId);
+
+    //@POST("make_comment")
+
 
 
 

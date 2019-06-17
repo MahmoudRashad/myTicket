@@ -221,61 +221,63 @@ public class HomeCinema extends AppCompatActivity implements
 
     private void getHomeData(Object responce) {
         MainResult mainResult = (MainResult) responce;
-        homeResult = mainResult.getResult();
-        CinemaLists = homeResult.getCinema();
-        RecentlyLists = homeResult.getRecently();
-        ComingLists = homeResult.getComing();
+        if (mainResult != null) {
+            homeResult = mainResult.getResult();
+            CinemaLists = homeResult.getCinema();
+            RecentlyLists = homeResult.getRecently();
+            ComingLists = homeResult.getComing();
 
-        HomeMovieAdapter homeMovieAdapter = new HomeMovieAdapter(this,RecentlyLists,null,null);
-        moviesRV.setAdapter(homeMovieAdapter);
-        moviesRV.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+            HomeMovieAdapter homeMovieAdapter = new HomeMovieAdapter(this, RecentlyLists, null, null);
+            moviesRV.setAdapter(homeMovieAdapter);
+            moviesRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        HomeMovieAdapter ComingSoonAdapter = new HomeMovieAdapter(this,null,ComingLists,null);
-        comingSoonRV.setAdapter(ComingSoonAdapter);
-        comingSoonRV.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+            HomeMovieAdapter ComingSoonAdapter = new HomeMovieAdapter(this, null, ComingLists, null);
+            comingSoonRV.setAdapter(ComingSoonAdapter);
+            comingSoonRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        HomeMovieAdapter CinemaAdapter = new HomeMovieAdapter(this,null,null,CinemaLists);
-        cinemasRV.setAdapter(CinemaAdapter);
-        cinemasRV.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+            HomeMovieAdapter CinemaAdapter = new HomeMovieAdapter(this, null, null, CinemaLists);
+            cinemasRV.setAdapter(CinemaAdapter);
+            cinemasRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
 
-        seeAllRecently.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeCinema.this, AnyResultsPage.class);
-                intent.setAction("viewMoviesRecently");
-                String ListDumb = new Gson().toJson(RecentlyLists);
-                intent.setData(Uri.fromParts("scheme",ListDumb,null));
-                startActivity(intent);
-            }
-        });
-        seeAllComingSoon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeCinema.this, AnyResultsPage.class);
-                intent.setAction("viewMoviesSoon");
-                String ListDumb = new Gson().toJson(ComingLists);
-                intent.setData(Uri.fromParts("schemeComing",ListDumb,null));
-                startActivity(intent);
-            }
-        });
-        seeAllCinema.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeCinema.this, AnyResultsPage.class);
-                intent.setAction("viewCinemas");
-                String ListDumb = new Gson().toJson(CinemaLists);
-                intent.setData(Uri.fromParts("schemeCinema",ListDumb,null));
-                startActivity(intent);
-            }
-        });
-        seeAllNearby.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeCinema.this, MapsActivity.class);
-                startActivity(intent);
-            }
-        });
+            seeAllRecently.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HomeCinema.this, AnyResultsPage.class);
+                    intent.setAction("viewMoviesRecently");
+                    String ListDumb = new Gson().toJson(RecentlyLists);
+                    intent.setData(Uri.fromParts("scheme", ListDumb, null));
+                    startActivity(intent);
+                }
+            });
+            seeAllComingSoon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HomeCinema.this, AnyResultsPage.class);
+                    intent.setAction("viewMoviesSoon");
+                    String ListDumb = new Gson().toJson(ComingLists);
+                    intent.setData(Uri.fromParts("schemeComing", ListDumb, null));
+                    startActivity(intent);
+                }
+            });
+            seeAllCinema.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HomeCinema.this, AnyResultsPage.class);
+                    intent.setAction("viewCinemas");
+                    String ListDumb = new Gson().toJson(CinemaLists);
+                    intent.setData(Uri.fromParts("schemeCinema", ListDumb, null));
+                    startActivity(intent);
+                }
+            });
+            seeAllNearby.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HomeCinema.this, MapsActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
 
     }
 

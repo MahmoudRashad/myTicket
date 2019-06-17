@@ -26,7 +26,14 @@
         <activity android:name=".AnyResultsPage" />
         <activity android:name=".SearchPage" />
         <activity android:name=".ResetPassword" />
-        <activity android:name=".View.Activity.MovieDetailsPage" />
+        <activity android:name=".View.Activity.MovieDetailsPage"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".View.Activity.HomeCinema"
+            >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".View.Activity.HomeCinema" />
+        </activity>
 
         <activity android:name=".Gate" />
         <activity android:name=".View.Activity.MainActivity" />

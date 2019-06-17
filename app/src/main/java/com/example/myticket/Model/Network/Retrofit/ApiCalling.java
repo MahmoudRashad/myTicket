@@ -7,6 +7,7 @@ import android.util.Log;
 import com.example.myticket.Enum.ErrorTypeEnum;
 import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.MainResult;
+import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordResponce;
 import com.example.myticket.Model.Network.DataModel.LoginModel.ModelLogin;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderResponce;
@@ -358,7 +359,42 @@ public class ApiCalling
         });
 
     }
+    public void showAllReviews(String filmId , final GeneralListener generalListener) {
+        Call<Comments> call = apiInterface.getAllComments(filmId);
+        call.enqueue(new Callback<Comments>() {
+            @Override
+            public void onResponse(Call<Comments> call, Response<Comments> response) {
+                if (response.isSuccessful()) {
+                    Log.e("onResponse", response.raw().toString());
+                    if (response.body().getSuccess()) {
+                        generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                                null, response.body());
+                    }
+                    else {
+                        generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                                response.body().getMessage(), response.body());
+                    }
+                }
+            }
 
+            @Override
+            public void onFailure(Call<Comments> call, Throwable t) {
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
+
+    }
 //    public void loginCall(Call<ModelLogin> call, final onResponceInterface onResponceInterface) {
 //        call.enqueue(new Callback<ModelLogin>() {
 //            @Override
