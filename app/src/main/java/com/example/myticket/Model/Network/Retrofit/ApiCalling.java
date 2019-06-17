@@ -192,7 +192,7 @@ public class ApiCalling
             @Override
             public void onResponse(Call<MainResponceReg> call, Response<MainResponceReg> response) {
                 Log.e("onResponse", response.raw().toString());
-                if (response.body().getStatus())
+                if (response.body().getSuccess())
                 {
 
                     generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),

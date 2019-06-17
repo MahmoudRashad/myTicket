@@ -50,12 +50,12 @@
         <TextView
             android:id="@+id/fullname_title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="21dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
             android:text="Full Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/gray"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -67,6 +67,7 @@
             android:paddingBottom="8dp"
             android:text="ISCO APPS"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fullname_title" />
 
@@ -100,9 +101,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
             android:text="Phone Number"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/gray"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -112,6 +113,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:paddingBottom="8dp"
+            android:textColor="@color/black"
+
             android:text="0999565656565"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="parent"
@@ -161,6 +164,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:text="Email"
+            android:textColor="@color/gray"
+
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -171,6 +176,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:paddingBottom="8dp"
+            android:textColor="@color/black"
+
             android:text="email@email.com"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="parent"
@@ -218,6 +225,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:text="Address"
+            android:textColor="@color/gray"
+
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -228,6 +237,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:paddingBottom="8dp"
+            android:textColor="@color/black"
+
             android:text="111 place street in area"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="parent"
