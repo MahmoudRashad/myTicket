@@ -4,11 +4,8 @@
     <color name="colorPrimaryDark">#8E0920</color>
     <color name="colorAccent">#8E0920</color>
     <color name="yellow">#E8CA0B</color>
+
     <color name="grey_star">#7F7F7F</color>
 
-    <color name="green">#26E84D</color>
-    <color name="gray">#B8B8B8</color>
-    <color name="black">#000</color>
-    <color name="white">#fff</color>
 
 </resources>

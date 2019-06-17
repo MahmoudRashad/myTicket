@@ -2,6 +2,7 @@ package com.example.myticket.Model.Network.Retrofit;
 
 import com.example.myticket.Model.MainResult;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
+import com.example.myticket.Model.Network.DataModel.CommentsModel.MakeCommentResponce;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordModel;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordResponce;
 import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
@@ -60,7 +61,8 @@ public interface ApiInterface {
     @POST("show_comments")
     Call<Comments> getAllComments(@Body String filmId);
 
-    //@POST("make_comment")
+    @POST("make_comment")
+    Call<MakeCommentResponce> submitComment(@Header("lang") String lang,@Header("Authorization") String token,String comment,String filmId);
 
 
 

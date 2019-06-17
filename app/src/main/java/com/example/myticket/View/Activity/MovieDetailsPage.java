@@ -171,16 +171,24 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
                 makeReviewLayout.setVisibility(View.GONE);
             }
         });
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                ratingBar.getRating();
-            }
-        });
+
         submitReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String comment = writtenComment.getText().toString();
+                //call make comment and make review
+                final int[] rateTotal = new int[1];
+                ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                    @Override
+                    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                        if (rating >= 1) {
+                            int rate = (int) rating;
+                            rateTotal[0] = rate * 2;
+                        }
+                    }
+                });
+
+
 
             }
         });
