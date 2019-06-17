@@ -8,7 +8,20 @@
     android:background="@drawable/back"
     tools:context=".EditAccount">
 
-    <ImageView
+    <!--<ImageView-->
+        <!--android:id="@+id/profile_image"-->
+        <!--android:layout_width="150dp"-->
+        <!--android:layout_height="150dp"-->
+        <!--android:layout_margin="32dp"-->
+        <!--android:src="@drawable/ic_profile_1"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="0dp"
         android:id="@+id/profile_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -17,6 +30,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 
     <ImageView
         android:id="@+id/profile_pen"
@@ -50,12 +65,12 @@
         <TextView
             android:id="@+id/fullname_title"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="21dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
             android:text="Full Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/gray"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,8 +80,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:paddingBottom="8dp"
+            android:textSize="14sp"
             android:text="ISCO APPS"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fullname_title" />
 
@@ -100,9 +117,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
             android:text="Phone Number"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/gray"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -112,6 +129,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:paddingBottom="8dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
             android:text="0999565656565"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="parent"
@@ -133,8 +152,9 @@
             android:id="@+id/phone_verified"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="0dp"
             android:text="Verified"
+            android:textSize="12sp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#26E84D"
             app:layout_constraintBottom_toBottomOf="@id/arrowTwo"
@@ -161,6 +181,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:text="Email"
+            android:textColor="@color/gray"
+
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -171,6 +193,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:paddingBottom="8dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
             android:text="email@email.com"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="parent"
@@ -190,8 +214,9 @@
             android:id="@+id/email_verified"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="0dp"
             android:text="Verified"
+            android:textSize="12sp"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#26E84D"
             app:layout_constraintBottom_toBottomOf="@id/arrowThree"
@@ -218,6 +243,8 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:text="Address"
+            android:textColor="@color/gray"
+
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -228,6 +255,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:paddingBottom="8dp"
+            android:textColor="@color/black"
+            android:textSize="14sp"
             android:text="111 place street in area"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="parent"
