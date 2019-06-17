@@ -43,7 +43,7 @@ public interface ApiInterface {
 
 
     @POST("forget_password")
-    Call<ForgetPasswordResponce> forgetPassword(@Header("lang") String lang, @Body ForgetPasswordModel model);
+    Call<ForgetPasswordResponce> forgetPassword(@Header("lang") String lang, String email);
 
 
     @GET("slider")

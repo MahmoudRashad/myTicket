@@ -11,22 +11,28 @@ import android.widget.Toast;
 
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordModel;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordResponce;
+import com.example.myticket.Model.Network.Retrofit.ApiCalling;
+import com.example.myticket.Model.Network.Retrofit.ApiClient;
+import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.Model.Network.Retrofit.onResponceInterface;
 
-import static com.example.myticket.View.Activity.Register.isEmailValid;
+import static com.example.myticket.Register.isEmailValid;
 
-public class ForgetPassword extends AppCompatActivity implements onResponceInterface {
+public class ForgetPassword extends AppCompatActivity implements GeneralListener {
 
     private EditText email;
     private Button btnForget;
     private String mEmail;
     private ProgressBar progressBar;
+    ApiCalling apiCalling;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_forget_password);
+
+        apiCalling = new ApiCalling(this);
 
         email = findViewById(R.id.email_forget);
         btnForget = findViewById(R.id.forget_btn);
@@ -47,24 +53,19 @@ public class ForgetPassword extends AppCompatActivity implements onResponceInter
                 }
                 else {
                     progressBar.setVisibility(View.VISIBLE);
-                    ForgetPasswordModel model = new ForgetPasswordModel(mEmail);
+                    apiCalling.forgetPasswordCall("en",mEmail,ForgetPassword.this);
+                  //  ForgetPasswordModel model = new ForgetPasswordModel(mEmail);
 //                    ApiClient apiClient = new ApiClient(model, ForgetPassword.this, ForgetPassword.this);
 //                    apiClient.initializeClientForget();
+
                 }
             }
         });
     }
 
     @Override
-    public void onSuccess(Object responce) {
-        ForgetPasswordResponce forgetPasswordResponce = (ForgetPasswordResponce) responce;
-        progressBar.setVisibility(View.GONE);
-        Toast.makeText(this,forgetPasswordResponce.getMessage(),Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onFail(Object responce) {
-        ForgetPasswordResponce forgetPasswordResponce = (ForgetPasswordResponce) responce;
+    public void getApiResponse(int status, String message, Object tApiResponse) {
+        ForgetPasswordResponce forgetPasswordResponce = (ForgetPasswordResponce) tApiResponse;
         progressBar.setVisibility(View.GONE);
         Toast.makeText(this,forgetPasswordResponce.getMessage(),Toast.LENGTH_LONG).show();
     }

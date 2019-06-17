@@ -2,6 +2,7 @@ package com.example.myticket.View.Activity;
 
 import android.content.Intent;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -30,20 +31,25 @@ import com.example.myticket.Model.Network.DataModel.HomeResult.Recently;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.Result;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderResponce;
 import com.example.myticket.Model.Network.DataModel.MovieModel.MovieDetails;
+import com.example.myticket.Model.Network.Retrofit.ApiCalling;
+import com.example.myticket.Model.Network.Retrofit.ApiClient;
+import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.Model.Network.Retrofit.onResponceInterface;
 import com.example.myticket.View.Activity.MainActivity;
 import com.example.myticket.View.Activity.MapsActivity;
 import com.example.myticket.R;
 import com.example.myticket.View.Adapter.HomeMovieAdapter;
 import com.example.myticket.View.Adapter.SliderAdapter;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class HomeCinema extends AppCompatActivity implements onResponceInterface /*,
-        NavigationView.OnNavigationItemSelectedListener*/
+public class HomeCinema extends AppCompatActivity implements
+        //NavigationView.OnNavigationItemSelectedListener,
+        GeneralListener
 {
 
     private List<Result> listSlide;
@@ -66,11 +72,15 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
     private TextView seeAllComingSoon;
     private TextView seeAllCinema;
     private TextView seeAllNearby;
+    private ApiCalling apiCalling;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_cinema);
+
+        apiCalling = new ApiCalling(this);
+
         sliderPager = findViewById(R.id.C_home_slider);
         SliderProgressBar = findViewById(R.id.C_home_progressBar);
         tabLayout = findViewById(R.id.cinema_tabLayout);
@@ -88,6 +98,9 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         SliderProgressBar.getIndeterminateDrawable().setColorFilter(0xFFFFFFFF, android.graphics.PorterDuff.Mode.MULTIPLY);
 
+        //setNavigationViewListener();
+        apiCalling.homeApiCall(this);
+        apiCalling.mainSliderCall(this);
 //        setNavigationViewListener();
 
 //        NavigationView navigationView = (NavigationView) findViewById(R.id.navmenu);
@@ -230,11 +243,9 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeCinema.this, AnyResultsPage.class);
-                Bundle bundle = new Bundle();
                 intent.setAction("viewMoviesRecently");
-                ArrayList<Recently> list = (ArrayList<Recently>) RecentlyLists;
-           //     bundle.putParcelableArrayList("list",list);
-                intent.putParcelableArrayListExtra("list",list);
+                String ListDumb = new Gson().toJson(RecentlyLists);
+                intent.setData(Uri.fromParts("scheme",ListDumb,null));
                 startActivity(intent);
             }
         });
@@ -243,8 +254,8 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
             public void onClick(View v) {
                 Intent intent = new Intent(HomeCinema.this, AnyResultsPage.class);
                 intent.setAction("viewMoviesSoon");
-                ArrayList<Coming> list = (ArrayList<Coming>) ComingLists;
-                intent.putParcelableArrayListExtra("list",list);
+                String ListDumb = new Gson().toJson(ComingLists);
+                intent.setData(Uri.fromParts("schemeComing",ListDumb,null));
                 startActivity(intent);
             }
         });
@@ -252,9 +263,9 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeCinema.this, AnyResultsPage.class);
-                ArrayList<Cinema> list = (ArrayList<Cinema>) CinemaLists;
-                intent.putParcelableArrayListExtra("list",list);
                 intent.setAction("viewCinemas");
+                String ListDumb = new Gson().toJson(CinemaLists);
+                intent.setData(Uri.fromParts("schemeCinema",ListDumb,null));
                 startActivity(intent);
             }
         });
@@ -268,23 +279,31 @@ public class HomeCinema extends AppCompatActivity implements onResponceInterface
 
     }
 
+
     @Override
-    public void onSuccess(Object responce) {
+    public boolean onOptionsItemSelected(MenuItem item) {
+//        if (toggle.onOptionsItemSelected(item)) {
+//            return true;
+//        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void getApiResponse(int status, String message, Object tApiResponse) {
         SliderProgressBar.setVisibility(View.GONE);
-        SliderResponce sliderResponce = (SliderResponce) responce;
-        listSlide = sliderResponce.getResult();
-        adapter = new SliderAdapter(this, listSlide);
-        sliderPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(sliderPager, true);
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new HomeCinema.SliderTimer(),3000,4000);
+        if (tApiResponse instanceof  SliderResponce) {
+            SliderResponce sliderResponce = (SliderResponce) tApiResponse;
+            listSlide = sliderResponce.getResult();
+            adapter = new SliderAdapter(this, listSlide);
+            sliderPager.setAdapter(adapter);
+            tabLayout.setupWithViewPager(sliderPager, true);
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new HomeCinema.SliderTimer(), 3000, 4000);
+        }
+        else{
+            getHomeData(tApiResponse);
+        }
     }
-
-    @Override
-    public void onFail(Object responce) {
-
-    }
-
 
 //
 //    @Override
