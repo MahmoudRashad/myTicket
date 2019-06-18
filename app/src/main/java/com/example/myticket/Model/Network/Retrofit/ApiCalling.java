@@ -7,7 +7,9 @@ import android.util.Log;
 import com.example.myticket.Enum.ErrorTypeEnum;
 import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.MainResult;
+import com.example.myticket.Model.Network.DataModel.BaseNoResult.BaseNoResult;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
+import com.example.myticket.Model.Network.DataModel.CommentsModel.MakeCommentResponce;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordResponce;
 import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
 import com.example.myticket.Model.Network.DataModel.LoginModel.ModelLogin;
@@ -28,6 +30,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.QueryMap;
 
 public class ApiCalling
 {
@@ -460,6 +463,84 @@ public class ApiCalling
 
             @Override
             public void onFailure(Call<Comments> call, Throwable t) {
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
+
+    }
+    public void makeRate(String authToken , String lang ,String filmId, String rate, final GeneralListener generalListener) {
+        Map<String,String> map = new HashMap<>();
+        map.put("film_id",filmId);
+        map.put("rate",rate);
+        Call<BaseNoResult> call = apiInterface.makeRate(lang,authToken,map);
+        call.enqueue(new Callback<BaseNoResult>() {
+            @Override
+            public void onResponse(Call<BaseNoResult> call, Response<BaseNoResult> response) {
+                if (response.isSuccessful()) {
+                    Log.e("onResponse", response.raw().toString());
+                    if (response.body().getSuccess()) {
+                        generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                                null, response.body());
+                    }
+                    else {
+                        generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                                response.body().getMessage(), response.body());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseNoResult> call, Throwable t) {
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
+
+    }
+    public void submitComment(String authToken , String lang ,String filmId, String comment, final GeneralListener generalListener) {
+        Map<String,String> map = new HashMap<>();
+        map.put("film_id",filmId);
+        map.put("comment",comment);
+        Call<MakeCommentResponce> call = apiInterface.submitComment(lang,authToken,map);
+        call.enqueue(new Callback<MakeCommentResponce>() {
+            @Override
+            public void onResponse(Call<MakeCommentResponce> call, Response<MakeCommentResponce> response) {
+                if (response.isSuccessful()) {
+                    Log.e("onResponse", response.raw().toString());
+                    if (response.body().getSuccess()) {
+                        generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                                null, response.body());
+                    }
+                    else {
+                        generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                                response.body().getMessage(), response.body());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MakeCommentResponce> call, Throwable t) {
                 //fail internet connection
                 if (t instanceof IOException)
                 {

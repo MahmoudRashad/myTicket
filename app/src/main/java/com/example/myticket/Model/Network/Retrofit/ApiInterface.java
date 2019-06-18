@@ -1,6 +1,7 @@
 package com.example.myticket.Model.Network.Retrofit;
 
 import com.example.myticket.Model.MainResult;
+import com.example.myticket.Model.Network.DataModel.BaseNoResult.BaseNoResult;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.MakeCommentResponce;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordModel;
@@ -62,9 +63,10 @@ public interface ApiInterface {
     Call<Comments> getAllComments(@Body String filmId);
 
     @POST("make_comment")
-    Call<MakeCommentResponce> submitComment(@Header("lang") String lang,@Header("Authorization") String token,String comment,String filmId);
+    Call<MakeCommentResponce> submitComment(@Header("lang") String lang,@Header("Authorization") String token,@QueryMap Map<String, String> queryMap);
 
-
+    @POST("make_rate")
+    Call<BaseNoResult> makeRate(@Header("lang") String lang, @Header("Authorization") String authTtoken,@QueryMap Map<String, String> queryMap);
 
 
 //    @POST("save_editprofile")

@@ -14,8 +14,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.myticket.Model.Data.SessionManager;
+import com.example.myticket.Model.Network.DataModel.BaseNoResult.BaseNoResult;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
+import com.example.myticket.Model.Network.DataModel.CommentsModel.MakeCommentResponce;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Result;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Category;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Coming;
@@ -66,8 +70,6 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
         setContentView(R.layout.activity_movie_details);
         apiCalling = new ApiCalling(this);
         Intent intent = getIntent();
-
-
 
         dropDown = findViewById(R.id.dropdown_revs);
         ReserveBtn = findViewById(R.id.reserve_btn);
@@ -162,7 +164,34 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
         makeReviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeReviewLayout.setVisibility(View.VISIBLE);
+                SessionManager sessionManager = new SessionManager(MovieDetailsPage.this);
+                //check if he is logged in or not
+                final String token = "Bearer "+ sessionManager.getUserToken();
+                if (!token.equals("")) {
+                    makeReviewLayout.setVisibility(View.VISIBLE);
+                    final String id = movieDetails.getId().toString();
+                    submitReview.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String comment = writtenComment.getText().toString();
+                            //call make comment and make review
+                            String rate = String.valueOf(ratingBar.getRating()*2);
+                            //TODO: add real device language from session manger
+                            if (!comment.equals("")) {
+                                apiCalling.submitComment(token, "en", id, comment, MovieDetailsPage.this);
+                            }
+                            if (ratingBar.getRating()>=1) {
+                                apiCalling.makeRate(token, "en", id, rate, MovieDetailsPage.this);
+                            }
+                        }
+                    });
+
+                }
+                else {
+                    Intent goToLoginIntent = new Intent(MovieDetailsPage.this,Login.class);
+                    startActivity(goToLoginIntent);
+                }
+
             }
         });
         closeReviewBtn.setOnClickListener(new View.OnClickListener() {
@@ -172,34 +201,28 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
             }
         });
 
-        submitReview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String comment = writtenComment.getText().toString();
-                //call make comment and make review
-                final int[] rateTotal = new int[1];
-                ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                    @Override
-                    public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                        if (rating >= 1) {
-                            int rate = (int) rating;
-                            rateTotal[0] = rate * 2;
-                        }
-                    }
-                });
 
-
-
-            }
-        });
     }
 
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
-        Comments comments = (Comments) tApiResponse;
-        allComments = (ArrayList<Result>) comments.getResult();
-        AllReviewsAdapter allReviewsAdapter = new AllReviewsAdapter(this,allComments);
-        reviewsRv.setAdapter(allReviewsAdapter);
+        if (tApiResponse instanceof Comments) {
+            Comments comments = (Comments) tApiResponse;
+            allComments = (ArrayList<Result>) comments.getResult();
+            AllReviewsAdapter allReviewsAdapter = new AllReviewsAdapter(this, allComments);
+            reviewsRv.setAdapter(allReviewsAdapter);
+        }
+        else if (tApiResponse instanceof MakeCommentResponce){
+            MakeCommentResponce userCommentResponce = (MakeCommentResponce) tApiResponse;
+            //Show submitted
+            Toast.makeText(this,userCommentResponce.getMessage(),Toast.LENGTH_LONG).show();
+        }
+        else if (tApiResponse instanceof BaseNoResult){
+            BaseNoResult rateResponce = (BaseNoResult) tApiResponse;
+            //Show submitted
+            Toast.makeText(this,rateResponce.getMessage(),Toast.LENGTH_LONG).show();
+
+        }
 
     }
 }
