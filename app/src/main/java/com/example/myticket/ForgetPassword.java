@@ -16,7 +16,7 @@ import com.example.myticket.Model.Network.Retrofit.ApiClient;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.Model.Network.Retrofit.onResponceInterface;
 
-import static com.example.myticket.Register.isEmailValid;
+import static com.example.myticket.View.Activity.Register.isEmailValid;
 
 public class ForgetPassword extends AppCompatActivity implements GeneralListener {
 
