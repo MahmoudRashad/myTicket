@@ -25,8 +25,8 @@ public class CinemaDetailsPage extends AppCompatActivity {
         texts.add("samar");
         texts.add("hanan");
         texts.add("ahmed");
-        AllReviewsAdapter allReviewsAdapter = new AllReviewsAdapter(this,texts);
-        reviewsRv.setAdapter(allReviewsAdapter);
+       // AllReviewsAdapter allReviewsAdapter = new AllReviewsAdapter(this,texts);
+      //  reviewsRv.setAdapter(allReviewsAdapter);
         reviewsRv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
     }
 }

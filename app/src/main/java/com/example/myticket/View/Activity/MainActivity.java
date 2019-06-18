@@ -10,12 +10,11 @@ import android.widget.Button;
 
 import com.example.myticket.AnyResultsPage;
 import com.example.myticket.CinemaDetailsPage;
+import com.example.myticket.EditAccount;
 import com.example.myticket.ForgetPassword;
 import com.example.myticket.Gate;
-import com.example.myticket.HomeCinema;
 import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.R;
-import com.example.myticket.Register;
 import com.example.myticket.ResetPassword;
 import com.example.myticket.SearchPage;
 
@@ -159,11 +158,17 @@ public class MainActivity extends AppCompatActivity {
 
         userProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
-                if(sessionManager.getUserToken() == null ||
-                        sessionManager.getUserToken() == "")
+                if(sessionManager.getUserToken() != null ||
+                        sessionManager.getUserToken() != "")
                 {
+
+                    Intent intent = new Intent(MainActivity.this, EditAccount.class);
+                    startActivity(intent);
+                }
+                else {
                     Intent intent = new Intent(MainActivity.this, Login.class);
                     startActivity(intent);
                 }

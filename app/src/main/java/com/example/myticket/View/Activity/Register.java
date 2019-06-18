@@ -1,4 +1,4 @@
-package com.example.myticket;
+package com.example.myticket.View.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,11 +17,8 @@ import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.Network.DataModel.Resgister.MainResponceReg;
 import com.example.myticket.Model.Network.DataModel.Resgister.UserRegister;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
-import com.example.myticket.Model.Network.Retrofit.ApiClient;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
-import com.example.myticket.Model.Network.Retrofit.onResponceInterface;
-import com.example.myticket.View.Activity.Login;
-import com.example.myticket.View.Activity.MainActivity;
+import com.example.myticket.R;
 
 import java.util.HashMap;
 import java.util.Map;

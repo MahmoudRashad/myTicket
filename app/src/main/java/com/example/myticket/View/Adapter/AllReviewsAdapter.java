@@ -6,19 +6,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.myticket.Model.Network.DataModel.CommentsModel.Result;
 import com.example.myticket.R;
 
 import java.util.ArrayList;
 
 public class AllReviewsAdapter extends RecyclerView.Adapter<AllReviewsAdapter.ReviewsViewHolder> {
     private Context context;
-    private ArrayList<String> texts;
+    private ArrayList<Result> allComments;
 
-    public AllReviewsAdapter(Context context, ArrayList<String> movieDetails) {
+    public AllReviewsAdapter(Context context, ArrayList<Result> movieDetails) {
         this.context = context;
-        this.texts = movieDetails;
+        this.allComments = movieDetails;
     }
 
     @NonNull
@@ -31,23 +33,31 @@ public class AllReviewsAdapter extends RecyclerView.Adapter<AllReviewsAdapter.Re
 
     @Override
     public void onBindViewHolder(@NonNull ReviewsViewHolder reviewsViewHolder, int i) {
-        //MovieDetailsPage movie = movieDetails.get(i);
-        reviewsViewHolder.movieTitle.setText("movie name");
+        Result comment = allComments.get(i);
+        reviewsViewHolder.name.setText(comment.getName());
+        reviewsViewHolder.comment.setText(comment.getComment());
+        reviewsViewHolder.date.setText(comment.getDate());
+        float rate = Float.parseFloat(comment.getRate());
+        reviewsViewHolder.ratingBar.setRating(rate);
 
     }
 
     @Override
     public int getItemCount() {
-        return texts.size();
+        return allComments.size();
     }
 
     public class ReviewsViewHolder extends RecyclerView.ViewHolder{
-        private TextView movieTitle;
-        private TextView reviewsTotal;
-        private TextView reviewRate;
+        private TextView name;
+        private TextView comment;
+        private TextView date;
+        private RatingBar ratingBar;
         public ReviewsViewHolder(@NonNull View itemView) {
             super(itemView);
-            movieTitle = itemView.findViewById(R.id.name_rev_title);
+            name = itemView.findViewById(R.id.name_rev_title);
+            date = itemView.findViewById(R.id.rev_date);
+            comment = itemView.findViewById(R.id.review);
+            ratingBar = itemView.findViewById(R.id.review_element_stars);
         }
     }
 }

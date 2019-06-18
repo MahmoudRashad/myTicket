@@ -12,8 +12,11 @@ import com.example.myticket.Model.Network.DataModel.HomeResult.Cinema;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Coming;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Recently;
 import com.example.myticket.View.Adapter.HomeMovieAdapter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AnyResultsPage extends AppCompatActivity {
@@ -38,25 +41,41 @@ public class AnyResultsPage extends AppCompatActivity {
         recyclerViewTwo = findViewById(R.id.rv_movies_soon);
 
         Intent intent = getIntent();
-        if (getIntent().getAction() != null){
-            String action = getIntent().getAction();
+        if (intent.getAction() != null){
+            String action = intent.getAction();
             if (action.equals("viewMoviesRecently")){
-                RecentlyLists = getIntent().getParcelableArrayListExtra("list");
-                List<Recently> Lists = RecentlyLists;
-                homeMovieAdapter = new HomeMovieAdapter(this,Lists,null,null);
-                setupFromHome("Now Playing");
+                if (intent.getData() != null) {
+                    String stringData = String.valueOf(intent.getData().getSchemeSpecificPart());
+                    GsonBuilder gsonBuilder = new GsonBuilder();
+                    Gson gson = gsonBuilder.create();
+                    Recently[] results = gson.fromJson(stringData,Recently[].class);
+                    RecentlyLists = new ArrayList<>(Arrays.asList(results));
+                    homeMovieAdapter = new HomeMovieAdapter(this,RecentlyLists,null,null);
+                    setupFromHome("Now Playing");
+                }
             }
             else if (action.equals("viewMoviesSoon")){
-                ComingLists = getIntent().getParcelableArrayListExtra("list");
-                List<Coming> Lists = ComingLists;
-                homeMovieAdapter = new HomeMovieAdapter(this,null,Lists,null);
-                setupFromHome("Coming Soon");
+                if (intent.getData() != null) {
+                    String stringData = String.valueOf(intent.getData().getSchemeSpecificPart());
+                    GsonBuilder gsonBuilder = new GsonBuilder();
+                    Gson gson = gsonBuilder.create();
+                    Coming[] results = gson.fromJson(stringData,Coming[].class);
+                    ComingLists = new ArrayList<>(Arrays.asList(results));
+                    homeMovieAdapter = new HomeMovieAdapter(this,null,ComingLists,null);
+                    setupFromHome("Coming Soon");
+                }
             }
             else if (action.equals("viewCinemas")){
-                CinemaLists = getIntent().getParcelableArrayListExtra("list");
-                List<Cinema> Lists = CinemaLists;
-                homeMovieAdapter = new HomeMovieAdapter(this,null,null,Lists);
-                setupFromHome("Cinemas");
+                if (intent.getData() != null) {
+                    String stringData = String.valueOf(intent.getData().getSchemeSpecificPart());
+                    GsonBuilder gsonBuilder = new GsonBuilder();
+                    Gson gson = gsonBuilder.create();
+                    Cinema[] results = gson.fromJson(stringData,Cinema[].class);
+                    CinemaLists = new ArrayList<>(Arrays.asList(results));
+                    homeMovieAdapter = new HomeMovieAdapter(this,null,null,CinemaLists);
+                    setupFromHome("Cinemas");
+                }
+
             }
         }
         titleTwo.setText("Title Two");

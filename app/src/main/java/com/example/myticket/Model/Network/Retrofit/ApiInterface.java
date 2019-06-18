@@ -1,8 +1,11 @@
 package com.example.myticket.Model.Network.Retrofit;
 
 import com.example.myticket.Model.MainResult;
+import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
+import com.example.myticket.Model.Network.DataModel.CommentsModel.MakeCommentResponce;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordModel;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordResponce;
+import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
 import com.example.myticket.Model.Network.DataModel.LoginModel.User;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderResponce;
 import com.example.myticket.Model.Network.DataModel.MapModel.NearByFullModel;
@@ -12,11 +15,14 @@ import com.example.myticket.Model.Network.DataModel.Resgister.UserRegister;
 
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
@@ -43,7 +49,7 @@ public interface ApiInterface {
 
 
     @POST("forget_password")
-    Call<ForgetPasswordResponce> forgetPassword(@Header("lang") String lang, @Body ForgetPasswordModel model);
+    Call<ForgetPasswordResponce> forgetPassword(@Header("lang") String lang, String email);
 
 
     @GET("slider")
@@ -51,6 +57,35 @@ public interface ApiInterface {
 
     @GET("home")
     Call<MainResult> homeResponce();
+
+    @POST("show_comments")
+    Call<Comments> getAllComments(@Body String filmId);
+
+    @POST("make_comment")
+    Call<MakeCommentResponce> submitComment(@Header("lang") String lang,@Header("Authorization") String token,String comment,String filmId);
+
+
+
+
+//    @POST("save_editprofile")
+//    Call<GeneralApiesponse> saveEditProfile(@Header("lang") String lang,
+//                                            @Header("Authorization") String authorization,
+//                                            @QueryMap Map<String, String> queryMap);
+//
+
+
+    @Multipart
+    @POST("save_editprofile")
+    Call<GeneralApiesponse> saveUserImage(@Header("lang") String lang,
+                                           @Header("Authorization") String authorization,
+                                          @Part MultipartBody.Part image,
+                                        @QueryMap Map<String, String> queryMap);
+
+
+    @POST("save_editprofile")
+    Call<GeneralApiesponse> saveEditProfile(@Header("lang") String lang,
+                                           @Header("Authorization") String authorization,
+                                        @QueryMap Map<String, String> queryMap);
 
 
 
