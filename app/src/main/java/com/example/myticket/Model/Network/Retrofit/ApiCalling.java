@@ -9,12 +9,9 @@ import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.MainResult;
 import com.example.myticket.Model.Network.DataModel.BaseNoResult.BaseNoResult;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
-import com.example.myticket.Model.Network.DataModel.CommentsModel.MakeCommentResponce;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordResponce;
 import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
-import com.example.myticket.Model.Network.DataModel.LoginModel.ModelLogin;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderResponce;
-import com.example.myticket.Model.Network.DataModel.MapModel.NearByFullModel;
 import com.example.myticket.Model.Network.DataModel.Resgister.MainResponceReg;
 import com.example.myticket.View.Activity.Login;
 
@@ -30,7 +27,6 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.QueryMap;
 
 public class ApiCalling
 {
@@ -522,10 +518,10 @@ public class ApiCalling
         Map<String,String> map = new HashMap<>();
         map.put("film_id",filmId);
         map.put("comment",comment);
-        Call<MakeCommentResponce> call = apiInterface.submitComment(lang,authToken,map);
-        call.enqueue(new Callback<MakeCommentResponce>() {
+        Call<BaseNoResult> call = apiInterface.submitComment(lang,authToken,map);
+        call.enqueue(new Callback<BaseNoResult>() {
             @Override
-            public void onResponse(Call<MakeCommentResponce> call, Response<MakeCommentResponce> response) {
+            public void onResponse(Call<BaseNoResult> call, Response<BaseNoResult> response) {
                 if (response.isSuccessful()) {
                     Log.e("onResponse", response.raw().toString());
                     if (response.body().getSuccess()) {
@@ -540,7 +536,7 @@ public class ApiCalling
             }
 
             @Override
-            public void onFailure(Call<MakeCommentResponce> call, Throwable t) {
+            public void onFailure(Call<BaseNoResult> call, Throwable t) {
                 //fail internet connection
                 if (t instanceof IOException)
                 {

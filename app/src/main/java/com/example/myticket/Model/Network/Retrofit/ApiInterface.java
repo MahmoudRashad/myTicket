@@ -3,16 +3,11 @@ package com.example.myticket.Model.Network.Retrofit;
 import com.example.myticket.Model.MainResult;
 import com.example.myticket.Model.Network.DataModel.BaseNoResult.BaseNoResult;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
-import com.example.myticket.Model.Network.DataModel.CommentsModel.MakeCommentResponce;
-import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordModel;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordResponce;
 import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
-import com.example.myticket.Model.Network.DataModel.LoginModel.User;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderResponce;
 import com.example.myticket.Model.Network.DataModel.MapModel.NearByFullModel;
-import com.example.myticket.Model.Network.DataModel.LoginModel.ModelLogin;
 import com.example.myticket.Model.Network.DataModel.Resgister.MainResponceReg;
-import com.example.myticket.Model.Network.DataModel.Resgister.UserRegister;
 
 import java.util.Map;
 
@@ -63,7 +58,7 @@ public interface ApiInterface {
     Call<Comments> getAllComments(@Body String filmId);
 
     @POST("make_comment")
-    Call<MakeCommentResponce> submitComment(@Header("lang") String lang,@Header("Authorization") String token,@QueryMap Map<String, String> queryMap);
+    Call<BaseNoResult> submitComment(@Header("lang") String lang,@Header("Authorization") String token,@QueryMap Map<String, String> queryMap);
 
     @POST("make_rate")
     Call<BaseNoResult> makeRate(@Header("lang") String lang, @Header("Authorization") String authTtoken,@QueryMap Map<String, String> queryMap);

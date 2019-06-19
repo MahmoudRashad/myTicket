@@ -9,6 +9,7 @@
     android:visibility="gone"
 
 
+
         >
     <ImageView
         android:id="@+id/close_review_movie"

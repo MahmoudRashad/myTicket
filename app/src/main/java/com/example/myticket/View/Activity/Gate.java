@@ -1,4 +1,4 @@
-package com.example.myticket;
+package com.example.myticket.View.Activity;
 
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.myticket.View.Activity.HomeCinema;
+import com.example.myticket.R;
 
 public class Gate extends AppCompatActivity {
     ConstraintLayout layout;

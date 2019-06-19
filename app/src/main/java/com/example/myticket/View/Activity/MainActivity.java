@@ -8,15 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.myticket.AnyResultsPage;
-import com.example.myticket.CinemaDetailsPage;
-import com.example.myticket.EditAccount;
-import com.example.myticket.ForgetPassword;
-import com.example.myticket.Gate;
 import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.R;
-import com.example.myticket.ResetPassword;
-import com.example.myticket.SearchPage;
 
 import java.util.Locale;
 
