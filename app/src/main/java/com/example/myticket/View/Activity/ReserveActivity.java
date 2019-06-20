@@ -11,15 +11,14 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -32,6 +31,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,11 +46,12 @@ import com.bumptech.glide.request.target.Target;
 import com.example.myticket.Enum.ErrorTypeEnum;
 import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.Network.DataModel.EditUserData.EditUserDataResponse;
-import com.example.myticket.Model.Network.DataModel.Resgister.UserRegister;
+import com.example.myticket.Model.Network.DataModel.ReserveModel.ReserveCinemaResponse;
+import com.example.myticket.Model.Network.DataModel.ReserveModel.ResultReserveCinema;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
-import com.example.myticket.View.Activity.Register;
 import com.example.myticket.R;
+import com.example.myticket.View.Adapter.CustomSpinnerAdapter;
 import com.example.myticket.helper.Variables;
 
 import java.io.ByteArrayOutputStream;
@@ -59,7 +60,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class EditAccount extends AppCompatActivity implements GeneralListener {
+public class ReserveActivity extends AppCompatActivity
+        implements GeneralListener {
 
 
     private ApiCalling apiCalling;
@@ -71,24 +73,39 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
     public int cameraRequest = 0 , galleryRequest = 1 ;
     Dialog  dialogChangePic ;
     ProgressDialog dialog;
+    int movieId ;
+    ReserveCinemaResponse reserveCinemaResponse;
+    CustomSpinnerAdapter customSpinnerAdapter;
 
     //--------------------------------  references of views -------------------------------------------------//
     private ConstraintLayout layout ;
     EditText nameTv , phoneTv,emailTv,addressTv;
     ImageView userIv , editImageIv , nameIv,phoneIv,emailIv,addressIv;
     Button saveEditBtn;
+    Spinner cinemaS , dateS , timeS;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_account);
+        setContentView(R.layout.activity_reserve);
 
         findViewsToReferences();
         setListenerOfViews();
 
+        if( getIntent().getExtras() != null )
+        {
+            movieId = getIntent().getExtras().getInt("movie_id" , -1);
+        }
+
         sessionManager = new SessionManager(this);
         apiCalling = new ApiCalling(this);
+
+        Map <String , String> queryMap = new HashMap();
+        queryMap.put("film_id" , movieId+"");
+        apiCalling.getCinemasOfMovie("Bearer " +sessionManager.getUserToken()
+                , "ar" ,
+                queryMap ,this);
     }
 
     @Override
@@ -229,6 +246,9 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
         emailIv= findViewById(R.id.arrowThree);
         addressIv = findViewById(R.id.arrowFour);
         saveEditBtn = findViewById(R.id.submit_edit_profile_btn);
+        cinemaS = findViewById(R.id.spinner);
+        dateS = findViewById(R.id.spinner2);
+        timeS = findViewById(R.id.spinner3);
 
 
 
@@ -269,7 +289,7 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
                 // permission was granted, yay! Do the
                 // contacts-related task you need to do.
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(pickPhoto , galleryRequest);//one can be replaced with any action code
 
             } else
@@ -337,7 +357,7 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
             if(flagRequest == galleryRequest)
             {
                 Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(pickPhoto , galleryRequest);//one can be replaced with any action code
             }
             else {
@@ -350,7 +370,7 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
 
     private void showWatingDialog()
     {
-        dialog = new ProgressDialog(EditAccount.this);
+        dialog = new ProgressDialog(ReserveActivity.this);
         String message = getString(R.string.waiting);
         SpannableString spannableString =  new SpannableString(message);
 
@@ -366,137 +386,46 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
     }
 
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == galleryRequest && resultCode == Activity.RESULT_OK && data != null && data.getData() != null) {
-            //Toast.makeText(getApplicationContext() , "reselt ok" , Toast.LENGTH_LONG).show();
-            Uri filePath = data.getData();
-            String s = getRealPathFromUri(getApplicationContext(), filePath);
-            //Log.e("uri**" , s);
-
-            showWatingDialog();
-            Map map = new HashMap();
-            map.put("imagePath" ,s );
-            apiCalling.editUserData("Bearer " +sessionManager.getUserToken() , "ar" ,
-                    map , this );
-
-            ////////////////////////////////////////////////////////
-
-
-        }
-        else if (requestCode == cameraRequest&& resultCode == RESULT_OK )
-        {
-//            Log.e("test**" , "take image from camera");
-//            Uri filePath = data.getData();
-//            String s = getRealPathFromUri(getApplicationContext(), filePath);
-//            Log.e("camera**" , "ok");
-//            ordersPresenter.uploadImage(s, appPreferences.getString(Variables.userId, ""));
-
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-
-            // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
-            Uri tempUri = getImageUri(getApplicationContext(), imageBitmap);
-
-            // CALL THIS METHOD TO GET THE ACTUAL PATH
-            String s = getRealPathFromUri( this , tempUri) ;
-//            ordersPresenter.uploadImage(s, appPreferences.getString(Variables.userId, ""));
-            showWatingDialog();
-            Map map = new HashMap();
-            map.put("imagePath" ,s );
-            apiCalling.editUserData("Bearer " +sessionManager.getUserToken() , "ar" ,
-                    map , this );
-        }
-    }
-
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
-
-    public  String getRealPathFromUri(Context context, Uri contentUri) {
-        Cursor cursor = null;
-        try {
-            String[] proj = { MediaStore.Images.Media.DATA };
-            cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
-            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            cursor.moveToFirst();
-            return cursor.getString(column_index);
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-        }
-    }
-
-
-    private void setVisibalityUpdateBtn(int show)
-    {
-        saveEditBtn.setVisibility(show);
-    }
-
-
-    /**
-     * method is used for checking valid email id format.
-     *
-     * @param email
-     * @return boolean true for valid false for invalid
-     */
-    public static boolean isEmailValid(String email) {
-        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
-        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
-
-
-    public void
-    setListenerOfViews()
+    public void setListenerOfViews()
     {
 //        try {
 
 
-        saveEditBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (TextUtils.isEmpty(nameTv.getText()) ||
-                        TextUtils.isEmpty(phoneTv.getText()) ||
-                        TextUtils.isEmpty(emailTv.getText()) ||
-                        TextUtils.isEmpty(addressTv.getText() ))
-                {
-                    Toast.makeText(EditAccount.this
-                            , "Please fill all fields"
-                            , Toast.LENGTH_LONG).show();
-                }
-
-                else if (!isEmailValid(emailTv.getText().toString())){
-                    Toast.makeText(EditAccount.this
-                            , "Email Not Valid",
-                            Toast.LENGTH_LONG).show();
-                }
-                else {
-                    showWatingDialog();
-
-                    Map<String , String> queryMap = new HashMap<>();
-                    queryMap.put("name" , nameTv.getText().toString());
-                    queryMap.put("phone" , phoneTv.getText().toString());
-                    queryMap.put("email" , emailTv.getText().toString());
-                    queryMap.put("address" , addressTv.getText().toString());
-
-                    apiCalling.editUserData("Bearer " +sessionManager.getUserToken()
-                            , "ar" ,
-                            queryMap , EditAccount.this );
-                }
-
-            }
-        });
+//        saveEditBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                if (TextUtils.isEmpty(nameTv.getText()) ||
+//                        TextUtils.isEmpty(phoneTv.getText()) ||
+//                        TextUtils.isEmpty(emailTv.getText()) ||
+//                        TextUtils.isEmpty(addressTv.getText() ))
+//                {
+//                    Toast.makeText(ReserveActivity.this
+//                            , "Please fill all fields"
+//                            , Toast.LENGTH_LONG).show();
+//                }
+//
+//                else if (!isEmailValid(emailTv.getText().toString())){
+//                    Toast.makeText(ReserveActivity.this
+//                            , "Email Not Valid",
+//                            Toast.LENGTH_LONG).show();
+//                }
+//                else {
+//                    showWatingDialog();
+//
+//                    Map<String , String> queryMap = new HashMap<>();
+//                    queryMap.put("name" , nameTv.getText().toString());
+//                    queryMap.put("phone" , phoneTv.getText().toString());
+//                    queryMap.put("email" , emailTv.getText().toString());
+//                    queryMap.put("address" , addressTv.getText().toString());
+//
+//                    apiCalling.editUserData("Bearer " +sessionManager.getUserToken()
+//                            , "ar" ,
+//                            queryMap , ReserveActivity.this );
+//                }
+//
+//            }
+//        });
         editImageIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -505,63 +434,6 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
             }
         });
 
-        nameIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setVisibalityUpdateBtn(View.VISIBLE);
-                nameTv.requestFocus();
-                nameTv.setSelection(nameTv.getText().toString().length());
-
-                InputMethodManager inputMethodManager =
-                        (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputMethodManager.toggleSoftInputFromWindow(
-                        nameTv.getApplicationWindowToken(),
-                        InputMethodManager.SHOW_FORCED, 0);
-            }
-        });
-
-        phoneIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setVisibalityUpdateBtn(View.VISIBLE);
-                phoneTv.requestFocus();
-                phoneTv.setSelection(phoneTv.getText().toString().length());
-
-                InputMethodManager inputMethodManager =
-                        (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputMethodManager.toggleSoftInputFromWindow(
-                        phoneTv.getApplicationWindowToken(),
-                        InputMethodManager.SHOW_FORCED, 0);
-            }
-        });
-        emailIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setVisibalityUpdateBtn(View.VISIBLE);
-                emailTv.requestFocus();
-                emailTv.setSelection(emailTv.getText().toString().length());
-
-                InputMethodManager inputMethodManager =
-                        (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputMethodManager.toggleSoftInputFromWindow(
-                        emailTv.getApplicationWindowToken(),
-                        InputMethodManager.SHOW_FORCED, 0);
-            }
-        });
-        addressIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setVisibalityUpdateBtn(View.VISIBLE);
-                addressTv.requestFocus();
-                addressTv.setSelection(addressTv.getText().toString().length());
-
-                InputMethodManager inputMethodManager =
-                        (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                inputMethodManager.toggleSoftInputFromWindow(
-                        addressTv.getApplicationWindowToken(),
-                        InputMethodManager.SHOW_FORCED, 0);
-            }
-        });
 
 
 //        }
@@ -576,31 +448,24 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
         dialog.dismiss();
         if(status == ErrorTypeEnum.noError.getValue())
         {
-            EditUserDataResponse editUserDataResponse =
-                    (EditUserDataResponse) tApiResponse;
-            sessionManager.setUserEmail(
-                    editUserDataResponse.getResult().get(0).getEmail()
-            );
+            if( tApiResponse instanceof ReserveCinemaResponse)
+            {
+                this.reserveCinemaResponse =
+                        (ReserveCinemaResponse) tApiResponse;
 
-            sessionManager.setNameOfUser(
-                    editUserDataResponse.getResult().get(0).getUserName()
-            );
+                ResultReserveCinema resultReserveCinema =
+                        new ResultReserveCinema();
+                resultReserveCinema.setName("select cinema");
+                resultReserveCinema.setId(-1);
+                this.reserveCinemaResponse.getResult().add(0,resultReserveCinema);
+                customSpinnerAdapter = new CustomSpinnerAdapter(
+                        this, this.reserveCinemaResponse.getResult() );
+                cinemaS.setAdapter(customSpinnerAdapter);
 
+            }
 
-            sessionManager.setUserPhone(
-                    editUserDataResponse.getResult().get(0).getPhone()
-            );
-
-            sessionManager.setUserAddress(
-                    editUserDataResponse.getResult().get(0).getAddress()
-            );
-
-            sessionManager.setUserImage(
-                    editUserDataResponse.getResult().get(0).getImage()
-            );
-            setDataOfViews();
-            Toast.makeText(this , "updated successfully"
-                    , Toast.LENGTH_LONG).show();
+//            Toast.makeText(this , "updated successfully"
+//                    , Toast.LENGTH_LONG).show();
         }
         else
         {
