@@ -21,7 +21,7 @@
 
 
         <ImageView
-            android:id="@+id/cover_photo"
+            android:id="@+id/cover_photo_cinema"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:scaleType="fitXY"
@@ -40,13 +40,13 @@
             <!--android:src="@drawable/gradient_bg"-->
             <!--/>-->
         <ImageView
-            android:id="@+id/icon_play_movie"
+            android:id="@+id/icon_play_cinema"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/cover_photo"
+            app:layout_constraintBottom_toBottomOf="@id/cover_photo_cinema"
             android:src="@drawable/play"
             android:layout_gravity="center"
             android:layout_marginEnd="16dp"
@@ -54,7 +54,7 @@
             android:layout_marginStart="16dp"
             />
         <ImageView
-            android:id="@+id/icon_share_movie"
+            android:id="@+id/icon_share_cinema"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_share"
@@ -66,7 +66,7 @@
             app:layout_constraintTop_toTopOf="parent"
             />
         <ImageView
-            android:id="@+id/icon_back_movie"
+            android:id="@+id/icon_back_cinema"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_backward_arrow_1"
@@ -90,14 +90,14 @@
             android:layout_marginBottom="16dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cover_photo"
+            app:layout_constraintTop_toBottomOf="@id/cover_photo_cinema"
             />
         <Button
             android:id="@+id/cinema_movies_list_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cover_photo"
+            app:layout_constraintTop_toBottomOf="@id/cover_photo_cinema"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
@@ -105,6 +105,8 @@
             android:drawableStart="@drawable/ic_theaters_24px"
             android:drawableTint="@color/colorAccent"
             android:background="@drawable/white_rect_bk"
+            android:textColor="@color/colorAccent"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:drawablePadding="8dp"
             android:text="Movies List"/>
         <TextView
@@ -132,6 +134,23 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detail_address" />
+
+        <Button
+            android:id="@+id/cinema_movies_location_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detail_time"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:padding="8dp"
+            android:drawableStart="@drawable/ic_near_me_24px"
+            android:drawableTint="@color/colorAccent"
+            android:background="@drawable/white_rect_bk"
+            android:textColor="@color/colorAccent"
+            android:drawablePadding="8dp"
+            android:text="Cinema Location"/>
 
 
 
@@ -162,24 +181,30 @@
 
 
             />
-        <include
-            android:id="@+id/linear_stars"
-            layout="@layout/linear_stars" />
+        <RatingBar
+            android:id="@+id/rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/rating_title"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:theme="@style/RatingBar"
+            style="@style/Widget.AppCompat.RatingBar.Indicator" />
 
         <TextView
-            android:id="@+id/avg_movie_rate"
+            android:id="@+id/avg_cinema_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="9.5"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#fff"
             android:layout_marginStart="8dp"
-            app:layout_constraintTop_toTopOf="@id/linear_stars"
-            app:layout_constraintBottom_toBottomOf="@id/linear_stars"
-            app:layout_constraintStart_toEndOf="@id/linear_stars"/>
+            app:layout_constraintTop_toTopOf="@id/rating_bar"
+            app:layout_constraintBottom_toBottomOf="@id/rating_bar"
+            app:layout_constraintStart_toEndOf="@id/rating_bar"/>
 
         <Button
-            android:id="@+id/make_movie_review"
+            android:id="@+id/make_cinema_review"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -201,11 +226,11 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#fff"
             app:layout_constraintStart_toEndOf="@id/star_number"
-            app:layout_constraintTop_toBottomOf="@id/make_movie_review"
+            app:layout_constraintTop_toBottomOf="@id/make_cinema_review"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"/>
         <TextView
-            android:id="@+id/reviews_number"
+            android:id="@+id/reviews_cinema_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@id/reviews_number_title"
@@ -220,7 +245,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_yellow_little_star"
-            app:layout_constraintStart_toStartOf="@id/make_movie_review"
+            app:layout_constraintStart_toStartOf="@id/make_cinema_review"
             app:layout_constraintTop_toTopOf="@id/reviews_number_title"
             app:layout_constraintBottom_toBottomOf="@id/reviews_number_title"
             android:layout_marginStart="4dp"
@@ -241,166 +266,15 @@
 
     <include
         layout="@layout/write_review"
-        android:visibility="gone"
         />
     <include
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         layout="@layout/all_reviews_layout"
-        android:visibility="gone"
+        />
+    <include
+        layout="@layout/submitted_layout"
         />
 
-    <!--<FrameLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:background="#66000000"-->
-    <!--&gt;-->
-    <!--<LinearLayout-->
-    <!--android:id="@+id/linear_pop_review"-->
-    <!--android:layout_width="350dp"-->
-    <!--android:layout_height="300dp"-->
-    <!--android:background="@drawable/white_rect_bk"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:elevation="12dp"-->
-    <!--android:visibility="gone"-->
-    <!--android:orientation="vertical">-->
 
-    <!--<include-->
-    <!--layout="@layout/linear_stars"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:layout_margin="16dp"/>-->
-
-    <!--<View-->
-    <!--android:id="@+id/rev_view_line1"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="2dp"-->
-    <!--android:background="#E9E9E9"-->
-    <!--android:layout_marginStart="16dp"-->
-    <!--android:layout_marginEnd="16dp"-->
-    <!--/>-->
-    <!--<EditText-->
-    <!--android:id="@+id/title_rev_detail"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginStart="16dp"-->
-    <!--android:layout_marginEnd="16dp"-->
-    <!--android:hint="Review Title"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--android:layout_marginBottom="8dp"-->
-    <!--android:background="@android:color/transparent"-->
-    <!--/>-->
-    <!--<View-->
-    <!--android:id="@+id/rev_view_line2"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="2dp"-->
-    <!--android:background="#E9E9E9"-->
-    <!--android:layout_marginStart="16dp"-->
-    <!--android:layout_marginEnd="16dp"-->
-    <!--/>-->
-    <!--<EditText-->
-    <!--android:id="@+id/subject_rev_detail"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="100dp"-->
-    <!--android:layout_marginStart="16dp"-->
-    <!--android:layout_marginEnd="16dp"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--android:layout_marginBottom="8dp"-->
-    <!--android:hint="Review (Optional)"-->
-    <!--android:gravity="top"-->
-    <!--android:maxLength="140"-->
-    <!--android:background="@android:color/transparent"-->
-    <!--/>-->
-    <!--<View-->
-    <!--android:id="@+id/rev_view_line3"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="2dp"-->
-    <!--android:background="#E9E9E9"-->
-    <!--android:layout_marginStart="16dp"-->
-    <!--android:layout_marginEnd="16dp"-->
-    <!--android:layout_gravity="bottom"-->
-    <!--/>-->
-    <!--<Button-->
-    <!--android:id="@+id/submit_btn"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="bottom|center"-->
-    <!--android:text="Submit"-->
-    <!--android:textColor="@color/colorAccent"-->
-    <!--android:background="@drawable/rect_grey"-->
-    <!--android:layout_marginTop="16dp"-->
-    <!--android:elevation="6dp"-->
-    <!--/>-->
-    <!--<TextView-->
-    <!--android:id="@+id/max_letters"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="(0/140)"-->
-    <!--android:layout_gravity="end"-->
-    <!--android:layout_marginStart="16dp"-->
-    <!--android:layout_marginEnd="16dp"-->
-    <!--/>-->
-
-    <!--</LinearLayout>-->
-    <!--</FrameLayout>-->
-
-    <!--<FrameLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:background="#66000000"-->
-    <!--&gt;-->
-    <!--<LinearLayout-->
-    <!--android:id="@+id/linear_pop_review_submitted"-->
-    <!--android:layout_width="350dp"-->
-    <!--android:layout_height="300dp"-->
-    <!--android:background="@drawable/white_rect_bk"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:elevation="12dp"-->
-    <!--android:orientation="vertical">-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/big_star_submitted"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:src="@drawable/big_star"-->
-    <!--android:layout_marginBottom="16dp"-->
-    <!--android:layout_marginTop="38dp"-->
-    <!--android:layout_gravity="center"-->
-    <!--/>-->
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Submitted"-->
-    <!--android:textSize="20dp"-->
-    <!--android:layout_gravity="center"/>-->
-    <!--<TextView-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Thanks For Your Feedback !"-->
-    <!--android:textSize="20dp"-->
-    <!--android:layout_margin="4dp"-->
-    <!--android:layout_gravity="center"/>-->
-
-    <!--</LinearLayout>-->
-    <!--</FrameLayout>-->
-
-
-    <!--<FrameLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_marginTop="72dp"-->
-    <!--android:background="#66000000">-->
-    <!--<android.support.v7.widget.RecyclerView-->
-    <!--android:id="@+id/details_rev_rv"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toBottomOf="@id/avg_movie_rate"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--android:layout_marginStart="16dp"-->
-    <!--android:layout_marginEnd="16dp"-->
-    <!--&gt;-->
-    <!--</android.support.v7.widget.RecyclerView>-->
-    <!--</FrameLayout>-->
 </android.support.constraint.ConstraintLayout>

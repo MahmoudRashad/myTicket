@@ -1,11 +1,10 @@
-
-package com.example.myticket.Model.Network.DataModel.CommentsModel;
+package com.example.myticket.Model.Network.DataModel.BaseNoResult;
 
 import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MakeCommentResponce implements Serializable
+public class BaseNoResult implements Serializable
 {
 
     @SerializedName("success")
@@ -14,25 +13,7 @@ public class MakeCommentResponce implements Serializable
     @SerializedName("message")
     @Expose
     private String message;
-    private final static long serialVersionUID = 4248307449726853388L;
-
-    /**
-     * No args constructor for use in serialization
-     * 
-     */
-    public MakeCommentResponce() {
-    }
-
-    /**
-     * 
-     * @param message
-     * @param success
-     */
-    public MakeCommentResponce(Boolean success, String message) {
-        super();
-        this.success = success;
-        this.message = message;
-    }
+    private final static long serialVersionUID = -2593184685315272742L;
 
     public Boolean getSuccess() {
         return success;

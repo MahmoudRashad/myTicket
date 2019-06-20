@@ -1,4 +1,4 @@
-package com.example.myticket;
+package com.example.myticket.View.Activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Cinema;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Coming;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Recently;
+import com.example.myticket.R;
 import com.example.myticket.View.Adapter.HomeMovieAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -77,9 +78,18 @@ public class AnyResultsPage extends AppCompatActivity {
                 }
 
             }
+            else if (action.equals("CinemaMoviesList")){
+                setupCinemaMovies();
+            }
         }
         titleTwo.setText("Title Two");
 
+    }
+
+    private void setupCinemaMovies() {
+        titleOne.setText("Now Playing");
+        titleTwo.setText("Coming Soon");
+        //Setup recycler views
     }
 
     private void setupFromHome(String Title) {

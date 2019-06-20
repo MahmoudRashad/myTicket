@@ -19,73 +19,65 @@ import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.Network.DataModel.BaseNoResult.BaseNoResult;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Result;
-import com.example.myticket.Model.Network.DataModel.HomeResult.Category;
+import com.example.myticket.Model.Network.DataModel.HomeResult.Cinema;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Recently;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.R;
 import com.example.myticket.View.Adapter.AllReviewsAdapter;
-import com.example.myticket.View.Adapter.CategoryAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class MovieDetailsPage extends AppCompatActivity implements GeneralListener {
-    private Button dropDown;
-    private Button ReserveBtn;
+public class CinemaDetailsPage extends AppCompatActivity implements GeneralListener {
     private RecyclerView reviewsRv;
-    private ImageView coverPhoto;
-    private TextView movieTitle;
-    private TextView movieDuration;
-    private TextView movieDate;
-    private TextView movieRate;
-    private TextView movieTotalReviewsNumber;
-    private TextView submittedText;
-    private RatingBar ratingBar;
-    private RecyclerView categoryRV;
-    private Button makeReviewBtn;
-    private ImageView playImage;
-    private ImageView shareImage;
+    private Cinema cinemaDetails;
     private ImageView backBtn;
+    private ImageView shareBtn;
+    private ImageView playCinema;
+    private ImageView cinemaCover;
+    private TextView nameCinema;
+    private TextView detailAddress;
+    private TextView detailTime;
+    private Button movieListBtn;
+    private Button makeReviewBtn;
+    private TextView reviewsNumber;
+    private TextView avgRating;
+
+    private FrameLayout submittedLayout;
+    private FrameLayout makeReviewLayout;
+
     private ImageView closeReviewBtn;
     private ImageView closeReviewResult;
     private Button submitReview;
     private EditText writtenComment;
     private FrameLayout allRevsLayout;
-    private FrameLayout submittedLayout;
-    private FrameLayout makeReviewLayout;
-
+   private TextView submittedText;
+   private RatingBar ratingBar;
 
     private ArrayList<Result> allComments;
-    private ArrayList<Category> categorList;
-    private Recently movieDetails;
 
+    private ApiCalling apiCalling;
 
-    ApiCalling apiCalling;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movie_details);
-        apiCalling = new ApiCalling(this);
-        Intent intent = getIntent();
-
-        dropDown = findViewById(R.id.dropdown_revs);
-        ReserveBtn = findViewById(R.id.reserve_btn);
-        coverPhoto = findViewById(R.id.cover_photo);
-        movieTitle = findViewById(R.id.details_movie_title);
-        movieDuration = findViewById(R.id.detail_duration);
-        movieDate = findViewById(R.id.detail_movie_date);
-        movieRate = findViewById(R.id.avg_movie_rate);
-        makeReviewBtn = findViewById(R.id.make_movie_review);
-        movieTotalReviewsNumber = findViewById(R.id.reviews_number);
-        ratingBar = findViewById(R.id.rating_bar);
+        setContentView(R.layout.activity_cinema_details_page);
         reviewsRv = findViewById(R.id.details_rev_rv);
-        categoryRV = findViewById(R.id.category_rv);
-        playImage = findViewById(R.id.icon_play_movie);
-        shareImage = findViewById(R.id.icon_share_movie);
-        backBtn = findViewById(R.id.icon_back_movie);
+        backBtn = findViewById(R.id.icon_back_cinema);
+        shareBtn = findViewById(R.id.icon_share_cinema);
+        playCinema = findViewById(R.id.icon_play_cinema);
+        cinemaCover = findViewById(R.id.cover_photo_cinema);
+        nameCinema = findViewById(R.id.details_cinema_title);
+        detailAddress = findViewById(R.id.detail_address);
+        detailTime = findViewById(R.id.detail_time);
+        avgRating = findViewById(R.id.avg_cinema_rate);
+        reviewsNumber = findViewById(R.id.reviews_cinema_number);
+        movieListBtn = findViewById(R.id.cinema_movies_list_btn);
+        makeReviewBtn = findViewById(R.id.make_cinema_review);
+
         makeReviewLayout = findViewById(R.id.frame_make_review);
         closeReviewBtn = findViewById(R.id.close_review_movie);
         submitReview = findViewById(R.id.submit_btn);
@@ -94,87 +86,83 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
         submittedText = findViewById(R.id.submitted_text);
         submittedLayout = findViewById(R.id.submitted_layout);
         closeReviewResult = findViewById(R.id.close_review_result_movie);
+        ratingBar  = findViewById(R.id.rating_bar);
 
-        reviewsRv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        categoryRV.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        apiCalling = new ApiCalling(this);
 
-        if (intent.getData() != null){
-            if (intent.getAction()!= null){
-                String action = intent.getAction();
+        Intent intent = getIntent();
+        if (intent.getData() != null) {
                 String stringData = String.valueOf(intent.getData().getSchemeSpecificPart());
                 GsonBuilder gsonBuilder = new GsonBuilder();
                 Gson gson = gsonBuilder.create();
-                movieDetails = gson.fromJson(stringData,Recently.class);
-                if (action.equals("coming")){
-                    ReserveBtn.setVisibility(View.INVISIBLE);
-                }
+                cinemaDetails = gson.fromJson(stringData, Cinema.class);
                 setDetails();
             }
-        }
-
-        dropDown.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String id = String.valueOf(movieDetails.getId());
-                //reviews not working, TODO fix this api
-//                apiCalling.showAllReviews("4",MovieDetailsPage.this);
-         //       allRevsLayout.setVisibility(View.VISIBLE);
-
-
-
+//                ArrayList<String> texts = new ArrayList<>();
+                // AllReviewsAdapter allReviewsAdapter = new AllReviewsAdapter(this,texts);
+                //  reviewsRv.setAdapter(allReviewsAdapter);
+                reviewsRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             }
-        });
 
-    }
 
     private void setDetails() {
         Picasso.get()
-                .load(movieDetails.getImage())
-                .into(coverPhoto);
-        movieTitle.setText(movieDetails.getName());
-        movieDuration.setText(movieDetails.getPeriod());
-        movieDate.setText(movieDetails.getDate());
-        String revs = String.valueOf(movieDetails.getReviews());
-        movieRate.setText(revs);
-        String rates = String.valueOf(movieDetails.getRate());
-        movieTotalReviewsNumber.setText(rates);
-        categorList = (ArrayList<Category>) movieDetails.getCategory();
-        CategoryAdapter categoryAdapter = new CategoryAdapter(this,categorList);
-        categoryRV.setAdapter(categoryAdapter);
-        ratingBar.setRating(movieDetails.getReviews());
-        playImage.setOnClickListener(new View.OnClickListener() {
+                .load(cinemaDetails.getImage())
+                .into(cinemaCover);
+        nameCinema.setText(cinemaDetails.getName());
+        detailAddress.setText(cinemaDetails.getAddress());
+        String times = "From: "+ cinemaDetails.getOpen() + " To: " + cinemaDetails.getClose();
+        detailTime.setText(times);
+        String rate = String.valueOf(cinemaDetails.getRate());
+        avgRating.setText(rate);
+        String reviews = String.valueOf(cinemaDetails.getReviews());
+        reviewsNumber.setText(reviews);
+        playCinema.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String link = movieDetails.getYoutube();
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                startActivity(intent);
+                String link = (String) cinemaDetails.getYoutube();
+                if (!link.equals("null")) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                    startActivity(intent);
+                }
             }
         });
-        shareImage.setOnClickListener(new View.OnClickListener() {
+        shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent share = new Intent(android.content.Intent.ACTION_SEND);
-                share.setType("text/plain");
-                share.putExtra(Intent.EXTRA_TEXT, movieDetails.getYoutube());
-                startActivity(share);
+                String link = (String) cinemaDetails.getYoutube();
+                if (!link.equals("null")) {
+                    Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                    share.setType("text/plain");
+                    share.putExtra(Intent.EXTRA_TEXT, link);
+                    startActivity(share);
+                }
             }
         });
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavUtils.navigateUpFromSameTask(MovieDetailsPage.this);
+                NavUtils.navigateUpFromSameTask(CinemaDetailsPage.this);
                 finish();
+            }
+        });
+        movieListBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CinemaDetailsPage.this,AnyResultsPage.class);
+                intent.setAction("CinemaMoviesList");
+                startActivity(intent);
             }
         });
         makeReviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SessionManager sessionManager = new SessionManager(MovieDetailsPage.this);
+                SessionManager sessionManager = new SessionManager(CinemaDetailsPage.this);
                 //check if he is logged in or not
                 final String token = "Bearer "+ sessionManager.getUserToken();
                 if (!token.equals("Bearer ")) {
                     makeReviewLayout.setVisibility(View.VISIBLE);
-                    final String id = movieDetails.getId().toString();
+                    final String id = cinemaDetails.getId().toString();
                     submitReview.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -183,17 +171,17 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
                             String rate = String.valueOf(ratingBar.getRating()*2);
                             //TODO: add real device language from session manger
                             if (!comment.equals("")) {
-                                apiCalling.submitComment(token, "en", id, comment, MovieDetailsPage.this);
+                                apiCalling.submitComment(token, "en", id, comment, CinemaDetailsPage.this);
                             }
                             if (ratingBar.getRating()>=1) {
-                                apiCalling.makeRate(token, "en", id, rate, MovieDetailsPage.this);
+                                apiCalling.makeRate(token, "en", id, rate, CinemaDetailsPage.this);
                             }
                         }
                     });
 
                 }
                 else {
-                    Intent goToLoginIntent = new Intent(MovieDetailsPage.this,Login.class);
+                    Intent goToLoginIntent = new Intent(CinemaDetailsPage.this,Login.class);
                     startActivity(goToLoginIntent);
                 }
 
@@ -211,8 +199,6 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
                 submittedLayout.setVisibility(View.GONE);
             }
         });
-
-
     }
 
     @Override
@@ -233,3 +219,4 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
         }
     }
 }
+

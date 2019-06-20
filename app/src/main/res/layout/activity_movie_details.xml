@@ -279,7 +279,7 @@
        />
     <include
         layout="@layout/submitted_layout"
-        android:visibility="gone"/>
+        />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -1,4 +1,4 @@
-package com.example.myticket;
+package com.example.myticket.View.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,12 +9,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordModel;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordResponce;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
-import com.example.myticket.Model.Network.Retrofit.ApiClient;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
-import com.example.myticket.Model.Network.Retrofit.onResponceInterface;
+import com.example.myticket.R;
 
 import static com.example.myticket.View.Activity.Register.isEmailValid;
 

@@ -5,7 +5,6 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.myticket.Gate;
 import com.example.myticket.R;
 
 public class Splash extends AppCompatActivity

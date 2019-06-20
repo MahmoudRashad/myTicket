@@ -1,15 +1,9 @@
 package com.example.myticket.View.Activity;
 
 import android.content.Intent;
-import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,29 +14,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.myticket.AnyResultsPage;
-import com.example.myticket.EditAccount;
 import com.example.myticket.Model.MainResult;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Cinema;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Coming;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Recently;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.Result;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderResponce;
-import com.example.myticket.Model.Network.DataModel.MovieModel.MovieDetails;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
-import com.example.myticket.Model.Network.Retrofit.ApiClient;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
-import com.example.myticket.Model.Network.Retrofit.onResponceInterface;
-import com.example.myticket.View.Activity.MainActivity;
-import com.example.myticket.View.Activity.MapsActivity;
 import com.example.myticket.R;
 import com.example.myticket.View.Adapter.HomeMovieAdapter;
 import com.example.myticket.View.Adapter.SliderAdapter;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
