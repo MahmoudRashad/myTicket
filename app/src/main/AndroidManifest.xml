@@ -56,9 +56,7 @@
         <activity
             android:name=".View.Activity.Register"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".View.Activity.Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -78,7 +76,6 @@
         <activity
             android:name=".View.Activity.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".View.Activity.Login" />
         <activity android:name=".View.Activity.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
