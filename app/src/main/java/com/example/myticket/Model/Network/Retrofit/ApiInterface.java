@@ -3,6 +3,7 @@ package com.example.myticket.Model.Network.Retrofit;
 import com.example.myticket.Model.MainResult;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.MakeCommentResponce;
+import com.example.myticket.Model.Network.DataModel.EditUserData.EditUserDataResponse;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordModel;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordResponce;
 import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
@@ -76,14 +77,14 @@ public interface ApiInterface {
 
     @Multipart
     @POST("save_editprofile")
-    Call<GeneralApiesponse> saveUserImage(@Header("lang") String lang,
-                                           @Header("Authorization") String authorization,
-                                          @Part MultipartBody.Part image,
-                                        @QueryMap Map<String, String> queryMap);
+    Call<EditUserDataResponse> saveUserImage(@Header("lang") String lang,
+                                             @Header("Authorization") String authorization,
+                                             @Part MultipartBody.Part image,
+                                             @QueryMap Map<String, String> queryMap);
 
 
     @POST("save_editprofile")
-    Call<GeneralApiesponse> saveEditProfile(@Header("lang") String lang,
+    Call<EditUserDataResponse> saveEditProfile(@Header("lang") String lang,
                                            @Header("Authorization") String authorization,
                                         @QueryMap Map<String, String> queryMap);
 

@@ -22,6 +22,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -30,6 +31,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -47,13 +51,18 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.example.myticket.Enum.ErrorTypeEnum;
 import com.example.myticket.Model.Data.SessionManager;
+import com.example.myticket.Model.Network.DataModel.EditUserData.EditUserDataResponse;
+import com.example.myticket.Model.Network.DataModel.Resgister.UserRegister;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
+import com.example.myticket.View.Activity.Register;
 import com.example.myticket.helper.Variables;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EditAccount extends AppCompatActivity implements GeneralListener {
 
@@ -70,8 +79,9 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
 
     //--------------------------------  references of views -------------------------------------------------//
     private ConstraintLayout layout ;
-    TextView nameTv , phoneTv,EmailTv,addressTv;
-    ImageView userIv , editImageIv;
+    EditText nameTv , phoneTv,emailTv,addressTv;
+    ImageView userIv , editImageIv , nameIv,phoneIv,emailIv,addressIv;
+    Button saveEditBtn;
 
 
     @Override
@@ -164,7 +174,7 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
         Log.e("test**" , sessionManager.getNameOfUser() );
             nameTv.setText(sessionManager.getNameOfUser());
             phoneTv.setText(sessionManager.getUserPhone());
-            EmailTv.setText(sessionManager.getUserEmail());
+        emailTv.setText(sessionManager.getUserEmail());
             addressTv.setText(sessionManager.getUserAddress());
 
         if (sessionManager.getUserImage() != null && sessionManager.getUserImage() != "")
@@ -215,11 +225,15 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
         layout = findViewById(R.id.container);
         nameTv = findViewById(R.id.name);
         phoneTv = findViewById(R.id.phone);
-        EmailTv = findViewById(R.id.email);
+        emailTv = findViewById(R.id.email);
         addressTv = findViewById(R.id.address);
         userIv = findViewById(R.id.profile_image);
         editImageIv = findViewById(R.id.profile_pen);
-
+        nameIv = findViewById(R.id.arrowOne);
+        phoneIv= findViewById(R.id.arrowTwo);
+        emailIv= findViewById(R.id.arrowThree);
+        addressIv = findViewById(R.id.arrowFour);
+        saveEditBtn = findViewById(R.id.submit_edit_profile_btn);
 
 
 
@@ -427,6 +441,24 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
     }
 
 
+    private void setVisibalityUpdateBtn(int show)
+    {
+        saveEditBtn.setVisibility(show);
+    }
+
+
+    /**
+     * method is used for checking valid email id format.
+     *
+     * @param email
+     * @return boolean true for valid false for invalid
+     */
+    public static boolean isEmailValid(String email) {
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 
 
     public void
@@ -434,11 +466,105 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
     {
 //        try {
 
+
+        saveEditBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (TextUtils.isEmpty(nameTv.getText()) ||
+                        TextUtils.isEmpty(phoneTv.getText()) ||
+                        TextUtils.isEmpty(emailTv.getText()) ||
+                        TextUtils.isEmpty(addressTv.getText() ))
+                {
+                    Toast.makeText(EditAccount.this
+                            , "Please fill all fields"
+                            , Toast.LENGTH_LONG).show();
+                }
+
+                else if (!isEmailValid(emailTv.getText().toString())){
+                    Toast.makeText(EditAccount.this
+                            , "Email Not Valid",
+                            Toast.LENGTH_LONG).show();
+                }
+                else {
+                    showWatingDialog();
+
+                    Map<String , String> queryMap = new HashMap<>();
+                    queryMap.put("name" , nameTv.getText().toString());
+                    queryMap.put("phone" , phoneTv.getText().toString());
+                    queryMap.put("email" , emailTv.getText().toString());
+                    queryMap.put("address" , addressTv.getText().toString());
+
+                    apiCalling.editUserData("Bearer " +sessionManager.getUserToken()
+                            , "ar" ,
+                            queryMap , EditAccount.this );
+                }
+
+            }
+        });
         editImageIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialogChangePic =  showDialogChangePiecture();
                 dialogChangePic.show();
+            }
+        });
+
+        nameIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setVisibalityUpdateBtn(View.VISIBLE);
+                nameTv.requestFocus();
+                nameTv.setSelection(nameTv.getText().toString().length());
+
+                InputMethodManager inputMethodManager =
+                        (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.toggleSoftInputFromWindow(
+                        nameTv.getApplicationWindowToken(),
+                        InputMethodManager.SHOW_FORCED, 0);
+            }
+        });
+
+        phoneIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setVisibalityUpdateBtn(View.VISIBLE);
+                phoneTv.requestFocus();
+                phoneTv.setSelection(phoneTv.getText().toString().length());
+
+                InputMethodManager inputMethodManager =
+                        (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.toggleSoftInputFromWindow(
+                        phoneTv.getApplicationWindowToken(),
+                        InputMethodManager.SHOW_FORCED, 0);
+            }
+        });
+        emailIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setVisibalityUpdateBtn(View.VISIBLE);
+                emailTv.requestFocus();
+                emailTv.setSelection(emailTv.getText().toString().length());
+
+                InputMethodManager inputMethodManager =
+                        (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.toggleSoftInputFromWindow(
+                        emailTv.getApplicationWindowToken(),
+                        InputMethodManager.SHOW_FORCED, 0);
+            }
+        });
+        addressIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setVisibalityUpdateBtn(View.VISIBLE);
+                addressTv.requestFocus();
+                addressTv.setSelection(addressTv.getText().toString().length());
+
+                InputMethodManager inputMethodManager =
+                        (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.toggleSoftInputFromWindow(
+                        addressTv.getApplicationWindowToken(),
+                        InputMethodManager.SHOW_FORCED, 0);
             }
         });
 
@@ -455,6 +581,29 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
         dialog.dismiss();
         if(status == ErrorTypeEnum.noError.getValue())
         {
+            EditUserDataResponse editUserDataResponse =
+                    (EditUserDataResponse) tApiResponse;
+            sessionManager.setUserEmail(
+                    editUserDataResponse.getResult().get(0).getEmail()
+            );
+
+            sessionManager.setNameOfUser(
+                    editUserDataResponse.getResult().get(0).getUserName()
+            );
+
+
+            sessionManager.setUserPhone(
+                    editUserDataResponse.getResult().get(0).getPhone()
+            );
+
+            sessionManager.setUserAddress(
+                    editUserDataResponse.getResult().get(0).getAddress()
+            );
+
+            sessionManager.setUserImage(
+                    editUserDataResponse.getResult().get(0).getImage()
+            );
+            setDataOfViews();
             Toast.makeText(this , "updated successfully"
                     , Toast.LENGTH_LONG).show();
         }

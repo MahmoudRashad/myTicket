@@ -6,6 +6,10 @@
     <color name="yellow">#E8CA0B</color>
 
     <color name="grey_star">#7F7F7F</color>
+    <color name="gray">#7F7F7F</color>
+    <color name="white">#fff</color>
+    <color name="black">#000</color>
+
 
 
 </resources>
