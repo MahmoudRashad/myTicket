@@ -2,6 +2,7 @@ package com.example.myticket.View.Activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -58,6 +60,8 @@ public class HomeCinema extends AppCompatActivity implements
     private TextView seeAllCinema;
     private TextView seeAllNearby;
     private ApiCalling apiCalling;
+    private ImageView searchIcon;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,16 +80,25 @@ public class HomeCinema extends AppCompatActivity implements
         seeAllComingSoon = findViewById(R.id.comingSoon_seeAll);
         seeAllCinema = findViewById(R.id.cinema_seeAll);
         seeAllNearby = findViewById(R.id.cinema_seeNearBy);
-//        drawerLayout = findViewById(R.id.home_cinema_drawer_layout);
-//        toggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.open_nav,R.string.close_nav);
-//        drawerLayout.addDrawerListener(toggle);
-//        toggle.syncState();
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        searchIcon = findViewById(R.id.IV_menu2);
         SliderProgressBar.getIndeterminateDrawable().setColorFilter(0xFFFFFFFF, android.graphics.PorterDuff.Mode.MULTIPLY);
 
         //setNavigationViewListener();
         apiCalling.homeApiCall(this);
         apiCalling.mainSliderCall(this);
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeCinema.this,SearchPage.class);
+                startActivity(intent);
+            }
+        });
+
+        //        drawerLayout = findViewById(R.id.home_cinema_drawer_layout);
+//        toggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.open_nav,R.string.close_nav);
+//        drawerLayout.addDrawerListener(toggle);
+//        toggle.syncState();
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 //        setNavigationViewListener();
 
 //        NavigationView navigationView = (NavigationView) findViewById(R.id.navmenu);
