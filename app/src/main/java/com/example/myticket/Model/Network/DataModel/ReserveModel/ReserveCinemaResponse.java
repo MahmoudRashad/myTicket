@@ -3,11 +3,13 @@ package com.example.myticket.Model.Network.DataModel.ReserveModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class ReserveResponse
+import java.util.List;
+
+public class ReserveCinemaResponse
 {
     @SerializedName("result")
     @Expose
-    private List<Result> result = null;
+    private List<ResultReserveCinema> result = null;
     @SerializedName("success")
     @Expose
     private Boolean success;
@@ -15,11 +17,11 @@ public class ReserveResponse
     @Expose
     private String message;
 
-    public List<Result> getResult() {
+    public List<ResultReserveCinema> getResult() {
         return result;
     }
 
-    public void setResult(List<Result> result) {
+    public void setResult(List<ResultReserveCinema> result) {
         this.result = result;
     }
 

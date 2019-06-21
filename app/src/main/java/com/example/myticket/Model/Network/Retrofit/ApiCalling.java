@@ -13,6 +13,7 @@ import com.example.myticket.Model.Network.DataModel.EditUserData.EditUserDataRes
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordResponce;
 import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderResponce;
+import com.example.myticket.Model.Network.DataModel.ReserveModel.ReserveCinemaResponse;
 import com.example.myticket.Model.Network.DataModel.Resgister.MainResponceReg;
 import com.example.myticket.View.Activity.Login;
 
@@ -620,5 +621,71 @@ public class ApiCalling
 //    });
 //}
 
+
+
+    public void getCinemasOfMovie(String authToken ,
+                             String lang ,
+                             Map<String, String> queryMap ,
+                             final GeneralListener generalListener )
+    {
+
+
+
+        Call<ReserveCinemaResponse> call =
+                apiInterface.getReserveCinema( lang ,authToken , queryMap );
+
+
+        call.enqueue(new Callback<ReserveCinemaResponse>() {
+            @Override
+            public void onResponse(Call<ReserveCinemaResponse> call, Response<ReserveCinemaResponse> response)
+            {
+                Log.e("onResponse" ,response.raw().toString());
+                if(response.isSuccessful())
+                {
+                    if(response.body().getSuccess())
+                    {
+                        generalListener.getApiResponse(ErrorTypeEnum.noError.getValue() ,
+                                null , response.body());
+                    }
+
+                    else
+                    {
+                        generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue() ,
+                                null , response.body());
+                    }
+                }
+                else if (response.code() == 401) {
+                    // Handle unauthorized
+                    Log.e("onResponse" ,"logout");
+                    Intent   i= new Intent(context , Login.class);
+
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    context.startActivity(i);
+                }
+                else
+                {
+                    generalListener.getApiResponse(ErrorTypeEnum.ServerCodeFail.getValue() ,
+                            response.body().getMessage() , null);
+                }
+            }
+            @Override
+            public void onFailure(Call<ReserveCinemaResponse> call, Throwable t)
+            {
+                Log.e("onResponse" ,call.request().toString());
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
+    }
 
 }
