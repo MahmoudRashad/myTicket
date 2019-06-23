@@ -12,6 +12,7 @@ import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderRes
 import com.example.myticket.Model.Network.DataModel.MapModel.NearByFullModel;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ReserveCinemaResponse;
 import com.example.myticket.Model.Network.DataModel.Resgister.MainResponceReg;
+import com.example.myticket.Model.Network.DataModel.Search.SearchResponce;
 
 import java.util.Map;
 
@@ -93,6 +94,8 @@ public interface ApiInterface {
     Call<ReserveCinemaResponse> getReserveCinema(@Header("lang") String lang,
                                                 @Header("Authorization") String authorization,
                                                 @QueryMap Map<String, String> queryMap);
+    @POST("search")
+    Call<SearchResponce> Search(@QueryMap Map<String, String> queryMap);
 
 
 }

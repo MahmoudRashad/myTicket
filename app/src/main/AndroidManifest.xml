@@ -24,6 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".View.Activity.SearchResults"></activity>
         <activity android:name=".View.Activity.EditDetail" />
         <activity android:name=".View.Activity.EditAccount" />
         <activity
@@ -45,10 +46,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".View.Activity.HomeCinema" />
         </activity>
-
-        <activity android:name=".View.Activity.Login"/>
-
-
+        <activity android:name=".View.Activity.Login" />
         <activity android:name=".View.Activity.Gate" />
         <activity android:name=".View.Activity.MainActivity" />
         <activity android:name=".View.Activity.HomeCinema" />
@@ -56,8 +54,6 @@
         <activity
             android:name=".View.Activity.Register"
             android:windowSoftInputMode="adjustResize" />
-
-
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
