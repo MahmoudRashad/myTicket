@@ -125,6 +125,18 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
             }
         });
 
+
+        ReserveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(
+                        MovieDetailsPage.this, ReserveActivity.class
+                );
+                intent1.putExtra("movie_id" , movieDetails.getId());
+                intent1.putExtra("movie_image" , movieDetails.getImage());
+                startActivity(intent1);
+            }
+        });
     }
 
     private void setDetails() {

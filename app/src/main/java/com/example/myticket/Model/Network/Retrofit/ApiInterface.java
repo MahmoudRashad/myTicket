@@ -10,6 +10,7 @@ import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.Forge
 import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderResponce;
 import com.example.myticket.Model.Network.DataModel.MapModel.NearByFullModel;
+import com.example.myticket.Model.Network.DataModel.ReserveModel.ChairResponse;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ReserveCinemaResponse;
 import com.example.myticket.Model.Network.DataModel.Resgister.MainResponceReg;
 import com.example.myticket.Model.Network.DataModel.Search.SearchResponce;
@@ -97,5 +98,21 @@ public interface ApiInterface {
     @POST("search")
     Call<SearchResponce> Search(@QueryMap Map<String, String> queryMap);
 
+
+    @POST("reserve_date")
+    Call<ReserveCinemaResponse> getReserveDate(@Header("lang") String lang,
+                                                 @Header("Authorization") String authorization,
+                                                 @QueryMap Map<String, String> queryMap);
+
+    @POST("reserve_time")
+    Call<ReserveCinemaResponse> getReserveTime(@Header("lang") String lang,
+                                               @Header("Authorization") String authorization,
+                                               @QueryMap Map<String, String> queryMap);
+
+
+    @POST("chair")
+    Call<ChairResponse> getChairsCinema(@Header("lang") String lang,
+                                        @Header("Authorization") String authorization,
+                                        @QueryMap Map<String, String> queryMap);
 
 }
