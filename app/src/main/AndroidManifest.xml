@@ -37,6 +37,8 @@
                 android:value=".View.Activity.HomeCinema" />
         </activity>
 
+
+        <activity android:name=".View.Activity.ChairsActivity" />
         <activity android:name=".View.Activity.AnyResultsPage" />
         <activity android:name=".View.Activity.SearchPage" />
         <activity android:name=".View.Activity.ResetPassword" />
@@ -53,6 +55,7 @@
 
 
         <activity android:name=".View.Activity.Gate" />
+        <activity android:name=".View.Activity.ReserveActivity" />
         <activity android:name=".View.Activity.MainActivity" />
         <activity android:name=".View.Activity.HomeCinema" />
         <activity android:name=".View.Activity.ForgetPassword" />

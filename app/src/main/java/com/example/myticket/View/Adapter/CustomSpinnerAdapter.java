@@ -52,9 +52,9 @@ public class CustomSpinnerAdapter extends BaseAdapter
         TextView title =  view.findViewById(R.id.textView13);
         title.setText(selectors.get(i).getName());
 
-        Typeface typeLight= Typeface.createFromAsset(context.getAssets(),"montserrat_alternates_light.otf");
-
-        title.setTypeface(typeLight);
+//        Typeface typeLight= Typeface.createFromAsset(context.getAssets(),"montserrat_alternates_light.otf");
+//
+//        title.setTypeface(typeLight);
 
         return view;
     }

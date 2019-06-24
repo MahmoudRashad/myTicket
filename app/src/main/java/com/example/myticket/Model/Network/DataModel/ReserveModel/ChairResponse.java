@@ -3,22 +3,11 @@ package com.example.myticket.Model.Network.DataModel.ReserveModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-public class ReserveCinemaResponse
+public class ChairResponse
 {
-
-//    public int getType() {
-//        return type;
-//    }
-//
-//    public void setType(int type) {
-//        this.type = type;
-//    }
-
     @SerializedName("result")
     @Expose
-    private List<ResultReserveCinema> result = null;
+    private ResultChair result;
     @SerializedName("success")
     @Expose
     private Boolean success;
@@ -26,11 +15,11 @@ public class ReserveCinemaResponse
     @Expose
     private String message;
 
-    public List<ResultReserveCinema> getResult() {
+    public ResultChair getResult() {
         return result;
     }
 
-    public void setResult(List<ResultReserveCinema> result) {
+    public void setResult(ResultChair result) {
         this.result = result;
     }
 

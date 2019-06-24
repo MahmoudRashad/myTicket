@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -44,6 +45,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.example.myticket.Enum.ErrorTypeEnum;
+import com.example.myticket.Enum.ReservetypeEnum;
 import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.Network.DataModel.EditUserData.EditUserDataResponse;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ReserveCinemaResponse;
@@ -73,15 +75,23 @@ public class ReserveActivity extends AppCompatActivity
     public int cameraRequest = 0 , galleryRequest = 1 ;
     Dialog  dialogChangePic ;
     ProgressDialog dialog;
-    int movieId ;
-    ReserveCinemaResponse reserveCinemaResponse;
-    CustomSpinnerAdapter customSpinnerAdapter;
+    static int movieId,reserveCinemaId,reserveDateId,reserveTimeId;
+    int type;
+
+    static String reserveCinema ,
+            reserveDate , reserveTime ;
+    String movieImagePath;
+    ReserveCinemaResponse reserveCinemaResponse,
+            reserveDateResponse,
+            reserveTimeResponse;
+    CustomSpinnerAdapter customSpinnerAdapter,
+            dateSpinnerAdapter,timeSpinnerAdapter;
 
     //--------------------------------  references of views -------------------------------------------------//
     private ConstraintLayout layout ;
-    EditText nameTv , phoneTv,emailTv,addressTv;
-    ImageView userIv , editImageIv , nameIv,phoneIv,emailIv,addressIv;
-    Button saveEditBtn;
+//    EditText nameTv , phoneTv,emailTv,addressTv;
+    ImageView movieIv ;/*, editImageIv , nameIv,phoneIv,emailIv,addressIv;*/
+    Button nextBtn;
     Spinner cinemaS , dateS , timeS;
 
 
@@ -96,11 +106,44 @@ public class ReserveActivity extends AppCompatActivity
         if( getIntent().getExtras() != null )
         {
             movieId = getIntent().getExtras().getInt("movie_id" , -1);
+            movieImagePath = getIntent().getExtras().getString("movie_image" , "");
         }
 
         sessionManager = new SessionManager(this);
         apiCalling = new ApiCalling(this);
 
+
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .placeholder(R.drawable.my_ticket_white_logo)
+                .error(R.drawable.my_ticket_white_logo)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .priority(Priority.HIGH);
+
+
+        Glide.with(this)
+                .load(movieImagePath)
+//                        .error(R.drawable.arrow_back)
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        Log.e("Glide erorr**", "failed to load image");
+
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        return false;
+                    }
+                })
+                .apply(options)
+//                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                    .skipMemoryCache(true)
+                .into(movieIv);
+
+        showWatingDialog();
+        type = ReservetypeEnum.cinema.getValue();
         Map <String , String> queryMap = new HashMap();
         queryMap.put("film_id" , movieId+"");
         apiCalling.getCinemasOfMovie("Bearer " +sessionManager.getUserToken()
@@ -111,122 +154,58 @@ public class ReserveActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        setDataOfViews();
+//        setDataOfViews();
     }
 
 
-    public Dialog showDialogChangePiecture() {
-
-        final Dialog dialogReportProduct = new Dialog(this);
-        dialogReportProduct.requestWindowFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
-        dialogReportProduct.setContentView(R.layout.dialog_change_pic);
-        dialogReportProduct.setCancelable(true);
-        dialogReportProduct.setCanceledOnTouchOutside(true);
-        ConstraintLayout layout =  dialogReportProduct.findViewById(R.id.container);
-
-//        if (languageHelper.getAppLanguage().equals("ar")) {
-//            layout.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
-//        } else
+//    private void setDataOfViews()
+//    {
+////        try {
 //
-//        {
-//            layout.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
-//        }
-        ////////////////////////////////////////////////////////////////////////////////
-//        dialogReportProduct.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-
-        final DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-//        int width = displayMetrics.widthPixels;
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        lp.copyFrom(dialogReportProduct.getWindow().getAttributes());
-//        lp.width = (int) (width * 0.8);
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        lp.gravity = Gravity.CENTER;
-        dialogReportProduct.getWindow().setAttributes(lp);
-        dialogReportProduct.setCancelable(true);
-
-        //------------- logic-------------------//
-
-
-        // references of views
-        TextView titleTv = dialogReportProduct.findViewById(R.id.textView60);
-        ImageButton galleryIb = dialogReportProduct.findViewById(R.id.imageButton3);
-        ImageButton cameraIb = dialogReportProduct.findViewById(R.id.imageButton4);
-
-
-//        Typeface typeLight= Typeface.createFromAsset(context.getAssets(),"montserrat_alternates_light.otf");
-//        Typeface typeMed = Typeface.createFromAsset(context.getAssets(),"montserrat_alternates_medium.otf");
-//        Typeface typeBold = Typeface.createFromAsset(context.getAssets(),"montserrat_alternates_bold.otf");
-
-
-//        titleTv.setTypeface(typeMed);
-        galleryIb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               onClickBtnGallery();
-            }
-        });
-
-        cameraIb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               onClickBtnCamera();
-            }
-        });
-
-        return dialogReportProduct;
-    }
-
-
-    private void setDataOfViews()
-    {
-//        try {
-
-        Log.e("test**" , sessionManager.getNameOfUser() );
-            nameTv.setText(sessionManager.getNameOfUser());
-            phoneTv.setText(sessionManager.getUserPhone());
-        emailTv.setText(sessionManager.getUserEmail());
-            addressTv.setText(sessionManager.getUserAddress());
-
-        if (sessionManager.getUserImage() != null && sessionManager.getUserImage() != "")
-        {
-
-            RequestOptions options = new RequestOptions()
-                    .centerCrop()
-                    .placeholder(R.drawable.my_ticket_white_logo)
-                    .error(R.drawable.my_ticket_white_logo)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .priority(Priority.HIGH);
-
-
-            Glide.with(this)
-                    .load(sessionManager.getUserImage())
-//                        .error(R.drawable.arrow_back)
-                    .listener(new RequestListener<Drawable>() {
-                        @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            Log.e("Glide erorr**", "failed to load image");
-
-                            return false;
-                        }
-
-                        @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            return false;
-                        }
-                    })
-                    .apply(options)
-//                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                    .skipMemoryCache(true)
-                    .into(userIv);
-        }
-
-//        }catch (Exception e)
+//        Log.e("test**" , sessionManager.getNameOfUser() );
+//            nameTv.setText(sessionManager.getNameOfUser());
+//            phoneTv.setText(sessionManager.getUserPhone());
+//        emailTv.setText(sessionManager.getUserEmail());
+//            addressTv.setText(sessionManager.getUserAddress());
+//
+//        if (sessionManager.getUserImage() != null && sessionManager.getUserImage() != "")
 //        {
 //
+//            RequestOptions options = new RequestOptions()
+//                    .centerCrop()
+//                    .placeholder(R.drawable.my_ticket_white_logo)
+//                    .error(R.drawable.my_ticket_white_logo)
+//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                    .priority(Priority.HIGH);
+//
+//
+//            Glide.with(this)
+//                    .load(sessionManager.getUserImage())
+////                        .error(R.drawable.arrow_back)
+//                    .listener(new RequestListener<Drawable>() {
+//                        @Override
+//                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+//                            Log.e("Glide erorr**", "failed to load image");
+//
+//                            return false;
+//                        }
+//
+//                        @Override
+//                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+//                            return false;
+//                        }
+//                    })
+//                    .apply(options)
+////                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+////                    .skipMemoryCache(true)
+//                    .into(userIv);
 //        }
-    }
+//
+////        }catch (Exception e)
+////        {
+////
+////        }
+//    }
 
     public void findViewsToReferences()
     {
@@ -235,21 +214,24 @@ public class ReserveActivity extends AppCompatActivity
 
 
         layout = findViewById(R.id.container);
-        nameTv = findViewById(R.id.name);
-        phoneTv = findViewById(R.id.phone);
-        emailTv = findViewById(R.id.email);
-        addressTv = findViewById(R.id.address);
-        userIv = findViewById(R.id.profile_image);
-        editImageIv = findViewById(R.id.profile_pen);
-        nameIv = findViewById(R.id.arrowOne);
-        phoneIv= findViewById(R.id.arrowTwo);
-        emailIv= findViewById(R.id.arrowThree);
-        addressIv = findViewById(R.id.arrowFour);
-        saveEditBtn = findViewById(R.id.submit_edit_profile_btn);
+//        nameTv = findViewById(R.id.name);
+//        phoneTv = findViewById(R.id.phone);
+//        emailTv = findViewById(R.id.email);
+//        addressTv = findViewById(R.id.address);
+//        userIv = findViewById(R.id.profile_image);
+//        editImageIv = findViewById(R.id.profile_pen);
+//        nameIv = findViewById(R.id.arrowOne);
+//        phoneIv= findViewById(R.id.arrowTwo);
+//        emailIv= findViewById(R.id.arrowThree);
+//        addressIv = findViewById(R.id.arrowFour);
+        nextBtn = findViewById(R.id.button3);
         cinemaS = findViewById(R.id.spinner);
         dateS = findViewById(R.id.spinner2);
         timeS = findViewById(R.id.spinner3);
+        movieIv = findViewById(R.id.cover_photo);
 
+        String reserveCinema ,
+                reserveDate , reserveTime ;
 
 
 //        }
@@ -258,113 +240,6 @@ public class ReserveActivity extends AppCompatActivity
 //            Log.e("exception" , e.getMessage());
 //        }
 
-    }
-
-
-    public void onClickBtnGallery() {
-        checkPhotoPermission(galleryRequest);
-        dialogChangePic.dismiss();
-    }
-
-
-    public void onClickBtnCamera() {
-        checkPhotoPermission(cameraRequest);
-        dialogChangePic.dismiss();
-
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-
-        if( requestCode == galleryRequest)
-        {
-            // If request is cancelled, the result arrays are empty.
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                    && grantResults[1] == PackageManager.PERMISSION_GRANTED
-                    && grantResults[2] == PackageManager.PERMISSION_GRANTED)
-            {
-                // permission was granted, yay! Do the
-                // contacts-related task you need to do.
-                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pickPhoto , galleryRequest);//one can be replaced with any action code
-
-            } else
-            {
-                // permission denied, boo! Disable the
-                // functionality that depends on this permission.
-
-            }
-        }
-        else
-        {
-            // If request is cancelled, the result arrays are empty.
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                    && grantResults[1] == PackageManager.PERMISSION_GRANTED
-                    && grantResults[2] == PackageManager.PERMISSION_GRANTED)
-            {
-                // permission was granted, yay! Do the
-                // contacts-related task you need to do.
-                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(takePicture, cameraRequest);//zero can be replaced with any action code
-            }
-            else
-            {
-                // permission denied, boo! Disable the
-                // functionality that depends on this permission.
-
-            }
-        }
-
-    }
-
-
-    private void checkPhotoPermission(int flagRequest)
-    {
-        // Here, thisActivity is the current activity
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                        != PackageManager.PERMISSION_GRANTED  ) {
-
-            // Permission is not granted
-            // Should we show an explanation?
-//            if (ActivityCompat.shouldShowRequestPermissionRationale(thisActivity,
-//                    Manifest.permission.READ_CONTACTS)) {
-//                // Show an explanation to the user *asynchronously* -- don't block
-//                // this thread waiting for the user's response! After the user
-//                // sees the explanation, try again to request the permission.
-//            } else {
-            // No explanation needed; request the permission
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE ,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE ,
-                            Manifest.permission.CAMERA},
-                    flagRequest);
-
-            // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-            // app-defined int constant. The callback method gets the
-            // result of the request.
-//            }
-        } else {
-            // Permission has already been granted
-            if(flagRequest == galleryRequest)
-            {
-                Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(pickPhoto , galleryRequest);//one can be replaced with any action code
-            }
-            else {
-                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(takePicture, cameraRequest);//zero can be replaced with any action code
-            }
-        }
     }
 
 
@@ -389,6 +264,112 @@ public class ReserveActivity extends AppCompatActivity
     public void setListenerOfViews()
     {
 //        try {
+
+        cinemaS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+
+                reserveCinemaId =
+                        reserveCinemaResponse.getResult().get(position).getId();
+
+                reserveCinema =
+                        reserveCinemaResponse.getResult().get(position).getName();
+
+                if( reserveCinemaId != -1)
+                {
+                    showWatingDialog();
+                    type = ReservetypeEnum.date.getValue();
+                    Map <String , String> queryMap = new HashMap();
+                    queryMap.put("cinema_id" , reserveCinemaId+"");
+                    apiCalling.getDatesOfMovie("Bearer " +sessionManager.getUserToken()
+                            , "ar" ,
+                            queryMap ,ReserveActivity.this);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+
+
+        dateS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+
+                reserveDateId =
+                        reserveDateResponse.getResult().get(position).getId();
+
+                reserveDate =
+                        reserveDateResponse.getResult().get(position).getName();
+
+                if( reserveDateId != -1)
+                {
+                    showWatingDialog();
+                    type = ReservetypeEnum.time.getValue();
+                    Map <String , String> queryMap = new HashMap();
+                    queryMap.put("day_id" , reserveDateId+"");
+                    apiCalling.getTimesOfMovie("Bearer " +sessionManager.getUserToken()
+                            , "ar" ,
+                            queryMap ,ReserveActivity.this);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+
+        timeS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+
+                reserveDateId =
+                        reserveDateResponse.getResult().get(position).getId();
+
+                reserveDate =
+                        reserveDateResponse.getResult().get(position).getName();
+
+//                if( reserveDateId != -1)
+//                {
+//                    showWatingDialog();
+//                    type = ReservetypeEnum.time.getValue();
+//                    Map <String , String> queryMap = new HashMap();
+//                    queryMap.put("day_id" , reserveDateId+"");
+//                    apiCalling.getTimesOfMovie("Bearer " +sessionManager.getUserToken()
+//                            , "ar" ,
+//                            queryMap ,ReserveActivity.this);
+//                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ReserveActivity.this ,
+                        ChairsActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
 //        saveEditBtn.setOnClickListener(new View.OnClickListener() {
@@ -426,13 +407,7 @@ public class ReserveActivity extends AppCompatActivity
 //
 //            }
 //        });
-        editImageIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogChangePic =  showDialogChangePiecture();
-                dialogChangePic.show();
-            }
-        });
+
 
 
 
@@ -448,7 +423,7 @@ public class ReserveActivity extends AppCompatActivity
         dialog.dismiss();
         if(status == ErrorTypeEnum.noError.getValue())
         {
-            if( tApiResponse instanceof ReserveCinemaResponse)
+            if( type == ReservetypeEnum.cinema.getValue())
             {
                 this.reserveCinemaResponse =
                         (ReserveCinemaResponse) tApiResponse;
@@ -461,6 +436,37 @@ public class ReserveActivity extends AppCompatActivity
                 customSpinnerAdapter = new CustomSpinnerAdapter(
                         this, this.reserveCinemaResponse.getResult() );
                 cinemaS.setAdapter(customSpinnerAdapter);
+
+            }
+            else if( type == ReservetypeEnum.date.getValue())
+            {
+                this.reserveDateResponse =
+                        (ReserveCinemaResponse) tApiResponse;
+
+                ResultReserveCinema resultReserveCinema =
+                        new ResultReserveCinema();
+                resultReserveCinema.setName("select Date");
+                resultReserveCinema.setId(-1);
+                this.reserveDateResponse.getResult().add(0,resultReserveCinema);
+                dateSpinnerAdapter = new CustomSpinnerAdapter(
+                        this, this.reserveDateResponse.getResult() );
+                dateS.setAdapter(dateSpinnerAdapter);
+
+            }
+
+            else if( type == ReservetypeEnum.time.getValue())
+            {
+                this.reserveTimeResponse =
+                        (ReserveCinemaResponse) tApiResponse;
+
+                ResultReserveCinema resultReserveCinema =
+                        new ResultReserveCinema();
+                resultReserveCinema.setName("select Time");
+                resultReserveCinema.setId(-1);
+                this.reserveTimeResponse.getResult().add(0,resultReserveCinema);
+                timeSpinnerAdapter = new CustomSpinnerAdapter(
+                        this, this.reserveTimeResponse.getResult() );
+                timeS.setAdapter(timeSpinnerAdapter);
 
             }
 
