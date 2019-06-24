@@ -445,7 +445,9 @@ public class ApiCalling
 
     }
     public void showAllReviews(String filmId , final GeneralListener generalListener) {
-        Call<Comments> call = apiInterface.getAllComments(filmId);
+        Map<String,String> map = new HashMap<>();
+        map.put("film_id",filmId);
+        Call<Comments> call = apiInterface.getAllComments(map);
         call.enqueue(new Callback<Comments>() {
             @Override
             public void onResponse(Call<Comments> call, Response<Comments> response) {

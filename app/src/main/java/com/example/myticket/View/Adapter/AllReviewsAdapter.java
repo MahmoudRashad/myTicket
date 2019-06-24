@@ -38,7 +38,10 @@ public class AllReviewsAdapter extends RecyclerView.Adapter<AllReviewsAdapter.Re
         reviewsViewHolder.comment.setText(comment.getComment());
         reviewsViewHolder.date.setText(comment.getDate());
         float rate = Float.parseFloat(comment.getRate());
-        reviewsViewHolder.ratingBar.setRating(rate);
+        if (rate > 5)
+        reviewsViewHolder.ratingBar.setRating(5);
+        else
+            reviewsViewHolder.ratingBar.setRating(rate);
 
     }
 

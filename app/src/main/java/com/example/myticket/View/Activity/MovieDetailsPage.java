@@ -2,11 +2,13 @@ package com.example.myticket.View.Activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,19 +50,23 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
     private Button makeReviewBtn;
     private ImageView playImage;
     private ImageView shareImage;
-    private ImageView backBtn;
     private ImageView closeReviewBtn;
     private ImageView closeReviewResult;
     private Button submitReview;
     private EditText writtenComment;
-    private FrameLayout allRevsLayout;
+    private ConstraintLayout allRevsLayout;
     private FrameLayout submittedLayout;
     private FrameLayout makeReviewLayout;
-
+    private ImageView closeAllRevs;
 
     private ArrayList<Result> allComments;
     private ArrayList<Category> categorList;
     private Recently movieDetails;
+
+    private Toolbar toolbar;
+    private ImageView backBtn;
+    private ImageView searchIcon;
+
 
 
     ApiCalling apiCalling;
@@ -85,7 +91,6 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
         categoryRV = findViewById(R.id.category_rv);
         playImage = findViewById(R.id.icon_play_movie);
         shareImage = findViewById(R.id.icon_share_movie);
-        backBtn = findViewById(R.id.icon_back_movie);
         makeReviewLayout = findViewById(R.id.frame_make_review);
         closeReviewBtn = findViewById(R.id.close_review_movie);
         submitReview = findViewById(R.id.submit_btn);
@@ -94,6 +99,7 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
         submittedText = findViewById(R.id.submitted_text);
         submittedLayout = findViewById(R.id.submitted_layout);
         closeReviewResult = findViewById(R.id.close_review_result_movie);
+        closeAllRevs = findViewById(R.id.close_All_reviews);
 
         reviewsRv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         categoryRV.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
@@ -116,11 +122,14 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
             @Override
             public void onClick(View v) {
                 String id = String.valueOf(movieDetails.getId());
-                //reviews not working, TODO fix this api
-//                apiCalling.showAllReviews("4",MovieDetailsPage.this);
-         //       allRevsLayout.setVisibility(View.VISIBLE);
-
-
+                allRevsLayout.setVisibility(View.VISIBLE);
+                apiCalling.showAllReviews(id,MovieDetailsPage.this);
+                closeAllRevs.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        allRevsLayout.setVisibility(View.GONE);
+                    }
+                });
 
             }
         });
@@ -137,6 +146,27 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
                 startActivity(intent1);
             }
         });
+        setToolbar();
+    }
+
+    private void setToolbar() {
+        toolbar = findViewById(R.id.toolbar);
+        searchIcon = findViewById(R.id.toolbar_Search);
+        backBtn = findViewById(R.id.toolbar_back);
+
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MovieDetailsPage.this,SearchPage.class);
+                startActivity(intent);
+            }
+        });
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO go back 
+            }
+        });
     }
 
     private void setDetails() {
@@ -151,7 +181,7 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
         String rates = String.valueOf(movieDetails.getRate());
         movieTotalReviewsNumber.setText(rates);
         categorList = (ArrayList<Category>) movieDetails.getCategory();
-        CategoryAdapter categoryAdapter = new CategoryAdapter(this,categorList);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(this,categorList,null);
         categoryRV.setAdapter(categoryAdapter);
         ratingBar.setRating(movieDetails.getReviews());
         playImage.setOnClickListener(new View.OnClickListener() {

@@ -61,7 +61,7 @@ public interface ApiInterface {
     Call<MainResult> homeResponce();
 
     @POST("show_comments")
-    Call<Comments> getAllComments(@Body String filmId);
+    Call<Comments> getAllComments(@QueryMap Map<String, String> queryMap);
 
     @POST("make_comment")
     Call<BaseNoResult> submitComment(@Header("lang") String lang,@Header("Authorization") String token,@QueryMap Map<String, String> queryMap);
