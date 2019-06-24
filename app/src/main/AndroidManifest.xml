@@ -25,13 +25,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".View.Activity.EditDetail" />
-        <activity android:name=".View.Activity.EditAccount" >
-
-        </activity>
-        <activity android:name=".View.Activity.CinemaDetailsPage"
-            android:theme="@style/AppTheme"
+        <activity android:name=".View.Activity.EditAccount" />
+        <activity
+            android:name=".View.Activity.CinemaDetailsPage"
             android:parentActivityName=".View.Activity.HomeCinema"
-            >
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".View.Activity.HomeCinema" />
@@ -42,10 +40,10 @@
         <activity android:name=".View.Activity.AnyResultsPage" />
         <activity android:name=".View.Activity.SearchPage" />
         <activity android:name=".View.Activity.ResetPassword" />
-        <activity android:name=".View.Activity.MovieDetailsPage"
-            android:theme="@style/AppTheme"
+        <activity
+            android:name=".View.Activity.MovieDetailsPage"
             android:parentActivityName=".View.Activity.HomeCinema"
-            >
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".View.Activity.HomeCinema" />
@@ -62,6 +60,7 @@
         <activity
             android:name=".View.Activity.Register"
             android:windowSoftInputMode="adjustResize" />
+
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
