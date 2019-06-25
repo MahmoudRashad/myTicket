@@ -30,6 +30,7 @@ import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.R;
 import com.example.myticket.View.Adapter.ChairTypeAdapter;
 import com.example.myticket.View.Adapter.CustomSpinnerAdapter;
+import com.example.myticket.View.Adapter.RowChairsAdapter;
 import com.example.myticket.helper.Variables;
 
 import java.util.ArrayList;
@@ -50,10 +51,11 @@ public class ChairsActivity extends AppCompatActivity
     ProgressDialog dialog;
     ChairTypeAdapter chairTypeAdapter;
     ChairResponse chairResponse;
+    public static Map <String , AvaliableChair>avilableChairsMap ;
 
     //--------------------------------  references of views -------------------------------------------------//
     private ConstraintLayout layout ;
-    RecyclerView chairTypeRv;
+    RecyclerView chairTypeRv , chairRowsRv;
     Button nextBtn;
 
 
@@ -151,6 +153,7 @@ public class ChairsActivity extends AppCompatActivity
         layout = findViewById(R.id.container);
         nextBtn = findViewById(R.id.button4);
         chairTypeRv = findViewById(R.id.chairs_type);
+        chairRowsRv=  findViewById(R.id.chairs_RV);
 
 
 
@@ -259,6 +262,26 @@ public class ChairsActivity extends AppCompatActivity
                 chairTypeRv.setHasFixedSize(false);
                 chairTypeRv.setNestedScrollingEnabled(false);
 
+
+                //////////////////////////////////
+
+                showWatingDialog();
+                prepareChairs();
+                dialog.dismiss();
+
+                RowChairsAdapter rowChairsAdapter = new RowChairsAdapter(
+                        this);
+
+
+                LinearLayoutManager chairRowsLayoutManger =
+                        new LinearLayoutManager(this,
+                                LinearLayoutManager.VERTICAL,true);
+
+                chairRowsRv.setAdapter(rowChairsAdapter);
+                chairRowsRv.setLayoutManager(chairRowsLayoutManger);
+                chairRowsRv.setHasFixedSize(false);
+                chairRowsRv.setNestedScrollingEnabled(false);
+
             }
 
 
@@ -272,8 +295,8 @@ public class ChairsActivity extends AppCompatActivity
         }
     }
 
-//    public void prepareChairs()
-//    {
+    public void prepareChairs()
+    {
 ////        List<List<AvaliableChair>> array2DChairs = new ArrayList<>();
 ////        for(int i = 0 ; i < 20 ; i++)
 ////        {
@@ -312,6 +335,16 @@ public class ChairsActivity extends AppCompatActivity
 //                avaliableChair.set
 //            }
 //        }
-//    }
+
+        avilableChairsMap = new HashMap();
+        for(int in  = 0 ; in < chairResponse.getResult().getAvaliableChair().size();
+            in ++)
+            {
+                avilableChairsMap.put(
+                        chairResponse.getResult().getAvaliableChair().get(in).getChairNum(),
+                        chairResponse.getResult().getAvaliableChair().get(in)
+                );
+            }
+    }
 
 }

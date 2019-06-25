@@ -38,7 +38,6 @@ public class HomeCinema extends AppCompatActivity implements
         //NavigationView.OnNavigationItemSelectedListener,
         GeneralListener
 {
-
     private List<Result> listSlide;
     private List<Cinema> CinemaLists;
     private List<Recently> RecentlyLists;

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.myticket.Enum.ErrorTypeEnum;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Result;
 import com.example.myticket.R;
 
@@ -21,6 +22,8 @@ public class AllReviewsAdapter extends RecyclerView.Adapter<AllReviewsAdapter.Re
     public AllReviewsAdapter(Context context, ArrayList<Result> movieDetails) {
         this.context = context;
         this.allComments = movieDetails;
+
+
     }
 
     @NonNull

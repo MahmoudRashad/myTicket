@@ -14,9 +14,8 @@ import com.example.myticket.R;
 import java.util.Locale;
 
 
-public class MainActivity extends AppCompatActivity {
-
-
+public class MainActivity extends AppCompatActivity
+{
     ///---------------  reference of views -------------------------//
     private Button MapBtn;
     private Button LoginBtn;
