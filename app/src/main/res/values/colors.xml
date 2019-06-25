@@ -11,6 +11,9 @@
     <color name="black">#000</color>
     <color name="white">#fff</color>
 
+    <color name="unavilable">#444444</color>
+    <color name="primary_opicity">#f289091E</color>
+
 
 
 

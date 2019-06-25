@@ -10,65 +10,73 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.myticket.Model.Network.DataModel.HomeResult.Category;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.TypeChair;
 import com.example.myticket.R;
+import com.example.myticket.View.Activity.ChairsActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ChairTypeAdapter extends RecyclerView.Adapter<ChairTypeAdapter.ReviewsViewHolder> {
+import static com.example.myticket.View.Activity.ChairsActivity.avilableChairsMap;
+
+public class ChairsAdapter extends RecyclerView.Adapter<ChairsAdapter.ReviewsViewHolder> {
 
     private Context context;
-    private List<TypeChair> typeChairs;
+//    private List<TypeChair> typeChairs;
+    int numOfRow ;
 
-    public ChairTypeAdapter(Context context, List<TypeChair> typeChairs) {
+    public ChairsAdapter(Context context , int numOfRow) {
         this.context = context;
-        this.typeChairs = typeChairs;
+//        this.typeChairs = typeChairs;
+        this.numOfRow = numOfRow;
     }
 
     @NonNull
     @Override
     public ReviewsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.chair_type,viewGroup,false);
+        View view = inflater.inflate(R.layout.row_chair,viewGroup,false);
         return new ReviewsViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ReviewsViewHolder reviewsViewHolder, int i)
     {
-        if (typeChairs.size() != 0)
+//        if (typeChairs.size() != 0)
+//        {
+//            TypeChair typeChair = typeChairs.get(i);
+//            reviewsViewHolder.chairType.setText(typeChair.getName());
+//            reviewsViewHolder.chairColor.setBackgroundColor(Color.parseColor(
+//                    typeChair.getColor()
+//            ));
+//        }
+
+        // ( i*25 + o ) equetion to get chair number .
+
+        String chairNum = String.valueOf(numOfRow * 25 + i );
+        if(avilableChairsMap.containsKey(
+                chairNum))
         {
-            TypeChair typeChair = typeChairs.get(i);
-            reviewsViewHolder.chairType.setText(typeChair.getName());
             reviewsViewHolder.chairColor.setBackgroundColor(Color.parseColor(
-                    typeChair.getColor()));
-
-//            reviewsViewHolder.chairColor.setBackgroundColor(
-//                    Color.parseColor("ffffff"));
-
-//            reviewsViewHolder.chairColor.setBackgroundColor(
-//                    context.getResources().getColor(R.color.black));
-
-            // backgroundImg.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                    avilableChairsMap.get(chairNum).getDetail().getColor()));
         }
     }
 
     @Override
     public int getItemCount() {
-        if (typeChairs != null)
-        return typeChairs.size();
-        else return 0;
+//        if (typeChairs != null)
+//        return typeChairs.size();
+//        else return 0;
+
+        return 25;
     }
 
     public class ReviewsViewHolder extends RecyclerView.ViewHolder{
-        private TextView chairType ;
+//        private TextView chairType ;
         ImageView chairColor;
 
         public ReviewsViewHolder(@NonNull View itemView) {
             super(itemView);
-            chairType = itemView.findViewById(R.id.category_text);
+//            chairType = itemView.findViewById(R.id.category_text);
             chairColor = itemView.findViewById(R.id.imageView2);
         }
     }
