@@ -248,42 +248,11 @@ public class ChairsActivity extends AppCompatActivity
                 this.chairResponse =
                         (ChairResponse) tApiResponse;
 
-
-                chairTypeAdapter = new ChairTypeAdapter(
-                        this, this.chairResponse.getResult().getTypeChair() );
-                chairTypeRv.setAdapter(chairTypeAdapter);
-
-
-                LinearLayoutManager chairTypeLayoutManger =
-                        new LinearLayoutManager(this,
-                        LinearLayoutManager.HORIZONTAL,true);
-
-                chairTypeRv.setLayoutManager(chairTypeLayoutManger);
-                chairTypeRv.setHasFixedSize(false);
-                chairTypeRv.setNestedScrollingEnabled(false);
-
-
-                //////////////////////////////////
-
                 showWatingDialog();
                 prepareChairs();
-                dialog.dismiss();
-
-                RowChairsAdapter rowChairsAdapter = new RowChairsAdapter(
-                        this);
-
-
-                LinearLayoutManager chairRowsLayoutManger =
-                        new LinearLayoutManager(this,
-                                LinearLayoutManager.VERTICAL,true);
-
-                chairRowsRv.setAdapter(rowChairsAdapter);
-                chairRowsRv.setLayoutManager(chairRowsLayoutManger);
-                chairRowsRv.setHasFixedSize(false);
-                chairRowsRv.setNestedScrollingEnabled(false);
+                drawChairs();
 
             }
-
 
 //            Toast.makeText(this , "updated successfully"
 //                    , Toast.LENGTH_LONG).show();
@@ -294,6 +263,45 @@ public class ChairsActivity extends AppCompatActivity
                     , Toast.LENGTH_LONG).show();
         }
     }
+
+
+    public void drawChairs()
+    {
+        dialog.dismiss();
+
+        chairTypeAdapter = new ChairTypeAdapter(
+                this, this.chairResponse.getResult().getTypeChair() );
+        chairTypeRv.setAdapter(chairTypeAdapter);
+
+
+        LinearLayoutManager chairTypeLayoutManger =
+                new LinearLayoutManager(this,
+                        LinearLayoutManager.HORIZONTAL,true);
+
+        chairTypeRv.setLayoutManager(chairTypeLayoutManger);
+        chairTypeRv.setHasFixedSize(false);
+        chairTypeRv.setNestedScrollingEnabled(false);
+
+
+        //////////////////////////////////
+
+
+//                dialog.dismiss();
+
+        RowChairsAdapter rowChairsAdapter = new RowChairsAdapter(
+                this);
+
+
+        LinearLayoutManager chairRowsLayoutManger =
+                new LinearLayoutManager(this,
+                        LinearLayoutManager.VERTICAL,true);
+
+        chairRowsRv.setAdapter(rowChairsAdapter);
+        chairRowsRv.setLayoutManager(chairRowsLayoutManger);
+        chairRowsRv.setHasFixedSize(false);
+        chairRowsRv.setNestedScrollingEnabled(false);
+    }
+
 
     public void prepareChairs()
     {

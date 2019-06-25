@@ -3,6 +3,7 @@ package com.example.myticket.View.Adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,12 +53,42 @@ public class ChairsAdapter extends RecyclerView.Adapter<ChairsAdapter.ReviewsVie
 
         // ( i*25 + o ) equetion to get chair number .
 
-        String chairNum = String.valueOf(numOfRow * 25 + i );
+        String chairNum = String.valueOf(numOfRow * 25 + i+1 );
         if(avilableChairsMap.containsKey(
                 chairNum))
         {
+
+            reviewsViewHolder.chairNum.setText(
+                    avilableChairsMap.get(chairNum).getChairNum());
+
             reviewsViewHolder.chairColor.setBackgroundColor(Color.parseColor(
                     avilableChairsMap.get(chairNum).getDetail().getColor()));
+
+            reviewsViewHolder.layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    reviewsViewHolder.chairColor.setImageDrawable(
+                            context.getDrawable(R.drawable.ic_action_name)
+                    );
+                }
+            });
+
+        }
+        else
+        {
+            reviewsViewHolder.chairNum.setText(chairNum);
+
+            reviewsViewHolder.chairColor.setBackgroundColor(Color.parseColor("#444444"));
+
+
+            reviewsViewHolder.layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    reviewsViewHolder.chairColor.setBackgroundColor(Color.parseColor("#444444"));
+
+                    reviewsViewHolder.chairColor.setImageDrawable(null);
+                }
+            });
         }
     }
 
@@ -71,13 +102,15 @@ public class ChairsAdapter extends RecyclerView.Adapter<ChairsAdapter.ReviewsVie
     }
 
     public class ReviewsViewHolder extends RecyclerView.ViewHolder{
-//        private TextView chairType ;
+         TextView chairNum ;
         ImageView chairColor;
+        ConstraintLayout layout;
 
         public ReviewsViewHolder(@NonNull View itemView) {
             super(itemView);
-//            chairType = itemView.findViewById(R.id.category_text);
+            chairNum = itemView.findViewById(R.id.tv2);
             chairColor = itemView.findViewById(R.id.imageView2);
+            layout = itemView.findViewById(R.id.container);
         }
     }
 }

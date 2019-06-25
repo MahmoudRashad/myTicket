@@ -173,7 +173,7 @@ public class Login extends AppCompatActivity implements
             sessionManager.setUserEmail(responceReg.getResult().getEmail());
             sessionManager.setUserToken(responceReg.getAccessToken());
 
-            Intent intent = new Intent(Login.this, MainActivity.class);
+            Intent intent = new Intent(Login.this, HomeCinema.class);
             startActivity(intent);
 
         }
