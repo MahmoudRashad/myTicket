@@ -18,29 +18,29 @@
         <!--app:headerLayout="@layout/header"-->
         <!--android:id="@+id/navmenu"/>-->
 
-
-<android.support.v4.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/back"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:orientation="vertical">
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/top_title_bar"
+        />
 
+    <android.support.v4.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="24dp">
 
-
-
-        <include
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/top_title_bar"
-          />
 
         <android.support.v4.view.ViewPager
             android:id="@+id/C_home_slider"
@@ -220,4 +220,5 @@
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v4.widget.NestedScrollView>
+</LinearLayout>
 <!--</android.support.v4.widget.DrawerLayout>-->

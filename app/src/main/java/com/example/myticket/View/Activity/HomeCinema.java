@@ -79,7 +79,7 @@ public class HomeCinema extends AppCompatActivity implements
         seeAllComingSoon = findViewById(R.id.comingSoon_seeAll);
         seeAllCinema = findViewById(R.id.cinema_seeAll);
         seeAllNearby = findViewById(R.id.cinema_seeNearBy);
-        searchIcon = findViewById(R.id.IV_menu2);
+        searchIcon = findViewById(R.id.toolbar_Search);
         SliderProgressBar.getIndeterminateDrawable().setColorFilter(0xFFFFFFFF, android.graphics.PorterDuff.Mode.MULTIPLY);
 
         //setNavigationViewListener();

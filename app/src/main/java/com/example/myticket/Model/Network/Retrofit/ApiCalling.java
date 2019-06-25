@@ -16,6 +16,7 @@ import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderRes
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ChairResponse;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ReserveCinemaResponse;
 import com.example.myticket.Model.Network.DataModel.Resgister.MainResponceReg;
+import com.example.myticket.Model.Network.DataModel.Search.SearchResponce;
 import com.example.myticket.View.Activity.Login;
 
 import java.io.File;
@@ -541,6 +542,44 @@ public class ApiCalling
 
             @Override
             public void onFailure(Call<BaseNoResult> call, Throwable t) {
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
+
+    }
+    public void search(String query, final GeneralListener generalListener) {
+        Map<String,String> map = new HashMap<>();
+        map.put("name",query);
+        Call<SearchResponce> call = apiInterface.Search(map);
+        call.enqueue(new Callback<SearchResponce>() {
+            @Override
+            public void onResponse(Call<SearchResponce> call, Response<SearchResponce> response) {
+                if (response.isSuccessful()) {
+                    Log.e("onResponse", response.raw().toString());
+                    if (response.body().getSuccess()) {
+                        generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                                null, response.body());
+                    }
+                    else {
+                        generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                                response.body().getMessage(), response.body());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SearchResponce> call, Throwable t) {
                 //fail internet connection
                 if (t instanceof IOException)
                 {
