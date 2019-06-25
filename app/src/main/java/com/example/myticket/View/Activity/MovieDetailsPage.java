@@ -164,7 +164,7 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO go back 
+                //TODO go back
             }
         });
     }
@@ -201,13 +201,13 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
                 startActivity(share);
             }
         });
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavUtils.navigateUpFromSameTask(MovieDetailsPage.this);
-                finish();
-            }
-        });
+//        backBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                NavUtils.navigateUpFromSameTask(MovieDetailsPage.this);
+//                finish();
+//            }
+//        });
         makeReviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
