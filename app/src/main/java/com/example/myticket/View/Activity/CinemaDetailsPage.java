@@ -2,6 +2,7 @@ package com.example.myticket.View.Activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -53,9 +54,11 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
     private ImageView closeReviewResult;
     private Button submitReview;
     private EditText writtenComment;
-    private FrameLayout allRevsLayout;
+    private ConstraintLayout allRevsLayout;
    private TextView submittedText;
    private RatingBar ratingBar;
+   private Button dropDownRevs;
+   private ImageView closeAllRevs;
 
     private ArrayList<Result> allComments;
 
@@ -87,6 +90,8 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
         submittedLayout = findViewById(R.id.submitted_layout);
         closeReviewResult = findViewById(R.id.close_review_result_movie);
         ratingBar  = findViewById(R.id.rating_bar);
+        dropDownRevs = findViewById(R.id.dropdown_revs);
+        closeAllRevs = findViewById(R.id.close_All_reviews);
 
         apiCalling = new ApiCalling(this);
 
@@ -98,9 +103,20 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
                 cinemaDetails = gson.fromJson(stringData, Cinema.class);
                 setDetails();
             }
-//                ArrayList<String> texts = new ArrayList<>();
-                // AllReviewsAdapter allReviewsAdapter = new AllReviewsAdapter(this,texts);
-                //  reviewsRv.setAdapter(allReviewsAdapter);
+        dropDownRevs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = String.valueOf(cinemaDetails.getId());
+                allRevsLayout.setVisibility(View.VISIBLE);
+                apiCalling.showAllReviews(id,CinemaDetailsPage.this);
+                closeAllRevs.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        allRevsLayout.setVisibility(View.GONE);
+                    }
+                });
+            }
+        });
                 reviewsRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             }
 

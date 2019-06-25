@@ -22,7 +22,7 @@ public class Cinema implements Serializable, Parcelable
     private String name;
     @SerializedName("rate")
     @Expose
-    private Integer rate;
+    private String rate;
     @SerializedName("reviews")
     @Expose
     private Integer reviews;
@@ -60,7 +60,7 @@ public class Cinema implements Serializable, Parcelable
         this.id = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.image = ((String) in.readValue((String.class.getClassLoader())));
         this.name = ((String) in.readValue((String.class.getClassLoader())));
-        this.rate = ((Integer) in.readValue((Integer.class.getClassLoader())));
+        this.rate = ((String) in.readValue((String.class.getClassLoader())));
         this.reviews = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.address = ((String) in.readValue((String.class.getClassLoader())));
         this.youtube = ((Object) in.readValue((Object.class.getClassLoader())));
@@ -87,7 +87,7 @@ public class Cinema implements Serializable, Parcelable
      * @param image
      * @param close
      */
-    public Cinema(Integer id, String image, String name, Integer rate, Integer reviews, String address, Object youtube, String open, String close) {
+    public Cinema(Integer id, String image, String name, String rate, Integer reviews, String address, Object youtube, String open, String close) {
         super();
         this.id = id;
         this.image = image;
@@ -124,11 +124,11 @@ public class Cinema implements Serializable, Parcelable
         this.name = name;
     }
 
-    public Integer getRate() {
+    public String getRate() {
         return rate;
     }
 
-    public void setRate(Integer rate) {
+    public void setRate(String rate) {
         this.rate = rate;
     }
 

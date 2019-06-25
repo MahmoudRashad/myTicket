@@ -23,7 +23,7 @@ public class Coming implements Serializable, Parcelable
     private String name;
     @SerializedName("rate")
     @Expose
-    private Integer rate;
+    private String rate;
     @SerializedName("reviews")
     @Expose
     private Integer reviews;
@@ -61,7 +61,7 @@ public class Coming implements Serializable, Parcelable
         this.id = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.image = ((String) in.readValue((String.class.getClassLoader())));
         this.name = ((String) in.readValue((String.class.getClassLoader())));
-        this.rate = ((Integer) in.readValue((Integer.class.getClassLoader())));
+        this.rate = ((String) in.readValue((String.class.getClassLoader())));
         this.reviews = ((Integer) in.readValue((Integer.class.getClassLoader())));
         this.date = ((String) in.readValue((String.class.getClassLoader())));
         this.youtube = ((String) in.readValue((String.class.getClassLoader())));
@@ -88,7 +88,7 @@ public class Coming implements Serializable, Parcelable
      * @param period
      * @param date
      */
-    public Coming(Integer id, String image, String name, Integer rate, Integer reviews, String date, String youtube, List<Object> category, String period) {
+    public Coming(Integer id, String image, String name, String rate, Integer reviews, String date, String youtube, List<Object> category, String period) {
         super();
         this.id = id;
         this.image = image;
@@ -125,11 +125,11 @@ public class Coming implements Serializable, Parcelable
         this.name = name;
     }
 
-    public Integer getRate() {
+    public String getRate() {
         return rate;
     }
 
-    public void setRate(Integer rate) {
+    public void setRate(String rate) {
         this.rate = rate;
     }
 

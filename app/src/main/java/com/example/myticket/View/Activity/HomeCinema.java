@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -59,7 +60,13 @@ public class HomeCinema extends AppCompatActivity implements
     private TextView seeAllCinema;
     private TextView seeAllNearby;
     private ApiCalling apiCalling;
+
+
+    private Toolbar toolbar;
+    private ImageView navBtn;
+    private ImageView backBtn;
     private ImageView searchIcon;
+    private ImageView toolbarLogo;
 
 
     @Override
@@ -68,7 +75,6 @@ public class HomeCinema extends AppCompatActivity implements
         setContentView(R.layout.activity_home_cinema);
 
         apiCalling = new ApiCalling(this);
-
         sliderPager = findViewById(R.id.C_home_slider);
         SliderProgressBar = findViewById(R.id.C_home_progressBar);
         tabLayout = findViewById(R.id.cinema_tabLayout);
@@ -80,6 +86,12 @@ public class HomeCinema extends AppCompatActivity implements
         seeAllCinema = findViewById(R.id.cinema_seeAll);
         seeAllNearby = findViewById(R.id.cinema_seeNearBy);
         searchIcon = findViewById(R.id.toolbar_Search);
+        toolbarLogo = findViewById(R.id.logo_toolbar);
+        backBtn = findViewById(R.id.toolbar_back);
+        navBtn = findViewById(R.id.toolbar_nav);
+        toolbarLogo.setVisibility(View.VISIBLE);
+        backBtn.setVisibility(View.GONE);
+        navBtn.setVisibility(View.VISIBLE);
         SliderProgressBar.getIndeterminateDrawable().setColorFilter(0xFFFFFFFF, android.graphics.PorterDuff.Mode.MULTIPLY);
 
         //setNavigationViewListener();
@@ -174,7 +186,11 @@ public class HomeCinema extends AppCompatActivity implements
 
 //        NavigationView navigationView = (NavigationView) findViewById(R.id.navmenu);
 //        navigationView.setNavigationItemSelectedListener(this);
+        setToolbar();
 
+    }
+
+    private void setToolbar() {
     }
 
     @Override

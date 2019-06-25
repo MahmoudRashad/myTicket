@@ -18,10 +18,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Review
 
     private Context context;
     private ArrayList<Category> categories;
+    private ArrayList<String> categorySearch;
 
-    public CategoryAdapter(Context context, ArrayList<Category> categories) {
+    public CategoryAdapter(Context context, ArrayList<Category> categories, ArrayList<String> category) {
         this.context = context;
         this.categories = categories;
+        this.categorySearch = category;
     }
 
     @NonNull
@@ -34,9 +36,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Review
 
     @Override
     public void onBindViewHolder(@NonNull ReviewsViewHolder reviewsViewHolder, int i) {
-        if (categories.size() != 0){
+        if (categories!= null){
             Category category = categories.get(i);
             reviewsViewHolder.categoryText.setText(category.getCategory());
+        }
+        else {
+            String category = categorySearch.get(i);
+            reviewsViewHolder.categoryText.setText(category);
         }
     }
 
@@ -44,6 +50,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Review
     public int getItemCount() {
         if (categories != null)
         return categories.size();
+        else if (categorySearch != null)
+            return categorySearch.size();
         else return 0;
     }
 
