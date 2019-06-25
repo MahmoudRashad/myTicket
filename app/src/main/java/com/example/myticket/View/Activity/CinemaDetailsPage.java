@@ -62,6 +62,7 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
     private Toolbar toolbar;
     private ImageView backBtn;
     private ImageView searchIcon;
+    private TextView toolbarTitle;
 
     private ArrayList<Result> allComments;
 
@@ -126,6 +127,8 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
 
     private void setToolbar() {
         toolbar = findViewById(R.id.toolbar);
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(cinemaDetails.getName());
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 
@@ -183,6 +186,7 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
             public void onClick(View v) {
                 Intent intent = new Intent(CinemaDetailsPage.this,AnyResultsPage.class);
                 intent.setAction("CinemaMoviesList");
+                //TODO: make api call to get movies list
                 startActivity(intent);
             }
         });

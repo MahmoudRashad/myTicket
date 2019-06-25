@@ -66,6 +66,7 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
     private Toolbar toolbar;
     private ImageView backBtn;
     private ImageView searchIcon;
+    private TextView toolbarTitle;
 
 
 
@@ -151,6 +152,8 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
 
     private void setToolbar() {
         toolbar = findViewById(R.id.toolbar);
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(movieDetails.getName());
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 

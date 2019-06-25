@@ -67,6 +67,7 @@ public class HomeCinema extends AppCompatActivity implements
     private ImageView backBtn;
     private ImageView searchIcon;
     private ImageView toolbarLogo;
+    private TextView toolbarTitle;
 
 
     @Override
@@ -87,6 +88,7 @@ public class HomeCinema extends AppCompatActivity implements
         seeAllNearby = findViewById(R.id.cinema_seeNearBy);
         searchIcon = findViewById(R.id.toolbar_Search);
         toolbarLogo = findViewById(R.id.logo_toolbar);
+        toolbarTitle = findViewById(R.id.toolbar_title);
         backBtn = findViewById(R.id.toolbar_back);
         navBtn = findViewById(R.id.toolbar_nav);
         toolbarLogo.setVisibility(View.VISIBLE);
@@ -97,13 +99,7 @@ public class HomeCinema extends AppCompatActivity implements
         //setNavigationViewListener();
         apiCalling.homeApiCall(this);
         apiCalling.mainSliderCall(this);
-        searchIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeCinema.this,SearchPage.class);
-                startActivity(intent);
-            }
-        });
+
 
         //        drawerLayout = findViewById(R.id.home_cinema_drawer_layout);
 //        toggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.open_nav,R.string.close_nav);
@@ -191,6 +187,14 @@ public class HomeCinema extends AppCompatActivity implements
     }
 
     private void setToolbar() {
+        toolbarTitle.setVisibility(View.GONE);
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeCinema.this,SearchPage.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
