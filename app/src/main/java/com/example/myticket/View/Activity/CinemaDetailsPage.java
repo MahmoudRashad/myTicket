@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,7 +36,6 @@ import java.util.ArrayList;
 public class CinemaDetailsPage extends AppCompatActivity implements GeneralListener {
     private RecyclerView reviewsRv;
     private Cinema cinemaDetails;
-    private ImageView backBtn;
     private ImageView shareBtn;
     private ImageView playCinema;
     private ImageView cinemaCover;
@@ -59,6 +59,9 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
    private RatingBar ratingBar;
    private Button dropDownRevs;
    private ImageView closeAllRevs;
+    private Toolbar toolbar;
+    private ImageView backBtn;
+    private ImageView searchIcon;
 
     private ArrayList<Result> allComments;
 
@@ -69,7 +72,6 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cinema_details_page);
         reviewsRv = findViewById(R.id.details_rev_rv);
-        backBtn = findViewById(R.id.icon_back_cinema);
         shareBtn = findViewById(R.id.icon_share_cinema);
         playCinema = findViewById(R.id.icon_play_cinema);
         cinemaCover = findViewById(R.id.cover_photo_cinema);
@@ -103,6 +105,7 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
                 cinemaDetails = gson.fromJson(stringData, Cinema.class);
                 setDetails();
             }
+        setToolbar();
         dropDownRevs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +124,25 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
             }
 
 
+    private void setToolbar() {
+        toolbar = findViewById(R.id.toolbar);
+        searchIcon = findViewById(R.id.toolbar_Search);
+        backBtn = findViewById(R.id.toolbar_back);
+
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CinemaDetailsPage.this,SearchPage.class);
+                startActivity(intent);
+            }
+        });
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
     private void setDetails() {
         Picasso.get()
                 .load(cinemaDetails.getImage())
@@ -155,13 +177,7 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
                 }
             }
         });
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavUtils.navigateUpFromSameTask(CinemaDetailsPage.this);
-                finish();
-            }
-        });
+
         movieListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
