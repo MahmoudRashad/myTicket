@@ -44,6 +44,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
+import com.example.myticket.Business.TicketCinemaBusiness;
 import com.example.myticket.Enum.ErrorTypeEnum;
 import com.example.myticket.Enum.ReservetypeEnum;
 import com.example.myticket.Model.Data.SessionManager;
@@ -75,11 +76,10 @@ public class ReserveActivity extends AppCompatActivity
     public int cameraRequest = 0 , galleryRequest = 1 ;
     Dialog  dialogChangePic ;
     ProgressDialog dialog;
-    static int movieId,reserveCinemaId,reserveDateId,reserveTimeId;
+
     int type;
 
-    static String reserveCinema ,
-            reserveDate , reserveTime ;
+
     String movieImagePath;
     ReserveCinemaResponse reserveCinemaResponse,
             reserveDateResponse,
@@ -105,7 +105,7 @@ public class ReserveActivity extends AppCompatActivity
 
         if( getIntent().getExtras() != null )
         {
-            movieId = getIntent().getExtras().getInt("movie_id" , -1);
+            TicketCinemaBusiness.movieId = getIntent().getExtras().getInt("movie_id" , -1);
             movieImagePath = getIntent().getExtras().getString("movie_image" , "");
         }
 
@@ -145,7 +145,7 @@ public class ReserveActivity extends AppCompatActivity
         showWatingDialog();
         type = ReservetypeEnum.cinema.getValue();
         Map <String , String> queryMap = new HashMap();
-        queryMap.put("film_id" , movieId+"");
+        queryMap.put("film_id" , TicketCinemaBusiness.movieId+"");
         apiCalling.getCinemasOfMovie("Bearer " +sessionManager.getUserToken()
                 , "ar" ,
                 queryMap ,this);
@@ -270,18 +270,18 @@ public class ReserveActivity extends AppCompatActivity
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
 
-                reserveCinemaId =
+                TicketCinemaBusiness.reserveCinemaId =
                         reserveCinemaResponse.getResult().get(position).getId();
 
-                reserveCinema =
+                TicketCinemaBusiness.reserveCinema =
                         reserveCinemaResponse.getResult().get(position).getName();
 
-                if( reserveCinemaId != -1)
+                if( TicketCinemaBusiness.reserveCinemaId != -1)
                 {
                     showWatingDialog();
                     type = ReservetypeEnum.date.getValue();
                     Map <String , String> queryMap = new HashMap();
-                    queryMap.put("cinema_id" , reserveCinemaId+"");
+                    queryMap.put("cinema_id" , TicketCinemaBusiness.reserveCinemaId+"");
                     apiCalling.getDatesOfMovie("Bearer " +sessionManager.getUserToken()
                             , "ar" ,
                             queryMap ,ReserveActivity.this);
@@ -303,18 +303,18 @@ public class ReserveActivity extends AppCompatActivity
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
 
-                reserveDateId =
+                TicketCinemaBusiness.reserveDateId =
                         reserveDateResponse.getResult().get(position).getId();
 
-                reserveDate =
+                TicketCinemaBusiness.reserveDate =
                         reserveDateResponse.getResult().get(position).getName();
 
-                if( reserveDateId != -1)
+                if( TicketCinemaBusiness.reserveDateId != -1)
                 {
                     showWatingDialog();
                     type = ReservetypeEnum.time.getValue();
                     Map <String , String> queryMap = new HashMap();
-                    queryMap.put("day_id" , reserveDateId+"");
+                    queryMap.put("day_id" , TicketCinemaBusiness.reserveDateId+"");
                     apiCalling.getTimesOfMovie("Bearer " +sessionManager.getUserToken()
                             , "ar" ,
                             queryMap ,ReserveActivity.this);
@@ -335,11 +335,11 @@ public class ReserveActivity extends AppCompatActivity
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
 
-                reserveDateId =
-                        reserveDateResponse.getResult().get(position).getId();
+                TicketCinemaBusiness.reserveTimeId =
+                        reserveTimeResponse.getResult().get(position).getId();
 
-                reserveDate =
-                        reserveDateResponse.getResult().get(position).getName();
+                TicketCinemaBusiness.reserveTime =
+                        reserveTimeResponse.getResult().get(position).getName();
 
 //                if( reserveDateId != -1)
 //                {

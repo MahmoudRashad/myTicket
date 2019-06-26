@@ -11,13 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myticket.Business.TicketCinemaBusiness;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.TypeChair;
 import com.example.myticket.R;
 import com.example.myticket.View.Activity.ChairsActivity;
 
 import java.util.List;
 
-import static com.example.myticket.View.Activity.ChairsActivity.avilableChairsMap;
 
 public class ChairsAdapter extends RecyclerView.Adapter<ChairsAdapter.ReviewsViewHolder> {
 
@@ -54,22 +54,36 @@ public class ChairsAdapter extends RecyclerView.Adapter<ChairsAdapter.ReviewsVie
         // ( i*25 + o ) equetion to get chair number .
 
         String chairNum = String.valueOf(numOfRow * 25 + i+1 );
-        if(avilableChairsMap.containsKey(
+        if(TicketCinemaBusiness.avilableChairsMap.containsKey(
                 chairNum))
         {
 
             reviewsViewHolder.chairNum.setText(
-                    avilableChairsMap.get(chairNum).getChairNum());
+                    TicketCinemaBusiness.avilableChairsMap.get(chairNum).getChairNum());
 
             reviewsViewHolder.chairColor.setBackgroundColor(Color.parseColor(
-                    avilableChairsMap.get(chairNum).getDetail().getColor()));
+                    TicketCinemaBusiness.avilableChairsMap.get(chairNum).getDetail().getColor()));
 
             reviewsViewHolder.layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    reviewsViewHolder.chairColor.setImageDrawable(
-                            context.getDrawable(R.drawable.ic_action_name)
-                    );
+                    // remove chair
+                    if( TicketCinemaBusiness.avilableChairsMap.get(chairNum).isChecked())
+                    {
+
+                        reviewsViewHolder.chairColor.setImageDrawable(null);
+                        TicketCinemaBusiness.avilableChairsMap.get(chairNum).setChecked(false);
+                        TicketCinemaBusiness.removeChair(TicketCinemaBusiness.avilableChairsMap.get(chairNum));
+
+                    }
+                    // add chair
+                    else {
+                        reviewsViewHolder.chairColor.setImageDrawable(
+                                context.getDrawable(R.drawable.ic_action_name));
+                        TicketCinemaBusiness.avilableChairsMap.get(chairNum).setChecked(true);
+                        TicketCinemaBusiness.addChair(TicketCinemaBusiness.avilableChairsMap.get(chairNum));
+                    }
+
                 }
             });
 
