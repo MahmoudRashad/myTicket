@@ -3,6 +3,7 @@ package com.example.myticket.View.Adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myticket.Business.TicketCinemaBusiness;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.TypeChair;
 import com.example.myticket.R;
 import com.example.myticket.View.Activity.ChairsActivity;
 
 import java.util.List;
 
-import static com.example.myticket.View.Activity.ChairsActivity.avilableChairsMap;
 
 public class ChairsAdapter extends RecyclerView.Adapter<ChairsAdapter.ReviewsViewHolder> {
 
@@ -52,12 +53,56 @@ public class ChairsAdapter extends RecyclerView.Adapter<ChairsAdapter.ReviewsVie
 
         // ( i*25 + o ) equetion to get chair number .
 
-        String chairNum = String.valueOf(numOfRow * 25 + i );
-        if(avilableChairsMap.containsKey(
+        String chairNum = String.valueOf(numOfRow * 25 + i+1 );
+        if(TicketCinemaBusiness.avilableChairsMap.containsKey(
                 chairNum))
         {
+
+            reviewsViewHolder.chairNum.setText(
+                    TicketCinemaBusiness.avilableChairsMap.get(chairNum).getChairNum());
+
             reviewsViewHolder.chairColor.setBackgroundColor(Color.parseColor(
-                    avilableChairsMap.get(chairNum).getDetail().getColor()));
+                    TicketCinemaBusiness.avilableChairsMap.get(chairNum).getDetail().getColor()));
+
+            reviewsViewHolder.layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // remove chair
+                    if( TicketCinemaBusiness.avilableChairsMap.get(chairNum).isChecked())
+                    {
+
+                        reviewsViewHolder.chairColor.setImageDrawable(null);
+                        TicketCinemaBusiness.avilableChairsMap.get(chairNum).setChecked(false);
+                        TicketCinemaBusiness.removeChair(TicketCinemaBusiness.avilableChairsMap.get(chairNum));
+
+                    }
+                    // add chair
+                    else {
+                        reviewsViewHolder.chairColor.setImageDrawable(
+                                context.getDrawable(R.drawable.ic_action_name));
+                        TicketCinemaBusiness.avilableChairsMap.get(chairNum).setChecked(true);
+                        TicketCinemaBusiness.addChair(TicketCinemaBusiness.avilableChairsMap.get(chairNum));
+                    }
+
+                }
+            });
+
+        }
+        else
+        {
+            reviewsViewHolder.chairNum.setText(chairNum);
+
+            reviewsViewHolder.chairColor.setBackgroundColor(Color.parseColor("#444444"));
+
+
+            reviewsViewHolder.layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    reviewsViewHolder.chairColor.setBackgroundColor(Color.parseColor("#444444"));
+
+                    reviewsViewHolder.chairColor.setImageDrawable(null);
+                }
+            });
         }
     }
 
@@ -71,13 +116,15 @@ public class ChairsAdapter extends RecyclerView.Adapter<ChairsAdapter.ReviewsVie
     }
 
     public class ReviewsViewHolder extends RecyclerView.ViewHolder{
-//        private TextView chairType ;
+         TextView chairNum ;
         ImageView chairColor;
+        ConstraintLayout layout;
 
         public ReviewsViewHolder(@NonNull View itemView) {
             super(itemView);
-//            chairType = itemView.findViewById(R.id.category_text);
+            chairNum = itemView.findViewById(R.id.tv2);
             chairColor = itemView.findViewById(R.id.imageView2);
+            layout = itemView.findViewById(R.id.container);
         }
     }
 }

@@ -40,10 +40,15 @@ public class ChairTypeAdapter extends RecyclerView.Adapter<ChairTypeAdapter.Revi
     {
         if (typeChairs.size() != 0)
         {
+
             TypeChair typeChair = typeChairs.get(i);
-            reviewsViewHolder.chairType.setText(typeChair.getName());
-            reviewsViewHolder.chairColor.setBackgroundColor(Color.parseColor(
-                    typeChair.getColor()));
+            if( !typeChair.getName().equals("-1"))
+            {
+                reviewsViewHolder.chairType.setText(typeChair.getName());
+                reviewsViewHolder.chairColor.setBackgroundColor(Color.parseColor(
+                        typeChair.getColor()));
+            }
+
 
 //            reviewsViewHolder.chairColor.setBackgroundColor(
 //                    Color.parseColor("ffffff"));

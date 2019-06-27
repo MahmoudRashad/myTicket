@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.myticket.Business.TicketCinemaBusiness;
 import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.Network.DataModel.BaseNoResult.BaseNoResult;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
@@ -64,7 +65,6 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
     private ArrayList<Category> categorList;
     private Recently movieDetails;
 
-    private Toolbar toolbar;
     private ImageView backBtn;
     private ImageView searchIcon;
     private TextView toolbarTitle;
@@ -72,12 +72,14 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
 
 
     ApiCalling apiCalling;
+    SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
         apiCalling = new ApiCalling(this);
         Intent intent = getIntent();
+        sessionManager= new SessionManager(this);
 
         dropDown = findViewById(R.id.dropdown_revs);
         ReserveBtn = findViewById(R.id.reserve_btn);
@@ -128,10 +130,12 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
 
 
 
+
+
     }
 
     private void setToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+
         toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(movieDetails.getName());
         searchIcon = findViewById(R.id.toolbar_Search);
@@ -235,16 +239,30 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
             }
         });
 
-
         ReserveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(
-                        MovieDetailsPage.this, ReserveActivity.class
-                );
-                intent1.putExtra("movie_id" , movieDetails.getId());
-                intent1.putExtra("movie_image" , movieDetails.getImage());
-                startActivity(intent1);
+                if(sessionManager.getUserToken() == null ||
+                        sessionManager.getUserToken().equals(""))
+                {
+                    Intent intent1 = new Intent(
+                            MovieDetailsPage.this, Login.class
+                    );
+                    startActivity(intent1);
+                }
+                else
+                {
+                    TicketCinemaBusiness.movieId = movieDetails.getId();
+                    TicketCinemaBusiness.movieName = movieDetails.getName();
+
+                    Intent intent1 = new Intent(
+                            MovieDetailsPage.this, ReserveActivity.class
+                    );
+                    intent1.putExtra("movie_id" , movieDetails.getId());
+                    intent1.putExtra("movie_image" , movieDetails.getImage());
+                    startActivity(intent1);
+                }
+
             }
         });
 

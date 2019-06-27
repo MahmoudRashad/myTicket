@@ -2,6 +2,7 @@ package com.example.myticket.View.Activity;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,6 +19,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.example.myticket.Business.TicketCinemaBusiness;
 import com.example.myticket.Enum.ErrorTypeEnum;
 import com.example.myticket.Enum.ReservetypeEnum;
 import com.example.myticket.Model.Data.SessionManager;
@@ -25,6 +28,7 @@ import com.example.myticket.Model.Network.DataModel.ReserveModel.AvaliableChair;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ChairResponse;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ReserveCinemaResponse;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ResultReserveCinema;
+import com.example.myticket.Model.Network.DataModel.ReserveModel.TypeChair;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.R;
@@ -32,26 +36,18 @@ import com.example.myticket.View.Adapter.ChairTypeAdapter;
 import com.example.myticket.View.Adapter.CustomSpinnerAdapter;
 import com.example.myticket.View.Adapter.RowChairsAdapter;
 import com.example.myticket.helper.Variables;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class ChairsActivity extends AppCompatActivity
         implements GeneralListener
 {
-    private ApiCalling apiCalling;
-
-    Variables variables;
-    //    AppDialog appDialog;
-    ProgressDialog pd;
+    ApiCalling apiCalling;
     SessionManager sessionManager;
-
     ProgressDialog dialog;
     ChairTypeAdapter chairTypeAdapter;
     ChairResponse chairResponse;
-    public static Map <String , AvaliableChair>avilableChairsMap ;
+
 
     //--------------------------------  references of views -------------------------------------------------//
     private ConstraintLayout layout ;
@@ -83,7 +79,7 @@ public class ChairsActivity extends AppCompatActivity
         showWatingDialog();
 
         Map <String , String> queryMap = new HashMap();
-        queryMap.put("cinema_id" , ReserveActivity.reserveCinemaId+"");
+        queryMap.put("cinema_id" , TicketCinemaBusiness.reserveCinemaId+"");
         apiCalling.getChairs("Bearer " +sessionManager.getUserToken()
                 , "ar" ,
                 queryMap ,this);
@@ -189,6 +185,14 @@ public class ChairsActivity extends AppCompatActivity
 //        try {
 
 
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChairsActivity.this,
+                        ConfirmTicketsActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -248,42 +252,11 @@ public class ChairsActivity extends AppCompatActivity
                 this.chairResponse =
                         (ChairResponse) tApiResponse;
 
-
-                chairTypeAdapter = new ChairTypeAdapter(
-                        this, this.chairResponse.getResult().getTypeChair() );
-                chairTypeRv.setAdapter(chairTypeAdapter);
-
-
-                LinearLayoutManager chairTypeLayoutManger =
-                        new LinearLayoutManager(this,
-                        LinearLayoutManager.HORIZONTAL,true);
-
-                chairTypeRv.setLayoutManager(chairTypeLayoutManger);
-                chairTypeRv.setHasFixedSize(false);
-                chairTypeRv.setNestedScrollingEnabled(false);
-
-
-                //////////////////////////////////
-
                 showWatingDialog();
                 prepareChairs();
-                dialog.dismiss();
-
-                RowChairsAdapter rowChairsAdapter = new RowChairsAdapter(
-                        this);
-
-
-                LinearLayoutManager chairRowsLayoutManger =
-                        new LinearLayoutManager(this,
-                                LinearLayoutManager.VERTICAL,true);
-
-                chairRowsRv.setAdapter(rowChairsAdapter);
-                chairRowsRv.setLayoutManager(chairRowsLayoutManger);
-                chairRowsRv.setHasFixedSize(false);
-                chairRowsRv.setNestedScrollingEnabled(false);
+                drawChairs();
 
             }
-
 
 //            Toast.makeText(this , "updated successfully"
 //                    , Toast.LENGTH_LONG).show();
@@ -294,6 +267,51 @@ public class ChairsActivity extends AppCompatActivity
                     , Toast.LENGTH_LONG).show();
         }
     }
+
+
+    public void drawChairs()
+    {
+        dialog.dismiss();
+
+        TypeChair typeChair = new TypeChair();
+        typeChair.setPrice("0");
+        typeChair.setId(-1);
+        typeChair.setColor("#444444");
+        typeChair.setName("unAvilable");
+        this.chairResponse.getResult().getTypeChair().add(typeChair);
+        chairTypeAdapter = new ChairTypeAdapter(
+                this, this.chairResponse.getResult().getTypeChair() );
+        chairTypeRv.setAdapter(chairTypeAdapter);
+
+
+        LinearLayoutManager chairTypeLayoutManger =
+                new LinearLayoutManager(this,
+                        LinearLayoutManager.HORIZONTAL,false);
+
+        chairTypeRv.setLayoutManager(chairTypeLayoutManger);
+        chairTypeRv.setHasFixedSize(false);
+        chairTypeRv.setNestedScrollingEnabled(false);
+
+
+        //////////////////////////////////
+
+
+//                dialog.dismiss();
+
+        RowChairsAdapter rowChairsAdapter = new RowChairsAdapter(
+                this);
+
+
+        LinearLayoutManager chairRowsLayoutManger =
+                new LinearLayoutManager(this,
+                        LinearLayoutManager.VERTICAL,true);
+
+        chairRowsRv.setAdapter(rowChairsAdapter);
+        chairRowsRv.setLayoutManager(chairRowsLayoutManger);
+        chairRowsRv.setHasFixedSize(false);
+        chairRowsRv.setNestedScrollingEnabled(false);
+    }
+
 
     public void prepareChairs()
     {
@@ -336,11 +354,11 @@ public class ChairsActivity extends AppCompatActivity
 //            }
 //        }
 
-        avilableChairsMap = new HashMap();
+        TicketCinemaBusiness.avilableChairsMap = new HashMap();
         for(int in  = 0 ; in < chairResponse.getResult().getAvaliableChair().size();
             in ++)
             {
-                avilableChairsMap.put(
+                TicketCinemaBusiness.avilableChairsMap.put(
                         chairResponse.getResult().getAvaliableChair().get(in).getChairNum(),
                         chairResponse.getResult().getAvaliableChair().get(in)
                 );

@@ -37,6 +37,7 @@
                 android:value=".View.Activity.HomeCinema" />
         </activity>
         <activity android:name=".View.Activity.ChairsActivity" />
+        <activity android:name=".View.Activity.ConfirmTicketsActivity" />
         <activity android:name=".View.Activity.AnyResultsPage" />
         <activity android:name=".View.Activity.SearchPage" />
         <activity android:name=".View.Activity.ResetPassword" />
