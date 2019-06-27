@@ -6,11 +6,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.myticket.R;
 
 public class Gate extends AppCompatActivity {
     ConstraintLayout layout;
+    private ImageView backBtn;
+    private ImageView searchIcon;
+    private TextView toolbarTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +24,7 @@ public class Gate extends AppCompatActivity {
         setContentView(R.layout.activity_gate);
         Button btn = findViewById(R.id.qr_btn);
         layout = findViewById(R.id.cinema_gate);
+        setToolbar();
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -32,6 +38,21 @@ public class Gate extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Gate.this, QrcodePage.class);
                 startActivity(intent);
+            }
+        });
+    }
+
+    private void setToolbar() {
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText("Select Your Gate");
+        searchIcon = findViewById(R.id.toolbar_Search);
+        backBtn = findViewById(R.id.toolbar_back);
+
+        searchIcon.setVisibility(View.GONE);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +49,11 @@ public class Login extends AppCompatActivity implements
     private String FULLNAME_KEY = "fullname";
 
     private User loginUser;
+    private TextView forgotText;
+
+    private ImageView backBtn;
+    private ImageView searchIcon;
+    private TextView toolbarTitle;
 
 
     ///////////////////////////////////////////////////////////////
@@ -73,7 +79,9 @@ public class Login extends AppCompatActivity implements
         btnLogin = findViewById(R.id.login_btn);
         progressBar = findViewById(R.id.progressBar_login);
         registerTv = findViewById(R.id.register);
+        forgotText = findViewById(R.id.forgot_text);
         progressBar.setVisibility(View.GONE);
+        setToolbar();
 
         mUsername = userName.getText().toString();
         mPassword = password.getText().toString();
@@ -109,7 +117,29 @@ public class Login extends AppCompatActivity implements
             }
         });
 
+        forgotText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this, ForgetPassword.class);
+                startActivity(intent);
+            }
+        });
 
+
+    }
+    private void setToolbar() {
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText("Login");
+        searchIcon = findViewById(R.id.toolbar_Search);
+        backBtn = findViewById(R.id.toolbar_back);
+
+        searchIcon.setVisibility(View.GONE);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 

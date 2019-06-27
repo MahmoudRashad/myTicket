@@ -78,11 +78,17 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
     ImageView userIv , editImageIv , nameIv,phoneIv,emailIv,addressIv;
     Button saveEditBtn;
 
+    private ImageView backBtn;
+    private ImageView searchIcon;
+    private TextView toolbarTitle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_account);
+
+        setToolbar();
 
         findViewsToReferences();
         setListenerOfViews();
@@ -97,6 +103,20 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
         setDataOfViews();
     }
 
+    private void setToolbar() {
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText("Edit Account");
+        searchIcon = findViewById(R.id.toolbar_Search);
+        backBtn = findViewById(R.id.toolbar_back);
+
+        searchIcon.setVisibility(View.GONE);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
 
     public Dialog showDialogChangePiecture() {
 

@@ -23,6 +23,7 @@ import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Result;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Category;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Recently;
+import com.example.myticket.Model.Network.DetailsMovie.DetailsMovie;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.R;
@@ -116,38 +117,17 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
                     ReserveBtn.setVisibility(View.INVISIBLE);
                 }
                 setDetails();
+                setToolbar();
             }
         }
 
-        dropDown.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String id = String.valueOf(movieDetails.getId());
-                allRevsLayout.setVisibility(View.VISIBLE);
-                apiCalling.showAllReviews(id,MovieDetailsPage.this);
-                closeAllRevs.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        allRevsLayout.setVisibility(View.GONE);
-                    }
-                });
-
-            }
-        });
+        if (intent.hasExtra("id")){
+            String id = intent.getStringExtra("id");
+            apiCalling.getMovieDetails(id,this);
+        }
 
 
-        ReserveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent1 = new Intent(
-                        MovieDetailsPage.this, ReserveActivity.class
-                );
-                intent1.putExtra("movie_id" , movieDetails.getId());
-                intent1.putExtra("movie_image" , movieDetails.getImage());
-                startActivity(intent1);
-            }
-        });
-        setToolbar();
+
     }
 
     private void setToolbar() {
@@ -184,7 +164,7 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
         String rates = String.valueOf(movieDetails.getRate());
         movieTotalReviewsNumber.setText(rates);
         categorList = (ArrayList<Category>) movieDetails.getCategory();
-        CategoryAdapter categoryAdapter = new CategoryAdapter(this,categorList,null);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(this,categorList,null,null,null);
         categoryRV.setAdapter(categoryAdapter);
         ratingBar.setRating(movieDetails.getReviews());
         playImage.setOnClickListener(new View.OnClickListener() {
@@ -238,6 +218,36 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
 
             }
         });
+
+        dropDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = String.valueOf(movieDetails.getId());
+                allRevsLayout.setVisibility(View.VISIBLE);
+                apiCalling.showAllReviews(id,MovieDetailsPage.this);
+                closeAllRevs.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        allRevsLayout.setVisibility(View.GONE);
+                    }
+                });
+
+            }
+        });
+
+
+        ReserveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(
+                        MovieDetailsPage.this, ReserveActivity.class
+                );
+                intent1.putExtra("movie_id" , movieDetails.getId());
+                intent1.putExtra("movie_image" , movieDetails.getImage());
+                startActivity(intent1);
+            }
+        });
+
         closeReviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -269,6 +279,12 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
             submittedLayout.setVisibility(View.VISIBLE);
             submittedText.setText(userCommentResponce.getMessage());
 
+        }
+        else if (tApiResponse instanceof DetailsMovie){
+            DetailsMovie Details = (DetailsMovie) tApiResponse;
+            movieDetails = Details.getResult();
+            setDetails();
+            setToolbar();
         }
     }
 }

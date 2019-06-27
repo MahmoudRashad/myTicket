@@ -86,7 +86,20 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.MovieVie
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-
+            Result searchResult = results.get(position);
+            if (searchResult.getType().equals("1"))
+            {
+                Intent intent = new Intent(context, MovieDetailsPage.class);
+                String id = String.valueOf(searchResult.getId());
+                intent.putExtra("id",id);
+                context.startActivity(intent);
+            }
+            else{
+                Intent intent = new Intent(context, CinemaDetailsPage.class);
+                String id = String.valueOf(searchResult.getId());
+                intent.putExtra("cinemaID",id);
+                context.startActivity(intent);
+            }
 
         }
     }

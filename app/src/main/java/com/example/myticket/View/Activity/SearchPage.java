@@ -72,19 +72,21 @@ public class SearchPage extends AppCompatActivity implements SearchLiveo.OnSearc
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
         SearchResponce searchResponce = (SearchResponce) tApiResponse;
-        searchResults = (ArrayList<Result>) searchResponce.getResult();
-        SearchAdapter searchAdapter = new SearchAdapter(this,searchResults);
-        autoCompleteRv.setAdapter(searchAdapter);
-        seeAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SearchPage.this,SearchResults.class);
-                //transform to string using gson, recieve it there, transform and and send it to rv
-                String ListDumb = new Gson().toJson(searchResults);
-                intent.setData(Uri.fromParts("schemeSearchResults", ListDumb, null));
-                startActivity(intent);
-            }
-        });
-        seeAll.setVisibility(View.VISIBLE);
+        if (searchResponce.getResult() != null) {
+            searchResults = (ArrayList<Result>) searchResponce.getResult();
+            SearchAdapter searchAdapter = new SearchAdapter(this, searchResults);
+            autoCompleteRv.setAdapter(searchAdapter);
+            seeAll.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(SearchPage.this, SearchResults.class);
+                    //transform to string using gson, recieve it there, transform and and send it to rv
+                    String ListDumb = new Gson().toJson(searchResults);
+                    intent.setData(Uri.fromParts("schemeSearchResults", ListDumb, null));
+                    startActivity(intent);
+                }
+            });
+            seeAll.setVisibility(View.VISIBLE);
+        }
     }
 }

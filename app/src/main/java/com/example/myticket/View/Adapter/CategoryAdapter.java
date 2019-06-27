@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.myticket.Model.Network.DataModel.CommentsModel.Result;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Category;
+import com.example.myticket.Model.Network.DataModel.Search.Result;
 import com.example.myticket.R;
 
 import java.util.ArrayList;
@@ -19,11 +19,17 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Review
     private Context context;
     private ArrayList<Category> categories;
     private ArrayList<String> categorySearch;
+    private ArrayList<Result> searchResults;
+    private ArrayList<com.example.myticket.Model.Network.DataModel.Search.Category> searchCategories;
+    private ArrayList<Result> newSearchResults;
+    private ResultsAdapter resultsAdapter;
 
-    public CategoryAdapter(Context context, ArrayList<Category> categories, ArrayList<String> category) {
+    public CategoryAdapter(Context context, ArrayList<Category> categories, ArrayList<String> category, ArrayList<Result> searchResults,ResultsAdapter resultsAdapter) {
         this.context = context;
         this.categories = categories;
         this.categorySearch = category;
+        this.searchResults = searchResults;
+        this.resultsAdapter = resultsAdapter;
     }
 
     @NonNull
@@ -55,12 +61,38 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Review
         else return 0;
     }
 
-    public class ReviewsViewHolder extends RecyclerView.ViewHolder{
+    public class ReviewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView categoryText;
 
         public ReviewsViewHolder(@NonNull View itemView) {
             super(itemView);
             categoryText = itemView.findViewById(R.id.category_text);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (searchResults != null){
+                int position = getAdapterPosition();
+                newSearchResults = new ArrayList<>();
+                int positionID = position+1;
+                String category = categorySearch.get(position);
+                for (Result result: searchResults){
+                    searchCategories = (ArrayList<com.example.myticket.Model.Network.DataModel.Search.Category>) result.getCategory();
+                    for (com.example.myticket.Model.Network.DataModel.Search.Category cat : searchCategories){
+                        int id = cat.getId();
+                        //TODO: fix the category name and id in api
+                        if (id == positionID){
+                            newSearchResults.add(result);
+                            resultsAdapter.update(newSearchResults);
+                        }
+                        else
+                        {
+                            resultsAdapter.update(newSearchResults);
+                        }
+                    }
+                }
+            }
         }
     }
 }

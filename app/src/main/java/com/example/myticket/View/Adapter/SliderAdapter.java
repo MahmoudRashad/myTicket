@@ -1,6 +1,7 @@
 package com.example.myticket.View.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.Result;
 import com.example.myticket.R;
+import com.example.myticket.View.Activity.MovieDetailsPage;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -33,6 +35,15 @@ public class SliderAdapter extends PagerAdapter {
         Picasso.get()
                 .load(sliders.get(position).getImage())
                 .into(slideImg);
+        slideImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, MovieDetailsPage.class);
+                String id = String.valueOf(sliders.get(position).getId());
+                intent.putExtra("id",id);
+                context.startActivity(intent);
+            }
+        });
 
         container.addView(slideLayout);
         return slideLayout;

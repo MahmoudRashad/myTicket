@@ -4,16 +4,19 @@ import com.example.myticket.Model.MainResult;
 import com.example.myticket.Model.Network.DataModel.BaseNoResult.BaseNoResult;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
 
+import com.example.myticket.Model.Network.DataModel.DetailsCinema.DetailsCinema;
 import com.example.myticket.Model.Network.DataModel.EditUserData.EditUserDataResponse;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordModel;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordResponce;
 import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderResponce;
 import com.example.myticket.Model.Network.DataModel.MapModel.NearByFullModel;
+import com.example.myticket.Model.Network.DataModel.MoviesList.MoviesList;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ChairResponse;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ReserveCinemaResponse;
 import com.example.myticket.Model.Network.DataModel.Resgister.MainResponceReg;
 import com.example.myticket.Model.Network.DataModel.Search.SearchResponce;
+import com.example.myticket.Model.Network.DetailsMovie.DetailsMovie;
 
 import java.util.Map;
 
@@ -69,6 +72,19 @@ public interface ApiInterface {
     @POST("make_rate")
     Call<BaseNoResult> makeRate(@Header("lang") String lang, @Header("Authorization") String authTtoken,@QueryMap Map<String, String> queryMap);
 
+    @POST("moving_list")
+    Call<MoviesList> getCinemaMoviesList(@QueryMap Map<String, String> queryMap);
+
+    @POST("more_info")
+    Call<DetailsCinema> getCinemaDetails(@QueryMap Map<String, String> queryMap);
+
+    @POST("more_info")
+    Call<DetailsMovie> getMovieDetails(@QueryMap Map<String, String> queryMap);
+
+
+
+
+
 
 //    @POST("save_editprofile")
 //    Call<GeneralApiesponse> saveEditProfile(@Header("lang") String lang,
@@ -114,5 +130,6 @@ public interface ApiInterface {
     Call<ChairResponse> getChairsCinema(@Header("lang") String lang,
                                         @Header("Authorization") String authorization,
                                         @QueryMap Map<String, String> queryMap);
+
 
 }

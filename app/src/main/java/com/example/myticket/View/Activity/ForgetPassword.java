@@ -6,7 +6,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordResponce;
@@ -24,13 +26,18 @@ public class ForgetPassword extends AppCompatActivity implements GeneralListener
     private ProgressBar progressBar;
     ApiCalling apiCalling;
 
+    private ImageView backBtn;
+    private ImageView searchIcon;
+    private TextView toolbarTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+//        getSupportActionBar().hide();
         setContentView(R.layout.activity_forget_password);
 
         apiCalling = new ApiCalling(this);
+        setToolbar();
 
         email = findViewById(R.id.email_forget);
         btnForget = findViewById(R.id.forget_btn);
@@ -57,6 +64,21 @@ public class ForgetPassword extends AppCompatActivity implements GeneralListener
 //                    apiClient.initializeClientForget();
 
                 }
+            }
+        });
+    }
+
+    private void setToolbar() {
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText("Reset Your Password");
+        searchIcon = findViewById(R.id.toolbar_Search);
+        backBtn = findViewById(R.id.toolbar_back);
+
+        searchIcon.setVisibility(View.GONE);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

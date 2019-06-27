@@ -94,6 +94,10 @@ public class ReserveActivity extends AppCompatActivity
     Button nextBtn;
     Spinner cinemaS , dateS , timeS;
 
+    private ImageView backBtn;
+    private ImageView searchIcon;
+    private TextView toolbarTitle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +106,7 @@ public class ReserveActivity extends AppCompatActivity
 
         findViewsToReferences();
         setListenerOfViews();
+        setToolbar();
 
         if( getIntent().getExtras() != null )
         {
@@ -156,6 +161,28 @@ public class ReserveActivity extends AppCompatActivity
         super.onStart();
 //        setDataOfViews();
     }
+
+    private void setToolbar() {
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText("Reservation");
+        searchIcon = findViewById(R.id.toolbar_Search);
+        backBtn = findViewById(R.id.toolbar_back);
+
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ReserveActivity.this,SearchPage.class);
+                startActivity(intent);
+            }
+        });
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
 
 
 //    private void setDataOfViews()

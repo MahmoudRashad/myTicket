@@ -11,6 +11,9 @@ import android.widget.TextView;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Cinema;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Coming;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Recently;
+import com.example.myticket.Model.Network.DataModel.MoviesList.MoviesList;
+import com.example.myticket.Model.Network.Retrofit.ApiCalling;
+import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.R;
 import com.example.myticket.View.Adapter.HomeMovieAdapter;
 import com.google.gson.Gson;
@@ -20,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class AnyResultsPage extends AppCompatActivity {
+public class AnyResultsPage extends AppCompatActivity implements GeneralListener {
     private TextView titleOne;
     private TextView titleTwo;
     private RecyclerView recyclerViewOne;
@@ -30,16 +33,18 @@ public class AnyResultsPage extends AppCompatActivity {
     private ArrayList<Cinema> CinemaLists;
     private ArrayList<Recently> RecentlyLists;
     private ArrayList<Coming> ComingLists;
+    private ApiCalling apiCalling;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_any_results_page);
-
+        apiCalling = new ApiCalling(this);
         titleTwo = findViewById(R.id.titleTwo_results_page);
         titleOne = findViewById(R.id.titleOne_results_page);
         recyclerViewOne = findViewById(R.id.rv_movies_now);
         recyclerViewTwo = findViewById(R.id.rv_movies_soon);
+        recyclerViewOne.setLayoutManager(new GridLayoutManager(this,3));
 
         Intent intent = getIntent();
         if (intent.getAction() != null){
@@ -79,28 +84,45 @@ public class AnyResultsPage extends AppCompatActivity {
 
             }
             else if (action.equals("CinemaMoviesList")){
-                setupCinemaMovies();
+                if (intent.hasExtra("cinemaID")) {
+                    String id = intent.getStringExtra("cinemaID");
+                    setupCinemaMovies(id);
+                }
             }
         }
-        titleTwo.setText("Title Two");
 
     }
 
-    private void setupCinemaMovies() {
+    private void setupCinemaMovies(String id) {
         titleOne.setText("Now Playing");
-        titleTwo.setText("Coming Soon");
+        titleTwo.setVisibility(View.GONE);
+       // titleTwo.setText("Coming Soon");
         //Setup recycler views
+        apiCalling.getCinemaMoviesList(id,this);
+
     }
 
     private void setupFromHome(String Title) {
         hideNotNeeded();
         titleOne.setText(Title);
         recyclerViewOne.setAdapter(homeMovieAdapter);
-        recyclerViewOne.setLayoutManager(new GridLayoutManager(this,3));
+
     }
     private void hideNotNeeded(){
         titleTwo.setVisibility(View.GONE);
         recyclerViewTwo.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void getApiResponse(int status, String message, Object tApiResponse) {
+        if (tApiResponse instanceof MoviesList){
+            MoviesList mainResult = (MoviesList) tApiResponse;
+            List<Recently> moviesList = mainResult.getResult();
+            homeMovieAdapter = new HomeMovieAdapter(this,moviesList,null,null);
+            recyclerViewOne.setAdapter(homeMovieAdapter);
+
+        }
+
     }
 
 

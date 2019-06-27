@@ -9,14 +9,17 @@ import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.MainResult;
 import com.example.myticket.Model.Network.DataModel.BaseNoResult.BaseNoResult;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
+import com.example.myticket.Model.Network.DataModel.DetailsCinema.DetailsCinema;
 import com.example.myticket.Model.Network.DataModel.EditUserData.EditUserDataResponse;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordResponce;
 import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderResponce;
+import com.example.myticket.Model.Network.DataModel.MoviesList.MoviesList;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ChairResponse;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ReserveCinemaResponse;
 import com.example.myticket.Model.Network.DataModel.Resgister.MainResponceReg;
 import com.example.myticket.Model.Network.DataModel.Search.SearchResponce;
+import com.example.myticket.Model.Network.DetailsMovie.DetailsMovie;
 import com.example.myticket.View.Activity.Login;
 
 import java.io.File;
@@ -597,6 +600,116 @@ public class ApiCalling
             }
         });
 
+    }
+
+    public void getCinemaMoviesList(String query, final GeneralListener generalListener) {
+        Map<String,String> map = new HashMap<>();
+        map.put("cinema_id",query);
+        Call<MoviesList> call = apiInterface.getCinemaMoviesList(map);
+        call.enqueue(new Callback<MoviesList>() {
+            @Override
+            public void onResponse(Call<MoviesList> call, Response<MoviesList> response) {
+                if (response.isSuccessful()) {
+                    Log.e("onResponse", response.raw().toString());
+                    if (response.body().getSuccess()) {
+                        generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                                null, response.body());
+                    }
+                    else {
+                        generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                                response.body().getMessage(), response.body());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MoviesList> call, Throwable t) {
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
+
+    }
+
+    public void getCinemaDetails(String query, final GeneralListener generalListener) {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", query);
+        Call<DetailsCinema> call = apiInterface.getCinemaDetails(map);
+        call.enqueue(new Callback<DetailsCinema>() {
+            @Override
+            public void onResponse(Call<DetailsCinema> call, Response<DetailsCinema> response) {
+                if (response.isSuccessful()) {
+                    Log.e("onResponse", response.raw().toString());
+                    if (response.body().getSuccess()) {
+                        generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                                null, response.body());
+                    } else {
+                        generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                                response.body().getMessage(), response.body());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DetailsCinema> call, Throwable t) {
+                //fail internet connection
+                if (t instanceof IOException) {
+                    Log.e("ApiCheck**", "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue(),
+                            t.getMessage(), null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue(),
+                            t.getMessage(), null);
+                }
+            }
+        });
+    }
+    public void getMovieDetails(String query, final GeneralListener generalListener) {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", query);
+        Call<DetailsMovie> call = apiInterface.getMovieDetails(map);
+        call.enqueue(new Callback<DetailsMovie>() {
+            @Override
+            public void onResponse(Call<DetailsMovie> call, Response<DetailsMovie> response) {
+                if (response.isSuccessful()) {
+                    Log.e("onResponse", response.raw().toString());
+                    if (response.body().getSuccess()) {
+                        generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                                null, response.body());
+                    } else {
+                        generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                                response.body().getMessage(), response.body());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DetailsMovie> call, Throwable t) {
+                //fail internet connection
+                if (t instanceof IOException) {
+                    Log.e("ApiCheck**", "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue(),
+                            t.getMessage(), null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue(),
+                            t.getMessage(), null);
+                }
+            }
+        });
     }
 //    public void loginCall(Call<ModelLogin> call, final onResponceInterface onResponceInterface) {
 //        call.enqueue(new Callback<ModelLogin>() {
