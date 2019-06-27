@@ -117,13 +117,13 @@ public class Register extends AppCompatActivity implements
                 if (TextUtils.isEmpty(mFullname) || TextUtils.isEmpty(mPassword) || TextUtils.isEmpty(mRepPassword) ||
                         TextUtils.isEmpty(mUsername) || TextUtils.isEmpty(mAddress)  ||
                         TextUtils.isEmpty(mPhone) || TextUtils.isEmpty(mEmail)){
-                    Toast.makeText(Register.this, "Please fill all fields", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Register.this, getString(R.string.please_fill_all_fields), Toast.LENGTH_LONG).show();
                 }
                 else if (!mPassword.equals(mRepPassword)){
-                    Toast.makeText(Register.this, "Please make sure passwords match", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Register.this, getString(R.string.make_sure_passwords_match), Toast.LENGTH_LONG).show();
                 }
                 else if (!isEmailValid(mEmail)){
-                    Toast.makeText(Register.this, "Email Not Valid", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Register.this, getString(R.string.email_not_valid), Toast.LENGTH_LONG).show();
                 }
                 else {
                     btnReg.setVisibility(View.INVISIBLE);
@@ -158,7 +158,7 @@ public class Register extends AppCompatActivity implements
     }
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
-        toolbarTitle.setText("Register");
+        toolbarTitle.setText(getString(R.string.register));
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 

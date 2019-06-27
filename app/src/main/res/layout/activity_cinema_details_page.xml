@@ -31,7 +31,6 @@
             android:scaleType="fitXY"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cinema_toolbar"
-            android:src="@drawable/cinema"
             />
         <!--<ImageView-->
             <!--android:id="@+id/gradient"-->
@@ -49,7 +48,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cinema_toolbar"
             app:layout_constraintBottom_toBottomOf="@id/cover_photo_cinema"
             android:src="@drawable/play"
             android:layout_gravity="center"
@@ -67,14 +66,13 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cinema_toolbar"
             />
 
         <TextView
             android:id="@+id/details_cinema_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="The Cinema"
             android:textSize="22sp"
             android:textColor="#fff"
             android:layout_marginStart="16dp"
@@ -99,12 +97,11 @@
             android:textColor="@color/colorAccent"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:drawablePadding="8dp"
-            android:text="Movies List"/>
+            android:text="@string/movies_list"/>
         <TextView
             android:id="@+id/detail_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="135 address street"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginTop="8dp"
@@ -118,7 +115,6 @@
             android:id="@+id/detail_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="From 10 to 12"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:textColor="#fff"
@@ -141,7 +137,7 @@
             android:background="@drawable/white_rect_bk"
             android:textColor="@color/colorAccent"
             android:drawablePadding="8dp"
-            android:text="Cinema Location"/>
+            android:text="@string/cinema_location"/>
 
 
 
@@ -164,7 +160,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/view_line"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="Rating"
+            android:text="@string/rating"
             android:textColor="#fff"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:layout_marginStart="16dp"
@@ -186,7 +182,6 @@
             android:id="@+id/avg_cinema_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="9.5"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#fff"
             android:layout_marginStart="8dp"
@@ -204,7 +199,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="4dp"
             android:padding="8dp"
-            android:text="Make a Review !"
+            android:text="@string/make_a_review"
             android:background="@drawable/white_rect_bk"
             android:backgroundTint="@color/yellow"
             />
@@ -213,7 +208,7 @@
             android:id="@+id/reviews_number_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total: "
+            android:text="@string/total"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#fff"
             app:layout_constraintStart_toEndOf="@id/star_number"
@@ -227,7 +222,6 @@
             app:layout_constraintStart_toEndOf="@id/reviews_number_title"
             app:layout_constraintTop_toTopOf="@id/reviews_number_title"
             android:layout_marginEnd="16dp"
-            android:text="2500"
             android:textColor="#fff"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             />

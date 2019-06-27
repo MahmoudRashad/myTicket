@@ -26,7 +26,6 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".View.Activity.QrcodePage"></activity>
         <activity android:name=".View.Activity.SearchResults" />
-        <activity android:name=".View.Activity.EditDetail" />
         <activity android:name=".View.Activity.EditAccount" />
         <activity
             android:name=".View.Activity.CinemaDetailsPage"

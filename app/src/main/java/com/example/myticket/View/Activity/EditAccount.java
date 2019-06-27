@@ -105,7 +105,7 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
 
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
-        toolbarTitle.setText("Edit Account");
+        toolbarTitle.setText(getString(R.string.edit_account));
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 
@@ -492,13 +492,13 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
                         TextUtils.isEmpty(addressTv.getText() ))
                 {
                     Toast.makeText(EditAccount.this
-                            , "Please fill all fields"
+                            , getString(R.string.please_fill_all_fields)
                             , Toast.LENGTH_LONG).show();
                 }
 
                 else if (!isEmailValid(emailTv.getText().toString())){
                     Toast.makeText(EditAccount.this
-                            , "Email Not Valid",
+                            , getString(R.string.email_not_valid),
                             Toast.LENGTH_LONG).show();
                 }
                 else {
@@ -619,12 +619,12 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
                     editUserDataResponse.getResult().get(0).getImage()
             );
             setDataOfViews();
-            Toast.makeText(this , "updated successfully"
+            Toast.makeText(this , getString(R.string.updated_successfully)
                     , Toast.LENGTH_LONG).show();
         }
         else
         {
-            Toast.makeText(this , "failed updated"
+            Toast.makeText(this , getString(R.string.failed_to_update)
                     , Toast.LENGTH_LONG).show();
         }
     }

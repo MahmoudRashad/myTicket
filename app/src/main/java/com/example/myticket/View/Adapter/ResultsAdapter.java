@@ -44,10 +44,9 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.MovieVie
     public void onBindViewHolder(@NonNull ResultsAdapter.MovieViewHolder movieViewHolder, int i) {
         Result result = results.get(i);
         movieViewHolder.movieTitle.setText(result.getName());
-        String rate = result.getRate().toString();
-        movieViewHolder.reviewRate.setText(rate);
         String reviews = result.getReviews().toString();
-        movieViewHolder.reviewsTotal.setText(reviews);
+        movieViewHolder.reviewRate.setText(reviews);
+        movieViewHolder.reviewsTotal.setText(result.getRate());
         Picasso.get()
                 .load(result.getImage())
                 .into(movieViewHolder.moviePhoto);

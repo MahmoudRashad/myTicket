@@ -35,8 +35,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_backward_arrow_1"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="center_vertical|start"
                 android:layout_margin="16dp"/>
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:layout_gravity="center"/>
             <ImageView
                 android:id="@+id/toolbar_Search"
                 android:layout_width="wrap_content"
@@ -80,7 +86,7 @@
         android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_rv"
-        android:text="View All Results"
+        android:text="@string/view_all_results"
         android:textColor="@color/colorAccent"
         />
 

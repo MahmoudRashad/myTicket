@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myticket.Model.Network.DataModel.HomeResult.Cinema;
@@ -35,6 +36,10 @@ public class AnyResultsPage extends AppCompatActivity implements GeneralListener
     private ArrayList<Coming> ComingLists;
     private ApiCalling apiCalling;
 
+    private ImageView backBtn;
+    private ImageView searchIcon;
+    private TextView toolbarTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +50,7 @@ public class AnyResultsPage extends AppCompatActivity implements GeneralListener
         recyclerViewOne = findViewById(R.id.rv_movies_now);
         recyclerViewTwo = findViewById(R.id.rv_movies_soon);
         recyclerViewOne.setLayoutManager(new GridLayoutManager(this,3));
+        setToolbar();
 
         Intent intent = getIntent();
         if (intent.getAction() != null){
@@ -57,7 +63,7 @@ public class AnyResultsPage extends AppCompatActivity implements GeneralListener
                     Recently[] results = gson.fromJson(stringData,Recently[].class);
                     RecentlyLists = new ArrayList<>(Arrays.asList(results));
                     homeMovieAdapter = new HomeMovieAdapter(this,RecentlyLists,null,null);
-                    setupFromHome("Now Playing");
+                    setupFromHome(getString(R.string.now_playing));
                 }
             }
             else if (action.equals("viewMoviesSoon")){
@@ -68,7 +74,7 @@ public class AnyResultsPage extends AppCompatActivity implements GeneralListener
                     Coming[] results = gson.fromJson(stringData,Coming[].class);
                     ComingLists = new ArrayList<>(Arrays.asList(results));
                     homeMovieAdapter = new HomeMovieAdapter(this,null,ComingLists,null);
-                    setupFromHome("Coming Soon");
+                    setupFromHome(getString(R.string.coming_soon));
                 }
             }
             else if (action.equals("viewCinemas")){
@@ -79,7 +85,7 @@ public class AnyResultsPage extends AppCompatActivity implements GeneralListener
                     Cinema[] results = gson.fromJson(stringData,Cinema[].class);
                     CinemaLists = new ArrayList<>(Arrays.asList(results));
                     homeMovieAdapter = new HomeMovieAdapter(this,null,null,CinemaLists);
-                    setupFromHome("Cinemas");
+                    setupFromHome(getString(R.string.cinemas));
                 }
 
             }
@@ -93,8 +99,29 @@ public class AnyResultsPage extends AppCompatActivity implements GeneralListener
 
     }
 
+    private void setToolbar() {
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(getString(R.string.all_results));
+        searchIcon = findViewById(R.id.toolbar_Search);
+        backBtn = findViewById(R.id.toolbar_back);
+
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AnyResultsPage.this,SearchPage.class);
+                startActivity(intent);
+            }
+        });
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
     private void setupCinemaMovies(String id) {
-        titleOne.setText("Now Playing");
+        titleOne.setText(getString(R.string.now_playing));
         titleTwo.setVisibility(View.GONE);
        // titleTwo.setText("Coming Soon");
         //Setup recycler views

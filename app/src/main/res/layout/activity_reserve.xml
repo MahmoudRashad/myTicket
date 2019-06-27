@@ -144,7 +144,6 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:scaleType="fitXY"
-            android:src="@drawable/cinema"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -170,7 +169,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:text="The Cinema"
             android:textColor="#fff"
             android:textSize="22sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -205,7 +203,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:background="@drawable/white_rect_bk"
-            android:text="next"
+            android:text="@string/next"
             android:textColor="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="@+id/spinner3"
             app:layout_constraintStart_toStartOf="@+id/spinner3"

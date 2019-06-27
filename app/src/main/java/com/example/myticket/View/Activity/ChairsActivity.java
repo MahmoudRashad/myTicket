@@ -98,7 +98,7 @@ public class ChairsActivity extends AppCompatActivity
 
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
-        toolbarTitle.setText("Choose Your Seat");
+        toolbarTitle.setText(getString(R.string.choose_your_seat));
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 
@@ -303,6 +303,7 @@ public class ChairsActivity extends AppCompatActivity
         typeChair.setPrice("0");
         typeChair.setId(-1);
         typeChair.setColor("#444444");
+        //TODO: make this a string
         typeChair.setName("unAvilable");
         this.chairResponse.getResult().getTypeChair().add(typeChair);
         chairTypeAdapter = new ChairTypeAdapter(

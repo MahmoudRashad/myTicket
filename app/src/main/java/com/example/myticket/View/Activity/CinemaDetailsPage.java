@@ -77,6 +77,7 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
         reviewsRv = findViewById(R.id.details_rev_rv);
         shareBtn = findViewById(R.id.icon_share_cinema);
         playCinema = findViewById(R.id.icon_play_cinema);
+        playCinema.setVisibility(View.GONE);
         cinemaCover = findViewById(R.id.cover_photo_cinema);
         nameCinema = findViewById(R.id.details_cinema_title);
         detailAddress = findViewById(R.id.detail_address);
@@ -152,16 +153,19 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
         avgRating.setText(rate);
         String reviews = String.valueOf(cinemaDetails.getReviews());
         reviewsNumber.setText(reviews);
-        playCinema.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String link = (String) cinemaDetails.getYoutube();
-                if (!link.equals("null")) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                    startActivity(intent);
+        String link = (String) cinemaDetails.getYoutube();
+        if (link != null) {
+            playCinema.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (!link.equals("null")) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                        startActivity(intent);
+                    }
                 }
-            }
-        });
+            });
+        }
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -53,13 +53,12 @@ public class HomeMovieAdapter extends RecyclerView.Adapter<HomeMovieAdapter.Movi
                     .load(movie.getImage())
                     .into(movieViewHolder.moviePhoto);
             movieViewHolder.movieTitle.setText(movie.getName());
-            if (movie.getReviews() != null) {
-                String reviews = movie.getReviews().toString();
-                movieViewHolder.reviewRate.setText(reviews);
+            if (movie.getRate() != null) {
+                movieViewHolder.reviewRate.setText(movie.getRate());
             }
             if (movie.getReviews() != null) {
-                String rate = movie.getRate().toString();
-                movieViewHolder.reviewsTotal.setText(rate);
+                String reviews= movie.getReviews().toString();
+                movieViewHolder.reviewsTotal.setText(reviews);
             }
         }
         else if (comingList != null){
@@ -68,13 +67,12 @@ public class HomeMovieAdapter extends RecyclerView.Adapter<HomeMovieAdapter.Movi
                     .load(movie.getImage())
                     .into(movieViewHolder.moviePhoto);
             movieViewHolder.movieTitle.setText(movie.getName());
-            if (movie.getReviews() != null) {
-                String reviews = movie.getReviews().toString();
-                movieViewHolder.reviewRate.setText(reviews);
+            if (movie.getRate() != null) {
+                movieViewHolder.reviewRate.setText(movie.getRate());
             }
             if (movie.getReviews() != null) {
-                String rate = movie.getRate().toString();
-                movieViewHolder.reviewsTotal.setText(rate);
+                String reviews = movie.getReviews().toString();
+                movieViewHolder.reviewsTotal.setText(reviews);
             }
 
         }
@@ -84,13 +82,12 @@ public class HomeMovieAdapter extends RecyclerView.Adapter<HomeMovieAdapter.Movi
                     .load(cinema.getImage())
                     .into(movieViewHolder.moviePhoto);
             movieViewHolder.movieTitle.setText(cinema.getName());
-            if (cinema.getReviews() != null) {
-                String reviews = cinema.getReviews().toString();
-                movieViewHolder.reviewRate.setText(reviews);
+            if (cinema.getRate() != null) {
+                movieViewHolder.reviewRate.setText(cinema.getRate());
             }
             if (cinema.getReviews() != null) {
-                String rate = cinema.getRate().toString();
-                movieViewHolder.reviewsTotal.setText(rate);
+                String reviews = cinema.getReviews().toString();
+                movieViewHolder.reviewsTotal.setText(reviews);
             }
         }
 

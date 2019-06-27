@@ -37,7 +37,7 @@ public class QrcodePage extends AppCompatActivity {
     }
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
-        toolbarTitle.setText("My Tickets");
+        toolbarTitle.setText(getString(R.string.my_tickets));
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 

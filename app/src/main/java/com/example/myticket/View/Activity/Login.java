@@ -97,7 +97,7 @@ public class Login extends AppCompatActivity implements
 
                 if (TextUtils.isEmpty(mPassword) ||
                         TextUtils.isEmpty(mUsername)){
-                    Toast.makeText(Login.this, "Please fill all fields", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Login.this, getString(R.string.please_fill_all_fields), Toast.LENGTH_LONG).show();
                 }
                 else {
 
@@ -129,7 +129,7 @@ public class Login extends AppCompatActivity implements
     }
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
-        toolbarTitle.setText("Login");
+        toolbarTitle.setText(getString(R.string.login));
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 

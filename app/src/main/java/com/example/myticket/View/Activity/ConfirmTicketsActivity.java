@@ -93,7 +93,7 @@ public class ConfirmTicketsActivity extends AppCompatActivity
 
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
-        toolbarTitle.setText("Confirm Your Payment");
+        toolbarTitle.setText(getString(R.string.confirm_payment));
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 

@@ -77,7 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:text="Submit"
+        android:text="@string/submit"
         android:textColor="@color/colorAccent"
         android:background="@drawable/rect_grey"
         android:layout_marginTop="16dp"

@@ -44,7 +44,7 @@ public class Gate extends AppCompatActivity {
 
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
-        toolbarTitle.setText("Select Your Gate");
+        toolbarTitle.setText(getString(R.string.select_your_gate));
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 

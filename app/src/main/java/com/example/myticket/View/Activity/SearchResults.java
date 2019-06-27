@@ -76,7 +76,7 @@ public class SearchResults extends AppCompatActivity {
 
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
-        toolbarTitle.setText("Search Results");
+        toolbarTitle.setText(getString(R.string.search_results));
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 
@@ -107,7 +107,7 @@ public class SearchResults extends AppCompatActivity {
                         filteredList.add(result);
                     }
                 }
-                searchResultsText.setText("Movies");
+                searchResultsText.setText(getString(R.string.movies));
                 variables.setCategories();
                 categoriesFilter = variables.getCategories();
                 filtersRV.setVisibility(View.VISIBLE);
@@ -124,14 +124,14 @@ public class SearchResults extends AppCompatActivity {
                 moviesBtn.setVisibility(View.GONE);
                 cinemasBtn.setVisibility(View.GONE);
                 filterResultText.setVisibility(View.VISIBLE);
-                filterResultText.setText("Cinemas");
-                searchResultsText.setText("Cinemas");
+                filterResultText.setText(getString(R.string.cinemas));
+                searchResultsText.setText(getString(R.string.cinemas));
                 for (Result result : searchResults){
                     if (result.getType().equals("2")){
                         filteredList.add(result);
                     }
                 }
-                searchResultsText.setText("Cinemas");
+                searchResultsText.setText(getString(R.string.cinemas));
                 variables.setCinemasCategories();
                 categoriesFilter = variables.getCinemasCategories();
                 filtersRV.setVisibility(View.VISIBLE);

@@ -24,7 +24,6 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nowPlaying_image"
-            tools:text="movie name"
             android:layout_marginBottom="8dp"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
             android:textStyle="bold"
@@ -44,7 +43,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="9.5"
         app:layout_constraintTop_toBottomOf="@id/nowPlaying_name"
         app:layout_constraintStart_toEndOf="@id/home_star" />
     <TextView
@@ -53,13 +51,12 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/nowPlaying_name"
-        android:text="Reviews"/>
+        android:text="@string/reviews"/>
 
     <TextView
         android:id="@+id/reviewsNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2500"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/reviewsTitle" />
 

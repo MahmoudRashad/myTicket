@@ -164,7 +164,7 @@ public class ReserveActivity extends AppCompatActivity
 
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
-        toolbarTitle.setText("Reservation");
+        toolbarTitle.setText(getString(R.string.reservation));
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 
@@ -457,6 +457,7 @@ public class ReserveActivity extends AppCompatActivity
 
                 ResultReserveCinema resultReserveCinema =
                         new ResultReserveCinema();
+                //TODO: make string
                 resultReserveCinema.setName("select cinema");
                 resultReserveCinema.setId(-1);
                 this.reserveCinemaResponse.getResult().add(0,resultReserveCinema);
@@ -472,6 +473,7 @@ public class ReserveActivity extends AppCompatActivity
 
                 ResultReserveCinema resultReserveCinema =
                         new ResultReserveCinema();
+                //TODO: make string
                 resultReserveCinema.setName("select Date");
                 resultReserveCinema.setId(-1);
                 this.reserveDateResponse.getResult().add(0,resultReserveCinema);
@@ -488,6 +490,7 @@ public class ReserveActivity extends AppCompatActivity
 
                 ResultReserveCinema resultReserveCinema =
                         new ResultReserveCinema();
+                //TODO: make String
                 resultReserveCinema.setName("select Time");
                 resultReserveCinema.setId(-1);
                 this.reserveTimeResponse.getResult().add(0,resultReserveCinema);
@@ -502,7 +505,7 @@ public class ReserveActivity extends AppCompatActivity
         }
         else
         {
-            Toast.makeText(this , "failed updated"
+            Toast.makeText(this , getString(R.string.failed_to_update)
                     , Toast.LENGTH_LONG).show();
         }
     }

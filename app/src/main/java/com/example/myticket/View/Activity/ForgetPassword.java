@@ -51,10 +51,10 @@ public class ForgetPassword extends AppCompatActivity implements GeneralListener
                 mEmail = email.getText().toString();
 
                 if ( TextUtils.isEmpty(mEmail)) {
-                    Toast.makeText(ForgetPassword.this, "Please fill all fields", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ForgetPassword.this, getString(R.string.please_fill_all_fields), Toast.LENGTH_LONG).show();
                 }
                 else if (!isEmailValid(mEmail)){
-                    Toast.makeText(ForgetPassword.this, "Email Not Valid", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ForgetPassword.this, getString(R.string.email_not_valid), Toast.LENGTH_LONG).show();
                 }
                 else {
                     progressBar.setVisibility(View.VISIBLE);
@@ -70,7 +70,7 @@ public class ForgetPassword extends AppCompatActivity implements GeneralListener
 
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
-        toolbarTitle.setText("Reset Your Password");
+        toolbarTitle.setText(getString(R.string.reset_your_password));
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 
