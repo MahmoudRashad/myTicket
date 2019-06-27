@@ -1,9 +1,12 @@
 package com.example.myticket.View.Activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.myticket.R;
 import com.google.zxing.BarcodeFormat;
@@ -13,10 +16,16 @@ import com.google.zxing.common.BitMatrix;
 
 public class QrcodePage extends AppCompatActivity {
 
+    private ImageView backBtn;
+    private ImageView searchIcon;
+    private TextView toolbarTitle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrcode_page);
+
+        setToolbar();
+
         ImageView imvQrCode = findViewById(R.id.qr_image_view);
         Bitmap bitmap = null;
         try {
@@ -26,7 +35,26 @@ public class QrcodePage extends AppCompatActivity {
         }
         imvQrCode.setImageBitmap(bitmap);
     }
+    private void setToolbar() {
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText("My Tickets");
+        searchIcon = findViewById(R.id.toolbar_Search);
+        backBtn = findViewById(R.id.toolbar_back);
 
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(QrcodePage.this,SearchPage.class);
+                startActivity(intent);
+            }
+        });
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
     private Bitmap textToImage(String text, int width, int height) throws WriterException, NullPointerException {
         BitMatrix bitMatrix;
         try {

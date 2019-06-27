@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myticket.Business.TicketCinemaBusiness;
@@ -53,6 +54,9 @@ public class ChairsActivity extends AppCompatActivity
     private ConstraintLayout layout ;
     RecyclerView chairTypeRv , chairRowsRv;
     Button nextBtn;
+    private ImageView backBtn;
+    private ImageView searchIcon;
+    private TextView toolbarTitle;
 
 
 
@@ -63,6 +67,7 @@ public class ChairsActivity extends AppCompatActivity
 
         findViewsToReferences();
         setListenerOfViews();
+        setToolbar();
 
 //        if( getIntent().getExtras() != null )
 //        {
@@ -89,6 +94,27 @@ public class ChairsActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
 //        setDataOfViews();
+    }
+
+    private void setToolbar() {
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText("Choose Your Seat");
+        searchIcon = findViewById(R.id.toolbar_Search);
+        backBtn = findViewById(R.id.toolbar_back);
+
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChairsActivity.this,SearchPage.class);
+                startActivity(intent);
+            }
+        });
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 
