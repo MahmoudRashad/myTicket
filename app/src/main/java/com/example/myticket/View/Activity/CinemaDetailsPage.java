@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -65,6 +66,7 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
     private ImageView backBtn;
     private ImageView searchIcon;
     private TextView toolbarTitle;
+    private ProgressBar progressBar;
 
     private ArrayList<Result> allComments;
 
@@ -98,12 +100,14 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
         ratingBar  = findViewById(R.id.rating_bar);
         dropDownRevs = findViewById(R.id.dropdown_revs);
         closeAllRevs = findViewById(R.id.close_All_reviews);
+        progressBar = findViewById(R.id.progressBar_cinemaDetails);
         reviewsRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         apiCalling = new ApiCalling(this);
 
         Intent intent = getIntent();
         if (intent.getData() != null) {
+            progressBar.setVisibility(View.GONE);
                 String stringData = String.valueOf(intent.getData().getSchemeSpecificPart());
                 GsonBuilder gsonBuilder = new GsonBuilder();
                 Gson gson = gsonBuilder.create();
@@ -155,29 +159,32 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
         reviewsNumber.setText(reviews);
         String link = (String) cinemaDetails.getYoutube();
         if (link != null) {
+            playCinema.setVisibility(View.VISIBLE);
+            shareBtn.setVisibility(View.VISIBLE);
             playCinema.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    if (!link.equals("null")) {
+                    if (link != null) {
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
                         startActivity(intent);
                     }
                 }
             });
-        }
-        shareBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String link = (String) cinemaDetails.getYoutube();
-                if (!link.equals("null")) {
-                    Intent share = new Intent(android.content.Intent.ACTION_SEND);
-                    share.setType("text/plain");
-                    share.putExtra(Intent.EXTRA_TEXT, link);
-                    startActivity(share);
+            shareBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String link = (String) cinemaDetails.getYoutube();
+                    if (link != null) {
+                        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                        share.setType("text/plain");
+                        share.putExtra(Intent.EXTRA_TEXT, link);
+                        startActivity(share);
+                    }
                 }
-            }
-        });
+            });
+        }
+
 
         movieListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -270,6 +277,7 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
 
         }
         else if (tApiResponse instanceof DetailsCinema){
+            progressBar.setVisibility(View.GONE);
             DetailsCinema Details = (DetailsCinema) tApiResponse;
             cinemaDetails = Details.getResult();
             setDetails();

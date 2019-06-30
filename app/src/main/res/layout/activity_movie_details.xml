@@ -41,6 +41,15 @@
                     <!--android:alpha="0.4"-->
                     <!--android:src="@drawable/gradient_bg"-->
                     <!--/>-->
+                <ProgressBar
+                    android:id="@+id/progressBar_movieDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:elevation="4dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/cover_photo"
+                    app:layout_constraintBottom_toBottomOf="@id/cover_photo"/>
                 <ImageView
                     android:id="@+id/icon_play_movie"
                     android:layout_width="wrap_content"
@@ -65,7 +74,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/toolbar_movie_details"
                     />
 
         <TextView

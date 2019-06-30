@@ -64,11 +64,7 @@ public class SearchPage extends AppCompatActivity implements SearchLiveo.OnSearc
         searchIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                Intent intent = new Intent(SearchPage.this,SearchPage.class);
-//                startActivity(intent);
                 setSearchToolbar();
-
             }
 
         });

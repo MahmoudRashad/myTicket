@@ -3,17 +3,16 @@ package com.example.myticket.View.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -69,6 +68,8 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
     private ImageView searchIcon;
     private TextView toolbarTitle;
 
+    private ProgressBar progressBar;
+
 
 
     ApiCalling apiCalling;
@@ -94,6 +95,7 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
         reviewsRv = findViewById(R.id.details_rev_rv);
         categoryRV = findViewById(R.id.category_rv);
         playImage = findViewById(R.id.icon_play_movie);
+        playImage.setVisibility(View.GONE);
         shareImage = findViewById(R.id.icon_share_movie);
         makeReviewLayout = findViewById(R.id.frame_make_review);
         closeReviewBtn = findViewById(R.id.close_review_movie);
@@ -104,12 +106,14 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
         submittedLayout = findViewById(R.id.submitted_layout);
         closeReviewResult = findViewById(R.id.close_review_result_movie);
         closeAllRevs = findViewById(R.id.close_All_reviews);
+        progressBar = findViewById(R.id.progressBar_movieDetails);
 
         reviewsRv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         categoryRV.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
         if (intent.getData() != null){
             if (intent.getAction()!= null){
+                progressBar.setVisibility(View.GONE);
                 String action = intent.getAction();
                 String stringData = String.valueOf(intent.getData().getSchemeSpecificPart());
                 GsonBuilder gsonBuilder = new GsonBuilder();
@@ -168,7 +172,7 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
         String rates = String.valueOf(movieDetails.getRate());
         movieTotalReviewsNumber.setText(rates);
         categorList = (ArrayList<Category>) movieDetails.getCategory();
-        CategoryAdapter categoryAdapter = new CategoryAdapter(this,categorList,null,null,null);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(this,categorList,null,null,null, null);
         categoryRV.setAdapter(categoryAdapter);
         ratingBar.setRating(movieDetails.getReviews());
         playImage.setOnClickListener(new View.OnClickListener() {
@@ -299,6 +303,8 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
 
         }
         else if (tApiResponse instanceof DetailsMovie){
+            progressBar.setVisibility(View.GONE);
+            playImage.setVisibility(View.VISIBLE);
             DetailsMovie Details = (DetailsMovie) tApiResponse;
             movieDetails = Details.getResult();
             setDetails();

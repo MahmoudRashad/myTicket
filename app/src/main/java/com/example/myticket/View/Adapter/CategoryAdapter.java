@@ -1,7 +1,9 @@
 package com.example.myticket.View.Adapter;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import com.example.myticket.Model.Network.DataModel.Search.Result;
 import com.example.myticket.R;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ReviewsViewHolder> {
 
@@ -20,16 +23,18 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Review
     private ArrayList<Category> categories;
     private ArrayList<String> categorySearch;
     private ArrayList<Result> searchResults;
-    private ArrayList<com.example.myticket.Model.Network.DataModel.Search.Category> searchCategories;
-    private ArrayList<Result> newSearchResults;
     private ResultsAdapter resultsAdapter;
+//    private int itemSelectedPrevios;
+//    private String previousCategory;
+//    private RecyclerView mRecyclerList;
 
-    public CategoryAdapter(Context context, ArrayList<Category> categories, ArrayList<String> category, ArrayList<Result> searchResults,ResultsAdapter resultsAdapter) {
+    public CategoryAdapter(Context context, ArrayList<Category> categories, ArrayList<String> category, ArrayList<Result> searchResults, ResultsAdapter resultsAdapter, RecyclerView filtersRV) {
         this.context = context;
         this.categories = categories;
         this.categorySearch = category;
         this.searchResults = searchResults;
         this.resultsAdapter = resultsAdapter;
+   //     this.mRecyclerList = filtersRV;
     }
 
     @NonNull
@@ -40,6 +45,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Review
         return new ReviewsViewHolder(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onBindViewHolder(@NonNull ReviewsViewHolder reviewsViewHolder, int i) {
         if (categories!= null){
@@ -47,6 +53,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Review
             reviewsViewHolder.categoryText.setText(category.getCategory());
         }
         else {
+
             String category = categorySearch.get(i);
             reviewsViewHolder.categoryText.setText(category);
         }
@@ -70,28 +77,46 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Review
             itemView.setOnClickListener(this);
         }
 
+        @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void onClick(View v) {
             if (searchResults != null){
+            //    TextView previousTextView;
                 int position = getAdapterPosition();
-                newSearchResults = new ArrayList<>();
                 int positionID = position+1;
-                String category = categorySearch.get(position);
-                for (Result result: searchResults){
-                    searchCategories = (ArrayList<com.example.myticket.Model.Network.DataModel.Search.Category>) result.getCategory();
-                    for (com.example.myticket.Model.Network.DataModel.Search.Category cat : searchCategories){
-                        int id = cat.getId();
-                        //TODO: fix the category name and id in api
-                        if (id == positionID){
-                            newSearchResults.add(result);
-                            resultsAdapter.update(newSearchResults);
-                        }
-                        else
-                        {
-                            resultsAdapter.update(newSearchResults);
-                        }
-                    }
-                }
+             //   categoryText.setBackgroundColor(context.getColor(R.color.gray));
+                resultsAdapter.updateMovies(positionID);
+
+//                if (mRecyclerList.findViewHolderForAdapterPosition(itemSelectedPrevios) != null) {
+//                    View view =mRecyclerList.findViewHolderForAdapterPosition(itemSelectedPrevios).itemView;
+//
+//                    previousTextView = view.findViewById(R.id.category_text);
+//                    previousTextView.setBackground(context.getDrawable(R.drawable.white_rect_bk));
+//                }
+//
+//                itemSelectedPrevios = position;
+
+
+
+
+
+//                String category = categorySearch.get(position);
+                //newSearchResults = new ArrayList<>();
+//                for (Result result: searchResults){
+//                    searchCategories = (ArrayList<com.example.myticket.Model.Network.DataModel.Search.Category>) result.getCategory();
+//                    for (com.example.myticket.Model.Network.DataModel.Search.Category cat : searchCategories){
+//                        int id = cat.getId();
+//                        //TODO: fix the category name and id in api
+//                        if (id == positionID){
+//                            newSearchResults.add(result);
+//                            resultsAdapter.update(newSearchResults);
+//                        }
+//                        else
+//                        {
+//                            resultsAdapter.update(newSearchResults);
+//                        }
+//                    }
+//                }
             }
         }
     }

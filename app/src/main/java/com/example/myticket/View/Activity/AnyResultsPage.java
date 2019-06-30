@@ -1,6 +1,7 @@
 package com.example.myticket.View.Activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -39,14 +40,18 @@ public class AnyResultsPage extends AppCompatActivity implements GeneralListener
     private ImageView backBtn;
     private ImageView searchIcon;
     private TextView toolbarTitle;
+    private Typeface myfont;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_any_results_page);
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
         apiCalling = new ApiCalling(this);
         titleTwo = findViewById(R.id.titleTwo_results_page);
         titleOne = findViewById(R.id.titleOne_results_page);
+        titleOne.setTypeface(myfont);
+        titleTwo.setTypeface(myfont);
         recyclerViewOne = findViewById(R.id.rv_movies_now);
         recyclerViewTwo = findViewById(R.id.rv_movies_soon);
         recyclerViewOne.setLayoutManager(new GridLayoutManager(this,3));
@@ -102,6 +107,7 @@ public class AnyResultsPage extends AppCompatActivity implements GeneralListener
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(getString(R.string.all_results));
+        toolbarTitle.setTypeface(myfont);
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 

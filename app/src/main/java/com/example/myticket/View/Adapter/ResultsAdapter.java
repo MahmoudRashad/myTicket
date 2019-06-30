@@ -27,9 +27,12 @@ import java.util.List;
 public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.MovieViewHolder> {
     private Context context;
     private List<Result> results;
+    private List<Result> mainReults;
     public ResultsAdapter(Context context, List<Result> results) {
         this.context = context;
         this.results = results;
+        mainReults = new ArrayList<>();
+        this.mainReults.addAll(results);
     }
 
     @NonNull
@@ -65,6 +68,18 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.MovieVie
             results.addAll(arrayList);
             notifyDataSetChanged();
         }
+    }
+    public void updateMovies(int categoryID){
+        results.clear();
+        for (Result result: mainReults){
+            for (int i = 0 ; i<result.getCategory().size();i++){
+                if (result.getCategory().get(i).getId() == categoryID){
+                    results.add(result);
+                }
+            }
+        }
+        notifyDataSetChanged();
+
     }
 
     public class MovieViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

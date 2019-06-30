@@ -11,19 +11,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.myticket.Model.Network.DataModel.HomeResult.Cinema;
-import com.example.myticket.Model.Network.DataModel.HomeResult.Recently;
 import com.example.myticket.Model.Network.DataModel.Search.Result;
 import com.example.myticket.R;
 import com.example.myticket.View.Adapter.CategoryAdapter;
-import com.example.myticket.View.Adapter.HomeMovieAdapter;
 import com.example.myticket.View.Adapter.ResultsAdapter;
-import com.example.myticket.View.Adapter.SearchAdapter;
 import com.example.myticket.helper.Variables;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -111,7 +105,7 @@ public class SearchResults extends AppCompatActivity {
                 variables.setCategories();
                 categoriesFilter = variables.getCategories();
                 filtersRV.setVisibility(View.VISIBLE);
-                categoryAdapter = new CategoryAdapter(SearchResults.this,null,categoriesFilter,searchResults,searchAdapter);
+                categoryAdapter = new CategoryAdapter(SearchResults.this,null,categoriesFilter,searchResults,searchAdapter,filtersRV);
                 filtersRV.setAdapter(categoryAdapter);
                 searchAdapter.update(filteredList);
 
@@ -135,9 +129,9 @@ public class SearchResults extends AppCompatActivity {
                 variables.setCinemasCategories();
                 categoriesFilter = variables.getCinemasCategories();
                 filtersRV.setVisibility(View.VISIBLE);
-                categoryAdapter = new CategoryAdapter(SearchResults.this,null,categoriesFilter,null,null);
+                categoryAdapter = new CategoryAdapter(SearchResults.this,null,categoriesFilter,null,null, filtersRV);
                 filtersRV.setAdapter(categoryAdapter);
-                searchAdapter.update(filteredList);
+                searchAdapter.update(filteredList) ;
 
             }
         });

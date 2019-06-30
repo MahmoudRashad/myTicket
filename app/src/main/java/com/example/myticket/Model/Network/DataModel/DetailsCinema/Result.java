@@ -29,6 +29,15 @@ public class Result implements Serializable
     @SerializedName("address")
     @Expose
     private String address;
+
+
+
+    @SerializedName("lat")
+    @Expose
+    private String lat;
+    @SerializedName("long")
+    @Expose
+    private String _long;
     @SerializedName("youtube")
     @Expose
     private Object youtube;
@@ -152,6 +161,22 @@ public class Result implements Serializable
 
     public void setClose(String close) {
         this.close = close;
+    }
+
+    public String getLat() {
+        return lat;
+    }
+
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String get_long() {
+        return _long;
+    }
+
+    public void set_long(String _long) {
+        this._long = _long;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.myticket.View.Activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
@@ -68,6 +69,7 @@ public class HomeCinema extends AppCompatActivity implements
     private ImageView searchIcon;
     private ImageView toolbarLogo;
     private TextView toolbarTitle;
+    private Typeface myfont;
 
 
     @Override
@@ -91,6 +93,8 @@ public class HomeCinema extends AppCompatActivity implements
         toolbarTitle = findViewById(R.id.toolbar_title);
         backBtn = findViewById(R.id.toolbar_back);
         navBtn = findViewById(R.id.toolbar_nav);
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
+        seeAllCinema.setTypeface(myfont);
         toolbarLogo.setVisibility(View.VISIBLE);
         backBtn.setVisibility(View.GONE);
         navBtn.setVisibility(View.VISIBLE);

@@ -489,6 +489,7 @@ public class ApiCalling
         Map<String,String> map = new HashMap<>();
         map.put("film_id",filmId);
         map.put("rate",rate);
+        map.put("comment",null);
         Call<BaseNoResult> call = apiInterface.makeRate(lang,authToken,map);
         call.enqueue(new Callback<BaseNoResult>() {
             @Override
