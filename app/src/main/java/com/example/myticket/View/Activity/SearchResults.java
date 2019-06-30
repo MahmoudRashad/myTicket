@@ -1,6 +1,7 @@
 package com.example.myticket.View.Activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -39,17 +40,26 @@ public class SearchResults extends AppCompatActivity {
     private ImageView backBtn;
     private ImageView searchIcon;
     private TextView toolbarTitle;
+    private Typeface myfont;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
         resultsRv = findViewById(R.id.all_results_search);
         moviesBtn = findViewById(R.id.movies_btn);
+        moviesBtn.setTypeface(myfont);
         cinemasBtn = findViewById(R.id.cinemas_btn);
+        cinemasBtn.setTypeface(myfont);
         filtersRV = findViewById(R.id.filters_rv);
         filterResultText = findViewById(R.id.filter_result_text);
+        filterResultText.setTypeface(myfont);
         searchResultsText = findViewById(R.id.results_title);
+        searchResultsText.setTypeface(myfont);
+        TextView filterBy = findViewById(R.id.filter_by_label);
+        filterBy.setTypeface(myfont);
         filteredList = new ArrayList<>();
         resultsRv.setLayoutManager(new GridLayoutManager(this,3));
         filtersRV.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
@@ -71,6 +81,7 @@ public class SearchResults extends AppCompatActivity {
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(getString(R.string.search_results));
+        toolbarTitle.setTypeface(myfont);
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 

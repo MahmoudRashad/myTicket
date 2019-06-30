@@ -2,6 +2,7 @@ package com.example.myticket.View.Activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,11 +20,14 @@ public class QrcodePage extends AppCompatActivity {
     private ImageView backBtn;
     private ImageView searchIcon;
     private TextView toolbarTitle;
+    private Typeface myfont;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qrcode_page);
-
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
+        TextView text = findViewById(R.id.qr_text_title);
+        text.setTypeface(myfont);
         setToolbar();
 
         ImageView imvQrCode = findViewById(R.id.qr_image_view);
@@ -38,6 +42,7 @@ public class QrcodePage extends AppCompatActivity {
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(getString(R.string.my_tickets));
+        toolbarTitle.setTypeface(myfont);
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 

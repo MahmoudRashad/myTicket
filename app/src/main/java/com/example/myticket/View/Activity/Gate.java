@@ -1,6 +1,7 @@
 package com.example.myticket.View.Activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,12 +17,19 @@ public class Gate extends AppCompatActivity {
     private ImageView backBtn;
     private ImageView searchIcon;
     private TextView toolbarTitle;
+    private Typeface myfont;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getSupportActionBar().hide();
         setContentView(R.layout.activity_gate);
+        TextView cinema = findViewById(R.id.cinema_text);
+        TextView stadium = findViewById(R.id.stadium_text);
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
+        cinema.setTypeface(myfont);
+        stadium.setTypeface(myfont);
         Button btn = findViewById(R.id.qr_btn);
         layout = findViewById(R.id.cinema_gate);
         setToolbar();
@@ -45,6 +53,7 @@ public class Gate extends AppCompatActivity {
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(getString(R.string.select_your_gate));
+        toolbarTitle.setTypeface(myfont);
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 

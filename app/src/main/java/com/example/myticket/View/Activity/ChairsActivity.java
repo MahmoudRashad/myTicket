@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -47,6 +48,7 @@ public class ChairsActivity extends AppCompatActivity
     ChairTypeAdapter chairTypeAdapter;
     ChairResponse chairResponse;
     AlertDialog alertDialog;
+    private Typeface myfont;
 
     //--------------------------------  references of views -------------------------------------------------//
     private ConstraintLayout layout ;
@@ -55,6 +57,7 @@ public class ChairsActivity extends AppCompatActivity
     private ImageView backBtn;
     private ImageView searchIcon;
     private TextView toolbarTitle;
+    private TextView screen,message;
 
 
 
@@ -62,7 +65,7 @@ public class ChairsActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chairs);
-
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
         findViewsToReferences();
         setListenerOfViews();
         setToolbar();
@@ -203,6 +206,11 @@ public class ChairsActivity extends AppCompatActivity
         nextBtn = findViewById(R.id.button4);
         chairTypeRv = findViewById(R.id.chairs_type);
         chairRowsRv=  findViewById(R.id.chairs_RV);
+        screen = findViewById(R.id.textView2);
+        message = findViewById(R.id.textView3);
+        screen.setTypeface(myfont);
+        message.setTypeface(myfont);
+        nextBtn.setTypeface(myfont);
 
 
 

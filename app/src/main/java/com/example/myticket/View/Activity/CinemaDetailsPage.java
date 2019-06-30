@@ -1,6 +1,7 @@
 package com.example.myticket.View.Activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.NavUtils;
@@ -67,8 +68,10 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
     private ImageView searchIcon;
     private TextView toolbarTitle;
     private ProgressBar progressBar;
+    private Button cinema_movies_location_btn;
 
     private ArrayList<Result> allComments;
+    private Typeface myfont;
 
     private ApiCalling apiCalling;
 
@@ -76,31 +79,48 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cinema_details_page);
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
         reviewsRv = findViewById(R.id.details_rev_rv);
         shareBtn = findViewById(R.id.icon_share_cinema);
         playCinema = findViewById(R.id.icon_play_cinema);
         playCinema.setVisibility(View.GONE);
         cinemaCover = findViewById(R.id.cover_photo_cinema);
         nameCinema = findViewById(R.id.details_cinema_title);
+        nameCinema.setTypeface(myfont);
         detailAddress = findViewById(R.id.detail_address);
+        detailAddress.setTypeface(myfont);
         detailTime = findViewById(R.id.detail_time);
+        detailTime.setTypeface(myfont);
         avgRating = findViewById(R.id.avg_cinema_rate);
+        avgRating.setTypeface(myfont);
         reviewsNumber = findViewById(R.id.reviews_cinema_number);
+        reviewsNumber.setTypeface(myfont);
         movieListBtn = findViewById(R.id.cinema_movies_list_btn);
+        movieListBtn.setTypeface(myfont);
         makeReviewBtn = findViewById(R.id.make_cinema_review);
+        makeReviewBtn.setTypeface(myfont);
 
         makeReviewLayout = findViewById(R.id.frame_make_review);
         closeReviewBtn = findViewById(R.id.close_review_movie);
         submitReview = findViewById(R.id.submit_btn);
+        submitReview.setTypeface(myfont);
         writtenComment = findViewById(R.id.subject_rev_detail);
+        writtenComment.setTypeface(myfont);
         allRevsLayout = findViewById(R.id.all_revs_layout);
         submittedText = findViewById(R.id.submitted_text);
+        submittedText.setTypeface(myfont);
         submittedLayout = findViewById(R.id.submitted_layout);
         closeReviewResult = findViewById(R.id.close_review_result_movie);
         ratingBar  = findViewById(R.id.rating_bar);
         dropDownRevs = findViewById(R.id.dropdown_revs);
         closeAllRevs = findViewById(R.id.close_All_reviews);
         progressBar = findViewById(R.id.progressBar_cinemaDetails);
+        cinema_movies_location_btn = findViewById(R.id.cinema_movies_location_btn);
+        cinema_movies_location_btn.setTypeface(myfont);
+        TextView ratingTitle = findViewById(R.id.rating_title);
+        ratingTitle.setTypeface(myfont);
+        TextView total = findViewById(R.id.reviews_number_title);
+        total.setTypeface(myfont);
         reviewsRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         apiCalling = new ApiCalling(this);
@@ -128,6 +148,7 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
         toolbar = findViewById(R.id.toolbar);
         toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(cinemaDetails.getName());
+        toolbarTitle.setTypeface(myfont);
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 
@@ -211,12 +232,12 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
                             String comment = writtenComment.getText().toString();
                             //call make comment and make review
                             String rate = String.valueOf(ratingBar.getRating()*2);
-                            //TODO: add real device language from session manger
+                            String lang = sessionManager.getDeviceLanguage();
                             if (!comment.equals("")) {
-                                apiCalling.submitComment(token, "en", id, comment, CinemaDetailsPage.this);
+                                apiCalling.submitComment(token, lang, id, comment, CinemaDetailsPage.this);
                             }
                             if (ratingBar.getRating()>=1) {
-                                apiCalling.makeRate(token, "en", id, rate, CinemaDetailsPage.this);
+                                apiCalling.makeRate(token, lang, id, rate, CinemaDetailsPage.this);
                             }
                         }
                     });

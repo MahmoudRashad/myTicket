@@ -1,6 +1,7 @@
 package com.example.myticket.View.Activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -69,8 +70,7 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
     private TextView toolbarTitle;
 
     private ProgressBar progressBar;
-
-
+    private Typeface myfont;
 
     ApiCalling apiCalling;
     SessionManager sessionManager;
@@ -78,19 +78,27 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
         apiCalling = new ApiCalling(this);
         Intent intent = getIntent();
         sessionManager= new SessionManager(this);
 
         dropDown = findViewById(R.id.dropdown_revs);
         ReserveBtn = findViewById(R.id.reserve_btn);
+        ReserveBtn.setTypeface(myfont);
         coverPhoto = findViewById(R.id.cover_photo);
         movieTitle = findViewById(R.id.details_movie_title);
+        movieTitle.setTypeface(myfont);
         movieDuration = findViewById(R.id.detail_duration);
+        movieDuration.setTypeface(myfont);
         movieDate = findViewById(R.id.detail_movie_date);
+        movieDate.setTypeface(myfont);
         movieRate = findViewById(R.id.avg_movie_rate);
+        movieRate.setTypeface(myfont);
         makeReviewBtn = findViewById(R.id.make_movie_review);
+        makeReviewBtn.setTypeface(myfont);
         movieTotalReviewsNumber = findViewById(R.id.reviews_number);
+        movieTotalReviewsNumber.setTypeface(myfont);
         ratingBar = findViewById(R.id.rating_bar);
         reviewsRv = findViewById(R.id.details_rev_rv);
         categoryRV = findViewById(R.id.category_rv);
@@ -100,13 +108,22 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
         makeReviewLayout = findViewById(R.id.frame_make_review);
         closeReviewBtn = findViewById(R.id.close_review_movie);
         submitReview = findViewById(R.id.submit_btn);
+        submitReview.setTypeface(myfont);
         writtenComment = findViewById(R.id.subject_rev_detail);
+        writtenComment.setTypeface(myfont);
         allRevsLayout = findViewById(R.id.all_revs_layout);
         submittedText = findViewById(R.id.submitted_text);
+        submittedText.setTypeface(myfont);
         submittedLayout = findViewById(R.id.submitted_layout);
         closeReviewResult = findViewById(R.id.close_review_result_movie);
         closeAllRevs = findViewById(R.id.close_All_reviews);
         progressBar = findViewById(R.id.progressBar_movieDetails);
+        TextView categoryTitle = findViewById(R.id.category_title);
+        categoryTitle.setTypeface(myfont);
+        TextView ratingTitle = findViewById(R.id.rating_title);
+        ratingTitle.setTypeface(myfont);
+        TextView total = findViewById(R.id.reviews_number_title);
+        total.setTypeface(myfont);
 
         reviewsRv.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
         categoryRV.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
@@ -114,6 +131,7 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
         if (intent.getData() != null){
             if (intent.getAction()!= null){
                 progressBar.setVisibility(View.GONE);
+                playImage.setVisibility(View.VISIBLE);
                 String action = intent.getAction();
                 String stringData = String.valueOf(intent.getData().getSchemeSpecificPart());
                 GsonBuilder gsonBuilder = new GsonBuilder();
@@ -142,6 +160,7 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
 
         toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(movieDetails.getName());
+        toolbarTitle.setTypeface(myfont);
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 
@@ -208,12 +227,13 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
                             String comment = writtenComment.getText().toString();
                             //call make comment and make review
                             String rate = String.valueOf(ratingBar.getRating()*2);
-                            //TODO: add real device language from session manger
+
+                            String lang = sessionManager.getDeviceLanguage();
                             if (!comment.equals("")) {
-                                apiCalling.submitComment(token, "en", id, comment, MovieDetailsPage.this);
+                                apiCalling.submitComment(token, lang, id, comment, MovieDetailsPage.this);
                             }
                             if (ratingBar.getRating()>=1) {
-                                apiCalling.makeRate(token, "en", id, rate, MovieDetailsPage.this);
+                                apiCalling.makeRate(token, lang, id, rate, MovieDetailsPage.this);
                             }
                         }
                     });

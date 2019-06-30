@@ -2,6 +2,7 @@ package com.example.myticket.View.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -53,6 +54,7 @@ public class ConfirmTicketsActivity extends AppCompatActivity
     SessionManager sessionManager;
     ProgressDialog dialog;
     TicketsAdapter ticketsAdapter;
+    private Typeface myfont;
 
 
 
@@ -66,11 +68,12 @@ public class ConfirmTicketsActivity extends AppCompatActivity
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_payment);
-
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
         findViewsToReferences();
         setListenerOfViews();
         setToolbar();
@@ -94,6 +97,7 @@ public class ConfirmTicketsActivity extends AppCompatActivity
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(getString(R.string.confirm_payment));
+        toolbarTitle.setTypeface(myfont);
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 
@@ -146,6 +150,7 @@ public class ConfirmTicketsActivity extends AppCompatActivity
         layout = findViewById(R.id.container);
         payBtn = findViewById(R.id.button5);
         ticketsRv = findViewById(R.id.chairs_type);
+        payBtn.setTypeface(myfont);
 
 //        }
 //        catch ( Exception e)

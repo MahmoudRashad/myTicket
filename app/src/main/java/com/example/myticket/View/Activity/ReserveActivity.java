@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -98,12 +99,14 @@ public class ReserveActivity extends AppCompatActivity
     private ImageView backBtn;
     private ImageView searchIcon;
     private TextView toolbarTitle;
+    private Typeface myfont;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reserve);
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
 
         findViewsToReferences();
         setListenerOfViews();
@@ -166,6 +169,7 @@ public class ReserveActivity extends AppCompatActivity
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(getString(R.string.reservation));
+        toolbarTitle.setTypeface(myfont);
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 
@@ -258,6 +262,9 @@ public class ReserveActivity extends AppCompatActivity
         timeS = findViewById(R.id.spinner3);
         movieIv = findViewById(R.id.cover_photo);
         hallTv = findViewById(R.id.textView26);
+        hallTv.setTypeface(myfont);
+        TextView textView = findViewById(R.id.details_cinema_title);
+        textView.setTypeface(myfont);
 
         String reserveCinema ,
                 reserveDate , reserveTime ;

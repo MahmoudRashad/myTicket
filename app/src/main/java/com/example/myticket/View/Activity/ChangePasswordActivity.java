@@ -1,5 +1,6 @@
 package com.example.myticket.View.Activity;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myticket.Model.Data.SessionManager;
@@ -30,6 +32,7 @@ public class ChangePasswordActivity extends AppCompatActivity
     private SessionManager sessionManager;
     private ApiCalling apiCalling;
     GeneralApiesponse generalApiesponse;
+    private Typeface myfont;
 
 
     //------------ reference of views -------------------//
@@ -47,6 +50,7 @@ public class ChangePasswordActivity extends AppCompatActivity
         setContentView(R.layout.activity_change_password);
 
         layout = findViewById(R.id.container);
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
 
 
         findViewsToReferences1();
@@ -65,7 +69,13 @@ public class ChangePasswordActivity extends AppCompatActivity
         newEt = findViewById(R.id.textView24);
         confirmEt = findViewById(R.id.textView25);
         loadingPb = findViewById(R.id.progressBar);
-
+        TextView enterpassword = findViewById(R.id.textView22);
+        TextView newPassword = findViewById(R.id.textView27);
+        TextView confirmPassword = findViewById(R.id.textView28);
+        enterpassword.setTypeface(myfont);
+        newPassword.setTypeface(myfont);
+        confirmPassword.setTypeface(myfont);
+        sendBtn.setTypeface(myfont);
 //        chnagePb= findViewById(R.id.progressBar2);
 
     }

@@ -78,6 +78,7 @@ public class HomeCinema extends AppCompatActivity implements
         setContentView(R.layout.activity_home_cinema);
 
         apiCalling = new ApiCalling(this);
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
         sliderPager = findViewById(R.id.C_home_slider);
         SliderProgressBar = findViewById(R.id.C_home_progressBar);
         tabLayout = findViewById(R.id.cinema_tabLayout);
@@ -93,8 +94,16 @@ public class HomeCinema extends AppCompatActivity implements
         toolbarTitle = findViewById(R.id.toolbar_title);
         backBtn = findViewById(R.id.toolbar_back);
         navBtn = findViewById(R.id.toolbar_nav);
-        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
+        TextView nowPlaying = findViewById(R.id.nowPlaying_title);
+        TextView comingSoon = findViewById(R.id.comingSoon_title);
+        TextView cinema = findViewById(R.id.cinema_title);
+        nowPlaying.setTypeface(myfont);
+        comingSoon.setTypeface(myfont);
+        cinema.setTypeface(myfont);
         seeAllCinema.setTypeface(myfont);
+        seeAllComingSoon.setTypeface(myfont);
+        seeAllCinema.setTypeface(myfont);
+        seeAllNearby.setTypeface(myfont);
         toolbarLogo.setVisibility(View.VISIBLE);
         backBtn.setVisibility(View.GONE);
         navBtn.setVisibility(View.VISIBLE);

@@ -2,6 +2,7 @@ package com.example.myticket.View.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -22,10 +23,14 @@ import java.util.ArrayList;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchViewHolder> {
     private Context context;
     private ArrayList<Result> results;
+    private Typeface myfont;
+
 
     public SearchAdapter(Context context, ArrayList<Result> results) {
         this.context = context;
         this.results = results;
+        myfont = Typeface.createFromAsset(context.getAssets(),"fonts/segoe_ui.ttf");
+
     }
 
     @NonNull
@@ -78,6 +83,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             title = itemView.findViewById(R.id.search_title);
             subTitle = itemView.findViewById(R.id.search_SubTitle);
             ratingBar = itemView.findViewById(R.id.rating_bar_search);
+            title.setTypeface(myfont);
+            subTitle.setTypeface(myfont);
             itemView.setOnClickListener(this);
         }
 

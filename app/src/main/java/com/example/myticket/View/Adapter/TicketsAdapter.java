@@ -2,6 +2,7 @@ package com.example.myticket.View.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,6 +27,8 @@ public class TicketsAdapter extends RecyclerView.Adapter<TicketsAdapter.ReviewsV
     private List<ResultTickets> resultTicketsList;
     private List<AvaliableChair> avaliableChairList;
     int adpterType;
+    private Typeface myfont;
+
 
 
 
@@ -35,6 +38,8 @@ public class TicketsAdapter extends RecyclerView.Adapter<TicketsAdapter.ReviewsV
         this.context = context;
         this.resultTicketsList = resultTicketsList;
         this.adpterType = adpterType;
+        myfont = Typeface.createFromAsset(context.getAssets(),"fonts/segoe_ui.ttf");
+
     }
 
 
@@ -43,6 +48,8 @@ public class TicketsAdapter extends RecyclerView.Adapter<TicketsAdapter.ReviewsV
         this.context = context;
         this.avaliableChairList = avaliableChairList;
         this.adpterType = adpterType;
+        myfont = Typeface.createFromAsset(context.getAssets(),"fonts/segoe_ui.ttf");
+
     }
 
     @NonNull
@@ -117,6 +124,14 @@ public class TicketsAdapter extends RecyclerView.Adapter<TicketsAdapter.ReviewsV
             seatNum = itemView.findViewById(R.id.textView18);
             seatType= itemView.findViewById(R.id.textView20);
             location= itemView.findViewById(R.id.textView21);
+            cinemaName.setTypeface(myfont);
+            movieName.setTypeface(myfont);
+            date.setTypeface(myfont);
+            time.setTypeface(myfont);
+            hall.setTypeface(myfont);
+            seatNum.setTypeface(myfont);
+            seatType.setTypeface(myfont);
+            location.setTypeface(myfont);
 
         }
     }

@@ -1,6 +1,7 @@
 package com.example.myticket.View.Activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,15 +40,20 @@ public class SearchPage extends AppCompatActivity implements SearchLiveo.OnSearc
     private ImageView backBtn;
     private ImageView searchIcon;
     private TextView toolbarTitle;
+    private Typeface myfont;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_page);
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
+
         apiCalling = new ApiCalling(this);
         mSearchLiveo = findViewById(R.id.search_liveo);
         autoCompleteRv = findViewById(R.id.search_rv);
         seeAll = findViewById(R.id.seeAll_search);
+        seeAll.setTypeface(myfont);
         seeAll.setVisibility(View.GONE);
         setToolbar();
         autoCompleteRv.setLayoutManager(new LinearLayoutManager(this));
@@ -58,6 +64,7 @@ public class SearchPage extends AppCompatActivity implements SearchLiveo.OnSearc
 
         toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(getString(R.string.search));
+        toolbarTitle.setTypeface(myfont);
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 

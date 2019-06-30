@@ -64,7 +64,7 @@
     <string name="reset_your_password">إعادة تعيين كلمة السر</string>
     <string name="save_new_password">حفظ كلمة السر الجديدة</string>
     <string name="view_all_results">إظهار كل النتائج</string>
-    <string name="filter_by">الترتيب حسب:</string>
+    <string name="filter_by">الترتيب حسب: </string>
     <string name="movies">الأفلام</string>
     <string name="all_results">جميع النتائج</string>
     <string name="reviews">التقييمات</string>

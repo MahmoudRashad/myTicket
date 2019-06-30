@@ -57,6 +57,7 @@
             android:paddingTop="24dp"
             />
         <TextView
+            android:id="@+id/cinema_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cinema"
@@ -90,6 +91,7 @@
             android:paddingTop="24dp"
             />
         <TextView
+            android:id="@+id/stadium_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/stadium"

@@ -50,6 +50,7 @@ public class ApiCalling
         apiInterface = apiClient.getClient(false).create(ApiInterface.class);
         sessionManager = new SessionManager(context);
     }
+    //TODO: check all apis that need device language and fix it
 
 //    public void apiCall(Call<NearByFullModel> call, final onResponceInterface onResponceInterface) {
 //

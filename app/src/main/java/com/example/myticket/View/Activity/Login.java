@@ -2,6 +2,7 @@ package com.example.myticket.View.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -54,7 +55,7 @@ public class Login extends AppCompatActivity implements
     private ImageView backBtn;
     private ImageView searchIcon;
     private TextView toolbarTitle;
-
+    private Typeface myfont;
 
     ///////////////////////////////////////////////////////////////
 
@@ -70,17 +71,20 @@ public class Login extends AppCompatActivity implements
         setContentView(R.layout.activity_login);
 
         apiCalling = new ApiCalling(this);
-
-
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
         sessionManager = new SessionManager(this)  ;
 
         userName = findViewById(R.id.username_login);
+        userName.setTypeface(myfont);
         password = findViewById(R.id.password_login);
+        password.setTypeface(myfont);
         btnLogin = findViewById(R.id.login_btn);
+        btnLogin.setTypeface(myfont);
         progressBar = findViewById(R.id.progressBar_login);
         registerTv = findViewById(R.id.register);
+        registerTv.setTypeface(myfont);
         forgetPasswordTv = findViewById(R.id.forget_password);
-        forgotText = findViewById(R.id.forgot_text);
+        forgetPasswordTv.setTypeface(myfont);
         progressBar.setVisibility(View.GONE);
         setToolbar();
 
@@ -132,6 +136,7 @@ public class Login extends AppCompatActivity implements
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(getString(R.string.login));
+        toolbarTitle.setTypeface(myfont);
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 

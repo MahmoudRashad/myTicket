@@ -2,8 +2,11 @@ package com.example.myticket.Model.Data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.myticket.helper.Variables;
+
+import java.util.Locale;
 
 
 /**
@@ -106,6 +109,19 @@ public class SessionManager
     {
         return sharedPreferences.getString( "userAddress", "");
     }
+
+    public String getDeviceLanguage(){
+//        sharedPreferences = getSharedPreferences(
+//                prefFile, MODE_PRIVATE);
+//        language = sharedPreferences.getString(LANG_KEY, "ar");
+
+
+        String language = Locale.getDefault().getLanguage();
+        return language;
+
+
+    }
+
 
 
 

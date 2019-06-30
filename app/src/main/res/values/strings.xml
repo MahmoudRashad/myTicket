@@ -48,7 +48,7 @@
     <string name="home">Home</string>
     <string name="profile">Profile</string>
     <string name="cinema_list">Cinema List</string>
-    <string name="forget_password">forget password ?</string>
+    <string name="forget_password">forgot your password ?</string>
     <string name="create_new_account">Create new Account ?</string>
     <string name="login">Login</string>
     <string name="reserve">Reserve</string>
@@ -62,7 +62,7 @@
     <string name="reset_your_password">RESET YOUR PASSWORD</string>
     <string name="save_new_password">Save new password</string>
     <string name="view_all_results">View All Results</string>
-    <string name="filter_by">Filter By:</string>
+    <string name="filter_by">Filter By: </string>
     <string name="movies">Movies</string>
 
     <string name="all_results">All Results</string>

@@ -2,6 +2,7 @@ package com.example.myticket.View.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -71,6 +72,7 @@ public class Register extends AppCompatActivity implements
     private TextView toolbarTitle;
 
     SessionManager sessionManager ;
+    private Typeface myfont;
 
     private UserRegister userRegister;
     ApiCalling apiCalling;
@@ -80,19 +82,30 @@ public class Register extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
 //        getSupportActionBar().hide();
         setContentView(R.layout.activity_register);
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
+
 
         apiCalling = new ApiCalling(this);
 
         sessionManager = new SessionManager(this);
         fullname = findViewById(R.id.fullname_reg);
+        fullname.setTypeface(myfont);
         password = findViewById(R.id.password_reg);
+        password.setTypeface(myfont);
         repPassword = findViewById(R.id.rep_password_reg);
+        repPassword.setTypeface(myfont);
         userName = findViewById(R.id.username_reg);
+        userName.setTypeface(myfont);
         address = findViewById(R.id.address_reg);
+        address.setTypeface(myfont);
         phone = findViewById(R.id.phone_reg);
+        phone.setTypeface(myfont);
         email = findViewById(R.id.email_reg);
+        email.setTypeface(myfont);
         btnReg = findViewById(R.id.reg_btn);
+        btnReg.setTypeface(myfont);
         loginTv = findViewById(R.id.reg_already);
+        loginTv.setTypeface(myfont);
         progressBar = findViewById(R.id.progressBar_reg);
         progressBar.setVisibility(View.GONE);
         setToolbar();
@@ -159,6 +172,7 @@ public class Register extends AppCompatActivity implements
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(getString(R.string.register));
+        toolbarTitle.setTypeface(myfont);
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 

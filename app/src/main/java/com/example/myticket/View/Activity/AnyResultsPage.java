@@ -41,6 +41,7 @@ public class AnyResultsPage extends AppCompatActivity implements GeneralListener
     private ImageView searchIcon;
     private TextView toolbarTitle;
     private Typeface myfont;
+    //TODO: add a layout for vertical rv and fix its design
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

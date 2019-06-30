@@ -1,6 +1,7 @@
 package com.example.myticket.View.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -24,6 +25,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Review
     private ArrayList<String> categorySearch;
     private ArrayList<Result> searchResults;
     private ResultsAdapter resultsAdapter;
+    private Typeface myfont;
+
 //    private int itemSelectedPrevios;
 //    private String previousCategory;
 //    private RecyclerView mRecyclerList;
@@ -34,7 +37,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Review
         this.categorySearch = category;
         this.searchResults = searchResults;
         this.resultsAdapter = resultsAdapter;
-   //     this.mRecyclerList = filtersRV;
+        myfont = Typeface.createFromAsset(context.getAssets(),"fonts/segoe_ui.ttf");
+
+        //     this.mRecyclerList = filtersRV;
     }
 
     @NonNull
@@ -74,6 +79,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Review
         public ReviewsViewHolder(@NonNull View itemView) {
             super(itemView);
             categoryText = itemView.findViewById(R.id.category_text);
+            categoryText.setTypeface(myfont);
             itemView.setOnClickListener(this);
         }
 

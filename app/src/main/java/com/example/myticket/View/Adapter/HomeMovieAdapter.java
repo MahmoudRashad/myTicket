@@ -2,6 +2,7 @@ package com.example.myticket.View.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -27,12 +28,16 @@ public class HomeMovieAdapter extends RecyclerView.Adapter<HomeMovieAdapter.Movi
     private List<Recently> movieDetails;
     private List<Coming> comingList;
     private List<Cinema> cinemaList;
+    private Typeface myfont;
+
 
     public HomeMovieAdapter(Context context, List<Recently> movieDetails, List<Coming> comingList,List<Cinema> cinemaList ) {
         this.context = context;
         this.movieDetails = movieDetails;
         this.comingList = comingList;
         this.cinemaList = cinemaList;
+        myfont = Typeface.createFromAsset(context.getAssets(),"fonts/segoe_ui.ttf");
+
     }
 
     @NonNull
@@ -117,7 +122,9 @@ public class HomeMovieAdapter extends RecyclerView.Adapter<HomeMovieAdapter.Movi
             movieTitle = itemView.findViewById(R.id.nowPlaying_name);
             reviewRate = itemView.findViewById(R.id.home_rate_value);
             reviewsTotal = itemView.findViewById(R.id.reviewsNumber);
-
+            movieTitle.setTypeface(myfont);
+            reviewsTotal.setTypeface(myfont);
+            reviewRate.setTypeface(myfont);
             itemView.setOnClickListener(this);
         }
 

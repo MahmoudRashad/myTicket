@@ -59,13 +59,13 @@ public class MainActivity extends AppCompatActivity
 
         GoListsPage = findViewById(R.id.GoToLists);
         GoCinemaDetailsPage = findViewById(R.id.GoToCinemaDetails);
-        sharedPreferences = getSharedPreferences(
-                prefFile, MODE_PRIVATE);
-        language = sharedPreferences.getString(LANG_KEY, "ar");
-        Log.e("lang from sp","language");
-
-        language = Locale.getDefault().getLanguage();
-        Log.e("lang from device","language");
+//        sharedPreferences = getSharedPreferences(
+//                prefFile, MODE_PRIVATE);
+//        language = sharedPreferences.getString(LANG_KEY, "ar");
+//        Log.e("lang from sp","language");
+//
+//        language = Locale.getDefault().getLanguage();
+//        Log.e("lang from device","language");
 
 
 

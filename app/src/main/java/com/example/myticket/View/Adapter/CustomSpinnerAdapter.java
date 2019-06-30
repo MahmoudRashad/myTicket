@@ -23,11 +23,15 @@ public class CustomSpinnerAdapter extends BaseAdapter
     Context context;
     List<ResultReserveCinema> selectors;
     LayoutInflater inflter;
+    private Typeface myfont;
+
 
     public CustomSpinnerAdapter(Context context, List<ResultReserveCinema> selectors) {
         this.context = context;
         this.selectors = selectors;
         inflter = (LayoutInflater.from(context));
+        myfont = Typeface.createFromAsset(context.getAssets(),"fonts/segoe_ui.ttf");
+
     }
 
     @Override
@@ -50,6 +54,7 @@ public class CustomSpinnerAdapter extends BaseAdapter
     {
         view = inflter.inflate(R.layout.row_filter, null);
         TextView title =  view.findViewById(R.id.textView13);
+        title.setTypeface(myfont);
         title.setText(selectors.get(i).getName());
 
 //        Typeface typeLight= Typeface.createFromAsset(context.getAssets(),"montserrat_alternates_light.otf");
@@ -75,6 +80,7 @@ public class CustomSpinnerAdapter extends BaseAdapter
                                 ViewGroup parent) {
         View view = super.getDropDownView(position, convertView, parent);
         TextView tv = (TextView) view.findViewById(R.id.textView13);
+        tv.setTypeface(myfont);
 //        if (position == 0) {
 //            // Set the hint text color gray
 //            tv.setTextColor(Color.GRAY);

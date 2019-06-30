@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -71,6 +72,7 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
     public int cameraRequest = 0 , galleryRequest = 1 ;
     Dialog  dialogChangePic ;
     ProgressDialog dialog;
+    private Typeface myfont;
 
     //--------------------------------  references of views -------------------------------------------------//
     private ConstraintLayout layout ;
@@ -87,7 +89,7 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_account);
-
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
         setToolbar();
 
         findViewsToReferences();
@@ -106,6 +108,7 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(getString(R.string.edit_account));
+        toolbarTitle.setTypeface(myfont);
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 
@@ -249,6 +252,22 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
         emailIv= findViewById(R.id.arrowThree);
         addressIv = findViewById(R.id.arrowFour);
         saveEditBtn = findViewById(R.id.submit_edit_profile_btn);
+        TextView fullname = findViewById(R.id.fullname_title);
+        TextView phoneNumber = findViewById(R.id.phone_number_title);
+        TextView email = findViewById(R.id.email_title);
+        TextView address = findViewById(R.id.email_title);
+        TextView verifiedPhone = findViewById(R.id.phone_verified);
+        TextView verifiedEmail = findViewById(R.id.email_verified);
+        fullname.setTypeface(myfont);
+        phoneNumber.setTypeface(myfont);
+        email.setTypeface(myfont);
+        address.setTypeface(myfont);
+        verifiedPhone.setTypeface(myfont);
+        verifiedEmail.setTypeface(myfont);
+        nameTv.setTypeface(myfont);
+        phoneTv.setTypeface(myfont);
+        emailTv.setTypeface(myfont);
+        addressTv.setTypeface(myfont);
 
 
 
