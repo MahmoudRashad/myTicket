@@ -15,6 +15,18 @@ public class ResultChair
     @Expose
     private List<TypeChair> typeChair = null;
 
+    @SerializedName("limit_reserve")
+    @Expose
+    private int limitReserve = 0;
+
+    public int getLimitReserve() {
+        return limitReserve;
+    }
+
+    public void setLimitReserve(int limitReserve) {
+        this.limitReserve = limitReserve;
+    }
+
     public List<AvaliableChair> getAvaliableChair() {
         return avaliableChair;
     }

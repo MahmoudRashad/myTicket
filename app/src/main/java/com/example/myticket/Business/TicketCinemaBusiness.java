@@ -9,14 +9,15 @@ import java.util.Map;
 
 public class TicketCinemaBusiness
 {
-    public static int movieId,reserveCinemaId,reserveDateId,reserveTimeId;
+    public static int movieId=-1,reserveCinemaId=-1,reserveDateId=-1,reserveTimeId=-1,
+    ticketLimits = 0;
     public static String reserveCinema ,
             reserveDate , reserveTime ,movieName  , hallName , cinemaLocation = "test";
 
-    public static Map<String , AvaliableChair> avilableChairsMap ;
+    public static Map<String , AvaliableChair> avilableChairsMap = new HashMap<>() ;
 
 
-    public static Map<String , AvaliableChair> selectedChairsMap ;
+    public static Map<String , AvaliableChair> selectedChairsMap = new HashMap<>();
 
     public static double totalPrice = 0;
 
@@ -34,7 +35,6 @@ public class TicketCinemaBusiness
 
     }
 
-
     public static void removeChair(AvaliableChair avaliableChair)
     {
         if( selectedChairsMap == null)
@@ -42,13 +42,5 @@ public class TicketCinemaBusiness
 
         selectedChairsMap.remove(avaliableChair.getChairNum() );
         totalPrice -= Double.valueOf(avaliableChair.getDetail().getPrice());
-
     }
-
-
-
-
-
-
-
 }

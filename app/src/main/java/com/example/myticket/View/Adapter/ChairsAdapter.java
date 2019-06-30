@@ -1,6 +1,8 @@
 package com.example.myticket.View.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -67,6 +69,7 @@ public class ChairsAdapter extends RecyclerView.Adapter<ChairsAdapter.ReviewsVie
             reviewsViewHolder.layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     // remove chair
                     if( TicketCinemaBusiness.avilableChairsMap.get(chairNum).isChecked())
                     {
@@ -78,10 +81,19 @@ public class ChairsAdapter extends RecyclerView.Adapter<ChairsAdapter.ReviewsVie
                     }
                     // add chair
                     else {
-                        reviewsViewHolder.chairColor.setImageDrawable(
-                                context.getDrawable(R.drawable.ic_action_name));
-                        TicketCinemaBusiness.avilableChairsMap.get(chairNum).setChecked(true);
-                        TicketCinemaBusiness.addChair(TicketCinemaBusiness.avilableChairsMap.get(chairNum));
+                        if(TicketCinemaBusiness.selectedChairsMap.size()<
+                                TicketCinemaBusiness.ticketLimits) {
+                            reviewsViewHolder.chairColor.setImageDrawable(
+                                    context.getDrawable(R.drawable.ic_action_name));
+                            TicketCinemaBusiness.avilableChairsMap.get(chairNum).setChecked(true);
+                            TicketCinemaBusiness.addChair(TicketCinemaBusiness.avilableChairsMap.get(chairNum));
+                        }
+                        else
+                        {
+                            showAlertDialog("Limit Tickets",
+                                    "Take Care ! your maximum number of tickets equal  "+
+                                            TicketCinemaBusiness.ticketLimits +"  Tickets");
+                        }
                     }
 
                 }
@@ -98,12 +110,43 @@ public class ChairsAdapter extends RecyclerView.Adapter<ChairsAdapter.ReviewsVie
             reviewsViewHolder.layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    reviewsViewHolder.chairColor.setBackgroundColor(Color.parseColor("#444444"));
 
-                    reviewsViewHolder.chairColor.setImageDrawable(null);
+                        reviewsViewHolder.chairColor.setBackgroundColor(Color.parseColor("#444444"));
+
+                        reviewsViewHolder.chairColor.setImageDrawable(null);
+
+
                 }
             });
         }
+    }
+
+    private void showAlertDialog(String title , String message)
+    {
+        AlertDialog.Builder builder1 = new AlertDialog.
+                Builder(context);
+        builder1.setTitle(title);
+        builder1.setMessage(message);
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+//        builder1.setNegativeButton(
+//                "No",
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        dialog.cancel();
+//                    }
+//                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 
     @Override
@@ -120,7 +163,8 @@ public class ChairsAdapter extends RecyclerView.Adapter<ChairsAdapter.ReviewsVie
         ImageView chairColor;
         ConstraintLayout layout;
 
-        public ReviewsViewHolder(@NonNull View itemView) {
+        public ReviewsViewHolder(@NonNull View itemView)
+        {
             super(itemView);
             chairNum = itemView.findViewById(R.id.tv2);
             chairColor = itemView.findViewById(R.id.imageView2);

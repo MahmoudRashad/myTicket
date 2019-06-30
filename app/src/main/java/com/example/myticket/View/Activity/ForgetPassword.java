@@ -18,7 +18,8 @@ import com.example.myticket.R;
 
 import static com.example.myticket.View.Activity.Register.isEmailValid;
 
-public class ForgetPassword extends AppCompatActivity implements GeneralListener {
+public class ForgetPassword extends AppCompatActivity implements
+        GeneralListener {
 
     private EditText email;
     private Button btnForget;
@@ -58,7 +59,7 @@ public class ForgetPassword extends AppCompatActivity implements GeneralListener
                 }
                 else {
                     progressBar.setVisibility(View.VISIBLE);
-                    apiCalling.forgetPasswordCall("en",mEmail,ForgetPassword.this);
+                    apiCalling.forgetPasswordCall("ar",mEmail,ForgetPassword.this);
                   //  ForgetPasswordModel model = new ForgetPasswordModel(mEmail);
 //                    ApiClient apiClient = new ApiClient(model, ForgetPassword.this, ForgetPassword.this);
 //                    apiClient.initializeClientForget();

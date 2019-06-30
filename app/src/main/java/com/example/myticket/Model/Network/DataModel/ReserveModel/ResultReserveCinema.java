@@ -10,9 +10,22 @@ public class ResultReserveCinema {
     @SerializedName("hall")
     @Expose
     private String hall;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @SerializedName("name")
     @Expose
     private String name;
+
+    @SerializedName("address")
+    @Expose
+    private String address;
 
     public Integer getId() {
         return id;

@@ -54,7 +54,8 @@ public interface ApiInterface {
 
 
     @POST("forget_password")
-    Call<ForgetPasswordResponce> forgetPassword(@Header("lang") String lang, String email);
+    Call<ForgetPasswordResponce> forgetPassword(@Header("lang") String lang,
+                                                @QueryMap Map<String, String> queryMap);
 
 
     @GET("slider")
@@ -130,6 +131,11 @@ public interface ApiInterface {
     Call<ChairResponse> getChairsCinema(@Header("lang") String lang,
                                         @Header("Authorization") String authorization,
                                         @QueryMap Map<String, String> queryMap);
+
+    @POST("change_password")
+    Call<ForgetPasswordResponce> changePassword(@Header("lang") String lang,
+                                                @Header("Authorization") String authorization,
+                                                @QueryMap Map<String, String> queryMap);
 
 
 }
