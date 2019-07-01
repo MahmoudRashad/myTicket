@@ -108,8 +108,7 @@ public class Login extends AppCompatActivity implements
 
                     loginUser = new User(mUsername, mPassword, deviceToken, deviceType, macAddress);
                     apiCalling.login(mUsername , mPassword,macAddress
-                            ,Login.this,
-                            "ar");
+                            ,Login.this);
                 }
             }
         });

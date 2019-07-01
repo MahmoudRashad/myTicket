@@ -87,7 +87,7 @@ public class ChairsActivity extends AppCompatActivity
         Map <String , String> queryMap = new HashMap();
         queryMap.put("cinema_id" , TicketCinemaBusiness.reserveCinemaId+"");
         apiCalling.getChairs("Bearer " +sessionManager.getUserToken()
-                , "ar" ,
+                ,
                 queryMap ,this);
     }
 

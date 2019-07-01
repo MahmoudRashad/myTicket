@@ -65,7 +65,7 @@ public class ForgetPassword extends AppCompatActivity implements
                 }
                 else {
                     progressBar.setVisibility(View.VISIBLE);
-                    apiCalling.forgetPasswordCall("ar",mEmail,ForgetPassword.this);
+                    apiCalling.forgetPasswordCall(mEmail,ForgetPassword.this);
                   //  ForgetPasswordModel model = new ForgetPasswordModel(mEmail);
 //                    ApiClient apiClient = new ApiClient(model, ForgetPassword.this, ForgetPassword.this);
 //                    apiClient.initializeClientForget();

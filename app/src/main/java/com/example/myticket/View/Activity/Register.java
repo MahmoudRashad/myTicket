@@ -158,7 +158,7 @@ public class Register extends AppCompatActivity implements
                     queryMap.put("mac" , macAddress);
 
 
-                    apiCalling.register("ar" , queryMap,Register.this);
+                    apiCalling.register(queryMap,Register.this);
                 }
             }
         });

@@ -420,7 +420,7 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
             showWatingDialog();
             Map map = new HashMap();
             map.put("imagePath" ,s );
-            apiCalling.editUserData("Bearer " +sessionManager.getUserToken() , "ar" ,
+            apiCalling.editUserData("Bearer " +sessionManager.getUserToken() ,
                     map , this );
 
             ////////////////////////////////////////////////////////
@@ -447,7 +447,7 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
             showWatingDialog();
             Map map = new HashMap();
             map.put("imagePath" ,s );
-            apiCalling.editUserData("Bearer " +sessionManager.getUserToken() , "ar" ,
+            apiCalling.editUserData("Bearer " +sessionManager.getUserToken() ,
                     map , this );
         }
     }
@@ -530,7 +530,7 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
                     queryMap.put("address" , addressTv.getText().toString());
 
                     apiCalling.editUserData("Bearer " +sessionManager.getUserToken()
-                            , "ar" ,
+                            ,
                             queryMap , EditAccount.this );
                 }
 

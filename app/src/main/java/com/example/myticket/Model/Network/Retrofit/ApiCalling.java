@@ -43,6 +43,7 @@ public class ApiCalling
     private ApiInterface apiInterface;
     private Context context;
     private SessionManager sessionManager;
+    private String lang;
 
     public ApiCalling(Context context )
     {
@@ -50,9 +51,8 @@ public class ApiCalling
         apiClient = new ApiClient(context);
         apiInterface = apiClient.getClient(false).create(ApiInterface.class);
         sessionManager = new SessionManager(context);
+        lang = sessionManager.getDeviceLanguage();
     }
-    //TODO: check all apis that need device language and fix it
-    //TODO: make category api
 
 //    public void apiCall(Call<NearByFullModel> call, final onResponceInterface onResponceInterface) {
 //
@@ -76,10 +76,10 @@ public class ApiCalling
 //        });
 //    }
 
-    public void register(String lang , Map<String, String> queryMap , final GeneralListener registerListener )
+    public void register(Map<String, String> queryMap , final GeneralListener registerListener )
     {
         Call<MainResponceReg> call;
-        MultipartBody.Part body ;
+     //   MultipartBody.Part body ;
 //        if(sessionManager.getUserType() == UserTypeEnum.real.getValue())
 //        {
 //
@@ -180,7 +180,6 @@ public class ApiCalling
 
 
     public void editUserData(String authToken ,
-                             String lang ,
                              Map<String, String> queryMap ,
                              final GeneralListener generalListener )
     {
@@ -261,8 +260,8 @@ public class ApiCalling
     }
 
     public void login(String email , String password, String mac
-            , final GeneralListener generalListener,
-                      String lang)
+            , final GeneralListener generalListener
+                      )
     {
         Map<String, String> queryMap = new HashMap<>();
         queryMap.put("username",email);
@@ -413,7 +412,7 @@ public class ApiCalling
         }
     });
 }
-    public void forgetPasswordCall(String lang, String email , final GeneralListener generalListener) {
+    public void forgetPasswordCall(String email , final GeneralListener generalListener) {
        Map<String,String> queryMap = new HashMap<>();
        queryMap.put("email" , email);
         Call<ForgetPasswordResponce> call = apiInterface.forgetPassword(lang,queryMap);
@@ -490,7 +489,7 @@ public class ApiCalling
         });
 
     }
-    public void makeRate(String authToken , String lang ,String filmId, String rate, final GeneralListener generalListener) {
+    public void makeRate(String authToken , String filmId, String rate, final GeneralListener generalListener) {
         Map<String,String> map = new HashMap<>();
         map.put("film_id",filmId);
         map.put("rate",rate);
@@ -530,7 +529,7 @@ public class ApiCalling
         });
 
     }
-    public void submitComment(String authToken , String lang ,String filmId, String comment, final GeneralListener generalListener) {
+    public void submitComment(String authToken ,String filmId, String comment, final GeneralListener generalListener) {
         Map<String,String> map = new HashMap<>();
         map.put("film_id",filmId);
         map.put("comment",comment);
@@ -818,7 +817,7 @@ public class ApiCalling
 
 
     public void getCinemasOfMovie(String authToken ,
-                             String lang ,
+
                              Map<String, String> queryMap ,
                              final GeneralListener generalListener )
     {
@@ -884,7 +883,6 @@ public class ApiCalling
 
 
     public void getChairs(String authToken ,
-                                  String lang ,
                                   Map<String, String> queryMap ,
                                   final GeneralListener generalListener )
     {
@@ -947,7 +945,6 @@ public class ApiCalling
 
 
     public void getDatesOfMovie(String authToken ,
-                                  String lang ,
                                   Map<String, String> queryMap ,
                                   final GeneralListener generalListener )
     {
@@ -1013,7 +1010,6 @@ public class ApiCalling
 
 
     public void getTimesOfMovie(String authToken ,
-                                String lang ,
                                 Map<String, String> queryMap ,
                                 final GeneralListener generalListener )
     {
@@ -1078,7 +1074,7 @@ public class ApiCalling
     }
 
 
-    public void changePassword(String authToken , String lang, Map<String,String>queryMap , final GeneralListener generalListener)
+    public void changePassword(String authToken ,  Map<String,String>queryMap , final GeneralListener generalListener)
     {
 
         Call<ForgetPasswordResponce> call = apiInterface.forgetPassword(lang,queryMap);

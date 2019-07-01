@@ -119,7 +119,6 @@ public class ChangePasswordActivity extends AppCompatActivity
                     queryMap.put("old_password" , oldEt.getText().toString().trim());
                     queryMap.put("password" , newEt.getText().toString().trim());
                     apiCalling.changePassword( "Bearer "+sessionManager.getUserToken(),
-                            "ar",
                             queryMap,
                             ChangePasswordActivity.this);
                 }

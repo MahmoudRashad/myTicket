@@ -232,12 +232,11 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
                             String comment = writtenComment.getText().toString();
                             //call make comment and make review
                             String rate = String.valueOf(ratingBar.getRating()*2);
-                            String lang = sessionManager.getDeviceLanguage();
                             if (!comment.equals("")) {
-                                apiCalling.submitComment(token, lang, id, comment, CinemaDetailsPage.this);
+                                apiCalling.submitComment(token, id, comment, CinemaDetailsPage.this);
                             }
                             if (ratingBar.getRating()>=1) {
-                                apiCalling.makeRate(token, lang, id, rate, CinemaDetailsPage.this);
+                                apiCalling.makeRate(token, id, rate, CinemaDetailsPage.this);
                             }
                         }
                     });

@@ -228,12 +228,11 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
                             //call make comment and make review
                             String rate = String.valueOf(ratingBar.getRating()*2);
 
-                            String lang = sessionManager.getDeviceLanguage();
                             if (!comment.equals("")) {
-                                apiCalling.submitComment(token, lang, id, comment, MovieDetailsPage.this);
+                                apiCalling.submitComment(token, id, comment, MovieDetailsPage.this);
                             }
                             if (ratingBar.getRating()>=1) {
-                                apiCalling.makeRate(token, lang, id, rate, MovieDetailsPage.this);
+                                apiCalling.makeRate(token,  id, rate, MovieDetailsPage.this);
                             }
                         }
                     });

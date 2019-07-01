@@ -156,7 +156,7 @@ public class ReserveActivity extends AppCompatActivity
         Map <String , String> queryMap = new HashMap();
         queryMap.put("film_id" , TicketCinemaBusiness.movieId+"");
         apiCalling.getCinemasOfMovie("Bearer " +sessionManager.getUserToken()
-                , "ar" ,
+                 ,
                 queryMap ,this);
     }
 
@@ -323,7 +323,7 @@ public class ReserveActivity extends AppCompatActivity
                     Map <String , String> queryMap = new HashMap();
                     queryMap.put("cinema_id" , TicketCinemaBusiness.reserveCinemaId+"");
                     apiCalling.getDatesOfMovie("Bearer " +sessionManager.getUserToken()
-                            , "ar" ,
+                            ,
                             queryMap ,ReserveActivity.this);
                 }
 
@@ -355,8 +355,7 @@ public class ReserveActivity extends AppCompatActivity
                     type = ReservetypeEnum.time.getValue();
                     Map <String , String> queryMap = new HashMap();
                     queryMap.put("day_id" , TicketCinemaBusiness.reserveDateId+"");
-                    apiCalling.getTimesOfMovie("Bearer " +sessionManager.getUserToken()
-                            , "ar" ,
+                    apiCalling.getTimesOfMovie("Bearer " +sessionManager.getUserToken(),
                             queryMap ,ReserveActivity.this);
                 }
 
