@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,13 +31,16 @@ public class HomeMovieAdapter extends RecyclerView.Adapter<HomeMovieAdapter.Movi
     private List<Coming> comingList;
     private List<Cinema> cinemaList;
     private Typeface myfont;
+    @LayoutRes
+    private int layoutId;
 
 
-    public HomeMovieAdapter(Context context, List<Recently> movieDetails, List<Coming> comingList,List<Cinema> cinemaList ) {
+    public HomeMovieAdapter(Context context, List<Recently> movieDetails, List<Coming> comingList,List<Cinema> cinemaList, int layoutId ) {
         this.context = context;
         this.movieDetails = movieDetails;
         this.comingList = comingList;
         this.cinemaList = cinemaList;
+        this.layoutId = layoutId;
         myfont = Typeface.createFromAsset(context.getAssets(),"fonts/segoe_ui.ttf");
 
     }
@@ -44,7 +49,7 @@ public class HomeMovieAdapter extends RecyclerView.Adapter<HomeMovieAdapter.Movi
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.recyclerview_item,viewGroup,false);
+        View view = inflater.inflate(layoutId,viewGroup,false);
         return new MovieViewHolder(view);
     }
 

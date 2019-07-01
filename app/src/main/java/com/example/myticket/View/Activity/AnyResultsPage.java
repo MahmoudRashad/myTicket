@@ -41,6 +41,7 @@ public class AnyResultsPage extends AppCompatActivity implements GeneralListener
     private ImageView searchIcon;
     private TextView toolbarTitle;
     private Typeface myfont;
+    private int layoutID;
     //TODO: add a layout for vertical rv and fix its design
 
     @Override
@@ -56,6 +57,7 @@ public class AnyResultsPage extends AppCompatActivity implements GeneralListener
         recyclerViewOne = findViewById(R.id.rv_movies_now);
         recyclerViewTwo = findViewById(R.id.rv_movies_soon);
         recyclerViewOne.setLayoutManager(new GridLayoutManager(this,3));
+        layoutID = R.layout.recyclerview_item_vertical;
         setToolbar();
 
         Intent intent = getIntent();
@@ -68,7 +70,7 @@ public class AnyResultsPage extends AppCompatActivity implements GeneralListener
                     Gson gson = gsonBuilder.create();
                     Recently[] results = gson.fromJson(stringData,Recently[].class);
                     RecentlyLists = new ArrayList<>(Arrays.asList(results));
-                    homeMovieAdapter = new HomeMovieAdapter(this,RecentlyLists,null,null);
+                    homeMovieAdapter = new HomeMovieAdapter(this,RecentlyLists,null,null,layoutID);
                     setupFromHome(getString(R.string.now_playing));
                 }
             }
@@ -79,7 +81,7 @@ public class AnyResultsPage extends AppCompatActivity implements GeneralListener
                     Gson gson = gsonBuilder.create();
                     Coming[] results = gson.fromJson(stringData,Coming[].class);
                     ComingLists = new ArrayList<>(Arrays.asList(results));
-                    homeMovieAdapter = new HomeMovieAdapter(this,null,ComingLists,null);
+                    homeMovieAdapter = new HomeMovieAdapter(this,null,ComingLists,null,layoutID);
                     setupFromHome(getString(R.string.coming_soon));
                 }
             }
@@ -90,7 +92,7 @@ public class AnyResultsPage extends AppCompatActivity implements GeneralListener
                     Gson gson = gsonBuilder.create();
                     Cinema[] results = gson.fromJson(stringData,Cinema[].class);
                     CinemaLists = new ArrayList<>(Arrays.asList(results));
-                    homeMovieAdapter = new HomeMovieAdapter(this,null,null,CinemaLists);
+                    homeMovieAdapter = new HomeMovieAdapter(this,null,null,CinemaLists,layoutID);
                     setupFromHome(getString(R.string.cinemas));
                 }
 
@@ -152,7 +154,7 @@ public class AnyResultsPage extends AppCompatActivity implements GeneralListener
         if (tApiResponse instanceof MoviesList){
             MoviesList mainResult = (MoviesList) tApiResponse;
             List<Recently> moviesList = mainResult.getResult();
-            homeMovieAdapter = new HomeMovieAdapter(this,moviesList,null,null);
+            homeMovieAdapter = new HomeMovieAdapter(this,moviesList,null,null,layoutID);
             recyclerViewOne.setAdapter(homeMovieAdapter);
 
         }
