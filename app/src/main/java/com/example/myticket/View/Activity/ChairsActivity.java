@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myticket.Business.TicketCinemaBusiness;
@@ -51,6 +52,11 @@ public class ChairsActivity extends AppCompatActivity
     private ConstraintLayout layout ;
     RecyclerView chairTypeRv , chairRowsRv;
     Button nextBtn;
+    private ImageView backBtn;
+    private ImageView searchIcon;
+    private TextView toolbarTitle;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +65,7 @@ public class ChairsActivity extends AppCompatActivity
 
         findViewsToReferences();
         setListenerOfViews();
+        setToolbar();
 
 //        if( getIntent().getExtras() != null )
 //        {
@@ -115,6 +122,27 @@ public class ChairsActivity extends AppCompatActivity
         alert11.show();
     }
 
+
+    private void setToolbar() {
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(getString(R.string.choose_your_seat));
+        searchIcon = findViewById(R.id.toolbar_Search);
+        backBtn = findViewById(R.id.toolbar_back);
+
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChairsActivity.this,SearchPage.class);
+                startActivity(intent);
+            }
+        });
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
 
 
 //    private void setDataOfViews()
@@ -322,6 +350,7 @@ public class ChairsActivity extends AppCompatActivity
         typeChair.setPrice("0");
         typeChair.setId(-1);
         typeChair.setColor("#444444");
+        //TODO: make this a string
         typeChair.setName("unAvilable");
         this.chairResponse.getResult().getTypeChair().add(typeChair);
         chairTypeAdapter = new ChairTypeAdapter(

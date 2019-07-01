@@ -24,8 +24,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".View.Activity.SearchResults"></activity>
-        <activity android:name=".View.Activity.EditDetail" />
+        <activity android:name=".View.Activity.QrcodePage"></activity>
+        <activity android:name=".View.Activity.SearchResults" />
         <activity android:name=".View.Activity.EditAccount" />
         <activity
             android:name=".View.Activity.CinemaDetailsPage"
@@ -35,8 +35,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".View.Activity.HomeCinema" />
         </activity>
-
-
         <activity android:name=".View.Activity.ChairsActivity" />
         <activity android:name=".View.Activity.ConfirmTicketsActivity" />
         <activity android:name=".View.Activity.AnyResultsPage" />

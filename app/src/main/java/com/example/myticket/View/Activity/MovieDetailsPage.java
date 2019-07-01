@@ -24,6 +24,7 @@ import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Result;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Category;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Recently;
+import com.example.myticket.Model.Network.DetailsMovie.DetailsMovie;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.R;
@@ -64,9 +65,9 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
     private ArrayList<Category> categorList;
     private Recently movieDetails;
 
-    private Toolbar toolbar;
     private ImageView backBtn;
     private ImageView searchIcon;
+    private TextView toolbarTitle;
 
 
 
@@ -118,57 +119,25 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
                     ReserveBtn.setVisibility(View.INVISIBLE);
                 }
                 setDetails();
+                setToolbar();
             }
         }
 
-        dropDown.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String id = String.valueOf(movieDetails.getId());
-                allRevsLayout.setVisibility(View.VISIBLE);
-                apiCalling.showAllReviews(id,MovieDetailsPage.this);
-                closeAllRevs.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        allRevsLayout.setVisibility(View.GONE);
-                    }
-                });
-
-            }
-        });
+        if (intent.hasExtra("id")){
+            String id = intent.getStringExtra("id");
+            apiCalling.getMovieDetails(id,this);
+        }
 
 
-        ReserveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(sessionManager.getUserToken() == null ||
-                sessionManager.getUserToken().equals(""))
-                {
-                    Intent intent1 = new Intent(
-                            MovieDetailsPage.this, Login.class
-                    );
-                    startActivity(intent1);
-                }
-                else
-                {
-                    TicketCinemaBusiness.movieId = movieDetails.getId();
-                    TicketCinemaBusiness.movieName = movieDetails.getName();
 
-                    Intent intent1 = new Intent(
-                            MovieDetailsPage.this, ReserveActivity.class
-                    );
-                    intent1.putExtra("movie_id" , movieDetails.getId());
-                    intent1.putExtra("movie_image" , movieDetails.getImage());
-                    startActivity(intent1);
-                }
 
-            }
-        });
-        setToolbar();
+
     }
 
     private void setToolbar() {
-        toolbar = findViewById(R.id.toolbar);
+
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(movieDetails.getName());
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 
@@ -182,7 +151,7 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO go back
+                finish();
             }
         });
     }
@@ -199,7 +168,7 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
         String rates = String.valueOf(movieDetails.getRate());
         movieTotalReviewsNumber.setText(rates);
         categorList = (ArrayList<Category>) movieDetails.getCategory();
-        CategoryAdapter categoryAdapter = new CategoryAdapter(this,categorList,null);
+        CategoryAdapter categoryAdapter = new CategoryAdapter(this,categorList,null,null,null);
         categoryRV.setAdapter(categoryAdapter);
         ratingBar.setRating(movieDetails.getReviews());
         playImage.setOnClickListener(new View.OnClickListener() {
@@ -219,13 +188,7 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
                 startActivity(share);
             }
         });
-//        backBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                NavUtils.navigateUpFromSameTask(MovieDetailsPage.this);
-//                finish();
-//            }
-//        });
+
         makeReviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -259,6 +222,50 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
 
             }
         });
+
+        dropDown.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = String.valueOf(movieDetails.getId());
+                allRevsLayout.setVisibility(View.VISIBLE);
+                apiCalling.showAllReviews(id,MovieDetailsPage.this);
+                closeAllRevs.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        allRevsLayout.setVisibility(View.GONE);
+                    }
+                });
+
+            }
+        });
+
+        ReserveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(sessionManager.getUserToken() == null ||
+                        sessionManager.getUserToken().equals(""))
+                {
+                    Intent intent1 = new Intent(
+                            MovieDetailsPage.this, Login.class
+                    );
+                    startActivity(intent1);
+                }
+                else
+                {
+                    TicketCinemaBusiness.movieId = movieDetails.getId();
+                    TicketCinemaBusiness.movieName = movieDetails.getName();
+
+                    Intent intent1 = new Intent(
+                            MovieDetailsPage.this, ReserveActivity.class
+                    );
+                    intent1.putExtra("movie_id" , movieDetails.getId());
+                    intent1.putExtra("movie_image" , movieDetails.getImage());
+                    startActivity(intent1);
+                }
+
+            }
+        });
+
         closeReviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -290,6 +297,12 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
             submittedLayout.setVisibility(View.VISIBLE);
             submittedText.setText(userCommentResponce.getMessage());
 
+        }
+        else if (tApiResponse instanceof DetailsMovie){
+            DetailsMovie Details = (DetailsMovie) tApiResponse;
+            movieDetails = Details.getResult();
+            setDetails();
+            setToolbar();
         }
     }
 }

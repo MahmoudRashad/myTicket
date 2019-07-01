@@ -46,7 +46,6 @@ public class Variables
     }
 
     public void setCinemasCategories() {
-        cinemasCategories.add("All");
         cinemasCategories.add("Near By");
     }
 

@@ -1,8 +1,7 @@
 
-package com.example.myticket.Model.Network.DataModel.Search;
+package com.example.myticket.Model.Network.DataModel.DetailsCinema;
 
 import java.io.Serializable;
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -23,20 +22,23 @@ public class Result implements Serializable
     private String type;
     @SerializedName("rate")
     @Expose
-    private String rate;
+    private Integer rate;
     @SerializedName("reviews")
     @Expose
     private Integer reviews;
-    @SerializedName("date")
-    @Expose
-    private String date;
-    @SerializedName("category")
-    @Expose
-    private List<Category> category = null;
     @SerializedName("address")
     @Expose
     private String address;
-    private final static long serialVersionUID = 6474562189137681659L;
+    @SerializedName("youtube")
+    @Expose
+    private Object youtube;
+    @SerializedName("open")
+    @Expose
+    private String open;
+    @SerializedName("close")
+    @Expose
+    private String close;
+    private final static long serialVersionUID = 6851204112638501985L;
 
     /**
      * No args constructor for use in serialization
@@ -48,16 +50,17 @@ public class Result implements Serializable
     /**
      * 
      * @param id
-     * @param category
+     * @param open
      * @param reviews
      * @param rate
      * @param address
      * @param name
+     * @param youtube
      * @param image
-     * @param date
      * @param type
+     * @param close
      */
-    public Result(Integer id, String image, String name, String type, String rate, Integer reviews, String date, List<Category> category, String address) {
+    public Result(Integer id, String image, String name, String type, Integer rate, Integer reviews, String address, Object youtube, String open, String close) {
         super();
         this.id = id;
         this.image = image;
@@ -65,9 +68,10 @@ public class Result implements Serializable
         this.type = type;
         this.rate = rate;
         this.reviews = reviews;
-        this.date = date;
-        this.category = category;
         this.address = address;
+        this.youtube = youtube;
+        this.open = open;
+        this.close = close;
     }
 
     public Integer getId() {
@@ -102,11 +106,11 @@ public class Result implements Serializable
         this.type = type;
     }
 
-    public String getRate() {
+    public Integer getRate() {
         return rate;
     }
 
-    public void setRate(String rate) {
+    public void setRate(Integer rate) {
         this.rate = rate;
     }
 
@@ -118,28 +122,36 @@ public class Result implements Serializable
         this.reviews = reviews;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public List<Category> getCategory() {
-        return category;
-    }
-
-    public void setCategory(List<Category> category) {
-        this.category = category;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Object getYoutube() {
+        return youtube;
+    }
+
+    public void setYoutube(Object youtube) {
+        this.youtube = youtube;
+    }
+
+    public String getOpen() {
+        return open;
+    }
+
+    public void setOpen(String open) {
+        this.open = open;
+    }
+
+    public String getClose() {
+        return close;
+    }
+
+    public void setClose(String close) {
+        this.close = close;
     }
 
 }

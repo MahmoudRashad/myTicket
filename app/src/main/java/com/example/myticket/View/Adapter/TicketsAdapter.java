@@ -65,7 +65,7 @@ public class TicketsAdapter extends RecyclerView.Adapter<TicketsAdapter.ReviewsV
             reviewsViewHolder.date.setText(TicketCinemaBusiness.reserveDate);
             reviewsViewHolder.hall.setText(TicketCinemaBusiness.hallName);
             reviewsViewHolder.time.setText(TicketCinemaBusiness.reserveTime);
-            reviewsViewHolder.seatNum.setText("Seat Num : "+avaliableChair.getChairNum());
+            reviewsViewHolder.seatNum.setText(context.getString(R.string.seat_number)+avaliableChair.getChairNum());
             reviewsViewHolder.seatType.setText(avaliableChair.getDetail().getName());
             reviewsViewHolder.location.setText(TicketCinemaBusiness.cinemaLocation);
         }
@@ -80,7 +80,7 @@ public class TicketsAdapter extends RecyclerView.Adapter<TicketsAdapter.ReviewsV
                 reviewsViewHolder.date.setText(resultTicket.getDate());
                 reviewsViewHolder.hall.setText(resultTicket.getHallName());
                 reviewsViewHolder.time.setText(resultTicket.getTime());
-                reviewsViewHolder.seatNum.setText("Seat Num : "+resultTicket.getChairNum());
+                reviewsViewHolder.seatNum.setText(context.getString(R.string.seat_number)+resultTicket.getChairNum());
                 reviewsViewHolder.seatType.setText(resultTicket.getChairType());
                 reviewsViewHolder.location.setText(resultTicket.getCinemaLocation());
             }

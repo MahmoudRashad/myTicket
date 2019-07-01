@@ -78,11 +78,17 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
     ImageView userIv , editImageIv , nameIv,phoneIv,emailIv,addressIv;
     Button saveEditBtn;
 
+    private ImageView backBtn;
+    private ImageView searchIcon;
+    private TextView toolbarTitle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_account);
+
+        setToolbar();
 
         findViewsToReferences();
         setListenerOfViews();
@@ -97,6 +103,20 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
         setDataOfViews();
     }
 
+    private void setToolbar() {
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(getString(R.string.edit_account));
+        searchIcon = findViewById(R.id.toolbar_Search);
+        backBtn = findViewById(R.id.toolbar_back);
+
+        searchIcon.setVisibility(View.GONE);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
 
     public Dialog showDialogChangePiecture() {
 
@@ -472,13 +492,13 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
                         TextUtils.isEmpty(addressTv.getText() ))
                 {
                     Toast.makeText(EditAccount.this
-                            , "Please fill all fields"
+                            , getString(R.string.please_fill_all_fields)
                             , Toast.LENGTH_LONG).show();
                 }
 
                 else if (!isEmailValid(emailTv.getText().toString())){
                     Toast.makeText(EditAccount.this
-                            , "Email Not Valid",
+                            , getString(R.string.email_not_valid),
                             Toast.LENGTH_LONG).show();
                 }
                 else {
@@ -599,12 +619,12 @@ public class EditAccount extends AppCompatActivity implements GeneralListener {
                     editUserDataResponse.getResult().get(0).getImage()
             );
             setDataOfViews();
-            Toast.makeText(this , "updated successfully"
+            Toast.makeText(this , getString(R.string.updated_successfully)
                     , Toast.LENGTH_LONG).show();
         }
         else
         {
-            Toast.makeText(this , "failed updated"
+            Toast.makeText(this , getString(R.string.failed_to_update)
                     , Toast.LENGTH_LONG).show();
         }
     }

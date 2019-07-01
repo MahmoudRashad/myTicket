@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,8 +21,10 @@ import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.Network.DataModel.BaseNoResult.BaseNoResult;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Result;
+import com.example.myticket.Model.Network.DataModel.DetailsCinema.DetailsCinema;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Cinema;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Recently;
+import com.example.myticket.Model.Network.DetailsMovie.DetailsMovie;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.R;
@@ -35,7 +38,6 @@ import java.util.ArrayList;
 public class CinemaDetailsPage extends AppCompatActivity implements GeneralListener {
     private RecyclerView reviewsRv;
     private Cinema cinemaDetails;
-    private ImageView backBtn;
     private ImageView shareBtn;
     private ImageView playCinema;
     private ImageView cinemaCover;
@@ -59,6 +61,10 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
    private RatingBar ratingBar;
    private Button dropDownRevs;
    private ImageView closeAllRevs;
+    private Toolbar toolbar;
+    private ImageView backBtn;
+    private ImageView searchIcon;
+    private TextView toolbarTitle;
 
     private ArrayList<Result> allComments;
 
@@ -69,9 +75,9 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cinema_details_page);
         reviewsRv = findViewById(R.id.details_rev_rv);
-        backBtn = findViewById(R.id.icon_back_cinema);
         shareBtn = findViewById(R.id.icon_share_cinema);
         playCinema = findViewById(R.id.icon_play_cinema);
+        playCinema.setVisibility(View.GONE);
         cinemaCover = findViewById(R.id.cover_photo_cinema);
         nameCinema = findViewById(R.id.details_cinema_title);
         detailAddress = findViewById(R.id.detail_address);
@@ -92,6 +98,7 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
         ratingBar  = findViewById(R.id.rating_bar);
         dropDownRevs = findViewById(R.id.dropdown_revs);
         closeAllRevs = findViewById(R.id.close_All_reviews);
+        reviewsRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         apiCalling = new ApiCalling(this);
 
@@ -102,25 +109,38 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
                 Gson gson = gsonBuilder.create();
                 cinemaDetails = gson.fromJson(stringData, Cinema.class);
                 setDetails();
+            setToolbar();
             }
-        dropDownRevs.setOnClickListener(new View.OnClickListener() {
+        else if (intent.hasExtra("cinemaID")){
+            String id = intent.getStringExtra("cinemaID");
+            apiCalling.getCinemaDetails(id,this);
+        }
+
+
+    }
+
+
+    private void setToolbar() {
+        toolbar = findViewById(R.id.toolbar);
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(cinemaDetails.getName());
+        searchIcon = findViewById(R.id.toolbar_Search);
+        backBtn = findViewById(R.id.toolbar_back);
+
+        searchIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = String.valueOf(cinemaDetails.getId());
-                allRevsLayout.setVisibility(View.VISIBLE);
-                apiCalling.showAllReviews(id,CinemaDetailsPage.this);
-                closeAllRevs.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        allRevsLayout.setVisibility(View.GONE);
-                    }
-                });
+                Intent intent = new Intent(CinemaDetailsPage.this,SearchPage.class);
+                startActivity(intent);
             }
         });
-                reviewsRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
-
-
+        });
+    }
     private void setDetails() {
         Picasso.get()
                 .load(cinemaDetails.getImage())
@@ -133,16 +153,19 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
         avgRating.setText(rate);
         String reviews = String.valueOf(cinemaDetails.getReviews());
         reviewsNumber.setText(reviews);
-        playCinema.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String link = (String) cinemaDetails.getYoutube();
-                if (!link.equals("null")) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-                    startActivity(intent);
+        String link = (String) cinemaDetails.getYoutube();
+        if (link != null) {
+            playCinema.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (!link.equals("null")) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
+                        startActivity(intent);
+                    }
                 }
-            }
-        });
+            });
+        }
         shareBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -155,18 +178,14 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
                 }
             }
         });
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                NavUtils.navigateUpFromSameTask(CinemaDetailsPage.this);
-                finish();
-            }
-        });
+
         movieListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CinemaDetailsPage.this,AnyResultsPage.class);
                 intent.setAction("CinemaMoviesList");
+                String id = String.valueOf(cinemaDetails.getId());
+                intent.putExtra("cinemaID",id);
                 startActivity(intent);
             }
         });
@@ -203,6 +222,21 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
 
             }
         });
+        dropDownRevs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = String.valueOf(cinemaDetails.getId());
+                allRevsLayout.setVisibility(View.VISIBLE);
+                apiCalling.showAllReviews(id,CinemaDetailsPage.this);
+                closeAllRevs.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        allRevsLayout.setVisibility(View.GONE);
+                    }
+                });
+            }
+        });
+
         closeReviewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -215,6 +249,8 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
                 submittedLayout.setVisibility(View.GONE);
             }
         });
+
+
     }
 
     @Override
@@ -232,6 +268,12 @@ public class CinemaDetailsPage extends AppCompatActivity implements GeneralListe
             submittedLayout.setVisibility(View.VISIBLE);
             submittedText.setText(userCommentResponce.getMessage());
 
+        }
+        else if (tApiResponse instanceof DetailsCinema){
+            DetailsCinema Details = (DetailsCinema) tApiResponse;
+            cinemaDetails = Details.getResult();
+            setDetails();
+            setToolbar();
         }
     }
 }

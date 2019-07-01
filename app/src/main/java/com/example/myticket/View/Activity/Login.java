@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +49,11 @@ public class Login extends AppCompatActivity implements
     private String FULLNAME_KEY = "fullname";
 
     private User loginUser;
+    private TextView forgotText;
+
+    private ImageView backBtn;
+    private ImageView searchIcon;
+    private TextView toolbarTitle;
 
 
     ///////////////////////////////////////////////////////////////
@@ -74,7 +80,9 @@ public class Login extends AppCompatActivity implements
         progressBar = findViewById(R.id.progressBar_login);
         registerTv = findViewById(R.id.register);
         forgetPasswordTv = findViewById(R.id.forget_password);
+        forgotText = findViewById(R.id.forgot_text);
         progressBar.setVisibility(View.GONE);
+        setToolbar();
 
         mUsername = userName.getText().toString();
         mPassword = password.getText().toString();
@@ -90,7 +98,7 @@ public class Login extends AppCompatActivity implements
 
                 if (TextUtils.isEmpty(mPassword) ||
                         TextUtils.isEmpty(mUsername)){
-                    Toast.makeText(Login.this, "Please fill all fields", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Login.this, getString(R.string.please_fill_all_fields), Toast.LENGTH_LONG).show();
                 }
                 else {
 
@@ -120,6 +128,20 @@ public class Login extends AppCompatActivity implements
         });
 
 
+    }
+    private void setToolbar() {
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(getString(R.string.login));
+        searchIcon = findViewById(R.id.toolbar_Search);
+        backBtn = findViewById(R.id.toolbar_back);
+
+        searchIcon.setVisibility(View.GONE);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 

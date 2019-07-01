@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,6 +66,10 @@ public class Register extends AppCompatActivity implements
     private String FULLNAME_KEY = "fullname";
     private String ID_KEY = "user_id";
 
+    private ImageView backBtn;
+    private ImageView searchIcon;
+    private TextView toolbarTitle;
+
     SessionManager sessionManager ;
 
     private UserRegister userRegister;
@@ -90,6 +95,7 @@ public class Register extends AppCompatActivity implements
         loginTv = findViewById(R.id.reg_already);
         progressBar = findViewById(R.id.progressBar_reg);
         progressBar.setVisibility(View.GONE);
+        setToolbar();
 
         macAddress = getMacAddress();
 
@@ -111,13 +117,13 @@ public class Register extends AppCompatActivity implements
                 if (TextUtils.isEmpty(mFullname) || TextUtils.isEmpty(mPassword) || TextUtils.isEmpty(mRepPassword) ||
                         TextUtils.isEmpty(mUsername) || TextUtils.isEmpty(mAddress)  ||
                         TextUtils.isEmpty(mPhone) || TextUtils.isEmpty(mEmail)){
-                    Toast.makeText(Register.this, "Please fill all fields", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Register.this, getString(R.string.please_fill_all_fields), Toast.LENGTH_LONG).show();
                 }
                 else if (!mPassword.equals(mRepPassword)){
-                    Toast.makeText(Register.this, "Please make sure passwords match", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Register.this, getString(R.string.make_sure_passwords_match), Toast.LENGTH_LONG).show();
                 }
                 else if (!isEmailValid(mEmail)){
-                    Toast.makeText(Register.this, "Email Not Valid", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Register.this, getString(R.string.email_not_valid), Toast.LENGTH_LONG).show();
                 }
                 else {
                     btnReg.setVisibility(View.INVISIBLE);
@@ -149,6 +155,20 @@ public class Register extends AppCompatActivity implements
             }
         });
 
+    }
+    private void setToolbar() {
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(getString(R.string.register));
+        searchIcon = findViewById(R.id.toolbar_Search);
+        backBtn = findViewById(R.id.toolbar_back);
+
+        searchIcon.setVisibility(View.GONE);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private String getMacAddress(){

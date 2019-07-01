@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,28 +8,32 @@
     android:background="@drawable/back"
     tools:context=".View.Activity.Login">
 
-    <ImageView
-        android:id="@+id/main_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/my_ticket_white_logo"/>
-    <TextView
-        android:id="@+id/login_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/main_logo"
-        app:layout_constraintEnd_toEndOf="@id/main_logo"
-        app:layout_constraintTop_toBottomOf="@id/main_logo"
-        android:layout_marginTop="16dp"
-        android:text="LOGIN"
-        android:textSize="18dp"
-        android:textAlignment="center"
-        android:textColor="#fff"
-        />
+    <include
+        android:id="@+id/toolbar_login"
+        layout="@layout/top_title_bar"/>
+
+    <!--<ImageView-->
+        <!--android:id="@+id/main_logo"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--android:layout_marginTop="24dp"-->
+        <!--android:src="@drawable/my_ticket_white_logo"/>-->
+    <!--<TextView-->
+        <!--android:id="@+id/login_title"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:layout_constraintStart_toStartOf="@id/main_logo"-->
+        <!--app:layout_constraintEnd_toEndOf="@id/main_logo"-->
+        <!--app:layout_constraintTop_toBottomOf="@id/main_logo"-->
+        <!--android:layout_marginTop="16dp"-->
+        <!--android:text="LOGIN"-->
+        <!--android:textSize="18dp"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textColor="#fff"-->
+        <!--/>-->
 
     <EditText
 
@@ -37,10 +42,10 @@
         android:layout_width="match_parent"
         android:layout_height="52dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_title"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_login"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:background="@drawable/white_rect"
@@ -87,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/white_rect_bk"
-            android:text="Login"
+            android:text="@string/login"
             android:textColor="#8E0920"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
@@ -95,6 +100,7 @@
     </FrameLayout>
 
     <TextView
+
         android:id="@+id/forget_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -104,6 +110,9 @@
         android:textColor="#fff"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/frame_login" />
+        android:layout_marginEnd="16dp"
+        android:text="@string/forget_password"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/register"
@@ -111,7 +120,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Create new Account ?"
+        android:text="@string/create_new_account"
         android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/frame_login" />

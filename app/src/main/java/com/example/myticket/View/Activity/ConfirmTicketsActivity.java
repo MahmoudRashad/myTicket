@@ -1,16 +1,21 @@
 package com.example.myticket.View.Activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -52,9 +57,12 @@ public class ConfirmTicketsActivity extends AppCompatActivity
 
 
     //--------------------------------  references of views -------------------------------------------------//
-    private ConstraintLayout layout ;
+    private NestedScrollView layout ;
     RecyclerView ticketsRv ;
     Button payBtn;
+    private ImageView backBtn;
+    private ImageView searchIcon;
+    private TextView toolbarTitle;
 
 
 
@@ -65,7 +73,7 @@ public class ConfirmTicketsActivity extends AppCompatActivity
 
         findViewsToReferences();
         setListenerOfViews();
-
+        setToolbar();
 //        if( getIntent().getExtras() != null )
 //        {
 //            movieId = getIntent().getExtras().getInt("movie_id" , -1);
@@ -81,6 +89,27 @@ public class ConfirmTicketsActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
         setDataOfViews();
+    }
+
+    private void setToolbar() {
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(getString(R.string.confirm_payment));
+        searchIcon = findViewById(R.id.toolbar_Search);
+        backBtn = findViewById(R.id.toolbar_back);
+
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ConfirmTicketsActivity.this,SearchPage.class);
+                startActivity(intent);
+            }
+        });
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 

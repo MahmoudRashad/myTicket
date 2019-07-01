@@ -1,6 +1,7 @@
 package com.example.myticket.View.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import com.example.myticket.Model.Network.DataModel.Search.Result;
 import com.example.myticket.R;
+import com.example.myticket.View.Activity.CinemaDetailsPage;
+import com.example.myticket.View.Activity.MovieDetailsPage;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -47,7 +50,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         Picasso.get()
                 .load(searchResult.getImage())
                 .into(searchViewHolder.imageView);
-        searchViewHolder.ratingBar.setRating(searchResult.getRate());
+        float rate = Float.parseFloat(searchResult.getRate());
+        searchViewHolder.ratingBar.setRating(rate);
     }
 
     @Override
@@ -80,19 +84,21 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-//            SearchResult currentClick = results.get(position);
-//            String id  = String.valueOf(currentClick.getId());
-//            Intent intent;
-////            switch (currentClick.getMediaType()){
-////                case "movie":
-//            intent = new Intent(context,MovieDetailsActivity.class);
-//            intent.putExtra(context.getResources().getString(R.string.extraID),id);
-//            intent.putExtra(context.getResources().getString(R.string.extraTitle),currentClick.getTitle());
-//            intent.putExtra(context.getResources().getString(R.string.extraPath),currentClick.getPosterPath());
-//            context.startActivity(intent);
+            Result searchResult = results.get(position);
+            if (searchResult.getType().equals("1"))
+            {
+                Intent intent = new Intent(context, MovieDetailsPage.class);
+                String id = String.valueOf(searchResult.getId());
+                intent.putExtra("id",id);
+                context.startActivity(intent);
+            }
+            else{
+                Intent intent = new Intent(context, CinemaDetailsPage.class);
+                String id = String.valueOf(searchResult.getId());
+                intent.putExtra("cinemaID",id);
+                context.startActivity(intent);
+            }
 
-
-            //  }
         }
     }
 

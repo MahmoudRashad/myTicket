@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myticket.Model.Network.DataModel.HomeResult.Cinema;
@@ -40,6 +41,11 @@ public class SearchResults extends AppCompatActivity {
     private TextView filterResultText;
     private TextView searchResultsText;
     private  ArrayList<Result> filteredList;
+
+    private ImageView backBtn;
+    private ImageView searchIcon;
+    private TextView toolbarTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +70,29 @@ public class SearchResults extends AppCompatActivity {
             resultsRv.setAdapter(searchAdapter);
 
         }
+        setToolbar();
         setFilters();
+    }
+
+    private void setToolbar() {
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(getString(R.string.search_results));
+        searchIcon = findViewById(R.id.toolbar_Search);
+        backBtn = findViewById(R.id.toolbar_back);
+
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchResults.this,SearchPage.class);
+                startActivity(intent);
+            }
+        });
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void setFilters() {
@@ -79,11 +107,11 @@ public class SearchResults extends AppCompatActivity {
                         filteredList.add(result);
                     }
                 }
-                searchResultsText.setText("Movies");
+                searchResultsText.setText(getString(R.string.movies));
                 variables.setCategories();
                 categoriesFilter = variables.getCategories();
                 filtersRV.setVisibility(View.VISIBLE);
-                categoryAdapter = new CategoryAdapter(SearchResults.this,null,categoriesFilter);
+                categoryAdapter = new CategoryAdapter(SearchResults.this,null,categoriesFilter,searchResults,searchAdapter);
                 filtersRV.setAdapter(categoryAdapter);
                 searchAdapter.update(filteredList);
 
@@ -96,18 +124,18 @@ public class SearchResults extends AppCompatActivity {
                 moviesBtn.setVisibility(View.GONE);
                 cinemasBtn.setVisibility(View.GONE);
                 filterResultText.setVisibility(View.VISIBLE);
-                filterResultText.setText("Cinemas");
-                searchResultsText.setText("Cinemas");
+                filterResultText.setText(getString(R.string.cinemas));
+                searchResultsText.setText(getString(R.string.cinemas));
                 for (Result result : searchResults){
                     if (result.getType().equals("2")){
                         filteredList.add(result);
                     }
                 }
-                searchResultsText.setText("Cinemas");
+                searchResultsText.setText(getString(R.string.cinemas));
                 variables.setCinemasCategories();
                 categoriesFilter = variables.getCinemasCategories();
                 filtersRV.setVisibility(View.VISIBLE);
-                categoryAdapter = new CategoryAdapter(SearchResults.this,null,categoriesFilter);
+                categoryAdapter = new CategoryAdapter(SearchResults.this,null,categoriesFilter,null,null);
                 filtersRV.setAdapter(categoryAdapter);
                 searchAdapter.update(filteredList);
 

@@ -40,14 +40,14 @@
             android:id="@+id/submitted_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:textColor="#000"
             android:layout_gravity="center"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thanks For Your Feedback !"
-            android:textSize="20dp"
+            android:text="@string/thanks_for_your_feedback"
+            android:textSize="20sp"
             android:layout_margin="4dp"
             android:textColor="#000"
             android:layout_gravity="center"/>

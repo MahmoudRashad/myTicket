@@ -95,6 +95,10 @@ public class ReserveActivity extends AppCompatActivity
     Spinner cinemaS , dateS , timeS;
     TextView hallTv;
 
+    private ImageView backBtn;
+    private ImageView searchIcon;
+    private TextView toolbarTitle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +107,7 @@ public class ReserveActivity extends AppCompatActivity
 
         findViewsToReferences();
         setListenerOfViews();
+        setToolbar();
 
         if( getIntent().getExtras() != null )
         {
@@ -157,6 +162,28 @@ public class ReserveActivity extends AppCompatActivity
         super.onStart();
 //        setDataOfViews();
     }
+
+    private void setToolbar() {
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(getString(R.string.reservation));
+        searchIcon = findViewById(R.id.toolbar_Search);
+        backBtn = findViewById(R.id.toolbar_back);
+
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ReserveActivity.this,SearchPage.class);
+                startActivity(intent);
+            }
+        });
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
 
 
 //    private void setDataOfViews()
@@ -446,6 +473,7 @@ public class ReserveActivity extends AppCompatActivity
 
                 ResultReserveCinema resultReserveCinema =
                         new ResultReserveCinema();
+                //TODO: make string
                 resultReserveCinema.setName("select cinema");
                 resultReserveCinema.setId(-1);
                 this.reserveCinemaResponse.getResult().add(0,resultReserveCinema);
@@ -461,6 +489,7 @@ public class ReserveActivity extends AppCompatActivity
 
                 ResultReserveCinema resultReserveCinema =
                         new ResultReserveCinema();
+                //TODO: make string
                 resultReserveCinema.setName("select Date");
                 resultReserveCinema.setId(-1);
                 this.reserveDateResponse.getResult().add(0,resultReserveCinema);
@@ -477,6 +506,7 @@ public class ReserveActivity extends AppCompatActivity
 
                 ResultReserveCinema resultReserveCinema =
                         new ResultReserveCinema();
+                //TODO: make String
                 resultReserveCinema.setName("select Time");
                 resultReserveCinema.setId(-1);
                 this.reserveTimeResponse.getResult().add(0,resultReserveCinema);
@@ -491,7 +521,7 @@ public class ReserveActivity extends AppCompatActivity
         }
         else
         {
-            Toast.makeText(this , "failed updated"
+            Toast.makeText(this , getString(R.string.failed_to_update)
                     , Toast.LENGTH_LONG).show();
         }
     }

@@ -44,10 +44,9 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.MovieVie
     public void onBindViewHolder(@NonNull ResultsAdapter.MovieViewHolder movieViewHolder, int i) {
         Result result = results.get(i);
         movieViewHolder.movieTitle.setText(result.getName());
-        String rate = result.getRate().toString();
-        movieViewHolder.reviewRate.setText(rate);
         String reviews = result.getReviews().toString();
-        movieViewHolder.reviewsTotal.setText(reviews);
+        movieViewHolder.reviewRate.setText(reviews);
+        movieViewHolder.reviewsTotal.setText(result.getRate());
         Picasso.get()
                 .load(result.getImage())
                 .into(movieViewHolder.moviePhoto);
@@ -86,7 +85,20 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.MovieVie
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-
+            Result searchResult = results.get(position);
+            if (searchResult.getType().equals("1"))
+            {
+                Intent intent = new Intent(context, MovieDetailsPage.class);
+                String id = String.valueOf(searchResult.getId());
+                intent.putExtra("id",id);
+                context.startActivity(intent);
+            }
+            else{
+                Intent intent = new Intent(context, CinemaDetailsPage.class);
+                String id = String.valueOf(searchResult.getId());
+                intent.putExtra("cinemaID",id);
+                context.startActivity(intent);
+            }
 
         }
     }
