@@ -408,7 +408,9 @@ public class ApiCalling
     });
 }
     public void forgetPasswordCall(String lang, String email , final GeneralListener generalListener) {
-        Call<ForgetPasswordResponce> call = apiInterface.forgetPassword(lang,email);
+       Map<String,String> queryMap = new HashMap<>();
+       queryMap.put("email" , email);
+        Call<ForgetPasswordResponce> call = apiInterface.forgetPassword(lang,queryMap);
         call.enqueue(new Callback<ForgetPasswordResponce>() {
             @Override
             public void onResponse(Call<ForgetPasswordResponce> call, Response<ForgetPasswordResponce> response) {
@@ -923,6 +925,47 @@ public class ApiCalling
                 }
             }
         });
+    }
+
+
+    public void changePassword(String authToken , String lang, Map<String,String>queryMap , final GeneralListener generalListener)
+    {
+
+        Call<ForgetPasswordResponce> call = apiInterface.forgetPassword(lang,queryMap);
+        call.enqueue(new Callback<ForgetPasswordResponce>() {
+            @Override
+            public void onResponse(Call<ForgetPasswordResponce> call, Response<ForgetPasswordResponce> response) {
+                if (response.isSuccessful()) {
+                    Log.e("onResponse", response.raw().toString());
+                    if (response.body().getSuccess()) {
+                        generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                                null, response.body());
+                    }
+                    else {
+                        generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                                response.body().getMessage(), response.body());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ForgetPasswordResponce> call, Throwable t) {
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
+
     }
 
 }

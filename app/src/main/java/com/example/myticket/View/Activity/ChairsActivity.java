@@ -1,7 +1,9 @@
 package com.example.myticket.View.Activity;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -26,16 +28,12 @@ import com.example.myticket.Enum.ReservetypeEnum;
 import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.AvaliableChair;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ChairResponse;
-import com.example.myticket.Model.Network.DataModel.ReserveModel.ReserveCinemaResponse;
-import com.example.myticket.Model.Network.DataModel.ReserveModel.ResultReserveCinema;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.TypeChair;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.R;
 import com.example.myticket.View.Adapter.ChairTypeAdapter;
-import com.example.myticket.View.Adapter.CustomSpinnerAdapter;
 import com.example.myticket.View.Adapter.RowChairsAdapter;
-import com.example.myticket.helper.Variables;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,14 +45,12 @@ public class ChairsActivity extends AppCompatActivity
     ProgressDialog dialog;
     ChairTypeAdapter chairTypeAdapter;
     ChairResponse chairResponse;
-
+    AlertDialog alertDialog;
 
     //--------------------------------  references of views -------------------------------------------------//
     private ConstraintLayout layout ;
     RecyclerView chairTypeRv , chairRowsRv;
     Button nextBtn;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +86,35 @@ public class ChairsActivity extends AppCompatActivity
         super.onStart();
 //        setDataOfViews();
     }
+
+    private void showAlertDialog(String title , String message)
+    {
+        AlertDialog.Builder builder1 = new AlertDialog.
+                Builder(this);
+        builder1.setTitle(title);
+        builder1.setMessage(message);
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "ok",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+//        builder1.setNegativeButton(
+//                "No",
+//                new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        dialog.cancel();
+//                    }
+//                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
 
 
 //    private void setDataOfViews()
@@ -188,9 +213,19 @@ public class ChairsActivity extends AppCompatActivity
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ChairsActivity.this,
-                        ConfirmTicketsActivity.class);
-                startActivity(intent);
+                if(TicketCinemaBusiness.selectedChairsMap.size() > 0)
+                {
+                    Intent intent = new Intent(ChairsActivity.this,
+                            ConfirmTicketsActivity.class);
+                    startActivity(intent);
+                }
+                else
+                {
+                    Toast.makeText(ChairsActivity.this,
+                            "select any chair to continue" ,
+                            Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
@@ -255,6 +290,16 @@ public class ChairsActivity extends AppCompatActivity
                 showWatingDialog();
                 prepareChairs();
                 drawChairs();
+
+//                if(chairResponse.getResult().getLimitReserve() == 1)
+//                {
+                TicketCinemaBusiness.ticketLimits =
+                        chairResponse.getResult().getLimitReserve();
+                    showAlertDialog("Limit Tickets",
+                            "Take Care ! your maximum number of tickets equal  "+
+                                    chairResponse.getResult().getLimitReserve() +"  Tickets");
+//                }
+
 
             }
 

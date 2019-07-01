@@ -31,6 +31,8 @@
         />
 
     <EditText
+
+        android:hint="@string/username"
         android:id="@+id/username_login"
         android:layout_width="match_parent"
         android:layout_height="52dp"
@@ -48,6 +50,7 @@
     </EditText>
 
     <EditText
+        android:hint="@string/password"
         android:id="@+id/password_login"
         android:layout_width="match_parent"
         android:layout_height="52dp"
@@ -92,15 +95,15 @@
     </FrameLayout>
 
     <TextView
+        android:id="@+id/forget_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#fff"
-        app:layout_constraintTop_toBottomOf="@id/frame_login"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
         android:text="forget password ?"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:textColor="#fff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frame_login" />
 
     <TextView
         android:id="@+id/register"

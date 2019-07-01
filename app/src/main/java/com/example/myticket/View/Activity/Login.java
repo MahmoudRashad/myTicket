@@ -30,7 +30,7 @@ public class Login extends AppCompatActivity implements
     private EditText password;
     private Button btnLogin;
     private ProgressBar progressBar;
-    TextView registerTv;
+    TextView registerTv , forgetPasswordTv;
 
     private String mUsername;
     private String mPassword;
@@ -73,6 +73,7 @@ public class Login extends AppCompatActivity implements
         btnLogin = findViewById(R.id.login_btn);
         progressBar = findViewById(R.id.progressBar_login);
         registerTv = findViewById(R.id.register);
+        forgetPasswordTv = findViewById(R.id.forget_password);
         progressBar.setVisibility(View.GONE);
 
         mUsername = userName.getText().toString();
@@ -105,6 +106,15 @@ public class Login extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Login.this, Register.class);
+                startActivity(intent);
+            }
+        });
+
+
+        forgetPasswordTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this,ForgetPassword.class);
                 startActivity(intent);
             }
         });

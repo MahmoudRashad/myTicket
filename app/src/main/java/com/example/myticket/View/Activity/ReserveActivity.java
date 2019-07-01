@@ -93,6 +93,7 @@ public class ReserveActivity extends AppCompatActivity
     ImageView movieIv ;/*, editImageIv , nameIv,phoneIv,emailIv,addressIv;*/
     Button nextBtn;
     Spinner cinemaS , dateS , timeS;
+    TextView hallTv;
 
 
     @Override
@@ -229,6 +230,7 @@ public class ReserveActivity extends AppCompatActivity
         dateS = findViewById(R.id.spinner2);
         timeS = findViewById(R.id.spinner3);
         movieIv = findViewById(R.id.cover_photo);
+        hallTv = findViewById(R.id.textView26);
 
         String reserveCinema ,
                 reserveDate , reserveTime ;
@@ -270,11 +272,15 @@ public class ReserveActivity extends AppCompatActivity
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 // your code here
 
+                hallTv.setText(reserveCinemaResponse.getResult().get(position).getHall());
                 TicketCinemaBusiness.reserveCinemaId =
                         reserveCinemaResponse.getResult().get(position).getId();
 
                 TicketCinemaBusiness.reserveCinema =
                         reserveCinemaResponse.getResult().get(position).getName();
+
+                TicketCinemaBusiness.cinemaLocation =
+                        reserveCinemaResponse.getResult().get(position).getAddress();
 
                 if( TicketCinemaBusiness.reserveCinemaId != -1)
                 {
@@ -364,9 +370,19 @@ public class ReserveActivity extends AppCompatActivity
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ReserveActivity.this ,
-                        ChairsActivity.class);
-                startActivity(intent);
+                if(TicketCinemaBusiness.reserveTimeId!=-1&&
+                        TicketCinemaBusiness.reserveCinemaId!=-1&&
+                        TicketCinemaBusiness.reserveDateId!=-1)
+                {
+                    Intent intent = new Intent(ReserveActivity.this ,
+                            ChairsActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    Toast.makeText(ReserveActivity.this,
+                            "please select all fields." ,
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
 
