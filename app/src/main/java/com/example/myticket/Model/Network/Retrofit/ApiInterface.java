@@ -15,6 +15,7 @@ import com.example.myticket.Model.Network.DataModel.MoviesList.MoviesList;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ChairResponse;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ReserveCinemaResponse;
 import com.example.myticket.Model.Network.DataModel.Resgister.MainResponceReg;
+import com.example.myticket.Model.Network.DataModel.Search.CategoryResult;
 import com.example.myticket.Model.Network.DataModel.Search.SearchResponce;
 import com.example.myticket.Model.Network.DetailsMovie.DetailsMovie;
 
@@ -81,6 +82,10 @@ public interface ApiInterface {
 
     @POST("more_info")
     Call<DetailsMovie> getMovieDetails(@QueryMap Map<String, String> queryMap);
+
+    @GET("category")
+    Call<CategoryResult> getCategories();
+
 
 
 

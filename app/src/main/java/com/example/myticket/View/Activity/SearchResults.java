@@ -12,7 +12,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myticket.Model.Network.DataModel.Search.Category;
+import com.example.myticket.Model.Network.DataModel.Search.CategoryResult;
 import com.example.myticket.Model.Network.DataModel.Search.Result;
+import com.example.myticket.Model.Network.Retrofit.ApiCalling;
+import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.R;
 import com.example.myticket.View.Adapter.CategoryAdapter;
 import com.example.myticket.View.Adapter.ResultsAdapter;
@@ -22,11 +26,11 @@ import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-public class SearchResults extends AppCompatActivity {
+public class SearchResults extends AppCompatActivity implements GeneralListener {
     private ArrayList<Result> searchResults;
-    private ArrayList<String> categoriesFilter;
-    private Variables variables = new Variables();
+    private List<Category> categoriesFilter;
     private ResultsAdapter searchAdapter;
     private CategoryAdapter categoryAdapter;
     private RecyclerView resultsRv;
@@ -36,6 +40,7 @@ public class SearchResults extends AppCompatActivity {
     private TextView filterResultText;
     private TextView searchResultsText;
     private  ArrayList<Result> filteredList;
+    private ApiCalling apiCalling;
 
     private ImageView backBtn;
     private ImageView searchIcon;
@@ -47,6 +52,7 @@ public class SearchResults extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
+        apiCalling = new ApiCalling(this);
         myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
         resultsRv = findViewById(R.id.all_results_search);
         moviesBtn = findViewById(R.id.movies_btn);
@@ -74,6 +80,7 @@ public class SearchResults extends AppCompatActivity {
             resultsRv.setAdapter(searchAdapter);
 
         }
+        apiCalling.getSearchCategories(this);
         setToolbar();
         setFilters();
     }
@@ -113,10 +120,10 @@ public class SearchResults extends AppCompatActivity {
                     }
                 }
                 searchResultsText.setText(getString(R.string.movies));
-                variables.setCategories();
-                categoriesFilter = variables.getCategories();
+//                variables.setCategories();
+//                categoriesFilter = variables.getCategories();
                 filtersRV.setVisibility(View.VISIBLE);
-                categoryAdapter = new CategoryAdapter(SearchResults.this,null,categoriesFilter,searchResults,searchAdapter,filtersRV);
+                categoryAdapter = new CategoryAdapter(SearchResults.this,null,  categoriesFilter,searchResults,searchAdapter,filtersRV);
                 filtersRV.setAdapter(categoryAdapter);
                 searchAdapter.update(filteredList);
 
@@ -137,14 +144,18 @@ public class SearchResults extends AppCompatActivity {
                     }
                 }
                 searchResultsText.setText(getString(R.string.cinemas));
-                variables.setCinemasCategories();
-                categoriesFilter = variables.getCinemasCategories();
                 filtersRV.setVisibility(View.VISIBLE);
-                categoryAdapter = new CategoryAdapter(SearchResults.this,null,categoriesFilter,null,null, filtersRV);
+                categoryAdapter = new CategoryAdapter(SearchResults.this,null, categoriesFilter,null,null, filtersRV);
                 filtersRV.setAdapter(categoryAdapter);
                 searchAdapter.update(filteredList) ;
 
             }
         });
+    }
+
+    @Override
+    public void getApiResponse(int status, String message, Object tApiResponse) {
+        CategoryResult categoryResult = (CategoryResult) tApiResponse;
+        categoriesFilter = categoryResult.getResult();
     }
 }

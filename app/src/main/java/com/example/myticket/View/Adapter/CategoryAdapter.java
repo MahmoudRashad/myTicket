@@ -16,13 +16,14 @@ import com.example.myticket.Model.Network.DataModel.Search.Result;
 import com.example.myticket.R;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ReviewsViewHolder> {
 
     private Context context;
     private ArrayList<Category> categories;
-    private ArrayList<String> categorySearch;
+    private List<com.example.myticket.Model.Network.DataModel.Search.Category> categorySearch;
     private ArrayList<Result> searchResults;
     private ResultsAdapter resultsAdapter;
     private Typeface myfont;
@@ -31,7 +32,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Review
 //    private String previousCategory;
 //    private RecyclerView mRecyclerList;
 
-    public CategoryAdapter(Context context, ArrayList<Category> categories, ArrayList<String> category, ArrayList<Result> searchResults, ResultsAdapter resultsAdapter, RecyclerView filtersRV) {
+    public CategoryAdapter(Context context, ArrayList<Category> categories, List<com.example.myticket.Model.Network.DataModel.Search.Category> category, ArrayList<Result> searchResults, ResultsAdapter resultsAdapter, RecyclerView filtersRV) {
         this.context = context;
         this.categories = categories;
         this.categorySearch = category;
@@ -59,8 +60,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Review
         }
         else {
 
-            String category = categorySearch.get(i);
-            reviewsViewHolder.categoryText.setText(category);
+            com.example.myticket.Model.Network.DataModel.Search.Category category = categorySearch.get(i);
+            reviewsViewHolder.categoryText.setText(category.getCategory());
         }
     }
 
