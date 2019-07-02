@@ -1,6 +1,7 @@
 package com.example.myticket.View.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -15,6 +16,7 @@ public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter
     private Context mContext;
     List<ResultTickets> pastList;
     List<ResultTickets> comingList;
+    //private Typeface myfont;
 
     public SimpleFragmentPagerAdapter(Context context, FragmentManager fm,
                                       List<ResultTickets> comingList,
@@ -25,6 +27,8 @@ public class SimpleFragmentPagerAdapter extends FragmentPagerAdapter
 
         this.pastList = pastList;
         this.comingList = comingList;
+        //myfont = Typeface.createFromAsset(context.getAssets(),"fonts/segoe_ui.ttf");
+
     }
 
     // This determines the fragment for each tab

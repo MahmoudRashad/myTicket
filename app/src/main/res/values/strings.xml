@@ -85,17 +85,10 @@
     <string name="search_results">Search Results</string>
     <string name="seat_number">Seat Number</string>
     <string name="search">Search</string>
-
-    <string name="upcomming">UPCOMMING</string>
-    <string name="past">PAST</string>
-
-
-    <string name="backtogate">Back to Gate</string>
-
-    <string name="logout">Logout</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="backtogate">backtogate</string>
+    <string name="logout">logout</string>
+    <string name="upcomming">Upcoming</string>
+    <string name="past">Past</string>
 
 
 </resources>
