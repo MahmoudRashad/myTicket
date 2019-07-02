@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="240dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/cinema_title"
             app:layout_constraintTop_toBottomOf="@+id/toolbar_layout" />
 
         <ProgressBar
@@ -126,18 +126,43 @@
             android:textColor="#fff"
             />
 
-        <TextView
-            android:id="@+id/cinema_seeNearBy"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="33dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cinemas_rv"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+
+            android:orientation="horizontal"
+            android:background="@drawable/white_rect_bk">
+        <TextView
+            android:id="@+id/cinema_seeNearBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:paddingStart="38dp"
+            android:paddingEnd="16dp"
             android:text="@string/near_by_cinemas"
+            android:src="@drawable/ic_near_me_24px"
             android:textSize="16sp"
-            android:textColor="#fff"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@color/colorAccent"
             />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_near_me_24px"
+                android:layout_marginStart="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@color/white"
+                android:layout_gravity="start|center"/>
+        </android.support.constraint.ConstraintLayout>
 
         <TextView
             android:id="@+id/cinema_title"
@@ -161,22 +186,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cinema_title"/>
 
-        <ImageView
-            android:id="@+id/nearby_image_pin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_location_on_black_24dp"
-            app:layout_constraintEnd_toStartOf="@id/cinema_seeNearBy"
-            app:layout_constraintTop_toBottomOf="@id/cinemas_rv"
-            android:layout_marginEnd="4dp"
-            android:layout_marginStart="16dp"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/now_playing_rv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/nowPlaying_title"/>

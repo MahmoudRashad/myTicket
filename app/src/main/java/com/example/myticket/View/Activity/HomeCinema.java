@@ -70,6 +70,7 @@ public class HomeCinema extends AppCompatActivity implements
     private ImageView toolbarLogo;
     private TextView toolbarTitle;
     private Typeface myfont;
+    private int layoutID;
 
 
     @Override
@@ -104,9 +105,11 @@ public class HomeCinema extends AppCompatActivity implements
         seeAllComingSoon.setTypeface(myfont);
         seeAllCinema.setTypeface(myfont);
         seeAllNearby.setTypeface(myfont);
+        seeAllRecently.setTypeface(myfont);
         toolbarLogo.setVisibility(View.VISIBLE);
         backBtn.setVisibility(View.GONE);
         navBtn.setVisibility(View.VISIBLE);
+        layoutID = R.layout.recyclerview_item;
         SliderProgressBar.getIndeterminateDrawable().setColorFilter(0xFFFFFFFF, android.graphics.PorterDuff.Mode.MULTIPLY);
 
         //setNavigationViewListener();
@@ -257,15 +260,15 @@ public class HomeCinema extends AppCompatActivity implements
             RecentlyLists = homeResult.getRecently();
             ComingLists = homeResult.getComing();
 
-            HomeMovieAdapter homeMovieAdapter = new HomeMovieAdapter(this, RecentlyLists, null, null);
+            HomeMovieAdapter homeMovieAdapter = new HomeMovieAdapter(this, RecentlyLists, null, null,layoutID);
             moviesRV.setAdapter(homeMovieAdapter);
             moviesRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-            HomeMovieAdapter ComingSoonAdapter = new HomeMovieAdapter(this, null, ComingLists, null);
+            HomeMovieAdapter ComingSoonAdapter = new HomeMovieAdapter(this, null, ComingLists, null,layoutID);
             comingSoonRV.setAdapter(ComingSoonAdapter);
             comingSoonRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-            HomeMovieAdapter CinemaAdapter = new HomeMovieAdapter(this, null, null, CinemaLists);
+            HomeMovieAdapter CinemaAdapter = new HomeMovieAdapter(this, null, null, CinemaLists,layoutID);
             cinemasRV.setAdapter(CinemaAdapter);
             cinemasRV.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 

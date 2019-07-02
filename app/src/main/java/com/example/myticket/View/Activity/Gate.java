@@ -30,7 +30,7 @@ public class Gate extends AppCompatActivity {
         myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
         cinema.setTypeface(myfont);
         stadium.setTypeface(myfont);
-        Button btn = findViewById(R.id.qr_btn);
+//        Button btn = findViewById(R.id.qr_btn);
         layout = findViewById(R.id.cinema_gate);
         setToolbar();
         layout.setOnClickListener(new View.OnClickListener() {
@@ -40,14 +40,14 @@ public class Gate extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Gate.this, QrcodePage.class);
-                startActivity(intent);
-            }
-        });
+//
+//        btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(Gate.this, QrcodePage.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     private void setToolbar() {
