@@ -1,5 +1,6 @@
 package com.example.myticket.View.Activity;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -8,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,11 +37,15 @@ public class ChangePasswordActivity extends AppCompatActivity
     private Typeface myfont;
 
 
+
     //------------ reference of views -------------------//
 
     Button sendBtn ;
     EditText oldEt , newEt , confirmEt;
     ProgressBar loadingPb;
+    private ImageView backBtn;
+    private ImageView searchIcon;
+    private TextView toolbarTitle;
 
 
     @Override
@@ -56,6 +62,7 @@ public class ChangePasswordActivity extends AppCompatActivity
         findViewsToReferences1();
         setListenerOfViews1();
 //        setFontOfViews();
+        setToolbar();
 
         sessionManager = new SessionManager(this);
         apiCalling = new ApiCalling(this);
@@ -94,6 +101,27 @@ public class ChangePasswordActivity extends AppCompatActivity
 //
 //    }
 
+    private void setToolbar() {
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(getString(R.string.change_password));
+        toolbarTitle.setTypeface(myfont);
+        searchIcon = findViewById(R.id.toolbar_Search);
+        backBtn = findViewById(R.id.toolbar_back);
+
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChangePasswordActivity.this,SearchPage.class);
+                startActivity(intent);
+            }
+        });
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
 
     public void setListenerOfViews1()
     {
