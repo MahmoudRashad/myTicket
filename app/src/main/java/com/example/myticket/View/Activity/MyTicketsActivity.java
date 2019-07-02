@@ -42,7 +42,10 @@ public class MyTicketsActivity extends AppCompatActivity
     SessionManager sessionManager;
     ProgressDialog dialog;
     MyTicketsResponse myTicketsResponse;
-
+    private ImageView backBtn;
+    private ImageView searchIcon;
+    private TextView toolbarTitle;
+    private Typeface myfont;
     //--------------------------------  references of views -------------------------------------------------//
 
 
@@ -51,10 +54,10 @@ public class MyTicketsActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_tickets);
-//        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
 //        findViewsToReferences();
 //        setListenerOfViews();
-//        setToolbar();
+          setToolbar();
 //        if( getIntent().getExtras() != null )
 //        {
 //            movieId = getIntent().getExtras().getInt("movie_id" , -1);
@@ -69,6 +72,26 @@ public class MyTicketsActivity extends AppCompatActivity
 
     }
 
+    private void setToolbar() {
+        toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setText(getString(R.string.my_tickets));
+        searchIcon = findViewById(R.id.toolbar_Search);
+        backBtn = findViewById(R.id.toolbar_back);
+
+        searchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyTicketsActivity.this,SearchPage.class);
+                startActivity(intent);
+            }
+        });
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
 
     private void createViewPager()
     {

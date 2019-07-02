@@ -128,7 +128,8 @@ public class ChairsActivity extends AppCompatActivity
 
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
-        toolbarTitle.setText(getString(R.string.choose_your_seat));
+        toolbarTitle.setText(getString(R.string.my_tickets));
+        toolbarTitle.setTypeface(myfont);
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 

@@ -42,7 +42,7 @@ public class AnyResultsPage extends AppCompatActivity implements GeneralListener
     private TextView toolbarTitle;
     private Typeface myfont;
     private int layoutID;
-    //TODO: add a layout for vertical rv and fix its design
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
