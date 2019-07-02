@@ -12,12 +12,14 @@ import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderResponce;
 import com.example.myticket.Model.Network.DataModel.MapModel.NearByFullModel;
 import com.example.myticket.Model.Network.DataModel.MoviesList.MoviesList;
+import com.example.myticket.Model.Network.DataModel.MyTickets.MyTicketsResponse;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ChairResponse;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ReserveCinemaResponse;
 import com.example.myticket.Model.Network.DataModel.Resgister.MainResponceReg;
 import com.example.myticket.Model.Network.DataModel.Search.CategoryResult;
 import com.example.myticket.Model.Network.DataModel.Search.SearchResponce;
 import com.example.myticket.Model.Network.DetailsMovie.DetailsMovie;
+import com.google.gson.JsonElement;
 
 import java.util.Map;
 
@@ -142,5 +144,14 @@ public interface ApiInterface {
                                                 @Header("Authorization") String authorization,
                                                 @QueryMap Map<String, String> queryMap);
 
+    @POST("confirm_reservation")
+    Call<GeneralApiesponse> confirmReservation(@Header("Authorization") String authorization ,
+                                     @Header("lang") String lang,
+                                     @Body JsonElement jsonObj);
+
+
+    @GET("mytickets")
+    Call<MyTicketsResponse> getMyTickets(@Header("lang") String lang,
+                                            @Header("Authorization") String authorization);
 
 }

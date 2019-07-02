@@ -34,6 +34,7 @@ import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.AvaliableChair;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ChairResponse;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.TypeChair;
+import com.example.myticket.Model.Network.DataModel.Tickets.ResultTickets;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.R;
@@ -55,6 +56,8 @@ public class ConfirmTicketsActivity extends AppCompatActivity
     ProgressDialog dialog;
     TicketsAdapter ticketsAdapter;
     private Typeface myfont;
+    List<AvaliableChair> listTemp;
+    List<ResultTickets> resultTicketsList;
 
 
 
@@ -114,6 +117,47 @@ public class ConfirmTicketsActivity extends AppCompatActivity
                 finish();
             }
         });
+
+        payBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showWatingDialog();
+
+                makeList();
+
+                apiCalling.confirmReservation("Bearer " +sessionManager.getUserToken(),
+                        "ar",
+                        resultTicketsList ,ConfirmTicketsActivity.this);
+
+            }
+        });
+    }
+
+
+    private void makeList()
+    {
+        resultTicketsList = new ArrayList<>();
+        for(int i =0;i<listTemp.size();i++)
+        {
+            ResultTickets resultTickets = new ResultTickets();
+            resultTickets.setCinemaName(TicketCinemaBusiness.reserveCinema);
+
+            resultTickets.setCinemaId(TicketCinemaBusiness.reserveCinemaId+"");
+            resultTickets.setFilmId(TicketCinemaBusiness.movieId+"");
+            resultTickets.setMovieName(TicketCinemaBusiness.movieName);
+            resultTickets.setChairNum(listTemp.get(i).getChairNum());
+            resultTickets.setChairType(listTemp.get(i).getDetail().getName());
+            resultTickets.setCinemaLocation(TicketCinemaBusiness.cinemaLocation);
+            resultTickets.setHallName(TicketCinemaBusiness.hallName);
+            resultTickets.setDate(TicketCinemaBusiness.reserveDate);
+            resultTickets.setTime(TicketCinemaBusiness.reserveTime);
+            resultTickets.setQrCode("10");
+
+
+            resultTicketsList.add(resultTickets);
+
+        }
     }
 
 
@@ -121,7 +165,7 @@ public class ConfirmTicketsActivity extends AppCompatActivity
     {
 //        try {
 
-        List<AvaliableChair> listTemp = new ArrayList<AvaliableChair>(TicketCinemaBusiness.selectedChairsMap.values());
+        listTemp = new ArrayList<AvaliableChair>(TicketCinemaBusiness.selectedChairsMap.values());
 
         TicketsAdapter chairTypeAdapter = new TicketsAdapter( TicketsEnum.confirmTickets.getValue()
                 , this, listTemp );
@@ -135,6 +179,8 @@ public class ConfirmTicketsActivity extends AppCompatActivity
         ticketsRv.setLayoutManager(chairTypeLayoutManger);
         ticketsRv.setHasFixedSize(false);
         ticketsRv.setNestedScrollingEnabled(false);
+
+        payBtn.setText("Pay " + TicketCinemaBusiness.totalPrice + " SR");
 
 //        }catch (Exception e)
 //        {
@@ -233,29 +279,30 @@ public class ConfirmTicketsActivity extends AppCompatActivity
 //        }
     }
 
+
+
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
         dialog.dismiss();
-//        if(status == ErrorTypeEnum.noError.getValue())
-//        {
-//            if( tApiResponse instanceof GeneralApiesponse)
-//            {
-//                this.chairResponse =
-//                        (GeneralApiesponse) tApiResponse;
-//
-//                Toast.makeText(this , "updated successfully"
-//                    , Toast.LENGTH_LONG).show();
-//
-//            }
-//
-//
-//        }
-//        else
-//        {
-//            Toast.makeText(this , "failed"
-//                    , Toast.LENGTH_LONG).show();
-//        }
-    }
+        if(status == ErrorTypeEnum.noError.getValue())
+        {
+            if( tApiResponse instanceof GeneralApiesponse)
+            {
+                GeneralApiesponse generalApiesponse =
+                        (GeneralApiesponse)tApiResponse;
+                Toast.makeText(this , generalApiesponse.getMessage()
+                    , Toast.LENGTH_LONG).show();
 
+                Intent intent = new Intent(ConfirmTicketsActivity.this,
+                        HomeCinema.class);
+                startActivity(intent);
+            }
+        }
+        else
+        {
+            Toast.makeText(this , "failed"
+                    , Toast.LENGTH_LONG).show();
+        }
+    }
 
 }

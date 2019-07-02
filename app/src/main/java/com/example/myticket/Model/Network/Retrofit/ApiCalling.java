@@ -15,17 +15,23 @@ import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.Forge
 import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderResponce;
 import com.example.myticket.Model.Network.DataModel.MoviesList.MoviesList;
+import com.example.myticket.Model.Network.DataModel.MyTickets.MyTicketsResponse;
+import com.example.myticket.Model.Network.DataModel.ReserveModel.AvaliableChair;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ChairResponse;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ReserveCinemaResponse;
 import com.example.myticket.Model.Network.DataModel.Resgister.MainResponceReg;
 import com.example.myticket.Model.Network.DataModel.Search.CategoryResult;
 import com.example.myticket.Model.Network.DataModel.Search.SearchResponce;
+import com.example.myticket.Model.Network.DataModel.Tickets.ResultTickets;
 import com.example.myticket.Model.Network.DetailsMovie.DetailsMovie;
 import com.example.myticket.View.Activity.Login;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -1112,6 +1118,137 @@ public class ApiCalling
             }
         });
 
+    }
+
+
+    public void confirmReservation(String authorization , String lang , List<ResultTickets> resultCartItemList
+            , final GeneralListener generalListener )
+    {
+
+        Gson gson = new Gson();
+
+        JsonElement jsonObject = gson.toJsonTree(resultCartItemList);
+
+        Map<String, JsonElement> queryMap = new HashMap<>();
+        queryMap.put("ticket" , jsonObject);
+//        String temp = "ddjkdd";
+//        queryMap.put("user_note" , gson.toJsonTree(orderNote));
+//        queryMap.put("products" , jsonObject);
+
+        jsonObject = gson.toJsonTree(queryMap);
+//        JSONObject obj=new JSONObject(queryMap);
+        String json = gson.toJson(jsonObject);
+        Log.e( "request**", json);
+
+//        HashMap<String, JSONObject > queryMapFinal = new HashMap<>();
+//        queryMapFinal.put("json" , obj);
+
+        Call<GeneralApiesponse> call = apiInterface.confirmReservation(
+                authorization , lang  , jsonObject  );
+
+        call.enqueue(new Callback<GeneralApiesponse>() {
+            @Override
+            public void onResponse(Call<GeneralApiesponse> call, Response<GeneralApiesponse> response)
+            {
+                Log.e("onResponse" ,response.raw().toString());
+                if(response.isSuccessful())
+                {
+                    generalListener.getApiResponse(ErrorTypeEnum.noError.getValue() ,
+                            null , response.body());
+                }
+                else if (response.code() == 401) {
+                    // Handle unauthorized
+                    Log.e("onResponse" ,"logout");
+                    Intent   i= new Intent(context , Login.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    context.startActivity(i);
+                }
+                else
+                {
+                    generalListener.getApiResponse(ErrorTypeEnum.ServerCodeFail.getValue() ,
+                            null , null);
+                }
+
+            }
+            @Override
+            public void onFailure(Call<GeneralApiesponse> call, Throwable t)
+            {
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() ,null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() ,null);
+                }
+            }
+        });
+    }
+
+
+    public void getMyTickets(String authToken ,
+                                final GeneralListener generalListener )
+    {
+
+        Call<MyTicketsResponse> call =
+                apiInterface.getMyTickets( lang ,authToken );
+
+
+        call.enqueue(new Callback<MyTicketsResponse>() {
+            @Override
+            public void onResponse(Call<MyTicketsResponse> call, Response<MyTicketsResponse> response)
+            {
+                Log.e("onResponse" ,response.raw().toString());
+                if(response.isSuccessful())
+                {
+                    if(response.body().getSuccess())
+                    {
+                        generalListener.getApiResponse(ErrorTypeEnum.noError.getValue() ,
+                                null , response.body());
+                    }
+
+                    else
+                    {
+                        generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue() ,
+                                null , response.body());
+                    }
+                }
+                else if (response.code() == 401) {
+                    // Handle unauthorized
+                    Log.e("onResponse" ,"logout");
+                    Intent   i= new Intent(context , Login.class);
+
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    context.startActivity(i);
+                }
+                else
+                {
+                    generalListener.getApiResponse(ErrorTypeEnum.ServerCodeFail.getValue() ,
+                            response.body().getMessage() , null);
+                }
+            }
+            @Override
+            public void onFailure(Call<MyTicketsResponse> call, Throwable t)
+            {
+                Log.e("onResponse" ,call.request().toString());
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
     }
 
 }

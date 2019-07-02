@@ -49,6 +49,7 @@
                 android:value=".View.Activity.HomeCinema" />
         </activity>
         <activity android:name=".View.Activity.Login" />
+        <activity android:name=".View.Activity.MyTicketsActivity" />
         <activity android:name=".View.Activity.Gate" />
         <activity android:name=".View.Activity.ReserveActivity" />
         <activity android:name=".View.Activity.MainActivity" />

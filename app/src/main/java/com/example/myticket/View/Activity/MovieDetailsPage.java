@@ -265,26 +265,31 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
         ReserveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(sessionManager.getUserToken() == null ||
-                        sessionManager.getUserToken().equals(""))
-                {
-                    Intent intent1 = new Intent(
-                            MovieDetailsPage.this, Login.class
-                    );
-                    startActivity(intent1);
-                }
-                else
-                {
-                    TicketCinemaBusiness.movieId = movieDetails.getId();
-                    TicketCinemaBusiness.movieName = movieDetails.getName();
 
-                    Intent intent1 = new Intent(
-                            MovieDetailsPage.this, ReserveActivity.class
-                    );
-                    intent1.putExtra("movie_id" , movieDetails.getId());
-                    intent1.putExtra("movie_image" , movieDetails.getImage());
-                    startActivity(intent1);
-                }
+                Intent intent = new Intent(MovieDetailsPage.this,
+                        MyTicketsActivity.class);
+                startActivity(intent);
+
+//                if(sessionManager.getUserToken() == null ||
+//                        sessionManager.getUserToken().equals(""))
+//                {
+//                    Intent intent1 = new Intent(
+//                            MovieDetailsPage.this, Login.class
+//                    );
+//                    startActivity(intent1);
+//                }
+//                else
+//                {
+//                    TicketCinemaBusiness.movieId = movieDetails.getId();
+//                    TicketCinemaBusiness.movieName = movieDetails.getName();
+//
+//                    Intent intent1 = new Intent(
+//                            MovieDetailsPage.this, ReserveActivity.class
+//                    );
+//                    intent1.putExtra("movie_id" , movieDetails.getId());
+//                    intent1.putExtra("movie_image" , movieDetails.getImage());
+//                    startActivity(intent1);
+//                }
 
             }
         });

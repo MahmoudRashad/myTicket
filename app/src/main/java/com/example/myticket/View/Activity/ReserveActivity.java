@@ -307,6 +307,11 @@ public class ReserveActivity extends AppCompatActivity
                 // your code here
 
                 hallTv.setText(reserveCinemaResponse.getResult().get(position).getHall());
+
+
+                TicketCinemaBusiness.hallName =
+                        reserveCinemaResponse.getResult().get(position).getHall();
+
                 TicketCinemaBusiness.reserveCinemaId =
                         reserveCinemaResponse.getResult().get(position).getId();
 

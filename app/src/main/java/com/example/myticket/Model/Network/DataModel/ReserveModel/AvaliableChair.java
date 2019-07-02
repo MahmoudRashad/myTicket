@@ -7,6 +7,16 @@ public class AvaliableChair
 {
     boolean isChecked = false;
 
+    int qRCodeId = -1;
+
+    public int getqRCodeId() {
+        return qRCodeId;
+    }
+
+    public void setqRCodeId(int qRCodeId) {
+        this.qRCodeId = qRCodeId;
+    }
+
     public boolean isChecked() {
         return isChecked;
     }
