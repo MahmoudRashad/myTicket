@@ -60,6 +60,7 @@ public class HomeCinema extends AppCompatActivity implements
     private TextView seeAllComingSoon;
     private TextView seeAllCinema;
     private TextView seeAllNearby;
+    private TextView myTickets;
     private ApiCalling apiCalling;
 
 
@@ -110,6 +111,7 @@ public class HomeCinema extends AppCompatActivity implements
         backBtn.setVisibility(View.GONE);
         navBtn.setVisibility(View.VISIBLE);
         layoutID = R.layout.recyclerview_item;
+        myTickets = findViewById(R.id.textView7);
         SliderProgressBar.getIndeterminateDrawable().setColorFilter(0xFFFFFFFF, android.graphics.PorterDuff.Mode.MULTIPLY);
 
         //setNavigationViewListener();
@@ -311,6 +313,13 @@ public class HomeCinema extends AppCompatActivity implements
                 }
             });
         }
+        myTickets.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeCinema.this,MyTicketsActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
