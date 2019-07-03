@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -51,7 +52,7 @@ public class ChairsActivity extends AppCompatActivity
     private Typeface myfont;
 
     //--------------------------------  references of views -------------------------------------------------//
-    private ConstraintLayout layout ;
+    private LinearLayout layout ;
     RecyclerView chairTypeRv , chairRowsRv;
     Button nextBtn;
     private ImageView backBtn;
@@ -69,6 +70,8 @@ public class ChairsActivity extends AppCompatActivity
         findViewsToReferences();
         setListenerOfViews();
         setToolbar();
+
+        layout.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
 
 //        if( getIntent().getExtras() != null )
 //        {

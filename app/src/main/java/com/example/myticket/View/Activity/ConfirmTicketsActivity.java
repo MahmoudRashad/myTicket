@@ -3,50 +3,30 @@ package com.example.myticket.View.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.Target;
 import com.example.myticket.Business.TicketCinemaBusiness;
 import com.example.myticket.Enum.ErrorTypeEnum;
 import com.example.myticket.Enum.TicketsEnum;
 import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.AvaliableChair;
-import com.example.myticket.Model.Network.DataModel.ReserveModel.ChairResponse;
-import com.example.myticket.Model.Network.DataModel.ReserveModel.TypeChair;
 import com.example.myticket.Model.Network.DataModel.Tickets.ResultTickets;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.R;
-import com.example.myticket.View.Adapter.ChairTypeAdapter;
-import com.example.myticket.View.Adapter.RowChairsAdapter;
 import com.example.myticket.View.Adapter.TicketsAdapter;
-import com.example.myticket.helper.Variables;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ConfirmTicketsActivity extends AppCompatActivity
         implements GeneralListener
@@ -295,6 +275,7 @@ public class ConfirmTicketsActivity extends AppCompatActivity
 
                 Intent intent = new Intent(ConfirmTicketsActivity.this,
                         HomeCinema.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         }

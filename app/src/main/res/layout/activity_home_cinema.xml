@@ -216,9 +216,10 @@
     </LinearLayout>
 
     <include
+        android:id="@+id/side_menu"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         layout="@layout/side_menu_layout"
-        />
+        android:visibility="gone"/>
 </android.support.constraint.ConstraintLayout>
 

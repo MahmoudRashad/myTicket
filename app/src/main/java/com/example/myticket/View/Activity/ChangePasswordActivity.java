@@ -1,5 +1,6 @@
 package com.example.myticket.View.Activity;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -12,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myticket.Enum.ErrorTypeEnum;
 import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordResponce;
 import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
@@ -209,10 +211,48 @@ public class ChangePasswordActivity extends AppCompatActivity
 
 
 
+//    @Override
+//    public void getApiResponse(int status, String message, Object tApiResponse) {
+//        ForgetPasswordResponce forgetPasswordResponce = (ForgetPasswordResponce) tApiResponse;
+//        loadingPb.setVisibility(View.GONE);
+//        Toast.makeText(this,forgetPasswordResponce.getMessage(),Toast.LENGTH_LONG).show();
+//
+//    }
+
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
-        ForgetPasswordResponce forgetPasswordResponce = (ForgetPasswordResponce) tApiResponse;
+
         loadingPb.setVisibility(View.GONE);
-        Toast.makeText(this,forgetPasswordResponce.getMessage(),Toast.LENGTH_LONG).show();
+        sendBtn.setVisibility(View.VISIBLE);
+
+        if(status == ErrorTypeEnum.noError.getValue())
+        {
+            if( tApiResponse instanceof ForgetPasswordResponce )
+            {
+                ForgetPasswordResponce generalApiesponse =
+                        (ForgetPasswordResponce)tApiResponse;
+
+                Toast.makeText(this , generalApiesponse.getMessage()
+                        , Toast.LENGTH_LONG).show();
+
+
+//                Intent intent = new Intent(ChangePasswordActivity.this,
+//                        HomeCinema.class);
+//                startActivity(intent);
+            }
+        }
+        else if(status == ErrorTypeEnum.BackendLogicFail.getValue())
+        {
+            ForgetPasswordResponce generalApiesponse =
+                    (ForgetPasswordResponce)tApiResponse;
+
+            Toast.makeText(this , generalApiesponse.getMessage()
+                    , Toast.LENGTH_LONG).show();
+        }
+        else
+        {
+            Toast.makeText(this , "failed"
+                    , Toast.LENGTH_LONG).show();
+        }
     }
 }

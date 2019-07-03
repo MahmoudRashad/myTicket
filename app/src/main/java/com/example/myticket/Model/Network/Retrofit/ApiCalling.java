@@ -1083,7 +1083,8 @@ public class ApiCalling
     public void changePassword(String authToken ,  Map<String,String>queryMap , final GeneralListener generalListener)
     {
 
-        Call<ForgetPasswordResponce> call = apiInterface.forgetPassword(lang,queryMap);
+        Call<ForgetPasswordResponce> call = apiInterface.changePassword(lang,
+                authToken,queryMap);
         call.enqueue(new Callback<ForgetPasswordResponce>() {
             @Override
             public void onResponse(Call<ForgetPasswordResponce> call, Response<ForgetPasswordResponce> response) {
@@ -1097,6 +1098,10 @@ public class ApiCalling
                         generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
                                 response.body().getMessage(), response.body());
                     }
+                }
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.ServerCodeFail.getValue(),
+                            null, response.body());
                 }
 
             }

@@ -2,7 +2,9 @@ package com.example.myticket.View.Activity;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -11,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,12 +22,22 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.Target;
+import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.MainResult;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Cinema;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Coming;
 import com.example.myticket.Model.Network.DataModel.HomeResult.Recently;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.Result;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderResponce;
+import com.example.myticket.Model.Network.DataModel.MoviesList.MoviesList;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.R;
@@ -60,8 +73,13 @@ public class HomeCinema extends AppCompatActivity implements
     private TextView seeAllComingSoon;
     private TextView seeAllCinema;
     private TextView seeAllNearby;
-    private TextView myTickets;
+    private TextView myTickets , homeTv,profileTv,
+    cinemaTv,moviesTv,changePasswordTv,backGate,logout,userNameTv;
+    ImageView closeIv,userImageIv , menuIv;
     private ApiCalling apiCalling;
+    View sideMenu;
+
+    SessionManager sessionManager;
 
 
     private Toolbar toolbar;
@@ -80,6 +98,7 @@ public class HomeCinema extends AppCompatActivity implements
         setContentView(R.layout.activity_home_cinema);
 
         apiCalling = new ApiCalling(this);
+        sessionManager = new SessionManager(this);
         myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
         sliderPager = findViewById(R.id.C_home_slider);
         SliderProgressBar = findViewById(R.id.C_home_progressBar);
@@ -112,6 +131,40 @@ public class HomeCinema extends AppCompatActivity implements
         navBtn.setVisibility(View.VISIBLE);
         layoutID = R.layout.recyclerview_item;
         myTickets = findViewById(R.id.textView7);
+
+
+        homeTv= findViewById(R.id.textView5);
+        profileTv= findViewById(R.id.textView6);
+        cinemaTv= findViewById(R.id.textView12);
+        moviesTv= findViewById(R.id.textView10);
+        changePasswordTv= findViewById(R.id.textView11);
+        backGate= findViewById(R.id.textView29);
+        logout= findViewById(R.id.button7);
+
+        userNameTv= findViewById(R.id.textView4);
+        closeIv= findViewById(R.id.imageView18);
+        userImageIv= findViewById(R.id.imageView3);
+        sideMenu = findViewById(R.id.side_menu);
+
+//        backBtn.setBackground(getDrawable(R.drawable.ic_menu));
+
+        navBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sideMenu.setVisibility(View.VISIBLE);
+            }
+        });
+
+        closeIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sideMenu.setVisibility(View.GONE);
+            }
+        });
+
+
+
+
         SliderProgressBar.getIndeterminateDrawable().setColorFilter(0xFFFFFFFF, android.graphics.PorterDuff.Mode.MULTIPLY);
 
         //setNavigationViewListener();
@@ -202,6 +255,45 @@ public class HomeCinema extends AppCompatActivity implements
 //        navigationView.setNavigationItemSelectedListener(this);
         setToolbar();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        userNameTv.setText(sessionManager.getNameOfUser());
+
+        if (sessionManager.getUserImage() != null && sessionManager.getUserImage() != "") {
+
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .placeholder(R.drawable.my_ticket_white_logo)
+                    .error(R.drawable.my_ticket_white_logo)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .priority(Priority.HIGH);
+
+
+            Glide.with(this)
+                    .load(sessionManager.getUserImage())
+//                        .error(R.drawable.arrow_back)
+                    .listener(new RequestListener<Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            Log.e("Glide erorr**", "failed to load image");
+
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            return false;
+                        }
+                    })
+                    .apply(options)
+//                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                    .skipMemoryCache(true)
+                    .into(userImageIv);
+        }
     }
 
     private void setToolbar() {
@@ -313,10 +405,73 @@ public class HomeCinema extends AppCompatActivity implements
                 }
             });
         }
-        myTickets.setOnClickListener(new View.OnClickListener() {
+        myTickets.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeCinema.this,MyTicketsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        homeTv.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeCinema.this,HomeCinema.class);
+                startActivity(intent);
+            }
+        });
+        profileTv.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeCinema.this,EditAccount.class);
+                startActivity(intent);
+            }
+        });
+        cinemaTv.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeCinema.this,AnyResultsPage.class);
+                intent.setAction("viewCinemas");
+                startActivity(intent);
+            }
+        });
+        moviesTv.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeCinema.this, AnyResultsPage.class);
+                intent.setAction("viewMoviesRecently");
+                startActivity(intent);
+            }
+        });
+        changePasswordTv.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeCinema.this,ChangePasswordActivity.class);
+                startActivity(intent);
+            }
+        });
+        backGate.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeCinema.this,Gate.class);
+                startActivity(intent);
+            }
+        });
+        logout.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                sessionManager.clearSessionManager();
+                Intent intent = new Intent(HomeCinema.this,Login.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
