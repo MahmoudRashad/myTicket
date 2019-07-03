@@ -84,13 +84,9 @@
     <string name="search_results">نتائج البحث</string>
     <string name="seat_number">رقم المقعد</string>
     <string name="search">بحث</string>
-
-
+    <string name="backtogate">الرجوع للبوابة</string>
+    <string name="logout">تسجيل الخروج</string>
     <string name="upcomming">القادم</string>
     <string name="past">السابق</string>
-
-    <string name="backtogate">الرجوع للبوابة</string>
-
-    <string name="logout">تسجيل الخروج</string>
 
 </resources>
