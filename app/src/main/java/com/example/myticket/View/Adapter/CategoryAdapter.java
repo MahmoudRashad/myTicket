@@ -95,7 +95,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Review
                 int position = getAdapterPosition();
                 int positionID = position+1;
              //   categoryText.setBackgroundColor(context.getColor(R.color.gray));
-                resultsAdapter.updateMovies(positionID);
+                if (categorySearch != null) {
+                    resultsAdapter.updateMovies(positionID);
+                }
 
 //                if (mRecyclerList.findViewHolderForAdapterPosition(itemSelectedPrevios) != null) {
 //                    View view =mRecyclerList.findViewHolderForAdapterPosition(itemSelectedPrevios).itemView;
