@@ -180,9 +180,11 @@ public class ReserveActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-        backBtn.setOnClickListener(new View.OnClickListener() {
+        backBtn.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
+                Log.e("test**" , "finish");
                 finish();
             }
         });
@@ -278,6 +280,12 @@ public class ReserveActivity extends AppCompatActivity
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 
     private void showWatingDialog()
     {

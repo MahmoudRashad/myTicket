@@ -266,9 +266,6 @@ public class MovieDetailsPage extends AppCompatActivity implements GeneralListen
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(MovieDetailsPage.this,
-                        MyTicketsActivity.class);
-                startActivity(intent);
 
                 if(sessionManager.getUserToken() == null ||
                         sessionManager.getUserToken().equals(""))
