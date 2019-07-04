@@ -41,7 +41,6 @@ public class SearchResults extends AppCompatActivity implements GeneralListener 
     private TextView searchResultsText;
     private  ArrayList<Result> filteredList;
     private ApiCalling apiCalling;
-
     private ImageView backBtn;
     private ImageView searchIcon;
     private TextView toolbarTitle;
@@ -120,8 +119,7 @@ public class SearchResults extends AppCompatActivity implements GeneralListener 
                     }
                 }
                 searchResultsText.setText(getString(R.string.movies));
-//                variables.setCategories();
-//                categoriesFilter = variables.getCategories();
+
                 filtersRV.setVisibility(View.VISIBLE);
                 categoryAdapter = new CategoryAdapter(SearchResults.this,null,  categoriesFilter,searchResults,searchAdapter,filtersRV);
                 filtersRV.setAdapter(categoryAdapter);
@@ -145,7 +143,7 @@ public class SearchResults extends AppCompatActivity implements GeneralListener 
                 }
                 searchResultsText.setText(getString(R.string.cinemas));
                 filtersRV.setVisibility(View.VISIBLE);
-                categoryAdapter = new CategoryAdapter(SearchResults.this,null, categoriesFilter,null,null, filtersRV);
+                categoryAdapter = new CategoryAdapter(SearchResults.this,null, null,null,null, filtersRV);
                 filtersRV.setAdapter(categoryAdapter);
                 searchAdapter.update(filteredList) ;
 

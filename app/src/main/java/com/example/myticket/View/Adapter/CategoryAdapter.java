@@ -58,10 +58,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Review
             Category category = categories.get(i);
             reviewsViewHolder.categoryText.setText(category.getCategory());
         }
-        else {
+        else if (categorySearch != null){
 
             com.example.myticket.Model.Network.DataModel.Search.Category category = categorySearch.get(i);
             reviewsViewHolder.categoryText.setText(category.getCategory());
+        }
+        else{
+            reviewsViewHolder.categoryText.setText(context.getString(R.string.near_by));
         }
     }
 
@@ -71,7 +74,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Review
         return categories.size();
         else if (categorySearch != null)
             return categorySearch.size();
-        else return 0;
+        else return 1;
     }
 
     public class ReviewsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -113,7 +116,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Review
 //                    searchCategories = (ArrayList<com.example.myticket.Model.Network.DataModel.Search.Category>) result.getCategory();
 //                    for (com.example.myticket.Model.Network.DataModel.Search.Category cat : searchCategories){
 //                        int id = cat.getId();
-//                        //TODO: fix the category name and id in api
+//
 //                        if (id == positionID){
 //                            newSearchResults.add(result);
 //                            resultsAdapter.update(newSearchResults);

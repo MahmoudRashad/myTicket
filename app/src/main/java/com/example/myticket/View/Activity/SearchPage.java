@@ -51,6 +51,7 @@ public class SearchPage extends AppCompatActivity implements SearchLiveo.OnSearc
 
         apiCalling = new ApiCalling(this);
         mSearchLiveo = findViewById(R.id.search_liveo);
+
         autoCompleteRv = findViewById(R.id.search_rv);
         seeAll = findViewById(R.id.seeAll_search);
         seeAll.setTypeface(myfont);
@@ -92,6 +93,8 @@ public class SearchPage extends AppCompatActivity implements SearchLiveo.OnSearc
     }
 
     private void setSearchToolbar() {
+        mSearchLiveo.hideKeyboardAfterSearch();
+        mSearchLiveo.hideVoice();
         mSearchLiveo.show();
         if (mSearchLiveo.isShown()){
             autoCompleteRv.setVisibility(View.VISIBLE);

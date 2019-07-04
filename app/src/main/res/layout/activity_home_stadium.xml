@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_green"
+    tools:context=".View.Activity.HomeStadium">
+
+    <ImageView
+        android:id="@+id/more"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="32dp"
+        android:src="@drawable/play"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/more_text"
+         />
+    <TextView
+        android:id="@+id/more_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/more"
+        app:layout_constraintEnd_toEndOf="@id/more"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="18dp"
+        android:text="@string/more"/>
+
+
+
+    <ImageView
+        android:id="@+id/alerts"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        app:layout_constraintStart_toEndOf="@id/more"
+        app:layout_constraintBottom_toTopOf="@id/alerts_text"
+        android:layout_marginStart="48dp"
+        android:src="@drawable/ic_yellow_little_star"
+        />
+    <TextView
+        android:id="@+id/alerts_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/alerts"
+        app:layout_constraintEnd_toEndOf="@id/alerts"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="18dp"
+        android:text="@string/alerts"/>
+
+
+    
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/more"
+        android:background="@color/white"/>
+    <ImageView
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/more_text"
+        app:layout_constraintStart_toStartOf="@id/more_text"
+        app:layout_constraintBottom_toTopOf="@id/more"
+        android:background="@drawable/vector"
+
+        android:layout_marginTop="8dp"
+        tools:targetApi="m" />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/line"/>
+
+
+
+</android.support.constraint.ConstraintLayout>

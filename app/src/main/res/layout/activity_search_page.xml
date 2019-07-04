@@ -32,8 +32,8 @@
                 />
             <ImageView
                 android:id="@+id/toolbar_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:src="@drawable/ic_backward_arrow_1"
                 android:layout_gravity="center_vertical|start"
                 android:layout_margin="16dp"/>
@@ -45,8 +45,8 @@
                 android:layout_gravity="center"/>
             <ImageView
                 android:id="@+id/toolbar_Search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:src="@drawable/ic_search_24px"
                 android:layout_gravity="center_vertical|end"
                 android:layout_margin="16dp"/>
@@ -54,7 +54,8 @@
             <br.com.liveo.searchliveo.SearchLiveo
                 android:id="@+id/search_liveo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                />
         </FrameLayout>
 
     </android.support.design.widget.AppBarLayout>

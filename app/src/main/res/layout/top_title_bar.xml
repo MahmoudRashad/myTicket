@@ -37,9 +37,8 @@
                 android:layout_gravity="center"/>
             <ImageView
                 android:id="@+id/toolbar_back"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:padding="4dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:src="@drawable/ic_backward_arrow_1"
                 android:layout_gravity="center_vertical|start"
                 android:layout_margin="16dp"
@@ -47,9 +46,8 @@
 
             <ImageView
                 android:id="@+id/toolbar_nav"
-                android:padding="4dp"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:src="@drawable/ic_menu"
                 android:layout_gravity="center_vertical|start"
                 android:visibility="gone"
@@ -57,9 +55,8 @@
 
             <ImageView
                 android:id="@+id/toolbar_Search"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:padding="4dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:src="@drawable/ic_search_24px"
                 android:layout_gravity="center_vertical|end"
                 android:layout_margin="16dp"/>

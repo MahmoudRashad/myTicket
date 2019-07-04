@@ -89,6 +89,9 @@
     <string name="logout">logout</string>
     <string name="upcomming">Upcoming</string>
     <string name="past">Past</string>
+    <string name="more">More</string>
+    <string name="alerts">Alerts</string>
+    <string name="near_by">Near By</string>
 
 
 </resources>
