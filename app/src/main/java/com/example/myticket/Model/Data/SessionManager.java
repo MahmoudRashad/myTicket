@@ -185,6 +185,8 @@ public class SessionManager
         setUserToken("");
         setUserId(-1);
         setAppVersion(-1);
+        setNameOfUser("name of user");
+        setUserImage("");
 //        editor.clear();
 //        editor.commit();
     }
