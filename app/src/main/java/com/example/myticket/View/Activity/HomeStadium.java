@@ -27,6 +27,7 @@ public class HomeStadium extends AppCompatActivity {
     private StadHomeViewPagerAdapter stadHomeViewPagerAdapter;
     private DrawerLayout mDrawerLayout;
     private LinearLayout mLinear;
+    private LinearLayout mLinearNotifications;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class HomeStadium extends AppCompatActivity {
         weeksViewPager = findViewById(R.id.viewpager_stad);
         mDrawerLayout = findViewById(R.id.drawer_layout);
         mLinear = findViewById(R.id.nav_5);
+        mLinearNotifications = findViewById(R.id.nav_2);
         stadHomeViewPagerAdapter = new StadHomeViewPagerAdapter(getSupportFragmentManager());
 
         stadHomeViewPagerAdapter.addFragment(new matchesFragment(),"Today");
@@ -78,6 +80,14 @@ public class HomeStadium extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mDrawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+        mLinearNotifications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeStadium.this,MyNotifications.class);
+                startActivity(intent);
             }
         });
 

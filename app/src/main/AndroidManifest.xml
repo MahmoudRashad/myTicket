@@ -24,7 +24,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".test"></activity>
+        <activity android:name=".View.Activity.StadPaymentConfirm"></activity>
+        <activity android:name=".View.Activity.MyNotifications" />
+        <activity android:name=".test" />
         <activity android:name=".View.Activity.StadiumTicketsOptions" />
         <activity android:name=".View.Activity.StadiumList" />
         <activity android:name=".View.Activity.StadiumDetails" />
