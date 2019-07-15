@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/lightest_green">
+    <!--TODO: Make image view rounded-->
+    <ImageView
+        android:id="@+id/stad_profile_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_profile_stad"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="32dp"/>
+    <TextView
+        android:id="@+id/nav_name_stad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/stad_profile_img"
+        app:layout_constraintTop_toTopOf="@id/stad_profile_img"
+        android:text="ISCO APPS"
+        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:layout_marginStart="16dp"/>
+    <TextView
+        android:id="@+id/nav_address_stad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/stad_profile_img"
+        app:layout_constraintTop_toBottomOf="@id/nav_name_stad"
+        android:text="ISCO APPS"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_marginStart="16dp"/>
+
+</android.support.constraint.ConstraintLayout>

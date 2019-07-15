@@ -24,58 +24,81 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".View.Activity.QrcodePage"
-            android:launchMode="singleTop"></activity>
-        <activity android:name=".View.Activity.SearchResults"
-            android:launchMode="singleTop"/>
-        <activity android:name=".View.Activity.EditAccount"
-            android:launchMode="singleTop"/>
+        <activity android:name=".test"></activity>
+        <activity android:name=".View.Activity.StadiumTicketsOptions" />
+        <activity android:name=".View.Activity.StadiumList" />
+        <activity android:name=".View.Activity.StadiumDetails" />
+        <activity android:name=".View.Activity.MatchDetails" />
+        <activity android:name=".View.Activity.StadAllResults" />
+        <activity
+            android:name=".View.Activity.QrcodePage"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".View.Activity.SearchResults"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".View.Activity.EditAccount"
+            android:launchMode="singleTop" />
         <activity
             android:name=".View.Activity.CinemaDetailsPage"
+            android:launchMode="singleTop"
             android:parentActivityName=".View.Activity.HomeCinema"
-            android:theme="@style/AppTheme"
-            android:launchMode="singleTop">
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".View.Activity.HomeCinema" />
         </activity>
-        <activity android:name=".View.Activity.ChairsActivity"
-            android:launchMode="singleTop"/>
-
-        <activity android:name=".View.Activity.ChangePasswordActivity"
-            android:launchMode="singleTop"/>
-
-        <activity android:name=".View.Activity.ConfirmTicketsActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".View.Activity.AnyResultsPage"
-            android:launchMode="singleTop"/>
-        <activity android:name=".View.Activity.SearchPage"
-            android:launchMode="singleTop"/>
-        <activity android:name=".View.Activity.ResetPassword"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".View.Activity.ChairsActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".View.Activity.ChangePasswordActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".View.Activity.ConfirmTicketsActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".View.Activity.AnyResultsPage"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".View.Activity.SearchPage"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".View.Activity.ResetPassword"
+            android:launchMode="singleTop" />
         <activity
             android:name=".View.Activity.MovieDetailsPage"
+            android:launchMode="singleTop"
             android:parentActivityName=".View.Activity.HomeCinema"
-            android:theme="@style/AppTheme"
-            android:launchMode="singleTop">
+            android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".View.Activity.HomeCinema" />
         </activity>
-        <activity android:name=".View.Activity.Login"
+        <activity
+            android:name=".View.Activity.Login"
             android:launchMode="singleTop" />
-        <activity android:name=".View.Activity.MyTicketsActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".View.Activity.Gate"
-            android:launchMode="singleTop"/>
-        <activity android:name=".View.Activity.ReserveActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".View.Activity.MainActivity"
-            android:launchMode="singleTop"/>
-        <activity android:name=".View.Activity.HomeCinema"
-            android:launchMode="singleTop"/>
-        <activity android:name=".View.Activity.ForgetPassword"
-            android:launchMode="singleTop"/>
+        <activity
+            android:name=".View.Activity.MyTicketsActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".View.Activity.Gate"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".View.Activity.ReserveActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".View.Activity.MainActivity"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".View.Activity.HomeCinema"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".View.Activity.ForgetPassword"
+            android:launchMode="singleTop" />
+        <activity
+            android:name=".View.Activity.HomeStadium"
+            android:launchMode="singleTop" />
         <activity
             android:name=".View.Activity.Register"
             android:launchMode="singleTop"
