@@ -105,5 +105,6 @@
     <string name="confirm_tickets">Confirm Tickets</string>
     <string name="stadium_list">Stadium List</string>
     <string name="matches_list">Matches List</string>
+    <string name="notification_activated">Notification Activated</string>
 
 </resources>
