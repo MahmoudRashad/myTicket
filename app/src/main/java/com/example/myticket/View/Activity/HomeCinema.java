@@ -83,7 +83,7 @@ public class HomeCinema extends AppCompatActivity implements
 
 
     private Toolbar toolbar;
-    private ImageView navBtn;
+    private ImageView navBtn , changePassIv;
     private ImageView backBtn;
     private ImageView searchIcon;
     private ImageView toolbarLogo;
@@ -115,6 +115,7 @@ public class HomeCinema extends AppCompatActivity implements
         toolbarTitle = findViewById(R.id.toolbar_title);
         backBtn = findViewById(R.id.toolbar_back);
         navBtn = findViewById(R.id.toolbar_nav);
+        changePassIv = findViewById(R.id.imageView10);
         TextView nowPlaying = findViewById(R.id.nowPlaying_title);
         TextView comingSoon = findViewById(R.id.comingSoon_title);
         TextView cinema = findViewById(R.id.cinema_title);
@@ -260,6 +261,15 @@ public class HomeCinema extends AppCompatActivity implements
     @Override
     protected void onStart() {
         super.onStart();
+
+        if(sessionManager.getUserToken()==null ||
+        sessionManager.getUserToken() =="")
+        {
+            changePasswordTv.setVisibility(View.GONE);
+            changePassIv.setVisibility(View.GONE);
+            logout.setText(getString(R.string.login));
+
+        }
 
         userNameTv.setText(sessionManager.getNameOfUser());
 
@@ -436,6 +446,8 @@ public class HomeCinema extends AppCompatActivity implements
             public void onClick(View v) {
                 Intent intent = new Intent(HomeCinema.this,AnyResultsPage.class);
                 intent.setAction("viewCinemas");
+                String ListDumb = new Gson().toJson(CinemaLists);
+                intent.setData(Uri.fromParts("schemeCinema", ListDumb, null));
                 startActivity(intent);
             }
         });
@@ -445,6 +457,8 @@ public class HomeCinema extends AppCompatActivity implements
             public void onClick(View v) {
                 Intent intent = new Intent(HomeCinema.this, AnyResultsPage.class);
                 intent.setAction("viewMoviesRecently");
+                String ListDumb = new Gson().toJson(RecentlyLists);
+                intent.setData(Uri.fromParts("scheme", ListDumb, null));
                 startActivity(intent);
             }
         });
@@ -469,10 +483,21 @@ public class HomeCinema extends AppCompatActivity implements
             @Override
             public void onClick(View v)
             {
-                sessionManager.clearSessionManager();
-                Intent intent = new Intent(HomeCinema.this,Login.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                if(sessionManager.getUserToken() == null ||
+                        sessionManager.getUserToken() == "")
+                {
+
+                    Intent intent = new Intent(HomeCinema.this,Login.class);
+                    startActivity(intent);
+                }
+                else
+                {
+                    sessionManager.clearSessionManager();
+                    Intent intent = new Intent(HomeCinema.this,Login.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+
             }
         });
 
