@@ -14,7 +14,11 @@
     <color name="unavilable">#444444</color>
     <color name="primary_opicity">#f289091E</color>
     <color name="light_green">#84C886</color>
-
+    <color name="red">#DB142A</color>
+    <color name="stad_grey_text">#333333</color>
+    <color name="green_tab">#8ACA8C</color>
+    <color name="lightest_grey">#E6E6E6</color>
+    <color name="lightest_green">#C6E5C7</color>
 
 
 </resources>

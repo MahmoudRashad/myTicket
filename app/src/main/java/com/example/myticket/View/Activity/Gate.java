@@ -14,6 +14,7 @@ import com.example.myticket.R;
 
 public class Gate extends AppCompatActivity {
     ConstraintLayout layout;
+    ConstraintLayout layoutStadium;
     private ImageView backBtn;
     private ImageView searchIcon;
     private TextView toolbarTitle;
@@ -23,15 +24,14 @@ public class Gate extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        getSupportActionBar().hide();
         setContentView(R.layout.activity_gate);
         TextView cinema = findViewById(R.id.cinema_text);
         TextView stadium = findViewById(R.id.stadium_text);
         myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
         cinema.setTypeface(myfont);
         stadium.setTypeface(myfont);
-//        Button btn = findViewById(R.id.qr_btn);
         layout = findViewById(R.id.cinema_gate);
+        layoutStadium = findViewById(R.id.stadium_gate);
         setToolbar();
         layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,14 +40,14 @@ public class Gate extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-//
-//        btn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(Gate.this, QrcodePage.class);
-//                startActivity(intent);
-//            }
-//        });
+        layoutStadium.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Gate.this, HomeStadium.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void setToolbar() {

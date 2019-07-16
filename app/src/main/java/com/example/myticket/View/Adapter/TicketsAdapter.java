@@ -1,9 +1,11 @@
 package com.example.myticket.View.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +21,7 @@ import com.example.myticket.Model.Network.DataModel.ReserveModel.AvaliableChair;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.TypeChair;
 import com.example.myticket.Model.Network.DataModel.Tickets.ResultTickets;
 import com.example.myticket.R;
+import com.example.myticket.View.Activity.QrcodePage;
 
 import java.util.List;
 
@@ -92,6 +95,14 @@ public class TicketsAdapter extends RecyclerView.Adapter<TicketsAdapter.ReviewsV
                 reviewsViewHolder.seatNum.setText(context.getString(R.string.seat_number)+"  "+resultTicket.getChairNum());
                 reviewsViewHolder.seatType.setText(resultTicket.getChairType());
                 reviewsViewHolder.location.setText(resultTicket.getCinemaLocation());
+                reviewsViewHolder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, QrcodePage.class);
+                        intent.putExtra("qr",resultTicket.getQrCode());
+                        context.startActivity(intent);
+                    }
+                });
             }
         }
     }
@@ -113,6 +124,7 @@ public class TicketsAdapter extends RecyclerView.Adapter<TicketsAdapter.ReviewsV
         private TextView cinemaName ,
         movieName , date , time , hall ,seatNum , seatType,
         location;
+        private ConstraintLayout constraintLayout;
 
 
         public ReviewsViewHolder(@NonNull View itemView) {
@@ -126,6 +138,8 @@ public class TicketsAdapter extends RecyclerView.Adapter<TicketsAdapter.ReviewsV
             seatNum = itemView.findViewById(R.id.textView18);
             seatType= itemView.findViewById(R.id.textView20);
             location= itemView.findViewById(R.id.textView21);
+            constraintLayout = itemView.findViewById(R.id.container);
+
             cinemaName.setTypeface(myfont);
             movieName.setTypeface(myfont);
             date.setTypeface(myfont);

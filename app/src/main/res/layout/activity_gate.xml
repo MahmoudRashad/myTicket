@@ -71,6 +71,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/stadium_gate"
         android:layout_width="148dp"
         android:layout_height="148dp"
         android:background="@drawable/white_rect_bk"

@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/green_gradient"
+    tools:context=".View.Activity.MatchDetails">
+
+
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        <include
+            android:id="@+id/top_match_details"
+            layout="@layout/stad_top_toolbar"
+            android:layout_height="58dp"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraint_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:paddingBottom="32dp"
+            android:background="@drawable/white_rect_bk"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/top_match_details"
+           >
+            <TextView
+                android:id="@+id/detail_btola_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name Of Stadium"
+                android:textColor="@color/stad_grey_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:layout_marginTop="16dp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/cardView_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_btola_name"
+                android:layout_marginTop="16dp"
+                android:text="6:00 PM"
+                android:textStyle="bold"
+                android:textColor="@color/red"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+            <TextView
+                android:id="@+id/date_cardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cardView_time"
+                android:text="Aug 10 2019"
+                android:textColor="@color/grey_star"/>
+
+            <ImageView
+                android:id="@+id/team_one_image_card_view"
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:src="@drawable/ic_search_24px"
+                android:background="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_btola_name"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="38dp"/>
+
+            <TextView
+                android:id="@+id/team_one_name"
+                android:layout_width="88dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/team_one_image_card_view"
+                app:layout_constraintTop_toBottomOf="@id/team_one_image_card_view"
+                app:layout_constraintEnd_toEndOf="@id/team_one_image_card_view"
+                android:textAlignment="center"
+                android:layout_marginTop="8dp"
+                android:lines="2"
+                android:text="AL AHLI"
+                android:textAllCaps="true"
+                android:textColor="@color/grey_star"
+                />
+
+            <ImageView
+                android:id="@+id/vs_logo_cardView"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/date_cardView"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/vs_logo"/>
+
+
+            <ImageView
+                android:id="@+id/team_two_image_card_view"
+                android:layout_width="62dp"
+                android:layout_height="62dp"
+                android:src="@drawable/ic_search_24px"
+                android:background="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detail_btola_name"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="38dp"/>
+
+            <TextView
+                android:id="@+id/team_two_name"
+                android:layout_width="88dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/team_two_image_card_view"
+                app:layout_constraintTop_toBottomOf="@id/team_two_image_card_view"
+                app:layout_constraintEnd_toEndOf="@id/team_two_image_card_view"
+                android:textAlignment="center"
+                android:layout_marginTop="8dp"
+                android:lines="2"
+                android:text="AL AHLI BRDO"
+                android:textAllCaps="true"
+                android:textColor="@color/grey_star"
+                />
+
+            <View
+                android:id="@+id/grey_line"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/team_one_name"
+                android:background="@color/lightest_grey"
+                android:layout_marginTop="16dp"/>
+
+            <TextView
+                android:id="@+id/stadium_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/grey_line"
+                android:layout_marginTop="16dp"
+                android:text="STADIUM"
+                android:textColor="@color/stad_grey_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:layout_marginStart="16dp"
+                android:textStyle="bold"
+                />
+            <ImageView
+                android:id="@+id/stad_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/stadium_title"
+                android:src="@drawable/ic_big_stadium"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                />
+            <TextView
+                android:id="@+id/stadium_name_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/stad_icon"
+                app:layout_constraintBottom_toBottomOf="@id/stad_icon"
+                app:layout_constraintStart_toEndOf="@id/stad_icon"
+                android:layout_marginStart="12dp"
+                android:text="King abdallah stadium"
+                android:textAllCaps="true"
+                android:textColor="@color/stad_grey_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                />
+
+            <ImageView
+                android:id="@+id/address_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/stad_icon"
+                android:src="@drawable/ic_business_24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                />
+            <TextView
+                android:id="@+id/stadium_address_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/address_icon"
+                app:layout_constraintBottom_toBottomOf="@id/address_icon"
+                app:layout_constraintStart_toEndOf="@id/address_icon"
+                android:layout_marginStart="12dp"
+                android:text="Riyadh City"
+                android:textColor="@color/stad_grey_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                />
+            <TextView
+                android:id="@+id/location_on_map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/location_on_map"
+                android:textColor="@color/red"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/stadium_address_text"
+                android:layout_marginEnd="16dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_pin_drop_24dp"
+                app:layout_constraintEnd_toStartOf="@id/location_on_map"
+                app:layout_constraintTop_toTopOf="@id/location_on_map"
+                app:layout_constraintBottom_toBottomOf="@id/location_on_map"
+                android:layout_marginEnd="8dp"/>
+            <TextView
+                android:id="@+id/tickets_categories_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/location_on_map"
+                android:layout_marginTop="16dp"
+                android:text="@string/tickets_categories"
+                android:textColor="@color/stad_grey_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:layout_marginStart="16dp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/vip_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/vip_class"
+                android:textColor="@color/stad_grey_text"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintTop_toBottomOf="@id/tickets_categories_title"
+                android:layout_marginTop="16dp"
+                />
+
+            <TextView
+                android:id="@+id/vip_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tickets_categories_title"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/stad_grey_text"
+                android:text="600 SAR"
+                />
+            <TextView
+                android:id="@+id/first_class_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/first_class"
+                android:textColor="@color/stad_grey_text"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintTop_toBottomOf="@id/vip_text"
+                android:layout_marginTop="24dp"
+                />
+            <TextView
+                android:id="@+id/first_class_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vip_price"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="24dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/stad_grey_text"
+                android:text="400 SAR"
+                />
+            <TextView
+                android:id="@+id/second_class_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/second_class"
+                android:textColor="@color/stad_grey_text"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintTop_toBottomOf="@id/first_class_text"
+                android:layout_marginTop="24dp"
+                />
+            <TextView
+                android:id="@+id/second_class_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/first_class_price"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="24dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/stad_grey_text"
+                android:text="200 SAR"
+                />
+
+            <TextView
+                android:id="@+id/third_class_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/third_class"
+                android:textColor="@color/stad_grey_text"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="16dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintTop_toBottomOf="@id/second_class_text"
+                android:layout_marginTop="24dp"
+                />
+            <TextView
+                android:id="@+id/third_class_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/second_class_price"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="24dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/stad_grey_text"
+                android:text="100 SAR"
+                />
+
+
+
+
+
+
+        </android.support.constraint.ConstraintLayout>
+
+        <Button
+            android:id="@+id/book_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/white_rect_bk"
+            android:backgroundTint="@color/red"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/constraint_detail"
+            android:text="@string/book"/>
+
+
+
+
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
+    <include
+
+        layout="@layout/notification_activated"/>
+
+
+</android.support.constraint.ConstraintLayout>

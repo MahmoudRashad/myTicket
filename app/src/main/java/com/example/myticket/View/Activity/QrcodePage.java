@@ -15,12 +15,15 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 
+import java.util.Random;
+
 public class QrcodePage extends AppCompatActivity {
 
     private ImageView backBtn;
     private ImageView searchIcon;
     private TextView toolbarTitle;
     private Typeface myfont;
+    private String qrCode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,10 +33,15 @@ public class QrcodePage extends AppCompatActivity {
         text.setTypeface(myfont);
         setToolbar();
 
+        Intent intent = getIntent();
+        if (intent.hasExtra("qr")){
+            qrCode = intent.getStringExtra("qr");
+        }
+
         ImageView imvQrCode = findViewById(R.id.qr_image_view);
         Bitmap bitmap = null;
         try {
-            bitmap = textToImage("33", 500, 500);
+            bitmap = textToImage(qrCode, 500, 500);
         } catch (WriterException e) {
             e.printStackTrace();
         }
@@ -87,4 +95,6 @@ public class QrcodePage extends AppCompatActivity {
         bitmap.setPixels(pixels, 0, width, 0, 0, bitMatrixWidth, bitMatrixHeight);
         return bitmap;
     }
+
+
 }

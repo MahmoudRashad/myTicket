@@ -95,5 +95,32 @@
 
     <string name="enter_seat">Enter Seat Count</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="book">Book</string>
+    <string name="location_on_map">Location On Map</string>
+    <string name="tickets_categories">Tickets Categories</string>
+    <string name="vip_class">VIP Class</string>
+    <string name="first_class">First Class</string>
+    <string name="second_class">Second Class</string>
+    <string name="third_class">Third Class</string>
+    <string name="dumb">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum"</string>
+    <string name="details">Details</string>
+    <string name="tickets_options">Tickets Options</string>
+    <string name="tickets_type">Tickets Type</string>
+    <string name="enter_chairs_numbers">Enter Chairs Numbers</string>
+    <string name="confirm_tickets">Confirm Tickets</string>
+    <string name="title_activity_stad_home_nav">stad_home_nav</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="stadium_list">Stadium List</string>
+    <string name="matches_list">Matches List</string>
+    <string name="notification_activated">Notification Activated</string>
+
 
 </resources>

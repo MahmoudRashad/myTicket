@@ -28,6 +28,7 @@ import com.example.myticket.R;
 import com.example.myticket.View.Adapter.TicketsAdapter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ConfirmTicketsActivity extends AppCompatActivity
         implements GeneralListener
@@ -134,12 +135,19 @@ public class ConfirmTicketsActivity extends AppCompatActivity
             resultTickets.setHallName(TicketCinemaBusiness.hallName);
             resultTickets.setDate(TicketCinemaBusiness.reserveDate);
             resultTickets.setTime(TicketCinemaBusiness.reserveTime);
-            resultTickets.setQrCode("10");
+            resultTickets.setQrCode(generateRandomNumber());
 
 
             resultTicketsList.add(resultTickets);
 
         }
+    }
+
+    private String generateRandomNumber(){
+        Random r = new Random();
+        int random = r.nextInt(10000000 - 1) + 1;
+        String randomString = String.valueOf(random);
+        return randomString;
     }
 
 
