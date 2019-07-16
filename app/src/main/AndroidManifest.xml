@@ -109,6 +109,7 @@
         <activity
             android:name=".View.Activity.MyTicketsActivity"
             android:launchMode="singleTop" />
+
         <activity
             android:name=".View.Activity.Gate"
             android:launchMode="singleTop" />
