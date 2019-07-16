@@ -18,6 +18,7 @@ import com.example.myticket.Business.TicketCinemaBusiness;
 import com.example.myticket.Enum.ErrorTypeEnum;
 import com.example.myticket.Enum.TicketsEnum;
 import com.example.myticket.Model.Data.SessionManager;
+import com.example.myticket.Model.Network.DataModel.Chairs.Chair;
 import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.AvaliableChair;
 import com.example.myticket.Model.Network.DataModel.Tickets.ResultTickets;
@@ -36,7 +37,7 @@ public class ConfirmTicketsActivity extends AppCompatActivity
     ProgressDialog dialog;
     TicketsAdapter ticketsAdapter;
     private Typeface myfont;
-    List<AvaliableChair> listTemp;
+    List<Chair> listTemp;
     List<ResultTickets> resultTicketsList;
 
 
@@ -126,8 +127,9 @@ public class ConfirmTicketsActivity extends AppCompatActivity
             resultTickets.setCinemaId(TicketCinemaBusiness.reserveCinemaId+"");
             resultTickets.setFilmId(TicketCinemaBusiness.movieId+"");
             resultTickets.setMovieName(TicketCinemaBusiness.movieName);
-            resultTickets.setChairNum(listTemp.get(i).getChairNum());
-            resultTickets.setChairType(listTemp.get(i).getDetail().getName());
+            resultTickets.setChairNum(listTemp.get(i).getSymbolChair()+
+                    listTemp.get(i).getCharNum());
+            resultTickets.setChairType(listTemp.get(i).getType());
             resultTickets.setCinemaLocation(TicketCinemaBusiness.cinemaLocation);
             resultTickets.setHallName(TicketCinemaBusiness.hallName);
             resultTickets.setDate(TicketCinemaBusiness.reserveDate);
@@ -145,7 +147,7 @@ public class ConfirmTicketsActivity extends AppCompatActivity
     {
 //        try {
 
-        listTemp = new ArrayList<AvaliableChair>(TicketCinemaBusiness.selectedChairsMap.values());
+        listTemp = new ArrayList<Chair>(TicketCinemaBusiness.selectedChairsMap.values());
 
         TicketsAdapter chairTypeAdapter = new TicketsAdapter( TicketsEnum.confirmTickets.getValue()
                 , this, listTemp );

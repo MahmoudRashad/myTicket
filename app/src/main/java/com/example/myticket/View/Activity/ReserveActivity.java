@@ -19,6 +19,8 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -50,11 +52,15 @@ import com.example.myticket.Enum.ErrorTypeEnum;
 import com.example.myticket.Enum.ReservetypeEnum;
 import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.Network.DataModel.EditUserData.EditUserDataResponse;
+import com.example.myticket.Model.Network.DataModel.ReserveModel.ChairResponse;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ReserveCinemaResponse;
+import com.example.myticket.Model.Network.DataModel.ReserveModel.ResultChair;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ResultReserveCinema;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.R;
+import com.example.myticket.View.Adapter.ChairTypeAdapter2;
+//import com.example.myticket.View.Adapter.ChairsAdapter;
 import com.example.myticket.View.Adapter.CustomSpinnerAdapter;
 import com.example.myticket.helper.Variables;
 
@@ -85,20 +91,23 @@ public class ReserveActivity extends AppCompatActivity
     ReserveCinemaResponse reserveCinemaResponse,
             reserveDateResponse,
             reserveTimeResponse;
+    ChairResponse chairResponse;
     CustomSpinnerAdapter customSpinnerAdapter,
             dateSpinnerAdapter,timeSpinnerAdapter;
+    ChairTypeAdapter2 chairTypeAdapter2;
 
     //--------------------------------  references of views -------------------------------------------------//
     private ConstraintLayout layout ;
 //    EditText nameTv , phoneTv,emailTv,addressTv;
     ImageView movieIv ;/*, editImageIv , nameIv,phoneIv,emailIv,addressIv;*/
-    Button nextBtn;
+    Button nextBtn,cinemaMapBtn;
     Spinner cinemaS , dateS , timeS;
     TextView hallTv;
 
     private ImageView backBtn;
     private ImageView searchIcon;
     private TextView toolbarTitle;
+    RecyclerView typesRv;
     private Typeface myfont;
 
 
@@ -268,6 +277,9 @@ public class ReserveActivity extends AppCompatActivity
         TextView textView = findViewById(R.id.details_cinema_title);
         textView.setTypeface(myfont);
 
+        cinemaMapBtn = findViewById(R.id.button9);
+        cinemaMapBtn.setTypeface(myfont);
+        typesRv = findViewById(R.id.recyclerView);
         String reserveCinema ,
                 reserveDate , reserveTime ;
 
@@ -309,6 +321,15 @@ public class ReserveActivity extends AppCompatActivity
     {
 //        try {
 
+        cinemaMapBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ReserveActivity.this,
+                        CinemaMapActivity.class);
+                startActivity(intent);
+            }
+        });
+
         cinemaS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -335,6 +356,10 @@ public class ReserveActivity extends AppCompatActivity
                     type = ReservetypeEnum.date.getValue();
                     Map <String , String> queryMap = new HashMap();
                     queryMap.put("cinema_id" , TicketCinemaBusiness.reserveCinemaId+"");
+                    apiCalling.getDatesOfMovie("Bearer " +sessionManager.getUserToken()
+                            ,
+                            queryMap ,ReserveActivity.this);
+
                     apiCalling.getDatesOfMovie("Bearer " +sessionManager.getUserToken()
                             ,
                             queryMap ,ReserveActivity.this);
@@ -382,6 +407,7 @@ public class ReserveActivity extends AppCompatActivity
         });
 
 
+
         timeS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
@@ -392,6 +418,17 @@ public class ReserveActivity extends AppCompatActivity
 
                 TicketCinemaBusiness.reserveTime =
                         reserveTimeResponse.getResult().get(position).getName();
+
+
+                if( TicketCinemaBusiness.reserveTimeId != -1)
+                {
+                    showWatingDialog();
+                    type = ReservetypeEnum.chairs.getValue();
+                    Map <String , String> queryMap = new HashMap();
+                    queryMap.put("id" , TicketCinemaBusiness.reserveCinemaId+"");
+                    apiCalling.getTypeOfChair("Bearer " +sessionManager.getUserToken(),
+                            queryMap ,ReserveActivity.this);
+                }
 
 //                if( reserveDateId != -1)
 //                {
@@ -532,6 +569,30 @@ public class ReserveActivity extends AppCompatActivity
                 timeSpinnerAdapter = new CustomSpinnerAdapter(
                         this, this.reserveTimeResponse.getResult() );
                 timeS.setAdapter(timeSpinnerAdapter);
+
+            }
+
+            else if( type == ReservetypeEnum.chairs.getValue())
+            {
+                this.chairResponse =
+                        (ChairResponse) tApiResponse;
+
+                TicketCinemaBusiness.ticketLimits =
+                        chairResponse.getResult().getLimitReserve();
+
+
+                chairTypeAdapter2 = new ChairTypeAdapter2(
+                        this, this.chairResponse.getResult().getTypeChair() );
+                typesRv.setAdapter(chairTypeAdapter2);
+
+
+                LinearLayoutManager chairTypeLayoutManger =
+                        new LinearLayoutManager(this,
+                                LinearLayoutManager.VERTICAL,false);
+
+                typesRv.setLayoutManager(chairTypeLayoutManger);
+                typesRv.setHasFixedSize(false);
+                typesRv.setNestedScrollingEnabled(false);
 
             }
 

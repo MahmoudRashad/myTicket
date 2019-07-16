@@ -8,6 +8,7 @@ import com.example.myticket.Enum.ErrorTypeEnum;
 import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.MainResult;
 import com.example.myticket.Model.Network.DataModel.BaseNoResult.BaseNoResult;
+import com.example.myticket.Model.Network.DataModel.Chairs.ChairResponse2;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
 import com.example.myticket.Model.Network.DataModel.DetailsCinema.DetailsCinema;
 import com.example.myticket.Model.Network.DataModel.EditUserData.EditUserDataResponse;
@@ -893,12 +894,12 @@ public class ApiCalling
                                   final GeneralListener generalListener )
     {
 
-        Call<ChairResponse> call =
+        Call<ChairResponse2> call =
                 apiInterface.getChairsCinema( lang ,authToken , queryMap );
 
-        call.enqueue(new Callback<ChairResponse>() {
+        call.enqueue(new Callback<ChairResponse2>() {
             @Override
-            public void onResponse(Call<ChairResponse> call, Response<ChairResponse> response)
+            public void onResponse(Call<ChairResponse2> call, Response<ChairResponse2> response)
             {
                 Log.e("onResponse" ,response.raw().toString());
                 if(response.isSuccessful())
@@ -930,7 +931,7 @@ public class ApiCalling
                 }
             }
             @Override
-            public void onFailure(Call<ChairResponse> call, Throwable t)
+            public void onFailure(Call<ChairResponse2> call, Throwable t)
             {
                 Log.e("onResponse" ,call.request().toString());
                 //fail internet connection
@@ -1256,4 +1257,64 @@ public class ApiCalling
         });
     }
 
+
+    public void getTypeOfChair(String authToken ,
+                                Map<String, String> queryMap ,
+                                final GeneralListener generalListener )
+    {
+        Call<ChairResponse> call =
+                apiInterface.getChairType( lang ,authToken , queryMap );
+
+        call.enqueue(new Callback<ChairResponse>() {
+            @Override
+            public void onResponse(Call<ChairResponse> call, Response<ChairResponse> response)
+            {
+                Log.e("onResponse" ,response.raw().toString());
+                if(response.isSuccessful())
+                {
+                    if(response.body().getSuccess())
+                    {
+                        generalListener.getApiResponse(ErrorTypeEnum.noError.getValue() ,
+                                null , response.body());
+                    }
+
+                    else
+                    {
+                        generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue() ,
+                                null , response.body());
+                    }
+                }
+                else if (response.code() == 401) {
+                    // Handle unauthorized
+                    Log.e("onResponse" ,"logout");
+                    Intent   i= new Intent(context , Login.class);
+
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    context.startActivity(i);
+                }
+                else
+                {
+                    generalListener.getApiResponse(ErrorTypeEnum.ServerCodeFail.getValue() ,
+                            response.body().getMessage() , null);
+                }
+            }
+            @Override
+            public void onFailure(Call<ChairResponse> call, Throwable t)
+            {
+                Log.e("onResponse" ,call.request().toString());
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
+    }
 }

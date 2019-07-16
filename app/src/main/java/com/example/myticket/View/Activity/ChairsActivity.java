@@ -1,42 +1,38 @@
 package com.example.myticket.View.Activity;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.SpannableString;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myticket.Business.TicketCinemaBusiness;
 import com.example.myticket.Enum.ErrorTypeEnum;
-import com.example.myticket.Enum.ReservetypeEnum;
+import com.example.myticket.Enum.TicketsEnum;
 import com.example.myticket.Model.Data.SessionManager;
-import com.example.myticket.Model.Network.DataModel.ReserveModel.AvaliableChair;
+import com.example.myticket.Model.Network.DataModel.Chairs.ChairResponse2;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ChairResponse;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.TypeChair;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.R;
 import com.example.myticket.View.Adapter.ChairTypeAdapter;
-import com.example.myticket.View.Adapter.RowChairsAdapter;
+import com.example.myticket.View.Adapter.ChairsAdapter2;
+//import com.example.myticket.View.Adapter.RowChairsAdapter;
+import com.example.myticket.View.Adapter.TicketsAdapter;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,13 +44,18 @@ public class ChairsActivity extends AppCompatActivity
     ProgressDialog dialog;
     ChairTypeAdapter chairTypeAdapter;
     ChairResponse chairResponse;
+
+    ChairResponse2 chairResponse2;
+    ChairsAdapter2 chairsAdapter2Vip,chairsAdapter2Econmy;
+
     AlertDialog alertDialog;
     private Typeface myfont;
 
     //--------------------------------  references of views -------------------------------------------------//
     private LinearLayout layout ;
-    RecyclerView chairTypeRv , chairRowsRv;
-    Button nextBtn;
+    RecyclerView chairTypeRv , chairRowsRv,
+    chairsVipRv, chairsStandardRv;
+    Button nextBtn,cinemaPicBtn;
     private ImageView backBtn;
     private ImageView searchIcon;
     private TextView toolbarTitle;
@@ -81,8 +82,6 @@ public class ChairsActivity extends AppCompatActivity
 
         sessionManager = new SessionManager(this);
         apiCalling = new ApiCalling(this);
-
-
 
 
         showWatingDialog();
@@ -216,7 +215,10 @@ public class ChairsActivity extends AppCompatActivity
         message.setTypeface(myfont);
         nextBtn.setTypeface(myfont);
 
-
+        chairsVipRv = findViewById(R.id.rv_standard);
+        chairsStandardRv = findViewById(R.id.rv_vip);
+        cinemaPicBtn = findViewById(R.id.textView2);
+        cinemaPicBtn.setTypeface(myfont);
 
 //        }
 //        catch ( Exception e)
@@ -249,6 +251,14 @@ public class ChairsActivity extends AppCompatActivity
     {
 //        try {
 
+        cinemaPicBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ChairsActivity.this,
+                        CinemaMapActivity.class);
+                startActivity(intent);
+            }
+        });
 
         nextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -322,22 +332,55 @@ public class ChairsActivity extends AppCompatActivity
         dialog.dismiss();
         if(status == ErrorTypeEnum.noError.getValue())
         {
-            if( tApiResponse instanceof ChairResponse)
+            if( tApiResponse instanceof ChairResponse2)
             {
-                this.chairResponse =
-                        (ChairResponse) tApiResponse;
-
-                showWatingDialog();
-                prepareChairs();
-                drawChairs();
+//                this.chairResponse =
+//                        (ChairResponse) tApiResponse;
+//
+//                showWatingDialog();
+//                prepareChairs();
+//                drawChairs();
 
 //                if(chairResponse.getResult().getLimitReserve() == 1)
 //                {
-                TicketCinemaBusiness.ticketLimits =
-                        chairResponse.getResult().getLimitReserve();
+
+                chairResponse2 = (ChairResponse2) tApiResponse;
+
+//                prepareChairs2();
+
+                chairsAdapter2Vip  = new ChairsAdapter2( this, chairResponse2.getResult().get(0).getVip() );
+                chairsVipRv.setAdapter(chairsAdapter2Vip);
+
+                GridLayoutManager chairTypeLayoutManger =
+                        new GridLayoutManager(this,
+                                8);
+
+                chairsVipRv.setLayoutManager(chairTypeLayoutManger);
+                chairsVipRv.setHasFixedSize(false);
+                chairsVipRv.setNestedScrollingEnabled(false);
+
+
+
+
+
+
+                chairsAdapter2Econmy  = new ChairsAdapter2( this, chairResponse2.getResult().get(1).getEconomy() );
+                chairsStandardRv.setAdapter(chairsAdapter2Econmy);
+
+                GridLayoutManager chairTypeLayoutManger2 =
+                        new GridLayoutManager(this,
+                                8);
+
+                chairsStandardRv.setLayoutManager(chairTypeLayoutManger2);
+                chairsStandardRv.setHasFixedSize(false);
+                chairsStandardRv.setNestedScrollingEnabled(false);
+
+
+//                TicketCinemaBusiness.ticketLimits =
+//                        chairResponse.getResult().getLimitReserve();
                     showAlertDialog("Limit Tickets",
                             "Take Care ! your maximum number of tickets equal  "+
-                                    chairResponse.getResult().getLimitReserve() +"  Tickets");
+                                    TicketCinemaBusiness.ticketLimits +"  Tickets");
 //                }
 
 
@@ -354,101 +397,164 @@ public class ChairsActivity extends AppCompatActivity
     }
 
 
-    public void drawChairs()
-    {
-        dialog.dismiss();
+//    public void drawChairs()
+//    {
+//        dialog.dismiss();
+//
+//        TypeChair typeChair = new TypeChair();
+//        typeChair.setPrice("0");
+//        typeChair.setId(-1);
+//        typeChair.setColor("#444444");
+//        //TODO: make this a string
+//        typeChair.setName("unAvilable");
+//        this.chairResponse.getResult().getTypeChair().add(typeChair);
+//        chairTypeAdapter = new ChairTypeAdapter(
+//                this, this.chairResponse.getResult().getTypeChair() );
+//        chairTypeRv.setAdapter(chairTypeAdapter);
+//
+//
+//        LinearLayoutManager chairTypeLayoutManger =
+//                new LinearLayoutManager(this,
+//                        LinearLayoutManager.HORIZONTAL,false);
+//
+//        chairTypeRv.setLayoutManager(chairTypeLayoutManger);
+//        chairTypeRv.setHasFixedSize(false);
+//        chairTypeRv.setNestedScrollingEnabled(false);
+//
+//
+//        //////////////////////////////////
+//
+//
+////                dialog.dismiss();
+//
+//        RowChairsAdapter rowChairsAdapter = new RowChairsAdapter(
+//                this);
+//
+//
+//        LinearLayoutManager chairRowsLayoutManger =
+//                new LinearLayoutManager(this,
+//                        LinearLayoutManager.VERTICAL,true);
+//
+//        chairRowsRv.setAdapter(rowChairsAdapter);
+//        chairRowsRv.setLayoutManager(chairRowsLayoutManger);
+//        chairRowsRv.setHasFixedSize(false);
+//        chairRowsRv.setNestedScrollingEnabled(false);
+//    }
 
-        TypeChair typeChair = new TypeChair();
-        typeChair.setPrice("0");
-        typeChair.setId(-1);
-        typeChair.setColor("#444444");
-        //TODO: make this a string
-        typeChair.setName("unAvilable");
-        this.chairResponse.getResult().getTypeChair().add(typeChair);
-        chairTypeAdapter = new ChairTypeAdapter(
-                this, this.chairResponse.getResult().getTypeChair() );
-        chairTypeRv.setAdapter(chairTypeAdapter);
 
-
-        LinearLayoutManager chairTypeLayoutManger =
-                new LinearLayoutManager(this,
-                        LinearLayoutManager.HORIZONTAL,false);
-
-        chairTypeRv.setLayoutManager(chairTypeLayoutManger);
-        chairTypeRv.setHasFixedSize(false);
-        chairTypeRv.setNestedScrollingEnabled(false);
-
-
-        //////////////////////////////////
-
-
-//                dialog.dismiss();
-
-        RowChairsAdapter rowChairsAdapter = new RowChairsAdapter(
-                this);
-
-
-        LinearLayoutManager chairRowsLayoutManger =
-                new LinearLayoutManager(this,
-                        LinearLayoutManager.VERTICAL,true);
-
-        chairRowsRv.setAdapter(rowChairsAdapter);
-        chairRowsRv.setLayoutManager(chairRowsLayoutManger);
-        chairRowsRv.setHasFixedSize(false);
-        chairRowsRv.setNestedScrollingEnabled(false);
-    }
-
-
-    public void prepareChairs()
-    {
-////        List<List<AvaliableChair>> array2DChairs = new ArrayList<>();
-////        for(int i = 0 ; i < 20 ; i++)
-////        {
-////            List<AvaliableChair> tempChairsList =
-////                    new ArrayList<>();
+//    public void prepareChairs()
+//    {
+//////        List<List<AvaliableChair>> array2DChairs = new ArrayList<>();
+//////        for(int i = 0 ; i < 20 ; i++)
+//////        {
+//////            List<AvaliableChair> tempChairsList =
+//////                    new ArrayList<>();
+//////
+//////            tempChairsList.
+//////            for( int o = 0 ; o < 25 ; o++)
+//////            {
+//////                // ( i*25 + o ) equetion to get chair number .
+//////            }
+//////        }
+//////        array2DChairs.ad
 ////
-////            tempChairsList.
-////            for( int o = 0 ; o < 25 ; o++)
+////        List<AvaliableChair> mainChair = new ArrayList<>();
+////        for ( int i =0 ; i <500 ; i++)
+////        {
+////
+////            boolean isExist = false;
+////            for (int in  = 0 ; in < chairResponse.getResult().getAvaliableChair().size();
+////            in ++)
 ////            {
-////                // ( i*25 + o ) equetion to get chair number .
+////                if(chairResponse.getResult().getAvaliableChair().get(in).getChairNum().equals(
+////                        i+""
+////                ))
+////                {
+////                    mainChair.add(chairResponse.getResult().getAvaliableChair().get(in));
+////                    isExist = true;
+////                    break;
+////                }
+////            }
+////
+////            if(isExist == false)
+////            {
+////                AvaliableChair avaliableChair = new AvaliableChair();
+////                avaliableChair.set
 ////            }
 ////        }
-////        array2DChairs.ad
 //
-//        List<AvaliableChair> mainChair = new ArrayList<>();
-//        for ( int i =0 ; i <500 ; i++)
-//        {
-//
-//            boolean isExist = false;
-//            for (int in  = 0 ; in < chairResponse.getResult().getAvaliableChair().size();
+//        TicketCinemaBusiness.avilableChairsMap = new HashMap();
+//        for(int in  = 0 ; in < chairResponse.getResult().getAvaliableChair().size();
 //            in ++)
 //            {
-//                if(chairResponse.getResult().getAvaliableChair().get(in).getChairNum().equals(
-//                        i+""
-//                ))
-//                {
-//                    mainChair.add(chairResponse.getResult().getAvaliableChair().get(in));
-//                    isExist = true;
-//                    break;
-//                }
+//                TicketCinemaBusiness.avilableChairsMap.put(
+//                        chairResponse.getResult().getAvaliableChair().get(in).getChairNum(),
+//                        chairResponse.getResult().getAvaliableChair().get(in)
+//                );
 //            }
+//    }
+
+
+//    public void prepareChairs2()
+//    {
+//////        List<List<AvaliableChair>> array2DChairs = new ArrayList<>();
+//////        for(int i = 0 ; i < 20 ; i++)
+//////        {
+//////            List<AvaliableChair> tempChairsList =
+//////                    new ArrayList<>();
+//////
+//////            tempChairsList.
+//////            for( int o = 0 ; o < 25 ; o++)
+//////            {
+//////                // ( i*25 + o ) equetion to get chair number .
+//////            }
+//////        }
+//////        array2DChairs.ad
+////
+////        List<AvaliableChair> mainChair = new ArrayList<>();
+////        for ( int i =0 ; i <500 ; i++)
+////        {
+////
+////            boolean isExist = false;
+////            for (int in  = 0 ; in < chairResponse.getResult().getAvaliableChair().size();
+////            in ++)
+////            {
+////                if(chairResponse.getResult().getAvaliableChair().get(in).getChairNum().equals(
+////                        i+""
+////                ))
+////                {
+////                    mainChair.add(chairResponse.getResult().getAvaliableChair().get(in));
+////                    isExist = true;
+////                    break;
+////                }
+////            }
+////
+////            if(isExist == false)
+////            {
+////                AvaliableChair avaliableChair = new AvaliableChair();
+////                avaliableChair.set
+////            }
+////        }
 //
-//            if(isExist == false)
-//            {
-//                AvaliableChair avaliableChair = new AvaliableChair();
-//                avaliableChair.set
-//            }
+//        TicketCinemaBusiness.avilableChairsMap = new HashMap();
+//        for(int in  = 0 ;
+//            in < chairResponse2.getResult().get(0).getVip().size();
+//            in ++)
+//        {
+//            TicketCinemaBusiness.avilableChairsMap.put(
+//                    chairResponse2.getResult().get(0).getVip().get(in).getSymbolChair() +
+//                            chairResponse2.getResult().get(0).getVip().get(in).getCharNum(),
+//                    chairResponse2.getResult().get(0).getVip().get(in)
+//            );
 //        }
-
-        TicketCinemaBusiness.avilableChairsMap = new HashMap();
-        for(int in  = 0 ; in < chairResponse.getResult().getAvaliableChair().size();
-            in ++)
-            {
-                TicketCinemaBusiness.avilableChairsMap.put(
-                        chairResponse.getResult().getAvaliableChair().get(in).getChairNum(),
-                        chairResponse.getResult().getAvaliableChair().get(in)
-                );
-            }
-    }
-
+//
+////        for(int in  = 0 ; in < chairResponse2.getResult().getAvaliableChair().size();
+////            in ++)
+////        {
+////            TicketCinemaBusiness.avilableChairsMap.put(
+////                    chairResponse2.getResult().getAvaliableChair().get(in).getChairNum(),
+////                    chairResponse2.getResult().getAvaliableChair().get(in)
+////            );
+////        }
+//    }
 }

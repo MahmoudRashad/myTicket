@@ -1,5 +1,6 @@
 package com.example.myticket.Business;
 
+import com.example.myticket.Model.Network.DataModel.Chairs.Chair;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.AvaliableChair;
 import com.example.myticket.Model.Network.DataModel.Tickets.ResultTickets;
 
@@ -14,14 +15,14 @@ public class TicketCinemaBusiness
     public static String reserveCinema ,
             reserveDate , reserveTime ,movieName  , hallName , cinemaLocation = "test";
 
-    public static Map<String , AvaliableChair> avilableChairsMap = new HashMap<>() ;
+//    public static Map<String , Chair> avilableChairsMap = new HashMap<>() ;
 
 
-    public static Map<String , AvaliableChair> selectedChairsMap = new HashMap<>();
+    public static Map<String , Chair> selectedChairsMap = new HashMap<>();
 
     public static double totalPrice = 0;
 
-    public static void addChair(AvaliableChair avaliableChair)
+    public static void addChair(Chair avaliableChair)
     {
         if( selectedChairsMap == null)
             selectedChairsMap = new HashMap<>();
@@ -29,18 +30,20 @@ public class TicketCinemaBusiness
 //        ResultTickets resultTickets = new ResultTickets();
 //        resultTickets.set
 
-        selectedChairsMap.put(avaliableChair.getChairNum() ,
+        selectedChairsMap.put(avaliableChair.getSymbolChair()+
+                        avaliableChair.getCharNum(),
                 avaliableChair);
-        totalPrice += Double.valueOf(avaliableChair.getDetail().getPrice());
+        totalPrice += Double.valueOf(avaliableChair.getPrice());
 
     }
 
-    public static void removeChair(AvaliableChair avaliableChair)
+    public static void removeChair(Chair avaliableChair)
     {
         if( selectedChairsMap == null)
             selectedChairsMap = new HashMap<>();
 
-        selectedChairsMap.remove(avaliableChair.getChairNum() );
-        totalPrice -= Double.valueOf(avaliableChair.getDetail().getPrice());
+        selectedChairsMap.remove(avaliableChair.getSymbolChair()+
+                avaliableChair.getCharNum() );
+        totalPrice -= Double.valueOf(avaliableChair.getPrice());
     }
 }

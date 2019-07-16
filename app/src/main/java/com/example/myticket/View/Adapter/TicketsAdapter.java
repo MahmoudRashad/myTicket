@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.myticket.Business.TicketCinemaBusiness;
 import com.example.myticket.Enum.TicketsEnum;
+import com.example.myticket.Model.Network.DataModel.Chairs.Chair;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.AvaliableChair;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.TypeChair;
 import com.example.myticket.Model.Network.DataModel.Tickets.ResultTickets;
@@ -25,7 +26,7 @@ public class TicketsAdapter extends RecyclerView.Adapter<TicketsAdapter.ReviewsV
 
     private Context context;
     private List<ResultTickets> resultTicketsList;
-    private List<AvaliableChair> avaliableChairList;
+    private List<Chair> avaliableChairList;
     int adpterType;
     private Typeface myfont;
 
@@ -43,7 +44,7 @@ public class TicketsAdapter extends RecyclerView.Adapter<TicketsAdapter.ReviewsV
     }
 
 
-    public TicketsAdapter(int adpterType, Context context, List<AvaliableChair> avaliableChairList )
+    public TicketsAdapter(int adpterType, Context context, List<Chair> avaliableChairList )
     {
         this.context = context;
         this.avaliableChairList = avaliableChairList;
@@ -66,14 +67,15 @@ public class TicketsAdapter extends RecyclerView.Adapter<TicketsAdapter.ReviewsV
         if(adpterType == TicketsEnum.confirmTickets.getValue())
         {
 
-            AvaliableChair avaliableChair = avaliableChairList.get(i);
+            Chair avaliableChair = avaliableChairList.get(i);
             reviewsViewHolder.cinemaName.setText(TicketCinemaBusiness.reserveCinema);
             reviewsViewHolder.movieName.setText(TicketCinemaBusiness.movieName);
             reviewsViewHolder.date.setText(TicketCinemaBusiness.reserveDate);
             reviewsViewHolder.hall.setText(TicketCinemaBusiness.hallName);
             reviewsViewHolder.time.setText(TicketCinemaBusiness.reserveTime);
-            reviewsViewHolder.seatNum.setText(context.getString(R.string.seat_number)+avaliableChair.getChairNum());
-            reviewsViewHolder.seatType.setText(avaliableChair.getDetail().getName());
+            reviewsViewHolder.seatNum.setText(context.getString(R.string.seat_number)+"  "+avaliableChair.getSymbolChair()+
+                    avaliableChair.getCharNum());
+            reviewsViewHolder.seatType.setText(avaliableChair.getType());
             reviewsViewHolder.location.setText(TicketCinemaBusiness.cinemaLocation);
         }
         else
@@ -87,7 +89,7 @@ public class TicketsAdapter extends RecyclerView.Adapter<TicketsAdapter.ReviewsV
                 reviewsViewHolder.date.setText(resultTicket.getDate());
                 reviewsViewHolder.hall.setText(resultTicket.getHallName());
                 reviewsViewHolder.time.setText(resultTicket.getTime());
-                reviewsViewHolder.seatNum.setText(context.getString(R.string.seat_number)+resultTicket.getChairNum());
+                reviewsViewHolder.seatNum.setText(context.getString(R.string.seat_number)+"  "+resultTicket.getChairNum());
                 reviewsViewHolder.seatType.setText(resultTicket.getChairType());
                 reviewsViewHolder.location.setText(resultTicket.getCinemaLocation());
             }

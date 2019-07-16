@@ -26,7 +26,7 @@
 
     <string name="waiting">يرجى الانتظار ...</string>
     <string name="change_photo">تغير الصورة</string>
-    <string name="screen">الشاشة</string>
+    <string name="screen">صورة السينما</string>
     <string name="note_choose_chairs">* اختر مقعدك حسب نوع تذكرتك</string>
     <string name="choose_next">التالي</string>
     <string name="movies_list">قائمة الأفلام</string>
@@ -91,5 +91,5 @@
     <string name="more">المزيد</string>
     <string name="alerts">الإنذارات</string>
     <string name="near_by">القريب منك</string>
-
+    <string name="enter_seat">ادخل عدد الكراسى</string>
 </resources>
