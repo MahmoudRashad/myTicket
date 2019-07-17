@@ -2,6 +2,7 @@ package com.example.myticket.Model.Network.Retrofit;
 
 import com.example.myticket.Model.MainResult;
 import com.example.myticket.Model.Network.DataModel.BaseNoResult.BaseNoResult;
+import com.example.myticket.Model.Network.DataModel.Chairs.ChairResponse2;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
 
 import com.example.myticket.Model.Network.DataModel.DetailsCinema.DetailsCinema;
@@ -135,9 +136,9 @@ public interface ApiInterface {
 
 
     @POST("chair")
-    Call<ChairResponse> getChairsCinema(@Header("lang") String lang,
-                                        @Header("Authorization") String authorization,
-                                        @QueryMap Map<String, String> queryMap);
+    Call<ChairResponse2> getChairsCinema(@Header("lang") String lang,
+                                         @Header("Authorization") String authorization,
+                                         @QueryMap Map<String, String> queryMap);
 
     @POST("change_password")
     Call<ForgetPasswordResponce> changePassword(@Header("lang") String lang,
@@ -153,5 +154,10 @@ public interface ApiInterface {
     @GET("mytickets")
     Call<MyTicketsResponse> getMyTickets(@Header("lang") String lang,
                                             @Header("Authorization") String authorization);
+
+    @POST("type_chair")
+    Call<ChairResponse> getChairType(@Header("lang") String lang,
+                                               @Header("Authorization") String authorization,
+                                               @QueryMap Map<String, String> queryMap);
 
 }

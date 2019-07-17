@@ -11,6 +11,18 @@ public class ResultReserveCinema {
     @Expose
     private String hall;
 
+    @SerializedName("image")
+    @Expose
+    private String image;
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public String getAddress() {
         return address;
     }
