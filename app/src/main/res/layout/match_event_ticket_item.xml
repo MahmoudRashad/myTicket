@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="152dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/field_img"
+        android:layout_width="92dp"
+        android:layout_height="132dp"
+        android:src="@drawable/football_field"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="8dp"/>
+    
+    <TextView
+        android:id="@+id/team_one_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/field_img"
+        app:layout_constraintTop_toTopOf="@id/field_img"
+        android:layout_marginStart="8dp"
+        android:text="TEAM ONE"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/dark_green"
+        />
+    <TextView
+        android:id="@+id/team_two_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/field_img"
+        android:layout_marginStart="8dp"
+        android:text="TEAM TWO"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/dark_green"
+        android:layout_marginEnd="16dp"
+        />
+
+    <TextView
+        android:id="@+id/vs_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/team_one_event"
+        app:layout_constraintEnd_toStartOf="@id/team_two_event"
+        app:layout_constraintTop_toTopOf="@id/field_img"
+        android:text="VS"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/red"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        />
+
+    <TextView
+        android:id="@+id/stadium_name_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/field_img"
+        app:layout_constraintTop_toBottomOf="@id/team_one_event"
+        android:text="King abdallah stadium"
+        android:textAlignment="center"
+        android:layout_marginTop="4dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/red"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        />
+    <TextView
+        android:id="@+id/seats_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/field_img"
+        app:layout_constraintTop_toBottomOf="@id/stadium_name_event"
+        android:text="Seats: "
+        android:textAlignment="center"
+        android:layout_marginTop="4dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/stad_grey_text"
+        android:paddingStart="8dp"
+        />
+
+    <TextView
+        android:id="@+id/seats_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/seats_title"
+        app:layout_constraintTop_toBottomOf="@id/stadium_name_event"
+        android:text="E7, E6, E5 "
+        android:textAlignment="center"
+        android:layout_marginTop="4dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/stad_grey_text"
+        />
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/team_two_event"
+        android:text="20:00 PM"
+        android:textColor="@color/stad_grey_text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"/>
+
+    <ImageView
+        android:id="@+id/time_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_access_time_black_24dp"
+        app:layout_constraintEnd_toStartOf="@id/time"
+        app:layout_constraintTop_toTopOf="@id/time"
+        app:layout_constraintBottom_toBottomOf="@id/time"
+        android:layout_marginEnd="4dp"
+        />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/time"
+        android:text="20/20/2020"
+        android:textColor="@color/stad_grey_text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:background="@drawable/green_rect"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/details"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        android:background="@color/stad_grey_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+</android.support.constraint.ConstraintLayout>

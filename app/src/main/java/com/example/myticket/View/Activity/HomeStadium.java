@@ -57,10 +57,7 @@ public class HomeStadium extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else if (tab.getText() != null && tab.getText().equals("Next Week")) {
-//                    Intent intent = new Intent(HomeStadium.this, StadAllResults.class);
-//                    intent.putExtra("Next Week", "Next Week");
-//                    startActivity(intent);
-                    Intent intent = new Intent(HomeStadium.this,StadiumList.class);
+                    Intent intent = new Intent(HomeStadium.this,StadMainSearch.class);
                     startActivity(intent);
                 }
             }

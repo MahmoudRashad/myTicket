@@ -24,7 +24,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".View.Activity.StadPaymentConfirm"></activity>
+        <activity
+            android:name=".View.Activity.HomeStadBottomNav"
+            android:label="@string/title_activity_home_stad_bottom_nav"></activity>
+        <activity android:name=".View.Activity.StadAllSearchResults" />
+        <activity android:name=".View.Activity.StadMainSearch" />
+        <activity android:name=".View.Activity.VerificationCode" />
+        <activity android:name=".View.Activity.MyTicketsStad" />
+        <activity android:name=".View.Activity.StadPaymentConfirm" />
         <activity android:name=".View.Activity.MyNotifications" />
         <activity android:name=".test" />
         <activity android:name=".View.Activity.StadiumTicketsOptions" />

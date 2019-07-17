@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/green_gradient"
+    android:orientation="vertical"
+    tools:context=".View.Activity.VerificationCode">
+
+    <include
+        layout="@layout/stad_top_toolbar"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/white"
+        android:background="@drawable/green_rect_bk"
+        android:hint="Enter The Verification Code"
+        android:textColorHint="@color/tw__light_gray"
+        android:paddingStart="16dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:backgroundTint="@color/red"
+        android:background="@drawable/white_rect_bk"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Verify"
+        android:textAllCaps="false"
+        />
+</LinearLayout>

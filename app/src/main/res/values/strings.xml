@@ -119,6 +119,10 @@
     <string name="stadium_list">Stadium List</string>
     <string name="matches_list">Matches List</string>
     <string name="notification_activated">Notification Activated</string>
+    <string name="title_activity_home_stad_bottom_nav">HomeStadBottomNav</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 
 </resources>

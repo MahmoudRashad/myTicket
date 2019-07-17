@@ -19,5 +19,6 @@
     <color name="green_tab">#8ACA8C</color>
     <color name="lightest_grey">#E6E6E6</color>
     <color name="lightest_green">#C6E5C7</color>
+    <color name="dark_green">#255B27</color>
 
 </resources>

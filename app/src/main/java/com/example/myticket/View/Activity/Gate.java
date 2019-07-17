@@ -43,7 +43,7 @@ public class Gate extends AppCompatActivity {
         layoutStadium.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Gate.this, HomeStadium.class);
+                Intent intent = new Intent(Gate.this, HomeStadBottomNav.class);
                 startActivity(intent);
             }
         });
