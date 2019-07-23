@@ -1,19 +1,18 @@
 package com.example.myticket.View.Activity;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.example.myticket.R;
-import com.example.myticket.StadHomeFragment;
+import com.example.myticket.View.Fragments.StadHomeFragment;
+import com.example.myticket.View.Fragments.StadiumList;
 
 public class HomeStadBottomNav extends AppCompatActivity {
+
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -29,9 +28,12 @@ public class HomeStadBottomNav extends AppCompatActivity {
                     return true;
 
                 case R.id.stadiums_list:
-                    //  mTextMessage.setText("dashboard");
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, new StadiumList())
+                            .commit();
 
                     return true;
+
                 case R.id.matches_list:
                   //  mTextMessage.setText("dashboard");
 
@@ -54,6 +56,8 @@ public class HomeStadBottomNav extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, new StadHomeFragment())
                 .commit();
+
+
     }
 
 }

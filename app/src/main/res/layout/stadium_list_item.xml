@@ -6,7 +6,6 @@
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
     android:layout_marginTop="16dp"
-
     android:background="@drawable/green_rect_bk">
 
     <ImageView
@@ -34,7 +33,7 @@
         />
     <TextView
         android:id="@+id/stadium_name_text"
-        android:layout_width="wrap_content"
+        android:layout_width="194dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/stad_icon"
         app:layout_constraintBottom_toBottomOf="@id/stad_icon"
@@ -42,6 +41,8 @@
         android:layout_marginStart="12dp"
         android:text="King abdallah stadium"
         android:textAllCaps="true"
+        android:textAlignment="textStart"
+        android:maxLines="2"
         android:textColor="@color/stad_grey_text"
         android:textSize="15dp"
         />
@@ -58,12 +59,14 @@
         />
     <TextView
         android:id="@+id/stadium_address_text"
-        android:layout_width="wrap_content"
+        android:layout_width="194dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/address_icon"
         app:layout_constraintBottom_toBottomOf="@id/address_icon"
         app:layout_constraintStart_toEndOf="@id/address_icon"
         android:layout_marginStart="12dp"
+        android:textAlignment="textStart"
+        android:maxLines="2"
         android:text="Riyadh City"
         android:textColor="@color/stad_grey_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"

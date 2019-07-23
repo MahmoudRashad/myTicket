@@ -31,7 +31,7 @@
         <activity android:name=".View.Activity.StadMainSearch" />
         <activity android:name=".View.Activity.VerificationCode" />
         <activity android:name=".View.Activity.MyTicketsStad" />
-        <activity android:name=".View.Activity.StadPaymentConfirm" />
+
         <activity android:name=".View.Activity.CinemaMapActivity"
             android:screenOrientation="landscape"></activity>
         <activity
@@ -44,16 +44,11 @@
         <activity android:name=".View.Activity.MyNotifications" />
         <activity android:name=".test" />
         <activity android:name=".View.Activity.StadiumTicketsOptions" />
-        <activity android:name=".View.Activity.StadiumList" />
+        <activity android:name=".View.Fragments.StadiumList" />
         <activity android:name=".View.Activity.StadiumDetails" />
         <activity android:name=".View.Activity.MatchDetails" />
         <activity android:name=".View.Activity.StadAllResults" />
-        <activity
-            android:name=".View.Activity.QrcodePage"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".View.Activity.SearchResults"
-            android:launchMode="singleTop" />
+
         <activity
             android:name=".View.Activity.EditAccount"
             android:launchMode="singleTop" />
@@ -99,25 +94,6 @@
         <activity
             android:name=".View.Activity.MyTicketsActivity"
             android:launchMode="singleTop" />
-        <activity
-            android:name=".View.Activity.Gate"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".View.Activity.ReserveActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".View.Activity.MainActivity"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".View.Activity.HomeCinema"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".View.Activity.ForgetPassword"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".View.Activity.MyTicketsActivity"
-            android:launchMode="singleTop" />
-
         <activity
             android:name=".View.Activity.Gate"
             android:launchMode="singleTop" />

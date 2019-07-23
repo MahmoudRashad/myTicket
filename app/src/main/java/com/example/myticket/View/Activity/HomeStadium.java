@@ -1,19 +1,12 @@
 package com.example.myticket.View.Activity;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
-import android.view.DragEvent;
-import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -41,9 +34,9 @@ public class HomeStadium extends AppCompatActivity {
         mLinearNotifications = findViewById(R.id.nav_2);
         stadHomeViewPagerAdapter = new StadHomeViewPagerAdapter(getSupportFragmentManager());
 
-        stadHomeViewPagerAdapter.addFragment(new matchesFragment(),"Today");
-        stadHomeViewPagerAdapter.addFragment(new matchesFragment(),"Week");
-        stadHomeViewPagerAdapter.addFragment(new matchesFragment(),"Next Week");
+        stadHomeViewPagerAdapter.addFragment(new matchesFragment(),"Today", 1);
+        stadHomeViewPagerAdapter.addFragment(new matchesFragment(),"Week", 1);
+        stadHomeViewPagerAdapter.addFragment(new matchesFragment(),"Next Week", 1);
 
         weeksViewPager.setAdapter(stadHomeViewPagerAdapter);
         weeksTabLayout.setupWithViewPager(weeksViewPager);

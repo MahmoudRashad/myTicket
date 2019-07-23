@@ -1,11 +1,10 @@
 package com.example.myticket.View.Adapter;
 
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-
-import com.example.myticket.View.Activity.StadAllResults;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +31,14 @@ public class StadHomeViewPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return fragmentTitles.get(position);
     }
-    public void addFragment(Fragment fragment , String fragmentTitle){
+    public void addFragment(Fragment fragment, String fragmentTitle, int flag){
+        Bundle bundle = new Bundle();
+        bundle.putInt("flag",flag);
+        fragment.setArguments(bundle);
+
         fragmentList.add(fragment);
         fragmentTitles.add(fragmentTitle);
+        notifyDataSetChanged();
     }
 }
 

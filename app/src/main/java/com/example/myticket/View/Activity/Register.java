@@ -220,16 +220,16 @@ public class Register extends AppCompatActivity implements
 //        MainResponceReg responceReg = (MainResponceReg) responce;
 //        progressBar.setVisibility(View.GONE);
 ////        deviceToken = responceReg.getTokenType()+responceReg.getAccessToken();
-////        mPrefEmail = responceReg.getResult().getEmail();
-////        mPerfUsername= responceReg.getResult().getUsername();
-////        mPrefFullname= responceReg.getResult().getUserName();
+////        mPrefEmail = responceReg.getStadDetails().getEmail();
+////        mPerfUsername= responceReg.getStadDetails().getUsername();
+////        mPrefFullname= responceReg.getStadDetails().getUserName();
 //
-//        sessionManager.setNameOfUser(responceReg.getResult().getUserName());
-//        sessionManager.setUserId(responceReg.getResult().getId());
-//        sessionManager.setUserImage(responceReg.getResult().getImage());
-//        sessionManager.setUserPhone(responceReg.getResult().getPhone());
-//        sessionManager.setUserAddress(responceReg.getResult().getAddress());
-//        sessionManager.setUserEmail(responceReg.getResult().getEmail());
+//        sessionManager.setNameOfUser(responceReg.getStadDetails().getUserName());
+//        sessionManager.setUserId(responceReg.getStadDetails().getId());
+//        sessionManager.setUserImage(responceReg.getStadDetails().getImage());
+//        sessionManager.setUserPhone(responceReg.getStadDetails().getPhone());
+//        sessionManager.setUserAddress(responceReg.getStadDetails().getAddress());
+//        sessionManager.setUserEmail(responceReg.getStadDetails().getEmail());
 //        sessionManager.setUserToken(responceReg.getAccessToken());
 //
 //        Intent intent = new Intent(Register.this, MainActivity.class);

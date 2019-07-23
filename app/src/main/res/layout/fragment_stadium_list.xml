@@ -4,15 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".View.Activity.StadiumList"
+    tools:context=".View.Fragments.StadiumList"
     android:orientation="vertical"
     android:background="@drawable/green_gradient"
-    android:paddingBottom="8dp"
+    android:paddingBottom="116dp"
     >
-
-    <include
-        layout="@layout/stad_top_toolbar"
-        />
+    <!--add padding to top of the fragment and end and see if it works-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/stadiums_rv"
         android:layout_width="match_parent"

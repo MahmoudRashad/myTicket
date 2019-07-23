@@ -7,16 +7,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.example.myticket.Model.Network.StadiumModel.Match.Leagues;
+import com.example.myticket.Model.Network.StadiumModel.Match.MatchDetails;
 import com.example.myticket.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeStadiumMainAdapter extends RecyclerView.Adapter<HomeStadiumMainAdapter.AllChampsViewHolder>  {
     private Context context;
+    private List<Leagues> leaguesList;
 
-    public HomeStadiumMainAdapter(Context context) {
+    public HomeStadiumMainAdapter(Context context, List<Leagues> leaguesList) {
         this.context = context;
+        this.leaguesList = leaguesList;
     }
 
     @NonNull
@@ -29,16 +35,21 @@ public class HomeStadiumMainAdapter extends RecyclerView.Adapter<HomeStadiumMain
 
     @Override
     public void onBindViewHolder(@NonNull AllChampsViewHolder allChampsViewHolder, int i) {
-        allChampsViewHolder.btolaName.setText("Name Of Btola");
+        Leagues league = leaguesList.get(i);
+        allChampsViewHolder.btolaName.setText(league.getCyclicName());
+        //TODO: Read about expandable recycler view.
+        MatchesAdapter matchesAdapter = new MatchesAdapter(context, league.getMatches());
         allChampsViewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        allChampsViewHolder.recyclerView.setAdapter(new MatchesAdapter(context));
-
+        allChampsViewHolder.recyclerView.setAdapter(matchesAdapter);
 
     }
 
     @Override
     public int getItemCount() {
-        return 4;
+        if (leaguesList != null) {
+            return leaguesList.size();
+        }
+        return 0;
     }
 
     public class AllChampsViewHolder extends RecyclerView.ViewHolder{

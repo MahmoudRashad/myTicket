@@ -341,7 +341,7 @@ public class ChairsActivity extends AppCompatActivity
 //                prepareChairs();
 //                drawChairs();
 
-//                if(chairResponse.getResult().getLimitReserve() == 1)
+//                if(chairResponse.getStadDetails().getLimitReserve() == 1)
 //                {
 
                 chairResponse2 = (ChairResponse2) tApiResponse;
@@ -377,7 +377,7 @@ public class ChairsActivity extends AppCompatActivity
 
 
 //                TicketCinemaBusiness.ticketLimits =
-//                        chairResponse.getResult().getLimitReserve();
+//                        chairResponse.getStadDetails().getLimitReserve();
                     showAlertDialog("Limit Tickets",
                             "Take Care ! your maximum number of tickets equal  "+
                                     TicketCinemaBusiness.ticketLimits +"  Tickets");
@@ -407,9 +407,9 @@ public class ChairsActivity extends AppCompatActivity
 //        typeChair.setColor("#444444");
 //        //TODO: make this a string
 //        typeChair.setName("unAvilable");
-//        this.chairResponse.getResult().getTypeChair().add(typeChair);
+//        this.chairResponse.getStadDetails().getTypeChair().add(typeChair);
 //        chairTypeAdapter = new ChairTypeAdapter(
-//                this, this.chairResponse.getResult().getTypeChair() );
+//                this, this.chairResponse.getStadDetails().getTypeChair() );
 //        chairTypeRv.setAdapter(chairTypeAdapter);
 //
 //
@@ -463,14 +463,14 @@ public class ChairsActivity extends AppCompatActivity
 ////        {
 ////
 ////            boolean isExist = false;
-////            for (int in  = 0 ; in < chairResponse.getResult().getAvaliableChair().size();
+////            for (int in  = 0 ; in < chairResponse.getStadDetails().getAvaliableChair().size();
 ////            in ++)
 ////            {
-////                if(chairResponse.getResult().getAvaliableChair().get(in).getChairNum().equals(
+////                if(chairResponse.getStadDetails().getAvaliableChair().get(in).getChairNum().equals(
 ////                        i+""
 ////                ))
 ////                {
-////                    mainChair.add(chairResponse.getResult().getAvaliableChair().get(in));
+////                    mainChair.add(chairResponse.getStadDetails().getAvaliableChair().get(in));
 ////                    isExist = true;
 ////                    break;
 ////                }
@@ -484,12 +484,12 @@ public class ChairsActivity extends AppCompatActivity
 ////        }
 //
 //        TicketCinemaBusiness.avilableChairsMap = new HashMap();
-//        for(int in  = 0 ; in < chairResponse.getResult().getAvaliableChair().size();
+//        for(int in  = 0 ; in < chairResponse.getStadDetails().getAvaliableChair().size();
 //            in ++)
 //            {
 //                TicketCinemaBusiness.avilableChairsMap.put(
-//                        chairResponse.getResult().getAvaliableChair().get(in).getChairNum(),
-//                        chairResponse.getResult().getAvaliableChair().get(in)
+//                        chairResponse.getStadDetails().getAvaliableChair().get(in).getChairNum(),
+//                        chairResponse.getStadDetails().getAvaliableChair().get(in)
 //                );
 //            }
 //    }
@@ -516,14 +516,14 @@ public class ChairsActivity extends AppCompatActivity
 ////        {
 ////
 ////            boolean isExist = false;
-////            for (int in  = 0 ; in < chairResponse.getResult().getAvaliableChair().size();
+////            for (int in  = 0 ; in < chairResponse.getStadDetails().getAvaliableChair().size();
 ////            in ++)
 ////            {
-////                if(chairResponse.getResult().getAvaliableChair().get(in).getChairNum().equals(
+////                if(chairResponse.getStadDetails().getAvaliableChair().get(in).getChairNum().equals(
 ////                        i+""
 ////                ))
 ////                {
-////                    mainChair.add(chairResponse.getResult().getAvaliableChair().get(in));
+////                    mainChair.add(chairResponse.getStadDetails().getAvaliableChair().get(in));
 ////                    isExist = true;
 ////                    break;
 ////                }
@@ -538,22 +538,22 @@ public class ChairsActivity extends AppCompatActivity
 //
 //        TicketCinemaBusiness.avilableChairsMap = new HashMap();
 //        for(int in  = 0 ;
-//            in < chairResponse2.getResult().get(0).getVip().size();
+//            in < chairResponse2.getStadDetails().get(0).getVip().size();
 //            in ++)
 //        {
 //            TicketCinemaBusiness.avilableChairsMap.put(
-//                    chairResponse2.getResult().get(0).getVip().get(in).getSymbolChair() +
-//                            chairResponse2.getResult().get(0).getVip().get(in).getCharNum(),
-//                    chairResponse2.getResult().get(0).getVip().get(in)
+//                    chairResponse2.getStadDetails().get(0).getVip().get(in).getSymbolChair() +
+//                            chairResponse2.getStadDetails().get(0).getVip().get(in).getCharNum(),
+//                    chairResponse2.getStadDetails().get(0).getVip().get(in)
 //            );
 //        }
 //
-////        for(int in  = 0 ; in < chairResponse2.getResult().getAvaliableChair().size();
+////        for(int in  = 0 ; in < chairResponse2.getStadDetails().getAvaliableChair().size();
 ////            in ++)
 ////        {
 ////            TicketCinemaBusiness.avilableChairsMap.put(
-////                    chairResponse2.getResult().getAvaliableChair().get(in).getChairNum(),
-////                    chairResponse2.getResult().getAvaliableChair().get(in)
+////                    chairResponse2.getStadDetails().getAvaliableChair().get(in).getChairNum(),
+////                    chairResponse2.getStadDetails().getAvaliableChair().get(in)
 ////            );
 ////        }
 //    }

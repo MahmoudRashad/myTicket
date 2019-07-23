@@ -20,6 +20,9 @@ import com.example.myticket.Model.Network.DataModel.Resgister.MainResponceReg;
 import com.example.myticket.Model.Network.DataModel.Search.CategoryResult;
 import com.example.myticket.Model.Network.DataModel.Search.SearchResponce;
 import com.example.myticket.Model.Network.DetailsMovie.DetailsMovie;
+import com.example.myticket.Model.Network.StadiumModel.Match.MainHomeMatches;
+import com.example.myticket.Model.Network.StadiumModel.Match.MainMatches;
+import com.example.myticket.Model.Network.StadiumModel.StadiumList.StadiumListMain;
 import com.google.gson.JsonElement;
 
 import java.util.Map;
@@ -159,5 +162,24 @@ public interface ApiInterface {
     Call<ChairResponse> getChairType(@Header("lang") String lang,
                                                @Header("Authorization") String authorization,
                                                @QueryMap Map<String, String> queryMap);
+
+    ////// Stadiums Api ////////////
+
+    @GET("stadium_list")
+    Call<StadiumListMain> getStadiumsList();
+
+    @GET("stadium_slider")
+    Call<MainMatches> getMatchesSlider();
+
+    @POST("matches")
+    Call<MainHomeMatches> getHomeMatches(@QueryMap Map<String, String> queryMap);
+
+    @POST("stadium_detail")
+    Call<MainMatches> getStadiumDetails(@QueryMap Map<String, String> queryMap);
+
+
+
+
+
 
 }

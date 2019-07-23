@@ -1,6 +1,5 @@
 package com.example.myticket.View.Activity;
 
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -25,9 +24,9 @@ public class StadAllResults extends AppCompatActivity {
         weeksViewPager = findViewById(R.id.viewpager_stad);
         stadHomeViewPagerAdapter = new StadHomeViewPagerAdapter(getSupportFragmentManager());
 
-        stadHomeViewPagerAdapter.addFragment(new matchesFragment(),"Today");
-        stadHomeViewPagerAdapter.addFragment(new matchesFragment(),"Week");
-        stadHomeViewPagerAdapter.addFragment(new matchesFragment(),"Next Week");
+        stadHomeViewPagerAdapter.addFragment(new matchesFragment(),"Today", 1);
+        stadHomeViewPagerAdapter.addFragment(new matchesFragment(),"Week", 1);
+        stadHomeViewPagerAdapter.addFragment(new matchesFragment(),"Next Week", 1);
 
         weeksViewPager.setAdapter(stadHomeViewPagerAdapter);
         weeksTabLayout.setupWithViewPager(weeksViewPager);

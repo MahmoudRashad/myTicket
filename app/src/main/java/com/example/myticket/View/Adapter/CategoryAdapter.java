@@ -114,7 +114,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Review
 
 //                String category = categorySearch.get(position);
                 //newSearchResults = new ArrayList<>();
-//                for (Result result: searchResults){
+//                for (StadDetails result: searchResults){
 //                    searchCategories = (ArrayList<com.example.myticket.Model.Network.DataModel.Search.Category>) result.getCategory();
 //                    for (com.example.myticket.Model.Network.DataModel.Search.Category cat : searchCategories){
 //                        int id = cat.getId();

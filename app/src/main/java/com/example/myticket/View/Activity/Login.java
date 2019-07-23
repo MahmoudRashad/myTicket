@@ -155,16 +155,16 @@ public class Login extends AppCompatActivity implements
 //        ModelLogin modelLogin = (ModelLogin) responce;
 //        deviceToken = modelLogin.getTokenType()+modelLogin.getAccessToken();
 //        progressBar.setVisibility(View.GONE);
-//        mPrefEmail = modelLogin.getResult().getEmail();
+//        mPrefEmail = modelLogin.getStadDetails().getEmail();
 //
-//        mPrefFullname= modelLogin.getResult().getUserName();
+//        mPrefFullname= modelLogin.getStadDetails().getUserName();
 //
-//        sessionManager.setNameOfUser(modelLogin.getResult().getUserName());
-//        sessionManager.setUserId(modelLogin.getResult().getId());
-//        sessionManager.setUserImage(modelLogin.getResult().getImage());
-//        sessionManager.setUserPhone(modelLogin.getResult().getPhone());
-//        sessionManager.setUserAddress(modelLogin.getResult().getAddress());
-//        sessionManager.setUserEmail(modelLogin.getResult().getEmail());
+//        sessionManager.setNameOfUser(modelLogin.getStadDetails().getUserName());
+//        sessionManager.setUserId(modelLogin.getStadDetails().getId());
+//        sessionManager.setUserImage(modelLogin.getStadDetails().getImage());
+//        sessionManager.setUserPhone(modelLogin.getStadDetails().getPhone());
+//        sessionManager.setUserAddress(modelLogin.getStadDetails().getAddress());
+//        sessionManager.setUserEmail(modelLogin.getStadDetails().getEmail());
 //        sessionManager.setUserToken(modelLogin.getAccessToken());
 //
 //        Intent intent = new Intent(Login.this, MainActivity.class);

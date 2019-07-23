@@ -25,6 +25,9 @@ import com.example.myticket.Model.Network.DataModel.Search.CategoryResult;
 import com.example.myticket.Model.Network.DataModel.Search.SearchResponce;
 import com.example.myticket.Model.Network.DataModel.Tickets.ResultTickets;
 import com.example.myticket.Model.Network.DetailsMovie.DetailsMovie;
+import com.example.myticket.Model.Network.StadiumModel.Match.MainHomeMatches;
+import com.example.myticket.Model.Network.StadiumModel.Match.MainMatches;
+import com.example.myticket.Model.Network.StadiumModel.StadiumList.StadiumListMain;
 import com.example.myticket.View.Activity.Login;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -1301,6 +1304,122 @@ public class ApiCalling
             @Override
             public void onFailure(Call<ChairResponse> call, Throwable t)
             {
+                Log.e("onResponse" ,call.request().toString());
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
+    }
+
+    public void StadiumsListCall(final GeneralListener generalListener) {
+
+        Call<StadiumListMain> call = apiInterface.getStadiumsList();
+        call.enqueue(new Callback<StadiumListMain>() {
+            @Override
+            public void onResponse(Call<StadiumListMain> call, Response<StadiumListMain> response) {
+                Log.e("onResponse", response.raw().toString());
+                if (response.body().getSuccess()) {
+                    generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                            null, response.body());
+                }
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                            response.body().getMessage(), response.body());
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<StadiumListMain> call, Throwable t) {
+                Log.e("onResponse" ,call.request().toString());
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
+    }
+
+    public void getMatchesSlider(final GeneralListener generalListener) {
+
+        Call<MainMatches> call = apiInterface.getMatchesSlider();
+        call.enqueue(new Callback<MainMatches>() {
+            @Override
+            public void onResponse(Call<MainMatches> call, Response<MainMatches> response) {
+                Log.e("onResponse", response.raw().toString());
+                if (response.body().getSuccess()) {
+                    generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                            null, response.body());
+                }
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                            response.body().getMessage(), response.body());
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<MainMatches> call, Throwable t) {
+                Log.e("onResponse" ,call.request().toString());
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
+    }
+
+    public void getHomeMatches(String gameID , String flag, final GeneralListener generalListener) {
+        Map<String, String> queryMap = new HashMap<>();
+        queryMap.put("game_id" , gameID);
+        queryMap.put("flag" , flag);
+        Call<MainHomeMatches> call = apiInterface.getHomeMatches(queryMap);
+        call.enqueue(new Callback<MainHomeMatches>() {
+            @Override
+            public void onResponse(Call<MainHomeMatches> call, Response<MainHomeMatches> response) {
+                Log.e("onResponse", response.raw().toString());
+                if (response.body().getSuccess()) {
+                    generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                            null, response.body());
+                }
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                            response.body().getMessage(), response.body());
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<MainHomeMatches> call, Throwable t) {
                 Log.e("onResponse" ,call.request().toString());
                 //fail internet connection
                 if (t instanceof IOException)
