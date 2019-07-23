@@ -39,6 +39,7 @@ public class HomeStadiumMainAdapter extends RecyclerView.Adapter<HomeStadiumMain
         allChampsViewHolder.btolaName.setText(league.getCyclicName());
         //TODO: Read about expandable recycler view.
         MatchesAdapter matchesAdapter = new MatchesAdapter(context, league.getMatches());
+        allChampsViewHolder.recyclerView.setNestedScrollingEnabled(false);
         allChampsViewHolder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
         allChampsViewHolder.recyclerView.setAdapter(matchesAdapter);
 

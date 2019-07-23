@@ -22,6 +22,7 @@ import com.example.myticket.Model.Network.DataModel.Search.SearchResponce;
 import com.example.myticket.Model.Network.DetailsMovie.DetailsMovie;
 import com.example.myticket.Model.Network.StadiumModel.Match.MainHomeMatches;
 import com.example.myticket.Model.Network.StadiumModel.Match.MainMatches;
+import com.example.myticket.Model.Network.StadiumModel.StadiumList.StadiumDetailsByID;
 import com.example.myticket.Model.Network.StadiumModel.StadiumList.StadiumListMain;
 import com.google.gson.JsonElement;
 
@@ -175,7 +176,7 @@ public interface ApiInterface {
     Call<MainHomeMatches> getHomeMatches(@QueryMap Map<String, String> queryMap);
 
     @POST("stadium_detail")
-    Call<MainMatches> getStadiumDetails(@QueryMap Map<String, String> queryMap);
+    Call<StadiumDetailsByID> getStadiumDetails(@QueryMap Map<String, String> queryMap);
 
 
 

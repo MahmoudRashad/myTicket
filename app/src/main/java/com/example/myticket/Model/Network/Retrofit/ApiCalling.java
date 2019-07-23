@@ -27,6 +27,7 @@ import com.example.myticket.Model.Network.DataModel.Tickets.ResultTickets;
 import com.example.myticket.Model.Network.DetailsMovie.DetailsMovie;
 import com.example.myticket.Model.Network.StadiumModel.Match.MainHomeMatches;
 import com.example.myticket.Model.Network.StadiumModel.Match.MainMatches;
+import com.example.myticket.Model.Network.StadiumModel.StadiumList.StadiumDetailsByID;
 import com.example.myticket.Model.Network.StadiumModel.StadiumList.StadiumListMain;
 import com.example.myticket.View.Activity.Login;
 import com.google.gson.Gson;
@@ -1321,6 +1322,10 @@ public class ApiCalling
         });
     }
 
+
+
+    /////////////////////////////////////Stadiums////////////////////////////////////////////
+
     public void StadiumsListCall(final GeneralListener generalListener) {
 
         Call<StadiumListMain> call = apiInterface.getStadiumsList();
@@ -1420,6 +1425,45 @@ public class ApiCalling
 
             @Override
             public void onFailure(Call<MainHomeMatches> call, Throwable t) {
+                Log.e("onResponse" ,call.request().toString());
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
+    }
+
+    public void getStadiumDetail(String stadiumID ,final GeneralListener generalListener) {
+        Map<String, String> queryMap = new HashMap<>();
+        queryMap.put("id" , stadiumID);
+        Call<StadiumDetailsByID> call = apiInterface.getStadiumDetails(queryMap);
+        call.enqueue(new Callback<StadiumDetailsByID>() {
+            @Override
+            public void onResponse(Call<StadiumDetailsByID> call, Response<StadiumDetailsByID> response) {
+                Log.e("onResponse", response.raw().toString());
+                if (response.body().getSuccess()) {
+                    generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                            null, response.body());
+                }
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                            response.body().getMessage(), response.body());
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<StadiumDetailsByID> call, Throwable t) {
                 Log.e("onResponse" ,call.request().toString());
                 //fail internet connection
                 if (t instanceof IOException)

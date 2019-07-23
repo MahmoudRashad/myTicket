@@ -43,6 +43,14 @@ public class StadiumsAdapter extends RecyclerView.Adapter<StadiumsAdapter.Stadiu
         Picasso.get()
                 .load(stad.getImage())
                 .into(stadiumsViewHolder.stadImage);
+        stadiumsViewHolder.details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,StadiumDetails.class);
+                intent.putExtra("id",stad.getId().toString());
+                context.startActivity(intent);
+            }
+        });
 
 
     }
