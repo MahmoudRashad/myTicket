@@ -105,6 +105,8 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
             else{
                 Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
                 flag = 1;
+                matchDetails.setFollowStatus(1);
+                notifyDataSetChanged();
 //                matchesAdapterViewHolder.getAdapterPosition();
 //                matchesAdapterViewHolder.followImage.setImageResource(R.drawable.ic_notifications_active_24dp);
             }
@@ -135,6 +137,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
             stadiumName = itemView.findViewById(R.id.cardView_stad_name);
             teamOneName = itemView.findViewById(R.id.team_one_name_card_view);
             teamTwoName = itemView.findViewById(R.id.team_two_name_card_view);
+            followImage = itemView.findViewById(R.id.follow_img);
             greenBackground = itemView.findViewById(R.id.green);
             itemView.setOnClickListener(this);
             greenBackground.setOnClickListener(this);
@@ -150,11 +153,11 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
                 if (!token.equals("")){
                     //set api
                     apiCalling.follow(token,matchDetails.getId().toString(),MatchesAdapter.this::getApiResponse);
-                    if (flag ==1){
-                        //btg3 null
-                        //23mli network call l klo tani w5las
-                        followImage.setImageResource(R.drawable.ic_notifications_active_24dp);
-                    }
+//                    if (flag ==1){
+//                        //btg3 null
+//                        //23mli network call l klo tani w5las
+//
+//                    }
 
                 }
                 else {
