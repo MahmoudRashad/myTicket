@@ -23,8 +23,7 @@ import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.R;
 
 public class Login extends AppCompatActivity implements
-        GeneralListener
-{
+        GeneralListener {
 
 
     /////------------------- reference of views -----------------------//
@@ -32,7 +31,7 @@ public class Login extends AppCompatActivity implements
     private EditText password;
     private Button btnLogin;
     private ProgressBar progressBar;
-    TextView registerTv , forgetPasswordTv;
+    TextView registerTv, forgetPasswordTv;
 
     private String mUsername;
     private String mPassword;
@@ -56,23 +55,25 @@ public class Login extends AppCompatActivity implements
     private ImageView searchIcon;
     private TextView toolbarTitle;
     private Typeface myfont;
+    private Intent intent;
 
     ///////////////////////////////////////////////////////////////
 
-    SessionManager sessionManager ;
-    ApiCalling apiCalling ;
-
+    SessionManager sessionManager;
+    ApiCalling apiCalling;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getSupportActionBar().hide();
-        setContentView(R.layout.activity_login);
+        intent = getIntent();
+        handleIntent();
 
         apiCalling = new ApiCalling(this);
-        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
-        sessionManager = new SessionManager(this)  ;
+        myfont = Typeface.createFromAsset(this.getAssets(), "fonts/segoe_ui.ttf");
+        sessionManager = new SessionManager(this);
+
 
         userName = findViewById(R.id.username_login);
         userName.setTypeface(myfont);
@@ -101,14 +102,13 @@ public class Login extends AppCompatActivity implements
                 deviceToken = sharedPreferences.getString(TOKEN_KEY, "0");
 
                 if (TextUtils.isEmpty(mPassword) ||
-                        TextUtils.isEmpty(mUsername)){
+                        TextUtils.isEmpty(mUsername)) {
                     Toast.makeText(Login.this, getString(R.string.please_fill_all_fields), Toast.LENGTH_LONG).show();
-                }
-                else {
+                } else {
 
                     loginUser = new User(mUsername, mPassword, deviceToken, deviceType, macAddress);
-                    apiCalling.login(mUsername , mPassword,macAddress
-                            ,Login.this);
+                    apiCalling.login(mUsername, mPassword, macAddress
+                            , Login.this);
                 }
             }
         });
@@ -125,13 +125,24 @@ public class Login extends AppCompatActivity implements
         forgetPasswordTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Login.this,ForgetPassword.class);
+                Intent intent = new Intent(Login.this, ForgetPassword.class);
                 startActivity(intent);
             }
         });
 
 
     }
+
+    private boolean handleIntent() {
+        if (intent.hasExtra("flag")) {
+            setContentView(R.layout.activity_login_stad);
+            return true;
+        } else {
+            setContentView(R.layout.activity_login);
+            return false;
+        }
+    }
+
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(getString(R.string.login));
@@ -173,7 +184,7 @@ public class Login extends AppCompatActivity implements
 //        Toast.makeText(this,modelLogin.getStatusText() + "Successful Login",Toast.LENGTH_SHORT).show();
 //    }
 
-//    @Override
+    //    @Override
 //    public void onFail(Object responce) {
 //        progressBar.setVisibility(View.GONE);
 //        Toast.makeText(this,"failed to login",Toast.LENGTH_SHORT).show();
@@ -195,8 +206,7 @@ public class Login extends AppCompatActivity implements
     public void getApiResponse(int status, String message, Object tApiResponse) {
 
 
-        if(status == ErrorTypeEnum.noError.getValue())
-        {
+        if (status == ErrorTypeEnum.noError.getValue()) {
             MainResponceReg responceReg = (MainResponceReg) tApiResponse;
             progressBar.setVisibility(View.GONE);
 
@@ -209,16 +219,22 @@ public class Login extends AppCompatActivity implements
             sessionManager.setUserEmail(responceReg.getResult().getEmail());
             sessionManager.setUserToken(responceReg.getAccessToken());
 
-            Intent intent = new Intent(Login.this, HomeCinema.class);
-            startActivity(intent);
 
-        }
-        else
-        {
-            progressBar.setVisibility(View.GONE);
-            btnLogin.setVisibility(View.VISIBLE);
-            Toast.makeText(this,message,Toast.LENGTH_LONG).show();
+            if (handleIntent()) {
+                if (intent.getStringExtra("name").equals("home")) {
+                    Intent goBack = new Intent(Login.this, HomeStadBottomNav.class);
+                    startActivity(goBack);
+                } else {
+                    Intent intent = new Intent(Login.this, HomeCinema.class);
+                    startActivity(intent);
+                }
 
+            } else {
+                progressBar.setVisibility(View.GONE);
+                btnLogin.setVisibility(View.VISIBLE);
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+
+            }
         }
     }
 }

@@ -1480,4 +1480,123 @@ public class ApiCalling
             }
         });
     }
+
+    public void getTeamSearchResults(String query,final GeneralListener generalListener) {
+
+        Map<String, String> queryMap = new HashMap<>();
+        queryMap.put("team_name" , query);
+        Call<MainMatches> call = apiInterface.getTeamSearchResults(queryMap);
+        call.enqueue(new Callback<MainMatches>() {
+            @Override
+            public void onResponse(Call<MainMatches> call, Response<MainMatches> response) {
+                Log.e("onResponse", response.raw().toString());
+                if (response.body().getSuccess()) {
+                    generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                            null, response.body());
+                }
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                            response.body().getMessage(), response.body());
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<MainMatches> call, Throwable t) {
+                Log.e("onResponse" ,call.request().toString());
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
+    }
+
+    public void getStadiumsSerachResults(String query,final GeneralListener generalListener) {
+        Map<String, String> queryMap = new HashMap<>();
+        queryMap.put("stadium_name" , query);
+        Call<StadiumListMain> call = apiInterface.getStadSearchResults(queryMap);
+        call.enqueue(new Callback<StadiumListMain>() {
+            @Override
+            public void onResponse(Call<StadiumListMain> call, Response<StadiumListMain> response) {
+                Log.e("onResponse", response.raw().toString());
+                if (response.body().getSuccess()) {
+                    generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                            null, response.body());
+                }
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                            response.body().getMessage(), response.body());
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<StadiumListMain> call, Throwable t) {
+                Log.e("onResponse" ,call.request().toString());
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
+    }
+
+    public void follow(String authToken , String matchID, final GeneralListener generalListener) {
+        Map<String,String> map = new HashMap<>();
+        map.put("match_id",matchID);
+        Call<BaseNoResult> call = apiInterface.follow(lang,authToken,map);
+        call.enqueue(new Callback<BaseNoResult>() {
+            @Override
+            public void onResponse(Call<BaseNoResult> call, Response<BaseNoResult> response) {
+                if (response.isSuccessful()) {
+                    Log.e("onResponse", response.raw().toString());
+                    if (response.body().getSuccess()) {
+                        generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                                null, response.body());
+                    }
+                    else {
+                        generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                                response.body().getMessage(), response.body());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BaseNoResult> call, Throwable t) {
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
+
+    }
+
 }

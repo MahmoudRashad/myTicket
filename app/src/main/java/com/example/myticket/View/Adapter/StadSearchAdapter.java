@@ -13,6 +13,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.myticket.Model.Network.DataModel.Search.Result;
+import com.example.myticket.Model.Network.StadiumModel.Match.MatchDetails;
 import com.example.myticket.R;
 import com.example.myticket.View.Activity.CinemaDetailsPage;
 import com.example.myticket.View.Activity.MovieDetailsPage;
@@ -22,11 +23,11 @@ import java.util.ArrayList;
 
 public class StadSearchAdapter extends RecyclerView.Adapter<StadSearchAdapter.SearchViewHolder> {
     private Context context;
-    private ArrayList<Result> results;
+    private ArrayList<MatchDetails> results;
     private Typeface myfont;
 
 
-    public StadSearchAdapter(Context context, ArrayList<Result> results) {
+    public StadSearchAdapter(Context context, ArrayList<MatchDetails> results) {
         this.context = context;
         this.results = results;
         myfont = Typeface.createFromAsset(context.getAssets(),"fonts/segoe_ui.ttf");
@@ -49,7 +50,9 @@ public class StadSearchAdapter extends RecyclerView.Adapter<StadSearchAdapter.Se
 
     @Override
     public int getItemCount() {
-            return 3;
+            if (results!= null)
+                return results.size();
+            return 0;
     }
 
     public class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

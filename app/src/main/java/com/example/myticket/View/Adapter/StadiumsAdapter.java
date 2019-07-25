@@ -21,10 +21,12 @@ import java.util.ArrayList;
 public class StadiumsAdapter extends RecyclerView.Adapter<StadiumsAdapter.StadiumsViewHolder> {
     private Context context;
     private ArrayList<StadDetails> list;
+    private int flag = 0;
 
-    public StadiumsAdapter(Context context, ArrayList<StadDetails> stadiumsList) {
+    public StadiumsAdapter(Context context, ArrayList<StadDetails> stadiumsList, int flag) {
         this.context = context;
         this.list = stadiumsList;
+        this.flag = flag;
     }
 
     @NonNull
@@ -59,6 +61,10 @@ public class StadiumsAdapter extends RecyclerView.Adapter<StadiumsAdapter.Stadiu
     public int getItemCount() {
         if (list != null){
             return list.size();
+        }
+        else if (flag!= 0)
+        {
+            return 5;
         }
         return 0;
     }

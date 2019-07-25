@@ -178,6 +178,18 @@ public interface ApiInterface {
     @POST("stadium_detail")
     Call<StadiumDetailsByID> getStadiumDetails(@QueryMap Map<String, String> queryMap);
 
+    @POST("search_stadium")
+    Call<StadiumListMain> getStadSearchResults(@QueryMap Map<String, String> queryMap);
+
+    @POST("search_team")
+    Call<MainMatches> getTeamSearchResults(@QueryMap Map<String, String> queryMap);
+
+    @POST("match_follow")
+    Call<BaseNoResult> follow(@Header("lang") String lang, @Header("Authorization") String authTtoken,@QueryMap Map<String, String> queryMap);
+
+
+
+
 
 
 

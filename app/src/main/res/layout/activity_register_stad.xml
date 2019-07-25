@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/green_gradient"
+    tools:context=".View.Activity.Register">
+
+    <include
+        android:id="@+id/register_toolbar"
+        layout="@layout/stad_top_toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/register_toolbar"
+        app:layout_constraintStart_toStartOf="parent">
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="24dp"
+
+            >
+            <!--<ImageView-->
+            <!--android:id="@+id/main_logo"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:layout_constraintTop_toTopOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--android:layout_marginTop="24dp"-->
+            <!--android:src="@drawable/my_ticket_white_logo"/>-->
+            <!--<TextView-->
+            <!--android:id="@+id/register_title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:layout_constraintStart_toStartOf="@id/main_logo"-->
+            <!--app:layout_constraintEnd_toEndOf="@id/main_logo"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/main_logo"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:text="REGISTER"-->
+            <!--android:textSize="18dp"-->
+            <!--android:textAlignment="center"-->
+            <!--android:textColor="#fff"-->
+            <!--/>-->
+
+            <EditText
+                android:id="@+id/fullname_reg"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/green_rect_bk"
+                android:drawableStart="@drawable/ic_person_black_24dp"
+                android:drawableTint="@color/green_tab"
+                android:textColor="@color/stad_grey_text"
+                android:textColorHint="@color/stad_grey_text"
+                android:drawablePadding="16dp"
+                android:hint="@string/username"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/password_reg"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:drawableStart="@drawable/ic_lock_black_24dp"
+                android:background="@drawable/green_rect_bk"
+                android:drawableTint="@color/green_tab"
+                android:textColor="@color/stad_grey_text"
+                android:textColorHint="@color/stad_grey_text"
+                android:drawablePadding="16dp"
+                android:hint="@string/password"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fullname_reg" />
+
+            <EditText
+                android:id="@+id/rep_password_reg"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+
+                android:background="@drawable/green_rect_bk"
+                android:drawableTint="@color/green_tab"
+                android:textColor="@color/stad_grey_text"
+                android:textColorHint="@color/stad_grey_text"
+                android:drawableStart="@drawable/ic_lock_black_24dp"
+                android:drawablePadding="16dp"
+                android:hint="@string/confirmpassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/password_reg" />
+
+
+            <EditText
+                android:id="@+id/username_reg"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/green_rect_bk"
+                android:drawableTint="@color/green_tab"
+                android:textColor="@color/stad_grey_text"
+                android:textColorHint="@color/stad_grey_text"
+
+                android:drawableStart="@drawable/ic_person_black_24dp"
+                android:drawablePadding="16dp"
+                android:hint="@string/nameofuser"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rep_password_reg" />
+
+
+            <EditText
+                android:id="@+id/phone_reg"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+
+                android:drawableStart="@drawable/ic_phone_black_24dp"
+                android:drawablePadding="16dp"
+                android:hint="@string/phone"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/green_rect_bk"
+                android:drawableTint="@color/green_tab"
+                android:textColor="@color/stad_grey_text"
+                android:textColorHint="@color/stad_grey_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/address_reg" />
+
+
+            <EditText
+                android:id="@+id/email_reg"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:drawableStart="@drawable/ic_mail_black_24dp"
+                android:background="@drawable/green_rect_bk"
+                android:drawableTint="@color/green_tab"
+                android:textColor="@color/stad_grey_text"
+                android:textColorHint="@color/stad_grey_text"
+                android:drawablePadding="16dp"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/username_reg" />
+
+            <EditText
+                android:id="@+id/address_reg"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:drawableStart="@drawable/ic_location_on_black_24dp"
+                android:drawablePadding="16dp"
+                android:hint="@string/address"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:background="@drawable/green_rect_bk"
+                android:drawableTint="@color/green_tab"
+                android:textColor="@color/stad_grey_text"
+                android:textColorHint="@color/stad_grey_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/email_reg" />
+
+            <FrameLayout
+                android:id="@+id/frame_reg"
+                android:layout_marginTop="24dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/phone_reg"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                >
+
+                <ProgressBar
+                    android:id="@+id/progressBar_reg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="42dp"
+                    android:elevation="4dp"
+                    android:layout_gravity="center" />
+                <Button
+                    android:id="@+id/reg_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/white_rect_bk"
+                    android:backgroundTint="@color/red"
+                    android:text="@string/register"
+                    android:textColor="@color/white"
+                    android:layout_marginStart="48dp"
+                    android:layout_marginEnd="48dp"
+                    />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/reg_already"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/already_have_an_account"
+                android:textColor="@color/stad_grey_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/frame_reg"
+                android:layout_marginTop="16dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.constraint.ConstraintLayout>

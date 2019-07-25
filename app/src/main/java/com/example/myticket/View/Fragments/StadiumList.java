@@ -52,7 +52,7 @@ public class StadiumList extends Fragment implements
         if (tApiResponse instanceof StadiumListMain) {
             StadiumListMain ListResponce = (StadiumListMain) tApiResponse;
             stadiumsList = (ArrayList<StadDetails>) ListResponce.getStadDetails();
-            stadiumsAdapter = new StadiumsAdapter(getContext(),stadiumsList);
+            stadiumsAdapter = new StadiumsAdapter(getContext(),stadiumsList,0);
             stadiumRv.setAdapter(stadiumsAdapter);
         }
 

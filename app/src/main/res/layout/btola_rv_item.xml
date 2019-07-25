@@ -115,17 +115,29 @@
             android:textAllCaps="true"
             android:textColor="@color/grey_star"
             />
+
+
         <ImageView
-            android:id="@+id/follow_img"
-            android:layout_width="52dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_notifications_active_24dp"
+            android:id="@+id/green"
+            android:layout_width="32dp"
+            android:layout_height="48dp"
             android:background="@drawable/green_half_rect"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp"
+            android:rotation="90"/>
+        <ImageView
+            android:id="@+id/follow_img"
+            android:layout_width="24dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_notifications_off_black_24dp"
+            android:tint="@color/white"
+            app:layout_constraintEnd_toEndOf="@id/green"
+            app:layout_constraintTop_toTopOf="@id/green"
+            android:background="@color/green_tab"
+            android:layout_marginEnd="6dp"
+            app:layout_constraintBottom_toBottomOf="@id/green"
 
-            />
+                  />
     </android.support.constraint.ConstraintLayout>
 
 

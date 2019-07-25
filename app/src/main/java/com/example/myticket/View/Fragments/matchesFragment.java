@@ -64,7 +64,7 @@ public class matchesFragment extends Fragment implements
     public void getApiResponse(int status, String message, Object tApiResponse) {
         if (tApiResponse instanceof MainHomeMatches) {
             MainHomeMatches Leagues = (MainHomeMatches) tApiResponse;
-            //TODO: make date accurate in api
+
             switch(flag){
                 case 1:
                     todayList =  Leagues.getResult();
