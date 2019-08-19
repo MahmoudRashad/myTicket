@@ -1,98 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/green_gradient"
+    android:orientation="vertical"
     tools:context=".View.Activity.StadiumTicketsOptions">
 
     <include
         android:id="@+id/tickets_toolbar"
         layout="@layout/stad_top_toolbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+  />
 
-    <TextView
-        android:id="@+id/tickets_options_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tickets_toolbar"
-        android:text="@string/tickets_options"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/stad_grey_text"
-        android:layout_margin="16dp"
-        />
-    <TextView
-        android:id="@+id/tickets_number_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tickets_options_title"
-        android:text="@string/tickets_options"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/stad_grey_text"
-        android:layout_margin="16dp"
-        />
-    <ImageButton
-        android:id="@+id/minus_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tickets_number_title"
-        android:background="@drawable/green_rect_bk"
-        android:layout_margin="16dp"
-        android:src="@drawable/green_line"
-        android:padding="16dp"/>
-    <TextView
-        android:id="@+id/tickets_number"
-        android:layout_width="162dp"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toEndOf="@id/minus_btn"
-        app:layout_constraintTop_toTopOf="@id/minus_btn"
-        app:layout_constraintBottom_toBottomOf="@id/minus_btn"
-        app:layout_constraintEnd_toStartOf="@id/plus_btn"
-        android:background="@drawable/green_rect_bk"
-        android:text="2"
-        android:textColor="@color/stad_grey_text"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:gravity="center"
-        />
-    <Button
-        android:id="@+id/plus_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tickets_number_title"
-        android:background="@drawable/green_rect_bk"
-        android:layout_margin="16dp"
-        android:text="+"
-        android:textColor="@color/light_green"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-       />
-    <TextView
-        android:id="@+id/tickets_type_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/minus_btn"
-        android:text="@string/tickets_type"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/stad_grey_text"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-
-        />
-    <Spinner
-        android:id="@+id/spinner_type"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/green_rect_bk"
-        app:layout_constraintTop_toBottomOf="@id/tickets_type_title"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="16dp"
-        />
+        android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/white_rect_top"
+        >
+        
+        <ImageView
+            android:id="@+id/stad_details_image"
+            android:layout_width="350dp"
+            android:layout_height="260dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/stad_mockup"
+            android:layout_marginTop="48dp"/>
+
+        <Spinner
+            android:id="@+id/spinner_type"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_constraintTop_toBottomOf="@id/stad_details_image"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="48dp"
+            android:elevation="12dp"
+            />
+
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -108,9 +62,9 @@
         android:id="@+id/spinner_type_place"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@drawable/green_rect_bk"
         app:layout_constraintTop_toBottomOf="@id/spinner_type"
         app:layout_constraintStart_toStartOf="parent"
+        android:elevation="12dp"
         android:layout_margin="16dp"
         />
     <ImageView
@@ -124,16 +78,109 @@
         android:paddingEnd="16dp"
         android:layout_marginTop="16dp"
         />
-    <EditText
-        android:id="@+id/enter_chairs"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_margin="16dp"
-        app:layout_constraintTop_toBottomOf="@id/spinner_type_place"
-        android:background="@drawable/green_rect_bk"
-        android:hint="@string/enter_chairs_numbers"
-        android:textColorHint="@color/grey_star"
-        android:paddingStart="16dp"/>
+        <Spinner
+            android:id="@+id/spinner_chair"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_constraintTop_toBottomOf="@id/spinner_type_place"
+            app:layout_constraintStart_toStartOf="parent"
+            android:elevation="12dp"
+            android:layout_margin="16dp"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/spinner_chair"
+            app:layout_constraintTop_toTopOf="@id/spinner_chair"
+            app:layout_constraintBottom_toBottomOf="@id/spinner_chair"
+            android:src="@drawable/ic_right_arrow"
+            android:rotation="90"
+            android:paddingEnd="16dp"
+            android:layout_marginTop="16dp"
+            />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/tw__light_gray"
+            app:layout_constraintTop_toBottomOf="@id/spinner_chair"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="16dp"/>
+        
+        <TextView
+            android:id="@+id/your_seats_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view1"
+            android:text="@string/your_seats"
+            android:textColor="@color/gray_text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold"
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="16dp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/seats_titles_rv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/your_seats_title"
+            app:layout_constraintTop_toBottomOf="@id/view1"/>
+
+        <TextView
+            android:id="@+id/individual_tile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/your_seats_title"
+            android:text="@string/individual_ticket"
+            android:textColor="@color/gray_text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_margin="16dp"/>
+
+        <TextView
+            android:id="@+id/price_eq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="04 X 15"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/gray_text"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@id/individual_tile"
+            app:layout_constraintBottom_toBottomOf="@id/individual_tile"
+            app:layout_constraintStart_toEndOf="@id/individual_tile"
+            tools:layout_editor_absoluteY="611dp" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/tw__light_gray"
+            app:layout_constraintTop_toBottomOf="@id/price_eq"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_margin="16dp"/>
+
+        <TextView
+            android:id="@+id/subTotal_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view2"
+            android:text="@string/subtotal"
+            android:textColor="@color/gray_text"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textStyle="bold"
+            android:layout_margin="32dp"/>
+
+        <TextView
+            android:id="@+id/price_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view2"
+            android:layout_marginEnd="16dp"/>
+
 
     <Button
         android:id="@+id/select_tickets_btn"
@@ -145,6 +192,8 @@
         android:backgroundTint="@color/red"
         android:text="@string/confirm_tickets"
         android:layout_margin="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/price_total"/>
+    </android.support.constraint.ConstraintLayout>
 
-</android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</LinearLayout>

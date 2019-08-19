@@ -107,5 +107,9 @@
     <string name="stadium_list">Stadium List</string>
     <string name="matches_list">Matches List</string>
     <string name="notification_activated">Notification Activated</string>
+    <string name="match_details">Match Details</string>
+    <string name="your_seats">YOUR SEATS:</string>
+    <string name="individual_ticket">Individual Ticket:</string>
+    <string name="subtotal">SUBTOTAL</string>
 
 </resources>

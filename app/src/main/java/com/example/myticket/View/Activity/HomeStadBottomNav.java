@@ -73,6 +73,8 @@ public class HomeStadBottomNav extends AppCompatActivity {
 
     }
 
+
+
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
 //        toolbarTitle.setText(getString(R.string.all_results));

@@ -29,12 +29,16 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
     private List<com.example.myticket.Model.Network.StadiumModel.Match.MatchDetails> matchesList;
     private ApiCalling apiCalling;
     private int flag =-1;
+    private int position;
+    private String matchId;
+    private SessionManager sessionManager;
     com.example.myticket.Model.Network.StadiumModel.Match.MatchDetails matchDetails;
 
     public MatchesAdapter(Context context, List<com.example.myticket.Model.Network.StadiumModel.Match.MatchDetails> matchesList) {
         this.context = context;
         this.matchesList = matchesList;
         apiCalling = new ApiCalling(context);
+        sessionManager = new SessionManager(context);
     }
 
     @NonNull
@@ -48,6 +52,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
     @Override
     public void onBindViewHolder(@NonNull MatchesAdapterViewHolder matchesAdapterViewHolder, int i) {
         matchDetails = matchesList.get(i);
+        matchId = matchDetails.getId().toString();
         matchesAdapterViewHolder.timeText.setText(matchDetails.getStartTime());
         matchesAdapterViewHolder.dateText.setText(matchDetails.getDate());
         matchesAdapterViewHolder.teamOneName.setText(matchDetails.getTeam1Name());
@@ -64,6 +69,8 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
 
         if (matchDetails.getFollowStatus() == 1)
         matchesAdapterViewHolder.followImage.setImageResource(R.drawable.ic_notifications_active_24dp);
+        else
+            matchesAdapterViewHolder.followImage.setImageResource(R.drawable.ic_notifications_off_black_24dp);
 
 
     }
@@ -75,17 +82,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
         return 0;
     }
 
-    public String handleLogin(){
-        SessionManager sessionManager = new SessionManager(context);
-        //check if he is logged in or not
-        final String token = "Bearer "+ sessionManager.getUserToken();
-        if (!token.equals("Bearer ")) {
-            return token;
-        }
-        else {
-            return "";
-        }
-    }
+
 
 
 
@@ -97,6 +94,8 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
             if (msg.contains("إلغاء")||msg.contains("unFollow")){
                 Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
                 flag = 0;
+                matchesList.get(position).setFollowStatus(0);
+                notifyDataSetChanged();
 
 //                matchesAdapterViewHolder.getAdapterPosition();
 //                matchesAdapterViewHolder.followImage.setImageResource(R.drawable.ic_notifications_off_black_24dp);
@@ -105,7 +104,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
             else{
                 Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
                 flag = 1;
-                matchDetails.setFollowStatus(1);
+                matchesList.get(position).setFollowStatus(1);
                 notifyDataSetChanged();
 //                matchesAdapterViewHolder.getAdapterPosition();
 //                matchesAdapterViewHolder.followImage.setImageResource(R.drawable.ic_notifications_active_24dp);
@@ -147,12 +146,12 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
         @Override
         public void onClick(View v) {
             int id = v.getId();
-            int position = getAdapterPosition();
+            position = getAdapterPosition();
             if (id == greenBackground.getId()){
-                String token = handleLogin();
+                String token = sessionManager.handleLogin();
                 if (!token.equals("")){
                     //set api
-                    apiCalling.follow(token,matchDetails.getId().toString(),MatchesAdapter.this::getApiResponse);
+                    apiCalling.follow(token,matchesList.get(position).getId().toString(),MatchesAdapter.this::getApiResponse);
 //                    if (flag ==1){
 //                        //btg3 null
 //                        //23mli network call l klo tani w5las
@@ -168,8 +167,10 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
                     context.startActivity(intent);
                 }
             }
+
             else{
                 Intent intent = new Intent(context, MatchDetails.class);
+                intent.putExtra("matchId",matchId);
                 context.startActivity(intent);
             }
         }

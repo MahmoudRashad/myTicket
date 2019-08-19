@@ -17,7 +17,6 @@ import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderResponce;
 import com.example.myticket.Model.Network.DataModel.MoviesList.MoviesList;
 import com.example.myticket.Model.Network.DataModel.MyTickets.MyTicketsResponse;
-import com.example.myticket.Model.Network.DataModel.ReserveModel.AvaliableChair;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ChairResponse;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ReserveCinemaResponse;
 import com.example.myticket.Model.Network.DataModel.Resgister.MainResponceReg;
@@ -26,6 +25,7 @@ import com.example.myticket.Model.Network.DataModel.Search.SearchResponce;
 import com.example.myticket.Model.Network.DataModel.Tickets.ResultTickets;
 import com.example.myticket.Model.Network.DetailsMovie.DetailsMovie;
 import com.example.myticket.Model.Network.StadiumModel.Match.MainHomeMatches;
+import com.example.myticket.Model.Network.StadiumModel.Match.MainMatchDetails;
 import com.example.myticket.Model.Network.StadiumModel.Match.MainMatches;
 import com.example.myticket.Model.Network.StadiumModel.StadiumList.StadiumDetailsByID;
 import com.example.myticket.Model.Network.StadiumModel.StadiumList.StadiumListMain;
@@ -1402,11 +1402,11 @@ public class ApiCalling
         });
     }
 
-    public void getHomeMatches(String gameID , String flag, final GeneralListener generalListener) {
+    public void getHomeMatches(String gameID , String flag, String lang , String auth, final GeneralListener generalListener) {
         Map<String, String> queryMap = new HashMap<>();
         queryMap.put("game_id" , gameID);
         queryMap.put("flag" , flag);
-        Call<MainHomeMatches> call = apiInterface.getHomeMatches(queryMap);
+        Call<MainHomeMatches> call = apiInterface.getHomeMatches(lang, auth, queryMap);
         call.enqueue(new Callback<MainHomeMatches>() {
             @Override
             public void onResponse(Call<MainHomeMatches> call, Response<MainHomeMatches> response) {
@@ -1582,6 +1582,45 @@ public class ApiCalling
 
             @Override
             public void onFailure(Call<BaseNoResult> call, Throwable t) {
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
+
+    }
+
+    public void getMatchDetails(String id, String token,final GeneralListener generalListener) {
+        Map<String,String> map = new HashMap<>();
+        map.put("match_id",id);
+        Call<MainMatches> call = apiInterface.getMatchDetails(token,map);
+        call.enqueue(new Callback<MainMatches>() {
+            @Override
+            public void onResponse(Call<MainMatches> call, Response<MainMatches> response) {
+                if (response.isSuccessful()) {
+                    Log.e("onResponse", response.raw().toString());
+                    if (response.body().getSuccess()) {
+                        generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                                null, response.body());
+                    }
+                    else {
+                        generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                                response.body().getMessage(), response.body());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MainMatches> call, Throwable t) {
                 //fail internet connection
                 if (t instanceof IOException)
                 {

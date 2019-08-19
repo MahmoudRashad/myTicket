@@ -22,6 +22,7 @@ public class StadiumsAdapter extends RecyclerView.Adapter<StadiumsAdapter.Stadiu
     private Context context;
     private ArrayList<StadDetails> list;
     private int flag = 0;
+    private String stadId ="";
 
     public StadiumsAdapter(Context context, ArrayList<StadDetails> stadiumsList, int flag) {
         this.context = context;
@@ -45,6 +46,7 @@ public class StadiumsAdapter extends RecyclerView.Adapter<StadiumsAdapter.Stadiu
         Picasso.get()
                 .load(stad.getImage())
                 .into(stadiumsViewHolder.stadImage);
+        stadId = stad.getId().toString();
         stadiumsViewHolder.details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +94,7 @@ public class StadiumsAdapter extends RecyclerView.Adapter<StadiumsAdapter.Stadiu
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(context, StadiumDetails.class);
+            intent.putExtra("id",stadId);
             context.startActivity(intent);
         }
     }

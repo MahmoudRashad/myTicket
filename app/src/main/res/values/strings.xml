@@ -125,6 +125,10 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="match_details">Match Details</string>
+    <string name="your_seats">YOUR SEATS:</string>
+    <string name="individual_ticket">Individual Ticket:</string>
+    <string name="subtotal">SUBTOTAL</string>
 
 
 </resources>

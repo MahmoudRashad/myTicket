@@ -8,38 +8,39 @@
     android:background="@drawable/green_gradient"
     tools:context=".View.Activity.MatchDetails">
 
-
+    <include
+        android:id="@+id/top_match_details"
+        layout="@layout/stad_top_toolbar"
+        android:layout_height="58dp"
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
 
 <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginTop="58dp"
+    app:layout_constraintTop_toBottomOf="@id/top_match_details"
+    app:layout_constraintStart_toStartOf="parent"
+    >
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="32dp"
+            android:layout_marginTop="16dp"
             >
-
-        <include
-            android:id="@+id/top_match_details"
-            layout="@layout/stad_top_toolbar"
-            android:layout_height="58dp"
-            android:layout_width="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            />
-
-
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraint_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:paddingBottom="32dp"
             android:background="@drawable/white_rect_bk"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/top_match_details"
+            app:layout_constraintTop_toTopOf="parent"
            >
             <TextView
                 android:id="@+id/detail_btola_name"
@@ -241,7 +242,7 @@
                 android:textStyle="bold"
                 />
             <TextView
-                android:id="@+id/vip_text"
+                android:id="@+id/the_first_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/vip_class"
@@ -254,7 +255,7 @@
                 />
 
             <TextView
-                android:id="@+id/vip_price"
+                android:id="@+id/the_first_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -266,7 +267,7 @@
                 android:text="600 SAR"
                 />
             <TextView
-                android:id="@+id/first_class_text"
+                android:id="@+id/the_second_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/first_class"
@@ -274,15 +275,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:layout_constraintTop_toBottomOf="@id/vip_text"
+                app:layout_constraintTop_toBottomOf="@id/the_first_text"
                 android:layout_marginTop="24dp"
                 />
             <TextView
-                android:id="@+id/first_class_price"
+                android:id="@+id/the_second_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/vip_price"
+                app:layout_constraintTop_toBottomOf="@id/the_first_price"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="24dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -290,7 +291,7 @@
                 android:text="400 SAR"
                 />
             <TextView
-                android:id="@+id/second_class_text"
+                android:id="@+id/the_third_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/second_class"
@@ -298,15 +299,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:layout_constraintTop_toBottomOf="@id/first_class_text"
+                app:layout_constraintTop_toBottomOf="@id/the_second_text"
                 android:layout_marginTop="24dp"
                 />
             <TextView
-                android:id="@+id/second_class_price"
+                android:id="@+id/the_third_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/first_class_price"
+                app:layout_constraintTop_toBottomOf="@id/the_second_price"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="24dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -315,7 +316,7 @@
                 />
 
             <TextView
-                android:id="@+id/third_class_text"
+                android:id="@+id/the_fourth_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/third_class"
@@ -323,15 +324,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:layout_constraintTop_toBottomOf="@id/second_class_text"
+                app:layout_constraintTop_toBottomOf="@id/the_third_text"
                 android:layout_marginTop="24dp"
                 />
             <TextView
-                android:id="@+id/third_class_price"
+                android:id="@+id/the_fourth_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/second_class_price"
+                app:layout_constraintTop_toBottomOf="@id/the_third_price"
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="24dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"

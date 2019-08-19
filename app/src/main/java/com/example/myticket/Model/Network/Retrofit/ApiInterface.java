@@ -7,7 +7,6 @@ import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
 
 import com.example.myticket.Model.Network.DataModel.DetailsCinema.DetailsCinema;
 import com.example.myticket.Model.Network.DataModel.EditUserData.EditUserDataResponse;
-import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordModel;
 import com.example.myticket.Model.Network.DataModel.ForgetPasswordResponce.ForgetPasswordResponce;
 import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
 import com.example.myticket.Model.Network.DataModel.MainSliderResponce.SliderResponce;
@@ -21,6 +20,7 @@ import com.example.myticket.Model.Network.DataModel.Search.CategoryResult;
 import com.example.myticket.Model.Network.DataModel.Search.SearchResponce;
 import com.example.myticket.Model.Network.DetailsMovie.DetailsMovie;
 import com.example.myticket.Model.Network.StadiumModel.Match.MainHomeMatches;
+import com.example.myticket.Model.Network.StadiumModel.Match.MainMatchDetails;
 import com.example.myticket.Model.Network.StadiumModel.Match.MainMatches;
 import com.example.myticket.Model.Network.StadiumModel.StadiumList.StadiumDetailsByID;
 import com.example.myticket.Model.Network.StadiumModel.StadiumList.StadiumListMain;
@@ -173,7 +173,7 @@ public interface ApiInterface {
     Call<MainMatches> getMatchesSlider();
 
     @POST("matches")
-    Call<MainHomeMatches> getHomeMatches(@QueryMap Map<String, String> queryMap);
+    Call<MainHomeMatches> getHomeMatches(@Header("lang") String lang, @Header("Authorization") String authTtoken,@QueryMap Map<String, String> queryMap);
 
     @POST("stadium_detail")
     Call<StadiumDetailsByID> getStadiumDetails(@QueryMap Map<String, String> queryMap);
@@ -186,6 +186,9 @@ public interface ApiInterface {
 
     @POST("match_follow")
     Call<BaseNoResult> follow(@Header("lang") String lang, @Header("Authorization") String authTtoken,@QueryMap Map<String, String> queryMap);
+
+    @POST("match_detail")
+    Call<MainMatches> getMatchDetails(@Header("Authorization") String authTtoken,@QueryMap Map<String, String> queryMap);
 
 
 

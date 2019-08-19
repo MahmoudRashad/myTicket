@@ -2,6 +2,8 @@
 package com.example.myticket.Model.Network.StadiumModel.Match;
 
 import java.io.Serializable;
+import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -38,6 +40,23 @@ public class MatchDetails implements Serializable
     @SerializedName("follow_status")
     @Expose
     private Integer followStatus;
+
+    @SerializedName("ticket_type")
+    @Expose
+    private List<TicketType> ticketType = null;
+
+    @SerializedName("stadium_address")
+    @Expose
+    private String stadiumAddress;
+    @SerializedName("stadium_lat")
+    @Expose
+    private String stadiumLat;
+
+
+    @SerializedName("stadium_long")
+    @Expose
+    private String stadiumLong;
+
     private final static long serialVersionUID = -7614335464837363393L;
 
     /**
@@ -153,5 +172,37 @@ public class MatchDetails implements Serializable
     public void setFollowStatus(Integer followStatus) {
         this.followStatus = followStatus;
     }
+
+    public List<TicketType> getTicketType() {
+        return ticketType;
+    }
+
+    public String getStadiumAddress() {
+        return stadiumAddress;
+    }
+
+    public void setStadiumAddress(String stadiumAddress) {
+        this.stadiumAddress = stadiumAddress;
+    }
+
+    public String getStadiumLat() {
+        return stadiumLat;
+    }
+
+    public void setStadiumLat(String stadiumLat) {
+        this.stadiumLat = stadiumLat;
+    }
+
+    public String getStadiumLong() {
+        return stadiumLong;
+    }
+
+    public void setStadiumLong(String stadiumLong) {
+        this.stadiumLong = stadiumLong;
+    }
+    public void setTicketType(List<TicketType> ticketType) {
+        this.ticketType = ticketType;
+    }
+
 
 }

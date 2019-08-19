@@ -219,4 +219,15 @@ public class SessionManager
         return sharedPreferences.getInt( "notificationId" , 0);
     }
 
+    public String handleLogin(){
+        //check if he is logged in or not
+        final String token = "Bearer "+ this.getUserToken();
+        if (!token.equals("Bearer ")) {
+            return token;
+        }
+        else {
+            return "";
+        }
+    }
+
 }

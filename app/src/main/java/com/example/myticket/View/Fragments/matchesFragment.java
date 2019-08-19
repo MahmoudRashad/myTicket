@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.Model.Network.StadiumModel.Match.Leagues;
@@ -33,6 +34,10 @@ public class matchesFragment extends Fragment implements
     private List<Leagues> nextWeekList;
     private int flag;
     private ApiCalling apiCalling;
+    private SessionManager sessionManager;
+    private String lang;
+    private String token;
+
     public matchesFragment() {
         // Required empty public constructor
     }
@@ -51,7 +56,14 @@ public class matchesFragment extends Fragment implements
         if (this.getArguments() != null) {
             flag = this.getArguments().getInt("flag");
         }
-        apiCalling.getHomeMatches("1", String.valueOf(flag),this);
+        sessionManager = new SessionManager(getContext());
+        lang = sessionManager.getDeviceLanguage();
+        token = sessionManager.getUserToken();
+        if (!token.equals("")){
+            token = "Bearer " +  token;
+
+        }
+
         mainBtolatRv = view.findViewById(R.id.btolat_rv);
 
         mainBtolatRv.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -59,6 +71,11 @@ public class matchesFragment extends Fragment implements
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        apiCalling.getHomeMatches("1",String.valueOf(flag),lang,token ,this);
+    }
 
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
