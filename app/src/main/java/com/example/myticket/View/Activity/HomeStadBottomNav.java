@@ -17,12 +17,14 @@ import android.widget.TextView;
 import com.example.myticket.R;
 import com.example.myticket.View.Fragments.StadHomeFragment;
 import com.example.myticket.View.Fragments.StadiumList;
+import com.example.myticket.View.Fragments.fragment_myTickets_stad;
 
 public class HomeStadBottomNav extends AppCompatActivity {
 
     private ImageView backBtn;
     private ImageView searchIcon;
     private TextView toolbarTitle;
+    private ImageView logo;
     private String tag;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -48,12 +50,15 @@ public class HomeStadBottomNav extends AppCompatActivity {
 
                     return true;
 
-                case R.id.matches_list:
-                  //  mTextMessage.setText("dashboard");
+                case R.id.my_tickets:
+                    tag = "home";
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, new fragment_myTickets_stad())
+                            .commit();
 
                     return true;
                 case R.id.settings:
-                  //  mTextMessage.setText("notifications");
+
                     return true;
             }
             return false;
@@ -93,9 +98,11 @@ public class HomeStadBottomNav extends AppCompatActivity {
         toolbarTitle = findViewById(R.id.toolbar_title);
 //        toolbarTitle.setText(getString(R.string.all_results));
 //        toolbarTitle.setTypeface(myfont);
+        logo = findViewById(R.id.logo_toolbar);
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
-
+        backBtn.setVisibility(View.GONE);
+        logo.setVisibility(View.VISIBLE);
         searchIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

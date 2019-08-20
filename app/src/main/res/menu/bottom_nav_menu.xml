@@ -12,9 +12,10 @@
         android:title="Stadiums" />
 
     <item
-        android:id="@+id/matches_list"
-        android:icon="@drawable/ic_football"
-        android:title="Matches" />
+        android:id="@+id/my_tickets"
+        android:icon="@drawable/ic_tickets"
+        android:iconTint="@color/white"
+        android:title="My Tickets" />
 
     <item
         android:id="@+id/settings"

@@ -6,6 +6,7 @@
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
     android:layout_marginTop="16dp"
+    android:id="@+id/stadiums_item"
     android:background="@drawable/green_rect_bk">
 
     <ImageView

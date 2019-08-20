@@ -10,7 +10,9 @@
 
     <include
         android:id="@+id/home_stad_toolbar"
-        layout="@layout/stad_top_toolbar"/>
+        layout="@layout/stad_top_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"/>
 
     <FrameLayout
         android:id="@+id/fragment_container"

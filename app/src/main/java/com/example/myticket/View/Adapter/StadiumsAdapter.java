@@ -3,6 +3,7 @@ package com.example.myticket.View.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +57,15 @@ public class StadiumsAdapter extends RecyclerView.Adapter<StadiumsAdapter.Stadiu
             }
         });
 
+        stadiumsViewHolder.layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,StadiumDetails.class);
+                intent.putExtra("id",stad.getId().toString());
+                context.startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -71,31 +81,32 @@ public class StadiumsAdapter extends RecyclerView.Adapter<StadiumsAdapter.Stadiu
         return 0;
     }
 
-    public class StadiumsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class StadiumsViewHolder extends RecyclerView.ViewHolder  {
         private ImageView stadImage;
         private TextView stadName;
         private TextView stadAddress;
         private TextView stadMap;
         private Button details;
+        private ConstraintLayout layout;
 
         public StadiumsViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this);
             stadImage = itemView.findViewById(R.id.stad_image_item);
             stadImage.setClipToOutline(true);
             stadName = itemView.findViewById(R.id.stadium_name_text);
             stadAddress = itemView.findViewById(R.id.stadium_address_text);
             stadMap = itemView.findViewById(R.id.location_on_map);
             details = itemView.findViewById(R.id.details_btn);
+            layout = itemView.findViewById(R.id.stadiums_item);
 
 
         }
 
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent(context, StadiumDetails.class);
-            intent.putExtra("id",stadId);
-            context.startActivity(intent);
-        }
+//        @Override
+//        public void onClick(View v) {
+//            Intent intent = new Intent(context, StadiumDetails.class);
+//            intent.putExtra("id",stadId);
+//            context.startActivity(intent);
+//        }
     }
 }
