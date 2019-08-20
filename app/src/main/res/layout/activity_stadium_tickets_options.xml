@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/green_gradient"
-    android:orientation="vertical"
     tools:context=".View.Activity.StadiumTicketsOptions">
 
     <include
         android:id="@+id/tickets_toolbar"
         layout="@layout/stad_top_toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+
   />
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tickets_toolbar"
+        android:layout_marginTop="57dp"
+        >
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="32dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/white_rect_top"
+        android:paddingBottom="16dp"
+        android:layout_marginTop="32dp"
         >
         
         <ImageView
@@ -32,81 +41,89 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/stad_mockup"
-            android:layout_marginTop="48dp"/>
+            android:layout_marginTop="32dp"/>
 
-        <Spinner
-            android:id="@+id/spinner_type"
+        <android.support.v7.widget.CardView
+            android:id="@+id/spinner_type_linear"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             app:layout_constraintTop_toBottomOf="@id/stad_details_image"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="32dp"
             android:elevation="12dp"
-            />
+            android:clipToPadding="false"
+            android:backgroundTint="@color/white"
+            >
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spinner_type"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                style="@style/spinner_style"
+                android:backgroundTint="@color/black"
+                />
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/spinner_type_place_linear"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_constraintTop_toBottomOf="@id/spinner_type_linear"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:elevation="12dp"
+            android:clipToPadding="false"
+            android:backgroundTint="@color/white">
+            <Spinner
+                android:id="@+id/spinner_type_place"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                style="@style/spinner_style"
+                android:backgroundTint="@color/black"
+                />
+        </android.support.v7.widget.CardView>
 
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/spinner_type"
-        app:layout_constraintTop_toTopOf="@id/spinner_type"
-        app:layout_constraintBottom_toBottomOf="@id/spinner_type"
-        android:src="@drawable/ic_right_arrow"
-        android:rotation="90"
-        android:paddingEnd="16dp"
-        android:layout_marginTop="16dp"
-        />
-    <Spinner
-        android:id="@+id/spinner_type_place"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintTop_toBottomOf="@id/spinner_type"
-        app:layout_constraintStart_toStartOf="parent"
-        android:elevation="12dp"
-        android:layout_margin="16dp"
-        />
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@id/spinner_type_place"
-        app:layout_constraintTop_toTopOf="@id/spinner_type_place"
-        app:layout_constraintBottom_toBottomOf="@id/spinner_type_place"
-        android:src="@drawable/ic_right_arrow"
-        android:rotation="90"
-        android:paddingEnd="16dp"
-        android:layout_marginTop="16dp"
-        />
+        <android.support.v7.widget.CardView
+            android:id="@+id/spinner_chair_linear"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_constraintTop_toBottomOf="@id/spinner_type_place_linear"
+            app:layout_constraintStart_toStartOf="parent"
+            android:elevation="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:clipToPadding="false"
+            android:backgroundTint="@color/white">
+
         <Spinner
             android:id="@+id/spinner_chair"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            app:layout_constraintTop_toBottomOf="@id/spinner_type_place"
-            app:layout_constraintStart_toStartOf="parent"
-            android:elevation="12dp"
-            android:layout_margin="16dp"
+            style="@style/spinner_style"
+            android:backgroundTint="@color/black"
+
+
             />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@id/spinner_chair"
-            app:layout_constraintTop_toTopOf="@id/spinner_chair"
-            app:layout_constraintBottom_toBottomOf="@id/spinner_chair"
-            android:src="@drawable/ic_right_arrow"
-            android:rotation="90"
-            android:paddingEnd="16dp"
-            android:layout_marginTop="16dp"
-            />
+        </android.support.v7.widget.CardView>
 
         <View
             android:id="@+id/view1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/tw__light_gray"
-            app:layout_constraintTop_toBottomOf="@id/spinner_chair"
+            app:layout_constraintTop_toBottomOf="@id/spinner_chair_linear"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_margin="16dp"/>
+            android:layout_marginTop="32dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"/>
         
         <TextView
             android:id="@+id/your_seats_title"
@@ -118,15 +135,16 @@
             android:textColor="@color/gray_text"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/seats_titles_rv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="1dp"
             app:layout_constraintStart_toEndOf="@id/your_seats_title"
-            app:layout_constraintTop_toBottomOf="@id/view1"/>
+            app:layout_constraintTop_toTopOf="@id/your_seats_title"
+            app:layout_constraintBottom_toBottomOf="@id/your_seats_title"/>
 
         <TextView
             android:id="@+id/individual_tile"
@@ -137,13 +155,14 @@
             android:text="@string/individual_ticket"
             android:textColor="@color/gray_text"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:layout_margin="16dp"/>
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"/>
 
         <TextView
             android:id="@+id/price_eq"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="04 X 15"
+            android:text=" 04 X 15"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/gray_text"
             android:textStyle="bold"
@@ -157,7 +176,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/tw__light_gray"
-            app:layout_constraintTop_toBottomOf="@id/price_eq"
+            app:layout_constraintTop_toBottomOf="@id/individual_tile"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_margin="16dp"/>
 
@@ -171,29 +190,36 @@
             android:textColor="@color/gray_text"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold"
-            android:layout_margin="32dp"/>
+            android:layout_marginBottom="14dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"/>
 
         <TextView
             android:id="@+id/price_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/subTotal_title"
+            app:layout_constraintTop_toTopOf="@id/subTotal_title"
+            app:layout_constraintBottom_toBottomOf="@id/subTotal_title"
+            android:text=": 350 SAR"
+            android:layout_marginEnd="16dp"
+            />
+
+
+        <Button
+            android:id="@+id/select_tickets_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/white_rect_bk"
+            android:backgroundTint="@color/red"
+            android:text="@string/confirm_tickets"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view2"
-            android:layout_marginEnd="16dp"/>
-
-
-    <Button
-        android:id="@+id/select_tickets_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/white_rect_bk"
-        android:backgroundTint="@color/red"
-        android:text="@string/confirm_tickets"
-        android:layout_margin="16dp"
-        app:layout_constraintTop_toBottomOf="@id/price_total"/>
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/subTotal_title"/>
     </android.support.constraint.ConstraintLayout>
 
-    </ScrollView>
-</LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.constraint.ConstraintLayout>

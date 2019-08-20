@@ -137,7 +137,7 @@ public class ApiClient {
 
     //-----------------------------amr code---------------------------------//
 
-    public final String BASE_URL = "http://iscoapps.com/cinema/api/";
+    public final String BASE_URL = "http://iscoapps.com/myticket_dashboard/cinema_api/api/";
     public final String BASE_URL_Firebase = "https://fcm.googleapis.com/";
 
     // public  final String PATH_URL = "/androidApi/";

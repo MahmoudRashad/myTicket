@@ -42,6 +42,7 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
     private TextView secondPrice;
     private TextView thirdPrice;
     private TextView fourthPrice;
+    private Button bookBtn;
 
     private ImageView notificationIcon;
     private TextView toolbarTitle;
@@ -67,10 +68,10 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
         sessionManager = new SessionManager(this);
 
         Intent intent = getIntent();
-        if (intent.hasExtra("matchId")){
+        if (intent.hasExtra("matchId")) {
             matchId = intent.getStringExtra("matchId");
             String token = sessionManager.handleLogin();
-            apiCalling.getMatchDetails(matchId,token,this);
+            apiCalling.getMatchDetails(matchId, token, this);
         }
         findRefs();
         setListeners();
@@ -82,11 +83,10 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
         toolbarTitle.setText(getString(R.string.match_details));
         searchIcon.setVisibility(View.GONE);
         notificationIcon.setVisibility(View.VISIBLE);
-        int status =  matchDetails.getFollowStatus();
-        if (status == 1){
+        int status = matchDetails.getFollowStatus();
+        if (status == 1) {
             notificationIcon.setImageResource(R.drawable.ic_notifications_active_24dp);
-        }
-        else{
+        } else {
             notificationIcon.setImageResource(R.drawable.ic_notifications_off_black_24dp);
         }
         toolbarBack.setOnClickListener(new View.OnClickListener() {
@@ -100,17 +100,16 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
             @Override
             public void onClick(View v) {
                 String token = sessionManager.handleLogin();
-                if (!token.equals("")){
+                if (!token.equals("")) {
                     //set api
-                    apiCalling.follow(token,matchId,MatchDetails.this::getApiResponse);
+                    apiCalling.follow(token, matchId, MatchDetails.this::getApiResponse);
                     handleNotificationLayout(matchDetails);
 
-                }
-                else {
-                    Intent intent = new Intent(MatchDetails.this,Login.class);
-                    intent.putExtra("id",matchDetails.getId());
-                    intent.putExtra("name","home");
-                    intent.putExtra("flag","stad");
+                } else {
+                    Intent intent = new Intent(MatchDetails.this, Login.class);
+                    intent.putExtra("id", matchDetails.getId());
+                    intent.putExtra("name", "home");
+                    intent.putExtra("flag", "stad");
                     startActivity(intent);
                 }
             }
@@ -120,11 +119,10 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
     private void handleNotificationLayout(com.example.myticket.Model.Network.StadiumModel.Match.MatchDetails matchDetails) {
         frameLayout.setVisibility(View.VISIBLE);
         toolbar.setVisibility(View.GONE);
-        int status =  matchDetails.getFollowStatus();
-        if (status == 1){
+        int status = matchDetails.getFollowStatus();
+        if (status == 1) {
             notificationImage.setImageResource(R.drawable.ic_notifications_active_24dp);
-        }
-        else{
+        } else {
             notificationImage.setImageResource(R.drawable.ic_notifications_off_black_24dp);
         }
 
@@ -134,7 +132,7 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
         stadiumName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MatchDetails.this,StadiumDetails.class);
+                Intent intent = new Intent(MatchDetails.this, StadiumDetails.class);
                 startActivity(intent);
             }
         });
@@ -145,6 +143,7 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
                 frameLayout.setVisibility(View.GONE);
             }
         });
+
     }
 
     private void findRefs() {
@@ -157,6 +156,7 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
         time = findViewById(R.id.cardView_time);
         date = findViewById(R.id.date_cardView);
         address = findViewById(R.id.stadium_address_text);
+        bookBtn = findViewById(R.id.book_btn);
 
         firstText = findViewById(R.id.the_first_text);
         secondText = findViewById(R.id.the_second_text);
@@ -182,25 +182,26 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
 
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
-        if (tApiResponse instanceof MainMatches){
+        if (tApiResponse instanceof MainMatches) {
             MainMatches mainMatches = (MainMatches) tApiResponse;
             List<com.example.myticket.Model.Network.StadiumModel.Match.MatchDetails> matchDetails = mainMatches.getResult();
+
+            if (matchDetails.size() > 0 && matchDetails.get(0) != null)
             setDetails(matchDetails.get(0));
         }
 
         if (tApiResponse instanceof BaseNoResult) {
             BaseNoResult baseNoResult = (BaseNoResult) tApiResponse;
             String msg = baseNoResult.getMessage();
-            if (msg.contains("إلغاء")||msg.contains("unFollow")){
+            if (msg.contains("إلغاء") || msg.contains("unFollow")) {
                 notificationText.setText(msg);
                 notificationIcon.setImageResource(R.drawable.ic_notifications_off_black_24dp);
                 notificationImage.setImageResource(R.drawable.ic_notifications_off_black_24dp);
                 notificationIcon.setColorFilter(R.color.white);
 
-            }
-            else{
+            } else {
                 notificationText.setText(msg);
-                Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
+                Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
                 notificationIcon.setImageResource(R.drawable.ic_notifications_active_24dp);
                 notificationImage.setImageResource(R.drawable.ic_notifications_active_24dp);
                 notificationIcon.setColorFilter(R.color.white);
@@ -226,16 +227,35 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
         date.setText(matchDetails.getDate());
         address.setText(matchDetails.getStadiumAddress());
 
-        firstText.setText(matchDetails.getTicketType().get(0).getName());
-        firstPrice.setText(matchDetails.getTicketType().get(0).getPrice() +" "+ matchDetails.getTicketType().get(0).getCurrency());
+        if (matchDetails.getTicketType().size() > 0){
+        if (matchDetails.getTicketType().get(0) != null) {
+            firstText.setText(matchDetails.getTicketType().get(0).getName());
+            firstPrice.setText(matchDetails.getTicketType().get(0).getPrice() + " " + matchDetails.getTicketType().get(0).getCurrency());
+        }
 
-        secondText.setText(matchDetails.getTicketType().get(1).getName());
-        secondPrice.setText(matchDetails.getTicketType().get(1).getPrice() +" "+ matchDetails.getTicketType().get(1).getCurrency());
+        if (matchDetails.getTicketType().size() > 1 && matchDetails.getTicketType().get(1) != null) {
+            secondText.setText(matchDetails.getTicketType().get(1).getName());
+            secondPrice.setText(matchDetails.getTicketType().get(1).getPrice() + " " + matchDetails.getTicketType().get(1).getCurrency());
+        }
 
-        thirdText.setText(matchDetails.getTicketType().get(2).getName());
-        thirdPrice.setText(matchDetails.getTicketType().get(2).getPrice()  +" "+ matchDetails.getTicketType().get(2).getCurrency());
+        if (matchDetails.getTicketType().size() > 2 && matchDetails.getTicketType().get(2) != null) {
+            thirdText.setText(matchDetails.getTicketType().get(2).getName());
+            thirdPrice.setText(matchDetails.getTicketType().get(2).getPrice() + " " + matchDetails.getTicketType().get(2).getCurrency());
 
-        fourthText.setText(matchDetails.getTicketType().get(3).getName());
-        fourthPrice.setText(matchDetails.getTicketType().get(3).getPrice()+ " "+ matchDetails.getTicketType().get(3).getCurrency());
+            if (matchDetails.getTicketType().size() > 3 && matchDetails.getTicketType().get(3) != null) {
+                fourthText.setText(matchDetails.getTicketType().get(3).getName());
+                fourthPrice.setText(matchDetails.getTicketType().get(3).getPrice() + " " + matchDetails.getTicketType().get(3).getCurrency());
+            }
+        }
+
+            bookBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MatchDetails.this, StadiumTicketsOptions.class);
+                    intent.putExtra("id", matchId);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 }

@@ -26,7 +26,7 @@ public class ApiSingelton {
 
         Retrofit.Builder builder =
                 new Retrofit.Builder()
-                        .baseUrl("http://iscoapps.com/cinema/api/")
+                        .baseUrl("http://iscoapps.com/myticket_dashboard/cinema_api/api/")
                         .addConverterFactory(
                                 GsonConverterFactory.create()
                         );
