@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.myticket.R;
+import com.example.myticket.View.Fragments.SettingsFragment;
 import com.example.myticket.View.Fragments.StadHomeFragment;
 import com.example.myticket.View.Fragments.StadiumList;
 import com.example.myticket.View.Fragments.fragment_myTickets_stad;
@@ -58,6 +59,11 @@ public class HomeStadBottomNav extends AppCompatActivity {
 
                     return true;
                 case R.id.settings:
+                    tag = "home";
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, new SettingsFragment())
+                            .commit();
+
 
                     return true;
             }
