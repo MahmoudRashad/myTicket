@@ -13,13 +13,6 @@ public class ResultTickets
     @Expose
     private String movieName;
 
-    public String getMovieName() {
-        return movieName;
-    }
-
-    public void setMovieName(String movieName) {
-        this.movieName = movieName;
-    }
 
     @SerializedName("cinema_name")
     @Expose
@@ -52,29 +45,6 @@ public class ResultTickets
     @Expose
     private String filmId;
 
-    public String getCinemaId() {
-        return cinemaId;
-    }
-
-    public void setCinemaId(String cinemaId) {
-        this.cinemaId = cinemaId;
-    }
-
-    public String getFilmId() {
-        return filmId;
-    }
-
-    public void setFilmId(String filmId) {
-        this.filmId = filmId;
-    }
-
-    public String getQrCode() {
-        return qrCode;
-    }
-
-    public void setQrCode(String qrCode) {
-        this.qrCode = qrCode;
-    }
 
     @SerializedName("qr_code")
     @Expose
@@ -142,5 +112,39 @@ public class ResultTickets
 
     public void setCinemaLocation(String cinemaLocation) {
         this.cinemaLocation = cinemaLocation;
+    }
+
+
+    public String getCinemaId() {
+        return cinemaId;
+    }
+
+    public void setCinemaId(String cinemaId) {
+        this.cinemaId = cinemaId;
+    }
+
+    public String getFilmId() {
+        return filmId;
+    }
+
+    public void setFilmId(String filmId) {
+        this.filmId = filmId;
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
+    }
+
+
+    public String getMovieName() {
+        return movieName;
+    }
+
+    public void setMovieName(String movieName) {
+        this.movieName = movieName;
     }
 }

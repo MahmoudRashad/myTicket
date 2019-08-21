@@ -129,6 +129,8 @@
     <string name="your_seats">YOUR SEATS:</string>
     <string name="individual_ticket">Individual Ticket:</string>
     <string name="subtotal">SUBTOTAL</string>
+    <string name="confirm_seats">Confirm Seats</string>
+    <string name="select_chairs">Select Chairs</string>
 
 
     <string-array name="planets_array">

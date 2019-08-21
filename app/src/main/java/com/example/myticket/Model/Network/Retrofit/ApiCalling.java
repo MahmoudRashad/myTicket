@@ -27,6 +27,8 @@ import com.example.myticket.Model.Network.DetailsMovie.DetailsMovie;
 import com.example.myticket.Model.Network.StadiumModel.Match.MainHomeMatches;
 import com.example.myticket.Model.Network.StadiumModel.Match.MainMatchDetails;
 import com.example.myticket.Model.Network.StadiumModel.Match.MainMatches;
+import com.example.myticket.Model.Network.StadiumModel.Reservation.MainChairs;
+import com.example.myticket.Model.Network.StadiumModel.Reservation.ReservationMain;
 import com.example.myticket.Model.Network.StadiumModel.StadiumList.StadiumDetailsByID;
 import com.example.myticket.Model.Network.StadiumModel.StadiumList.StadiumListMain;
 import com.example.myticket.View.Activity.Login;
@@ -1621,6 +1623,85 @@ public class ApiCalling
 
             @Override
             public void onFailure(Call<MainMatches> call, Throwable t) {
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
+
+    }
+
+    public void getStadiumBlocks(String id, String token,final GeneralListener generalListener) {
+        Map<String,String> map = new HashMap<>();
+        map.put("type_id",id);
+        Call<ReservationMain> call = apiInterface.getBlocks("Bearer " + token,map);
+        call.enqueue(new Callback<ReservationMain>() {
+            @Override
+            public void onResponse(Call<ReservationMain> call, Response<ReservationMain> response) {
+                if (response.isSuccessful()) {
+                    Log.e("onResponse", response.raw().toString());
+                    if (response.body().getSuccess()) {
+                        generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                                null, response.body());
+                    }
+                    else {
+                        generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                                response.body().getMessage(), response.body());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ReservationMain> call, Throwable t) {
+                //fail internet connection
+                if (t instanceof IOException)
+                {
+                    Log.e("ApiCheck**" , "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue() ,
+                            t.getMessage() , null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue() ,
+                            t.getMessage() , null);
+                }
+            }
+        });
+
+    }
+
+    public void getChairs(String id,String blockName, String token,final GeneralListener generalListener) {
+        Map<String,String> map = new HashMap<>();
+        map.put("stadium_id",id);
+        map.put("block_name",blockName);
+        Call<MainChairs> call = apiInterface.getChairs(token,map);
+        call.enqueue(new Callback<MainChairs>() {
+            @Override
+            public void onResponse(Call<MainChairs> call, Response<MainChairs> response) {
+                if (response.isSuccessful()) {
+                    Log.e("onResponse", response.raw().toString());
+                    if (response.body().getSuccess()) {
+                        generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                                null, response.body());
+                    }
+                    else {
+                        generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                                response.body().getMessage(), response.body());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MainChairs> call, Throwable t) {
                 //fail internet connection
                 if (t instanceof IOException)
                 {

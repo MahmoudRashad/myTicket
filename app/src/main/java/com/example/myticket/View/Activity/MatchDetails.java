@@ -1,6 +1,7 @@
 package com.example.myticket.View.Activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import com.example.myticket.Model.Network.StadiumModel.Match.MainMatches;
 import com.example.myticket.Model.Network.StadiumModel.Match.TicketType;
 import com.example.myticket.R;
 import com.example.myticket.View.Adapter.MatchesAdapter;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -255,7 +257,7 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
             thirdText.setText(matchDetails.getTicketType().get(2).getName());
             thirdPrice.setText(matchDetails.getTicketType().get(2).getPrice() + " " + matchDetails.getTicketType().get(2).getCurrency());
 
-            if (matchDetails.getTicketType().size() > 3 && matchDetails.getTicketType().get(3) != null) {
+          if (matchDetails.getTicketType().size() > 3 && matchDetails.getTicketType().get(3) != null) {
                 fourthText.setText(matchDetails.getTicketType().get(3).getName());
                 fourthPrice.setText(matchDetails.getTicketType().get(3).getPrice() + " " + matchDetails.getTicketType().get(3).getCurrency());
             }
@@ -265,7 +267,9 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(MatchDetails.this, StadiumTicketsOptions.class);
-                    intent.putExtra("id", matchId);
+                    intent.setAction("tickets");
+                    String ListDumb = new Gson().toJson(matchDetails.getTicketType());
+                    intent.setData(Uri.fromParts("schemeTicket", ListDumb, null));
                     startActivity(intent);
                 }
             });

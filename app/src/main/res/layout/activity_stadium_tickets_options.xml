@@ -102,12 +102,17 @@
             android:clipToPadding="false"
             android:backgroundTint="@color/white">
 
-        <Spinner
+        <Button
             android:id="@+id/spinner_chair"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             style="@style/spinner_style"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/white"
+            android:text="@string/select_chairs"
+            android:textColor="@color/stad_grey_text"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
 
 
             />

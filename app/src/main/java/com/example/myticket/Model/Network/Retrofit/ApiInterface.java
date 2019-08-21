@@ -22,6 +22,8 @@ import com.example.myticket.Model.Network.DetailsMovie.DetailsMovie;
 import com.example.myticket.Model.Network.StadiumModel.Match.MainHomeMatches;
 import com.example.myticket.Model.Network.StadiumModel.Match.MainMatchDetails;
 import com.example.myticket.Model.Network.StadiumModel.Match.MainMatches;
+import com.example.myticket.Model.Network.StadiumModel.Reservation.MainChairs;
+import com.example.myticket.Model.Network.StadiumModel.Reservation.ReservationMain;
 import com.example.myticket.Model.Network.StadiumModel.StadiumList.StadiumDetailsByID;
 import com.example.myticket.Model.Network.StadiumModel.StadiumList.StadiumListMain;
 import com.google.gson.JsonElement;
@@ -189,6 +191,13 @@ public interface ApiInterface {
 
     @POST("match_detail")
     Call<MainMatches> getMatchDetails(@Header("Authorization") String authTtoken,@QueryMap Map<String, String> queryMap);
+
+    @POST("show_blocks")
+    Call<ReservationMain> getBlocks(@Header("Authorization") String authTtoken, @QueryMap Map<String, String> queryMap);
+
+    @POST("show_chair")
+    Call<MainChairs> getChairs(@Header("Authorization") String authTtoken, @QueryMap Map<String, String> queryMap);
+
 
 
 

@@ -24,30 +24,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".View.Activity.StadiumChairs"></activity>
         <activity
             android:name=".View.Activity.HomeStadBottomNav"
-            android:label="@string/title_activity_home_stad_bottom_nav"></activity>
+            android:label="@string/title_activity_home_stad_bottom_nav" />
         <activity android:name=".View.Activity.StadAllSearchResults" />
         <activity android:name=".View.Activity.StadMainSearch" />
         <activity android:name=".View.Activity.VerificationCode" />
         <activity android:name=".View.Activity.MyTicketsStad" />
-
-        <activity android:name=".View.Activity.CinemaMapActivity"
-            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".View.Activity.CinemaMapActivity"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".View.Activity.QrcodePage"
             android:launchMode="singleTop" />
         <activity
             android:name=".View.Activity.SearchResults"
             android:launchMode="singleTop" />
-        <activity android:name=".View.Activity.StadPaymentConfirm"></activity>
+        <activity android:name=".View.Activity.StadPaymentConfirm" />
         <activity android:name=".View.Activity.MyNotifications" />
         <activity android:name=".View.Activity.StadiumTicketsOptions" />
         <activity android:name=".View.Fragments.StadiumList" />
         <activity android:name=".View.Activity.StadiumDetails" />
         <activity android:name=".View.Activity.MatchDetails" />
         <activity android:name=".View.Activity.StadAllResults" />
-
         <activity
             android:name=".View.Activity.EditAccount"
             android:launchMode="singleTop" />
