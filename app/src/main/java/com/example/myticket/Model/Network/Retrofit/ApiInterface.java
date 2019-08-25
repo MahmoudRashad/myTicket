@@ -22,6 +22,8 @@ import com.example.myticket.Model.Network.DetailsMovie.DetailsMovie;
 import com.example.myticket.Model.Network.StadiumModel.Match.MainHomeMatches;
 import com.example.myticket.Model.Network.StadiumModel.Match.MainMatchDetails;
 import com.example.myticket.Model.Network.StadiumModel.Match.MainMatches;
+import com.example.myticket.Model.Network.StadiumModel.MyTicket.MyTicketMain;
+import com.example.myticket.Model.Network.StadiumModel.MyTicket.MyTicketMainDetail;
 import com.example.myticket.Model.Network.StadiumModel.Reservation.MainChairs;
 import com.example.myticket.Model.Network.StadiumModel.Reservation.ReservationMain;
 import com.example.myticket.Model.Network.StadiumModel.StadiumList.StadiumDetailsByID;
@@ -198,13 +200,17 @@ public interface ApiInterface {
     @POST("show_chair")
     Call<MainChairs> getChairs(@Header("Authorization") String authTtoken, @QueryMap Map<String, String> queryMap);
 
+    @POST("club_reservation")
+    Call<GeneralApiesponse> clubReservation(@Header("Authorization") String authTtoken ,@Header("lang") String lang,
+                                       @Body JsonElement jsonObj);
 
+    @GET("myticket_club")
+    Call<MyTicketMain> getMyTicketsStad(@Header("lang") String lang,
+                                          @Header("Authorization") String authorization);
 
-
-
-
-
-
+    @POST("myticket_detial")
+    Call<MyTicketMainDetail> getMyTicketDetail(@Header("lang") String lang,@Header("Authorization") String authTtoken,
+                                               @QueryMap Map<String, String> queryMap);
 
 
 }

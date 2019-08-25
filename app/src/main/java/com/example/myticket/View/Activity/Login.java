@@ -56,6 +56,7 @@ public class Login extends AppCompatActivity implements
     private TextView toolbarTitle;
     private Typeface myfont;
     private Intent intent;
+    private Boolean flag;
 
     ///////////////////////////////////////////////////////////////
 
@@ -68,7 +69,7 @@ public class Login extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
 //        getSupportActionBar().hide();
         intent = getIntent();
-        handleIntent();
+        flag = handleIntent();
 
         apiCalling = new ApiCalling(this);
         myfont = Typeface.createFromAsset(this.getAssets(), "fonts/segoe_ui.ttf");
@@ -220,7 +221,7 @@ public class Login extends AppCompatActivity implements
             sessionManager.setUserToken(responceReg.getAccessToken());
 
 
-            if (handleIntent()) {
+            if (flag) {
                 if (intent.getStringExtra("name").equals("home")) {
                     Intent goBack = new Intent(Login.this, HomeStadBottomNav.class);
                     startActivity(goBack);

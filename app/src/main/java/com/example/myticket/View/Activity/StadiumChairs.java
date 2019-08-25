@@ -1,14 +1,17 @@
 package com.example.myticket.View.Activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.myticket.Model.Data.SessionManager;
+import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.Model.Network.StadiumModel.Reservation.ChairsResult;
@@ -16,6 +19,7 @@ import com.example.myticket.Model.Network.StadiumModel.Reservation.MainChairs;
 import com.example.myticket.Model.Network.StadiumModel.ResultTicketsStad.ResultTicketsStad;
 import com.example.myticket.R;
 import com.example.myticket.View.Adapter.StadiumChairsAdapter;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +32,10 @@ public class StadiumChairs extends AppCompatActivity implements GeneralListener,
     private StadiumChairsAdapter stadiumChairsAdapter;
     private Button confirmBtn;
     private ArrayList<ResultTicketsStad> resultTicketsStads;
+    private String matchId;
+    private String date;
+    private String price;
+    private String currency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +51,10 @@ public class StadiumChairs extends AppCompatActivity implements GeneralListener,
         if (intent.hasExtra("stadId")&&intent.hasExtra("text")) {
             String stadId = intent.getStringExtra("stadId");
             String text = intent.getStringExtra("text");
+            matchId = intent.getStringExtra("matchId");
+            date = intent.getStringExtra("date");
+            price = intent.getStringExtra("price");
+            currency = intent.getStringExtra("currency");
             apiCalling.getChairs(stadId, text, "Bearer " + sessionManager.getUserToken(), this);
         }
 
@@ -54,15 +66,28 @@ public class StadiumChairs extends AppCompatActivity implements GeneralListener,
             MainChairs mainChairs = (MainChairs) tApiResponse;
             List<ChairsResult> chairsResult = mainChairs.getChairsResult();
             //TODO: get match id and date from new api
-            stadiumChairsAdapter = new StadiumChairsAdapter(chairsResult,this,this,"1","2019-07-18");
+            stadiumChairsAdapter = new StadiumChairsAdapter(chairsResult,this,this,matchId,date,price,currency);
             chairsRv.setAdapter(stadiumChairsAdapter);
             confirmBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                    resultTicketsStads.size();
                    //TODO: send this in api
+                    Intent intent = new Intent(StadiumChairs.this,StadiumTicketsOptions.class);
+                    String ListDumb = new Gson().toJson(resultTicketsStads);
+                    intent.setAction("chairs");
+                    intent.setData(Uri.fromParts("schemeTicket", ListDumb, null));
+                    intent.putExtra("chairs",ListDumb);
+                    startActivity(intent);
+                    apiCalling.clubReservation("Bearer " + sessionManager.getUserToken(),sessionManager.getDeviceLanguage(),
+                            resultTicketsStads,StadiumChairs.this::getApiResponse);
                 }
             });
+        }
+        else if (tApiResponse instanceof GeneralApiesponse){
+            GeneralApiesponse generalApiesponse = (GeneralApiesponse) tApiResponse;
+            String msg = generalApiesponse.getMessage();
+            Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
         }
     }
 

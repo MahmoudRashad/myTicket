@@ -161,7 +161,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
                 }
                 else {
                     Intent intent = new Intent(context,Login.class);
-                    intent.putExtra("id",matchDetails.getId());
+                    intent.putExtra("id",matchesList.get(position).getId().toString());
                     intent.putExtra("name","home");
                     intent.putExtra("flag","stad");
                     context.startActivity(intent);
@@ -170,7 +170,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
 
             else{
                 Intent intent = new Intent(context, MatchDetails.class);
-                intent.putExtra("matchId",matchId);
+                intent.putExtra("matchId",matchesList.get(position).getId().toString());
                 context.startActivity(intent);
             }
         }

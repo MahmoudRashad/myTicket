@@ -60,7 +60,7 @@ public class StadHomeFragment extends Fragment implements
         apiCalling.getMatchesSlider(this);
 
 
-        stadHomeViewPagerAdapter = new StadHomeViewPagerAdapter(getActivity().getSupportFragmentManager());
+        stadHomeViewPagerAdapter = new StadHomeViewPagerAdapter(getChildFragmentManager());
 
 
 

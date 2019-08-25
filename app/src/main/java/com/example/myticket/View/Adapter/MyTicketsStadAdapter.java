@@ -1,19 +1,31 @@
 package com.example.myticket.View.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myticket.Model.Network.StadiumModel.MyTicket.Past;
 import com.example.myticket.R;
+import com.example.myticket.View.Activity.StadPaymentConfirm;
+
+import org.w3c.dom.Text;
+
+import java.time.format.TextStyle;
+import java.util.ArrayList;
 
 public class MyTicketsStadAdapter  extends RecyclerView.Adapter<MyTicketsStadAdapter.TicketsViewHolder> {
+    private ArrayList<Past> tickets;
     private Context context;
-    public MyTicketsStadAdapter(Context context) {
+    private String seats;
+    public MyTicketsStadAdapter(ArrayList<Past> tickets, Context context) {
+        this.tickets = tickets;
         this.context = context;
     }
 
@@ -27,18 +39,59 @@ public class MyTicketsStadAdapter  extends RecyclerView.Adapter<MyTicketsStadAda
 
     @Override
     public void onBindViewHolder(@NonNull TicketsViewHolder TicketsViewHolder, int i) {
+        Past ticket = tickets.get(i);
+        TicketsViewHolder.teamOne.setText(ticket.getTeam1Name());
+        TicketsViewHolder.teamTwo.setText(ticket.getTeam2Name());
+        TicketsViewHolder.time.setText(ticket.getTime());
+        TicketsViewHolder.date.setText(ticket.getDate());
+        TicketsViewHolder.stadiumName.setText(ticket.getStadiumName());
+        for (int j = 0 ; j< ticket.getSeats().size() ; j++){
+            if (j == 0)
+                seats = ticket.getSeats().get(j).getSeatNum();
+            else if (j != ticket.getSeats().size()-1){
+                seats = seats + " ," + ticket.getSeats().get(j).getSeatNum()+", ";
+            }
+            else{
+                seats = seats + " ," + ticket.getSeats().get(j).getSeatNum();
+            }
+        }
+        TicketsViewHolder.seats.setText(seats);
+        TicketsViewHolder.details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, StadPaymentConfirm.class);
+                intent.putExtra("matchId",ticket.getMatchId());
+                context.startActivity(intent);
+            }
+        });
 
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return tickets.size();
     }
 
     public class TicketsViewHolder extends RecyclerView.ViewHolder {
+        private ImageView fieldImage;
+        private TextView teamOne;
+        private TextView teamTwo;
+        private TextView stadiumName;
+        private TextView seats;
+        private TextView time;
+        private TextView date;
+        private Button details;
 
         public TicketsViewHolder(@NonNull View itemView) {
             super(itemView);
+            fieldImage = itemView.findViewById(R.id.field_img);
+            teamOne = itemView.findViewById(R.id.team_one_event);
+            teamTwo = itemView.findViewById(R.id.team_two_event);
+            stadiumName = itemView.findViewById(R.id.stadium_name_event);
+            seats = itemView.findViewById(R.id.seats_value);
+            time = itemView.findViewById(R.id.time);
+            date = itemView.findViewById(R.id.date);
+            details = itemView.findViewById(R.id.details_btn_event);
 
         }
     }

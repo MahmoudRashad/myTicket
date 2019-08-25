@@ -266,11 +266,22 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
             bookBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MatchDetails.this, StadiumTicketsOptions.class);
-                    intent.setAction("tickets");
-                    String ListDumb = new Gson().toJson(matchDetails.getTicketType());
-                    intent.setData(Uri.fromParts("schemeTicket", ListDumb, null));
-                    startActivity(intent);
+                    if (!sessionManager.handleLogin().equals("")) {
+                        Intent intent = new Intent(MatchDetails.this, StadiumTicketsOptions.class);
+                        intent.setAction("tickets");
+                        intent.putExtra("date",matchDetails.getDate());
+                        intent.putExtra("matchId",matchId);
+                        String ListDumb = new Gson().toJson(matchDetails.getTicketType());
+                        intent.setData(Uri.fromParts("schemeTicket", ListDumb, null));
+                        startActivity(intent);
+                    }
+                    else {
+                        Intent intent = new Intent(MatchDetails.this,Login.class);
+                        //TODO: send this place with the login
+                        intent.putExtra("name","home");
+                        intent.putExtra("flag","flag");
+                        startActivity(intent);
+                    }
                 }
             });
         }

@@ -113,5 +113,6 @@
     <string name="subtotal">SUBTOTAL</string>
     <string name="confirm_seats">Confirm Seats</string>
     <string name="select_chairs">Select Chairs</string>
+    <string name="my_ticket">My Ticket</string>
 
 </resources>

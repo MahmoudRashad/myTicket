@@ -21,14 +21,20 @@ public class StadiumChairsAdapter extends  RecyclerView.Adapter<StadiumChairsAda
     private saveChairs saveChairs;
     private String matchId;
     private String date;
+    private String price;
+    private String currency;
     private ArrayList<ResultTicketsStad> resultTicketsStad;
 
-    public StadiumChairsAdapter(List<ChairsResult> chairsResults, Context context, saveChairs saveChairs,String matchId,String date) {
+
+    public StadiumChairsAdapter(List<ChairsResult> chairsResults, Context context,
+                                StadiumChairsAdapter.saveChairs saveChairs, String matchId, String date, String price, String currency) {
         this.chairsResults = chairsResults;
         this.context = context;
         this.saveChairs = saveChairs;
         this.matchId = matchId;
         this.date = date;
+        this.price = price;
+        this.currency = currency;
     }
 
     @NonNull
@@ -58,7 +64,7 @@ public class StadiumChairsAdapter extends  RecyclerView.Adapter<StadiumChairsAda
             public void onClick(View v) {
                 boolean checked = chairViewHolder.checkedTextView.isChecked();
                 ResultTicketsStad resultTicketsStad = new ResultTicketsStad(matchId,date,chairsResult.getChairNum(),
-                        chairsResult.getId().toString(),"33");
+                        chairsResult.getId().toString(),"33",price,currency);
                 // Check which checkbox was clicked
                 saveChairs.saveChairs(checked,resultTicketsStad);
 

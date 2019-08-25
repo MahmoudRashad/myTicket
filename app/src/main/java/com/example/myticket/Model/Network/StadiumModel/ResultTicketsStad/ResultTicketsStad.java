@@ -23,12 +23,22 @@ public class ResultTicketsStad {
     @Expose
     private String qrCode;
 
-    public ResultTicketsStad(String id, String date, String chairNum, String seatId, String qrCode) {
+    @SerializedName("price")
+    @Expose
+    private String price;
+
+    @SerializedName("currency")
+    @Expose
+    private String currency;
+
+    public ResultTicketsStad(String id, String date, String chairNum, String seatId, String qrCode, String price, String currency) {
         this.id = id;
         this.date = date;
         this.chairNum = chairNum;
         this.seatId = seatId;
         this.qrCode = qrCode;
+        this.price = price;
+        this.currency = currency;
     }
 
     public String getId() {
@@ -69,5 +79,21 @@ public class ResultTicketsStad {
 
     public void setQrCode(String qrCode) {
         this.qrCode = qrCode;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

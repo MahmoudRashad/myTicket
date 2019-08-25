@@ -1,7 +1,6 @@
 package com.example.myticket.View.Activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
@@ -18,7 +17,7 @@ import com.example.myticket.R;
 import com.example.myticket.View.Fragments.SettingsFragment;
 import com.example.myticket.View.Fragments.StadHomeFragment;
 import com.example.myticket.View.Fragments.StadiumList;
-import com.example.myticket.View.Fragments.fragment_myTickets_stad;
+import com.example.myticket.View.Fragments.FragmentMyTicketsStad;
 
 public class HomeStadBottomNav extends AppCompatActivity {
 
@@ -54,7 +53,7 @@ public class HomeStadBottomNav extends AppCompatActivity {
                 case R.id.my_tickets:
                     tag = "home";
                     getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.fragment_container, new fragment_myTickets_stad())
+                            .replace(R.id.fragment_container, new FragmentMyTicketsStad())
                             .commit();
 
                     return true;

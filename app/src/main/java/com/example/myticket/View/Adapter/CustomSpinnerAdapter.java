@@ -57,10 +57,6 @@ public class CustomSpinnerAdapter extends BaseAdapter
         title.setTypeface(myfont);
         title.setText(selectors.get(i).getName());
 
-//        Typeface typeLight= Typeface.createFromAsset(context.getAssets(),"montserrat_alternates_light.otf");
-//
-//        title.setTypeface(typeLight);
-
         return view;
     }
 

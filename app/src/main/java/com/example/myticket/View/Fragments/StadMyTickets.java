@@ -1,7 +1,5 @@
 package com.example.myticket.View.Fragments;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,12 +8,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.myticket.Model.Network.StadiumModel.MyTicket.Past;
 import com.example.myticket.R;
 import com.example.myticket.View.Adapter.MyTicketsStadAdapter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class StadMyTickets extends Fragment {
     private RecyclerView ticketsRV;
     private MyTicketsStadAdapter myTicketsStadAdapter;
+    private String dumb;
+    private ArrayList<Past> list;
 
     public StadMyTickets() {
 
@@ -32,10 +38,22 @@ public class StadMyTickets extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_stad_my_tickets, container, false);
         ticketsRV = view.findViewById(R.id.my_tickets_rv);
-        myTicketsStadAdapter = new MyTicketsStadAdapter(getContext());
         ticketsRV.setLayoutManager(new LinearLayoutManager(getActivity()));
-        ticketsRV.setAdapter(myTicketsStadAdapter);
+
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (this.getArguments() != null) {
+            dumb = this.getArguments().getString("list");
+            GsonBuilder gsonBuilder = new GsonBuilder();
+            Gson gson = gsonBuilder.create();
+            Past[] results = gson.fromJson(dumb,Past[].class);
+            list = new ArrayList<>(Arrays.asList(results));
+            myTicketsStadAdapter = new MyTicketsStadAdapter(list, getContext());
+            ticketsRV.setAdapter(myTicketsStadAdapter);
+        }
+    }
 }

@@ -31,7 +31,6 @@
         <activity android:name=".View.Activity.StadAllSearchResults" />
         <activity android:name=".View.Activity.StadMainSearch" />
         <activity android:name=".View.Activity.VerificationCode" />
-        <activity android:name=".View.Activity.MyTicketsStad" />
         <activity
             android:name=".View.Activity.CinemaMapActivity"
             android:screenOrientation="landscape" />

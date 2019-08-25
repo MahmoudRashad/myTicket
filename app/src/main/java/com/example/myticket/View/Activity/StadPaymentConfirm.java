@@ -12,26 +12,47 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.myticket.Model.Data.SessionManager;
+import com.example.myticket.Model.Network.Retrofit.ApiCalling;
+import com.example.myticket.Model.Network.Retrofit.GeneralListener;
+import com.example.myticket.Model.Network.StadiumModel.MyTicket.MyTicketDetailResult;
+import com.example.myticket.Model.Network.StadiumModel.MyTicket.MyTicketMainDetail;
+import com.example.myticket.Model.Network.StadiumModel.MyTicket.Past;
 import com.example.myticket.R;
 import com.example.myticket.View.Adapter.TicketsConfirmAdapter;
 
-public class StadPaymentConfirm extends AppCompatActivity {
+import java.util.List;
+
+public class StadPaymentConfirm extends AppCompatActivity implements GeneralListener {
 
     private RecyclerView ticketsRV;
     private TicketsConfirmAdapter ticketsConfirmAdapter;
     private ImageView backBtn;
     private ImageView searchIcon;
     private TextView toolbarTitle;
+    private Past ticket;
+    private String matchId;
+    private ApiCalling apiCalling;
+    private SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         changeStatusBarColor();
         setContentView(R.layout.activity_stad_payment_confirm);
-        ticketsConfirmAdapter = new TicketsConfirmAdapter(this);
-        ticketsRV = findViewById(R.id.confirm_tickets_rv);
-        ticketsRV.setLayoutManager(new LinearLayoutManager(this));
-        ticketsRV.setAdapter(ticketsConfirmAdapter);
         setToolbar();
+
+        apiCalling = new ApiCalling(this);
+        sessionManager = new SessionManager(this);
+        Intent intent = getIntent();
+        if (intent.hasExtra("matchId")) {
+            matchId = intent.getStringExtra("matchId");
+
+            ticketsRV = findViewById(R.id.confirm_tickets_rv);
+            ticketsRV.setLayoutManager(new LinearLayoutManager(this));
+            apiCalling.getMyTicketDetailStad(matchId,sessionManager.handleLogin(),sessionManager.getDeviceLanguage(),this);
+
+        }
+
     }
     private void changeStatusBarColor(){
         if (Build.VERSION.SDK_INT >= 21) {
@@ -67,5 +88,16 @@ public class StadPaymentConfirm extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void getApiResponse(int status, String message, Object tApiResponse) {
+        if (tApiResponse instanceof MyTicketMainDetail){
+            MyTicketMainDetail myTicketMainDetail = (MyTicketMainDetail) tApiResponse;
+            List<MyTicketDetailResult> myTicketDetailResult = myTicketMainDetail.getMyTicketDetailResult();
+            ticketsConfirmAdapter = new TicketsConfirmAdapter(this,myTicketDetailResult);
+            ticketsRV.setAdapter(ticketsConfirmAdapter);
+
+        }
     }
 }
