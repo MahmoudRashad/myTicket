@@ -53,8 +53,13 @@ public class ChangePasswordActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        setContentView(R.layout.activity_change_password);
+        Intent intent = getIntent();
+        if (intent.hasExtra("flag")){
+            setContentView(R.layout.activity_change_password_stad);
+        }
+        else{
+            setContentView(R.layout.activity_change_password);
+        }
 
         layout = findViewById(R.id.container);
         myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
@@ -109,13 +114,14 @@ public class ChangePasswordActivity extends AppCompatActivity
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 
-        searchIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ChangePasswordActivity.this,SearchPage.class);
-                startActivity(intent);
-            }
-        });
+        searchIcon.setVisibility(View.GONE);
+//        searchIcon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(ChangePasswordActivity.this,SearchPage.class);
+//                startActivity(intent);
+//            }
+//        });
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

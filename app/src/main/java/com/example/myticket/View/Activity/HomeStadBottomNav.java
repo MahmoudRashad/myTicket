@@ -1,15 +1,20 @@
 package com.example.myticket.View.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,6 +31,7 @@ public class HomeStadBottomNav extends AppCompatActivity {
     private TextView toolbarTitle;
     private ImageView logo;
     private String tag;
+    private BottomNavigationView navView;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -76,18 +82,21 @@ public class HomeStadBottomNav extends AppCompatActivity {
         changeStatusBarColor();
         setContentView(R.layout.activity_home_stad_bottom_nav);
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navView = findViewById(R.id.nav_view);
 
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, new StadHomeFragment())
-                .commit();
         tag = "home";
 
         setToolbar();
 
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        start();
+    }
+
     private void changeStatusBarColor(){
         if (Build.VERSION.SDK_INT >= 21) {
             Window window = getWindow();
@@ -125,5 +134,43 @@ public class HomeStadBottomNav extends AppCompatActivity {
             }
         });
     }
+
+    private void start() {
+        navView.setSelectedItemId(R.id.navigation_home);
+        if (checkInternetConnection()){
+            navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, new StadHomeFragment())
+                    .commit();
+        }
+    }
+
+    private boolean checkInternetConnection () {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(getResources().getString(R.string.dialog_message))
+                    .setTitle(getResources().getString(R.string.dialog_title));
+            builder.setCancelable(false);
+            builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    start();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            Button b = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+
+            if (b != null) {
+                b.setTextColor(getResources().getColor(R.color.white));
+            }
+        }
+        return false;
+    }
+
+
 
 }

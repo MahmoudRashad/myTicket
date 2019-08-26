@@ -1,5 +1,6 @@
 package com.example.myticket.View.Activity;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,12 +33,19 @@ public class ForgetPassword extends AppCompatActivity implements
     private ImageView searchIcon;
     private TextView toolbarTitle;
     private Typeface myfont;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getSupportActionBar().hide();
+        intent = getIntent();
+        if (intent.hasExtra("flag"))
+            setContentView(R.layout.activity_forget_password_stad);
+        else
         setContentView(R.layout.activity_forget_password);
+
+
         myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
 
 

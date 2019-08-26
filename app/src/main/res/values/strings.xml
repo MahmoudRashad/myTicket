@@ -85,7 +85,7 @@
     <string name="search_results">Search Results</string>
     <string name="seat_number">Seat Number</string>
     <string name="search">Search</string>
-    <string name="backtogate">back to gate</string>
+    <string name="backtogatee">Back to gate</string>
     <string name="logout">logout</string>
     <string name="upcomming">Upcoming</string>
     <string name="past">Past</string>
@@ -133,13 +133,9 @@
     <string name="select_chairs">Select Chairs</string>
     <string name="my_ticket">My Ticket</string>
 
-
-    <string-array name="planets_array">
-        <item>مقاعد لكبار الشخصيات</item>
-        <item>مقاعد الاعلاميين</item>
-        <item>مقاعد العامه</item>
-
-    </string-array>
+    <string name="dialog_title">You are Offline</string>
+    <string name="dialog_message">Oops! There is no Internet connection, Please check your connection and try again.</string>
+    <string name="retry">Retry</string>
 
 
 </resources>

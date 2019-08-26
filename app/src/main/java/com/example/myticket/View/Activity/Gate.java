@@ -1,8 +1,12 @@
 package com.example.myticket.View.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,21 +37,31 @@ public class Gate extends AppCompatActivity {
         layout = findViewById(R.id.cinema_gate);
         layoutStadium = findViewById(R.id.stadium_gate);
         setToolbar();
-        layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Gate.this, HomeCinema.class);
-                startActivity(intent);
-            }
-        });
-        layoutStadium.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Gate.this, HomeStadBottomNav.class);
-                startActivity(intent);
-            }
-        });
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        start();
+    }
+
+    private void start(){
+        if (checkInternetConnection()) {
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Gate.this, HomeCinema.class);
+                    startActivity(intent);
+                }
+            });
+            layoutStadium.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(Gate.this, HomeStadBottomNav.class);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     private void setToolbar() {
@@ -65,4 +79,31 @@ public class Gate extends AppCompatActivity {
             }
         });
     }
+
+    private boolean checkInternetConnection () {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(getResources().getString(R.string.dialog_message))
+                    .setTitle(getResources().getString(R.string.dialog_title));
+            builder.setCancelable(false);
+            builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    start();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            Button b = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+
+            if (b != null) {
+                b.setTextColor(getResources().getColor(R.color.white));
+            }
+        }
+        return false;
+    }
+
 }

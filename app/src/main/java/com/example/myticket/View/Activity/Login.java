@@ -118,6 +118,8 @@ public class Login extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Login.this, Register.class);
+                if (flag)
+                intent.putExtra("flag","stad");
                 startActivity(intent);
             }
         });
@@ -127,6 +129,8 @@ public class Login extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Login.this, ForgetPassword.class);
+                if (flag)
+                    intent.putExtra("flag","stad");
                 startActivity(intent);
             }
         });

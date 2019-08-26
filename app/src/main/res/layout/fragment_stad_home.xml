@@ -20,16 +20,41 @@
         android:id="@+id/toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_scrollFlags="scroll|exitUntilCollapsed"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-       >
+        <ProgressBar
+            android:id="@+id/slider_stad_pb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/white"/>
+
     <android.support.v4.view.ViewPager
     android:id="@+id/stadium_home_banner"
     android:layout_width="match_parent"
     android:layout_height="248dp"
-
-
     />
+        <TextView
+            android:id="@+id/no_matches_now"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No matches are being played now"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_gravity="center"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/slider_retry_btn"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:background="@drawable/green_rect_bk"
+            android:backgroundTint="@color/white"
+            android:text="@string/retry"
+            android:textColor="@color/stad_grey_text"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            />
 
 
     </android.support.design.widget.CollapsingToolbarLayout>
@@ -59,6 +84,8 @@
                 app:tabMode="fixed"
                 app:tabRippleColor="@color/white"
                 app:tabSelectedTextColor="@color/white" />
+
+
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/viewpager_stad"

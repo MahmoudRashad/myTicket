@@ -84,7 +84,7 @@
     <string name="search_results">نتائج البحث</string>
     <string name="seat_number">رقم المقعد</string>
     <string name="search">بحث</string>
-    <string name="backtogate">الرجوع للبوابة</string>
+    <string name="backtogatee">الرجوع للبوابة</string>
     <string name="logout">تسجيل الخروج</string>
     <string name="upcomming">القادم</string>
     <string name="past">السابق</string>
@@ -114,5 +114,8 @@
     <string name="confirm_seats">Confirm Seats</string>
     <string name="select_chairs">Select Chairs</string>
     <string name="my_ticket">My Ticket</string>
+    <string name="dialog_title">You are Offline</string>
+    <string name="dialog_message">Oops! There is no Internet connection, Please check your connection and try again.</string>
+    <string name="retry">Retry</string>
 
 </resources>

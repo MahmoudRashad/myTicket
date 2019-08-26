@@ -12,6 +12,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,6 +63,9 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
     private String matchId;
     private ApiCalling apiCalling;
     private SessionManager sessionManager;
+
+    private ProgressBar progressBar;
+    private Button retry;
 
 
     @Override
@@ -135,13 +139,13 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
     }
 
     private void setListeners() {
-        stadiumName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MatchDetails.this, StadiumDetails.class);
-                startActivity(intent);
-            }
-        });
+//        stadiumName.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MatchDetails.this, StadiumDetails.class);
+//                startActivity(intent);
+//            }
+//        });
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -184,10 +188,14 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
         closeBtn = findViewById(R.id.close_notifictaion);
         toolbar = findViewById(R.id.top_match_details);
 
+        progressBar = findViewById(R.id.slider_stad_pb);
+        retry = findViewById(R.id.retry_btn_match_details);
+
     }
 
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
+        progressBar.setVisibility(View.GONE);
         if (tApiResponse instanceof MainMatches) {
             MainMatches mainMatches = (MainMatches) tApiResponse;
             List<com.example.myticket.Model.Network.StadiumModel.Match.MatchDetails> matchDetails = mainMatches.getResult();
@@ -196,7 +204,7 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
             setDetails(matchDetails.get(0));
         }
 
-        if (tApiResponse instanceof BaseNoResult) {
+        else if (tApiResponse instanceof BaseNoResult) {
             BaseNoResult baseNoResult = (BaseNoResult) tApiResponse;
             String msg = baseNoResult.getMessage();
             if (msg.contains("إلغاء") || msg.contains("unFollow")) {
@@ -214,6 +222,21 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
 
             }
 
+        }
+
+        else// if (message.contains("connection abort")|| message.contains("Failed to connect"))
+        {
+            Toast.makeText(this,"Check your internet connection", Toast.LENGTH_SHORT).show();
+            retry.setVisibility(View.VISIBLE);
+            retry.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MatchDetails.this, HomeStadBottomNav.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+            });
         }
     }
 

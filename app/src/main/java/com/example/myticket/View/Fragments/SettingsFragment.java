@@ -27,8 +27,9 @@ public class SettingsFragment extends Fragment {
     private TextView profileTv;
     private TextView changePasswordTv;
     private TextView backGate;
-    private Button logout;
+    private TextView logout;
     private SessionManager sessionManager;
+    String token;
 
 
     public SettingsFragment() {
@@ -46,53 +47,86 @@ public class SettingsFragment extends Fragment {
         profileTv = view.findViewById(R.id.textView6);
         changePasswordTv = view.findViewById(R.id.textView11);
         backGate = view.findViewById(R.id.textView29);
-        logout = view.findViewById(R.id.button7);
-        profileTv.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), EditAccountStad.class);
-                startActivity(intent);
-            }
-        });
-        changePasswordTv.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ChangePasswordActivity.class);
-                startActivity(intent);
-            }
-        });
-        backGate.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), Gate.class);
-                startActivity(intent);
-            }
-        });
-        logout.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                if(sessionManager.getUserToken() == null ||
-                        sessionManager.getUserToken() == "")
-                {
+        logout = view.findViewById(R.id.text_login);
+        token = sessionManager.handleLogin();
+        if (!token.equals("")) {
+            logout.setText(getString(R.string.logout));
+            profileTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), EditAccountStad.class);
+                    startActivity(intent);
+                }
+            });
+            changePasswordTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), ChangePasswordActivity.class);
+                    intent.putExtra("flag","stad");
+                    startActivity(intent);
+                }
+            });
 
+            logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (sessionManager.getUserToken() == null ||
+                            sessionManager.getUserToken() == "") {
+
+                        Intent intent = new Intent(getContext(), Login.class);
+                        intent.putExtra("flag", "stad");
+                        intent.putExtra("name","home");
+                        startActivity(intent);
+                    } else {
+                        sessionManager.clearSessionManager();
+                        Intent intent = new Intent(getContext(), Login.class);
+                        intent.putExtra("flag", "stad");
+                        intent.putExtra("name","home");
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                    }
+
+                }
+            });
+        }
+        else {
+
+            profileTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     Intent intent = new Intent(getContext(), Login.class);
+                    intent.putExtra("flag", "stad");
+                    intent.putExtra("name","home");
                     startActivity(intent);
                 }
-                else
-                {
-                    sessionManager.clearSessionManager();
-                    Intent intent = new Intent(getContext(),Login.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            });
+            changePasswordTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), Login.class);
+                    intent.putExtra("flag", "stad");
+                    intent.putExtra("name","home");
                     startActivity(intent);
                 }
-
-            }
-        });
+            });
+            logout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), Login.class);
+                    intent.putExtra("flag", "stad");
+                    intent.putExtra("name","home");
+                    startActivity(intent);
+                }
+            });
+        }
+            backGate.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), Gate.class);
+                    startActivity(intent);
+                }
+            });
 
         return view;
     }

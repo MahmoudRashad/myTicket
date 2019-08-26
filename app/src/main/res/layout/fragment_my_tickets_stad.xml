@@ -19,6 +19,34 @@
         app:tabRippleColor="@color/white"
         app:tabMode="fixed" />
 
+    <ProgressBar
+        android:id="@+id/slider_stad_pb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="24dp"
+        android:indeterminateTint="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+        android:id="@+id/stad_list_retry_btn"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:background="@drawable/green_rect_bk"
+        android:backgroundTint="@color/white"
+        android:text="@string/retry"
+        android:textColor="@color/stad_grey_text"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/stad_tickets_viewpager"
         android:layout_width="match_parent"
@@ -28,6 +56,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="2dp"
         android:elevation="12dp"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sliding_tabs" />
 

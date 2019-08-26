@@ -10,6 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
@@ -18,6 +21,7 @@ import com.example.myticket.Model.Network.StadiumModel.MyTicket.MyTicketMain;
 import com.example.myticket.Model.Network.StadiumModel.MyTicket.MyTicketsResult;
 import com.example.myticket.Model.Network.StadiumModel.MyTicket.Past;
 import com.example.myticket.R;
+import com.example.myticket.View.Activity.HomeStadBottomNav;
 import com.example.myticket.View.Activity.Login;
 import com.example.myticket.View.Adapter.StadMyTicketsViewPagerAdapter;
 
@@ -29,6 +33,8 @@ import java.util.List;
 public class FragmentMyTicketsStad extends Fragment implements GeneralListener {
     private TabLayout ticketsTab;
     private ViewPager ticketsViewPager;
+    private Button retry;
+    private ProgressBar progressBar;
     private StadMyTicketsViewPagerAdapter viewPagerAdapter;
     private ApiCalling apiCalling;
     private SessionManager sessionManager;
@@ -52,6 +58,8 @@ public class FragmentMyTicketsStad extends Fragment implements GeneralListener {
         View view = inflater.inflate(R.layout.fragment_my_tickets_stad, container, false);
         ticketsTab = view.findViewById(R.id.sliding_tabs);
         ticketsViewPager = view.findViewById(R.id.stad_tickets_viewpager);
+        retry = view.findViewById(R.id.stad_list_retry_btn);
+        progressBar = view.findViewById(R.id.slider_stad_pb);
         viewPagerAdapter = new StadMyTicketsViewPagerAdapter(getChildFragmentManager());
         return view;
     }
@@ -73,12 +81,28 @@ public class FragmentMyTicketsStad extends Fragment implements GeneralListener {
 
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
+        progressBar.setVisibility(View.GONE);
         if (tApiResponse instanceof MyTicketMain){
+            ticketsViewPager.setVisibility(View.VISIBLE);
             MyTicketMain myTicketMain = (MyTicketMain) tApiResponse;
             MyTicketsResult myTicketsResult = myTicketMain.getMyTicketsResult();
             List<Past> pastTickets = myTicketsResult.getPast();
             List<Past> upcomingTickets = myTicketsResult.getComing();
             setData(pastTickets,upcomingTickets);
+        }
+        else// if (message.contains("connection abort")|| message.contains("Failed to connect"))
+        {
+            Toast.makeText(getContext(),"Check your internet connection", Toast.LENGTH_SHORT).show();
+            retry.setVisibility(View.VISIBLE);
+            retry.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), HomeStadBottomNav.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+            });
         }
     }
 

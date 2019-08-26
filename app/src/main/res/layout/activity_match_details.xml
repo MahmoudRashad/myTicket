@@ -80,8 +80,7 @@
                 android:id="@+id/team_one_image_card_view"
                 android:layout_width="62dp"
                 android:layout_height="62dp"
-                android:src="@drawable/ic_search_24px"
-                android:background="@color/black"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detail_btola_name"
                 android:layout_marginTop="24dp"
@@ -117,12 +116,41 @@
                 android:id="@+id/team_two_image_card_view"
                 android:layout_width="62dp"
                 android:layout_height="62dp"
-                android:src="@drawable/ic_search_24px"
-                android:background="@color/black"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detail_btola_name"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="38dp"/>
+
+
+            <ProgressBar
+                android:id="@+id/slider_stad_pb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/green_tab"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <Button
+                android:id="@+id/retry_btn_match_details"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:background="@drawable/green_rect_bk"
+                android:backgroundTint="@color/green_tab"
+                android:text="@string/retry"
+                android:visibility="gone"
+                android:textColor="@color/stad_grey_text"
+                android:layout_gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+
+
 
             <TextView
                 android:id="@+id/team_two_name"

@@ -77,7 +77,7 @@
 
     <TextView
         android:id="@+id/team_one_name"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/team_one_image"
         android:layout_marginTop="16dp"
@@ -86,6 +86,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/text_vs"
         android:textStyle="bold"
+        android:textAlignment="center"
         android:text="Team One"/>
 
     <!--<TextView-->
@@ -112,7 +113,7 @@
 
     <TextView
         android:id="@+id/team_two_name"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/team_one_image"
         android:layout_marginTop="16dp"
@@ -121,6 +122,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/text_vs"
+        android:textAlignment="center"
         android:text="Team Two"/>
 
     <!--<TextView-->

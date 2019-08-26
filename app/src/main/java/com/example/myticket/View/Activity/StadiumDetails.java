@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
@@ -30,6 +33,11 @@ public class StadiumDetails extends AppCompatActivity implements GeneralListener
     private TextView toolbarTitle;
     private ImageView backBtn;
     private ImageView searchIcon;
+
+    private ProgressBar progressBar;
+    private Button retry;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +54,8 @@ public class StadiumDetails extends AppCompatActivity implements GeneralListener
         stadName = findViewById(R.id.details_stadium_name);
         stadAddress = findViewById(R.id.stadium_address_text);
         stadDescription = findViewById(R.id.description_text);
+        progressBar = findViewById(R.id.slider_stad_pb);
+        retry = findViewById(R.id.retry_btn_match_details);
 
 
     }
@@ -85,11 +95,26 @@ public class StadiumDetails extends AppCompatActivity implements GeneralListener
 
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
+        progressBar.setVisibility(View.GONE);
         if (tApiResponse instanceof StadiumDetailsByID){
             StadiumDetailsByID stadiumDetailsByID = (StadiumDetailsByID) tApiResponse;
             stadDetails = stadiumDetailsByID.getResult();
             setStadDetails(stadDetails);
             setToolbar(stadDetails);
+        }
+        else// if (message.contains("connection abort")|| message.contains("Failed to connect"))
+        {
+            Toast.makeText(this,"Check your internet connection", Toast.LENGTH_SHORT).show();
+            retry.setVisibility(View.VISIBLE);
+            retry.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(StadiumDetails.this, HomeStadBottomNav.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+            });
         }
     }
 

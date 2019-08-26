@@ -8,16 +8,23 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.Model.Network.StadiumModel.Match.MainMatches;
 import com.example.myticket.Model.Network.StadiumModel.Match.MatchDetails;
 import com.example.myticket.R;
+import com.example.myticket.View.Activity.HomeStadBottomNav;
 import com.example.myticket.View.Activity.StadAllResults;
 import com.example.myticket.View.Activity.StadMainSearch;
 import com.example.myticket.View.Adapter.StadHomeViewPagerAdapter;
 import com.example.myticket.View.Adapter.StadiumSliderAdapter;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -35,6 +42,10 @@ public class StadHomeFragment extends Fragment implements
     private Timer timer;
     private ArrayList<MatchDetails> listSlide;
     private ApiCalling apiCalling;
+    private ProgressBar progressBar;
+    private Button retry;
+    private TextView matches_now;
+
     public StadHomeFragment() {
         // Required empty public constructor
     }
@@ -55,42 +66,17 @@ public class StadHomeFragment extends Fragment implements
         weeksTabLayout = view.findViewById(R.id.stadium_tabs);
         weeksViewPager = view.findViewById(R.id.viewpager_stad);
         sliderPager = view.findViewById(R.id.stadium_home_banner);
+        progressBar = view.findViewById(R.id.slider_stad_pb);
+        matches_now = view.findViewById(R.id.no_matches_now);
+        retry = view.findViewById(R.id.slider_retry_btn);
 
         apiCalling = new ApiCalling(getContext());
         apiCalling.getMatchesSlider(this);
 
-
         stadHomeViewPagerAdapter = new StadHomeViewPagerAdapter(getChildFragmentManager());
-
-
 
         weeksViewPager.setAdapter(stadHomeViewPagerAdapter);
         weeksTabLayout.setupWithViewPager(weeksViewPager);
-
-//        weeksTabLayout.addOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                if (tab.getText() != null && tab.getText().equals("Week")){
-//                    Intent intent = new Intent(getContext(), StadAllResults.class);
-//                    intent.putExtra("Week","Week");
-//                    startActivity(intent);
-//                }
-//                else if (tab.getText() != null && tab.getText().equals("Next Week")) {
-//                    Intent intent = new Intent(getContext(), StadMainSearch.class);
-//                    startActivity(intent);
-//                }
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
-//
-//            }
-//        });
 
         stadHomeViewPagerAdapter.addFragment(new matchesFragment(),"Today",1);
         stadHomeViewPagerAdapter.addFragment(new matchesFragment(),"Week",2);
@@ -102,13 +88,33 @@ public class StadHomeFragment extends Fragment implements
 
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
+        progressBar.setVisibility(View.GONE);
         if (tApiResponse instanceof MainMatches) {
             MainMatches sliderResponce = (MainMatches) tApiResponse;
             listSlide = (ArrayList<MatchDetails>) sliderResponce.getResult();
-            stadiumSliderAdapter = new StadiumSliderAdapter(getContext(),listSlide);
-            sliderPager.setAdapter(stadiumSliderAdapter);
-            timer = new Timer();
-            timer.scheduleAtFixedRate(new StadHomeFragment.SliderTimer(), 3000, 4000);
+            if (listSlide.size() > 0) {
+                stadiumSliderAdapter = new StadiumSliderAdapter(getContext(), listSlide);
+                sliderPager.setAdapter(stadiumSliderAdapter);
+                timer = new Timer();
+                timer.scheduleAtFixedRate(new StadHomeFragment.SliderTimer(), 3000, 4000);
+            }
+            else{
+                matches_now.setVisibility(View.VISIBLE);
+            }
+        }
+      else// if (message.contains("connection abort")|| message.contains("Failed to connect"))
+            {
+            Toast.makeText(getContext(),"Check your internet connection", Toast.LENGTH_SHORT).show();
+            retry.setVisibility(View.VISIBLE);
+            retry.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), HomeStadBottomNav.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+            });
         }
     }
 
@@ -120,12 +126,12 @@ public class StadHomeFragment extends Fragment implements
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-//                        if (listSlide != null) {
-//                            if (sliderPager.getCurrentItem() < listSlide.size() - 1)
-//                                sliderPager.setCurrentItem(sliderPager.getCurrentItem() + 1);
-//                            else
-//                                sliderPager.setCurrentItem(0);
-//                        }
+                        if (listSlide != null) {
+                            if (sliderPager.getCurrentItem() < listSlide.size() - 1)
+                                sliderPager.setCurrentItem(sliderPager.getCurrentItem() + 1);
+                            else
+                                sliderPager.setCurrentItem(0);
+                        }
                     }
                 });
             }

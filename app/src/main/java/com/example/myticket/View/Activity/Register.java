@@ -76,6 +76,8 @@ public class Register extends AppCompatActivity implements
 
     SessionManager sessionManager ;
     private Typeface myfont;
+    private Intent intent;
+    private Boolean flag;
 
     private UserRegister userRegister;
     ApiCalling apiCalling;
@@ -84,7 +86,10 @@ public class Register extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getSupportActionBar().hide();
-        setContentView(R.layout.activity_register);
+        intent = getIntent();
+
+        flag = handleIntent();
+
         myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
 
 
@@ -167,6 +172,10 @@ public class Register extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Register.this, Login.class);
+                if (handleIntent()){
+                    intent.putExtra("flag","stad");
+                    intent.putExtra("name","home");
+                }
                 startActivity(intent);
             }
         });
@@ -186,6 +195,16 @@ public class Register extends AppCompatActivity implements
                 finish();
             }
         });
+    }
+
+    private boolean handleIntent() {
+        if (intent.hasExtra("flag")) {
+            setContentView(R.layout.activity_register_stad);
+            return true;
+        } else {
+            setContentView(R.layout.activity_register);
+            return false;
+        }
     }
 
     private String getMacAddress(){

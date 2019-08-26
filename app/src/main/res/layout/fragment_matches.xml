@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".View.Fragments.matchesFragment">
+
+
+    <ProgressBar
+        android:id="@+id/matches_pb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="100dp"
+        android:indeterminateTint="@color/green_tab"/>
+
+    <Button
+        android:id="@+id/matches_retry_btn"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:background="@drawable/green_rect_bk"
+        android:backgroundTint="@color/green_tab"
+        android:text="@string/retry"
+        android:layout_gravity="center"
+        android:layout_marginBottom="100dp"
+        android:visibility="gone"
+        />
     <android.support.v7.widget.RecyclerView
 
         android:layout_width="match_parent"
@@ -14,4 +34,4 @@
        >
 
 </android.support.v7.widget.RecyclerView>
-</LinearLayout>
+</FrameLayout>

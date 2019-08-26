@@ -74,6 +74,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
         />
+
         <ImageView
             android:id="@+id/ic_stad"
             android:layout_width="wrap_content"
@@ -143,6 +144,33 @@
             app:layout_constraintBottom_toBottomOf="@id/location_on_map"
             app:layout_constraintEnd_toStartOf="@id/location_on_map"
             app:layout_constraintTop_toTopOf="@id/location_on_map" />
+
+        <ProgressBar
+            android:id="@+id/slider_stad_pb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <Button
+            android:id="@+id/retry_btn_match_details"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:background="@drawable/green_rect_bk"
+            android:backgroundTint="@color/white"
+            android:text="@string/retry"
+            android:visibility="gone"
+            android:textColor="@color/stad_grey_text"
+            android:layout_gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
         <TextView
             android:id="@+id/description_title"
