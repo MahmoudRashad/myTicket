@@ -25,6 +25,7 @@ import com.example.myticket.Model.Network.StadiumModel.Match.MainMatches;
 import com.example.myticket.Model.Network.StadiumModel.MyTicket.MyTicketMain;
 import com.example.myticket.Model.Network.StadiumModel.MyTicket.MyTicketMainDetail;
 import com.example.myticket.Model.Network.StadiumModel.Reservation.MainChairs;
+import com.example.myticket.Model.Network.StadiumModel.Reservation.MainReservationDetails;
 import com.example.myticket.Model.Network.StadiumModel.Reservation.ReservationMain;
 import com.example.myticket.Model.Network.StadiumModel.StadiumList.StadiumDetailsByID;
 import com.example.myticket.Model.Network.StadiumModel.StadiumList.StadiumListMain;
@@ -211,6 +212,12 @@ public interface ApiInterface {
     @POST("myticket_detial")
     Call<MyTicketMainDetail> getMyTicketDetail(@Header("lang") String lang,@Header("Authorization") String authTtoken,
                                                @QueryMap Map<String, String> queryMap);
+
+    @POST("reservation_details")
+    Call<MainReservationDetails> getReservationDetails(@Header("lang") String lang, @Header("Authorization") String authTtoken,
+                                                   @QueryMap Map<String, String> queryMap);
+
+
 
 
 }

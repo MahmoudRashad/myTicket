@@ -226,12 +226,14 @@ public class Login extends AppCompatActivity implements
 
 
             if (flag) {
-                if (intent.getStringExtra("name").equals("home")) {
-                    Intent goBack = new Intent(Login.this, HomeStadBottomNav.class);
-                    startActivity(goBack);
-                } else {
-                    Intent intent = new Intent(Login.this, HomeCinema.class);
-                    startActivity(intent);
+                if (intent.hasExtra("name")) {
+                    if (intent.getStringExtra("name").equals("home")) {
+                        Intent goBack = new Intent(Login.this, HomeStadBottomNav.class);
+                        startActivity(goBack);
+                    } else {
+                        Intent intent = new Intent(Login.this, HomeCinema.class);
+                        startActivity(intent);
+                    }
                 }
 
             } else {

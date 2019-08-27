@@ -35,7 +35,8 @@ public class StadChairsAdapter extends RecyclerView.Adapter<StadChairsAdapter.ch
     @Override
     public void onBindViewHolder(@NonNull chairViewHolder chairViewHolder, int i) {
         ResultTicketsStad resultTicketsStad = results.get(i);
-        chairViewHolder.seat.setText(resultTicketsStad.getChairNum());
+        chairViewHolder.seat.setText(" "+resultTicketsStad.getChairNum());
+
     }
 
     @Override

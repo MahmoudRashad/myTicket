@@ -12,6 +12,8 @@
         android:id="@+id/chairs_toolbar"
         layout="@layout/stad_top_toolbar"/>
 
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/stad_chairs_rv"
         android:layout_width="match_parent"
@@ -38,6 +40,34 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/confirm_seats"/>
+
+    <ProgressBar
+        android:id="@+id/pb_chair"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/green_tab"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+        android:id="@+id/retry_chair"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:background="@drawable/green_rect_bk"
+        android:backgroundTint="@color/green_tab"
+        android:text="@string/retry"
+        android:visibility="gone"
+        android:textColor="@color/stad_grey_text"
+        android:layout_gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="100dp"
+        />
 
 
 </android.support.constraint.ConstraintLayout>

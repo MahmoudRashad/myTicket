@@ -1,33 +1,40 @@
 package com.example.myticket.View.Activity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myticket.Model.Data.SessionManager;
+import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
-import com.example.myticket.Model.Network.StadiumModel.Match.TicketType;
+import com.example.myticket.Model.Network.StadiumModel.Reservation.MainReservationDetails;
 import com.example.myticket.Model.Network.StadiumModel.Reservation.ReservationMain;
 import com.example.myticket.Model.Network.StadiumModel.Reservation.ReservationResult;
+import com.example.myticket.Model.Network.StadiumModel.Reservation.TicketType;
 import com.example.myticket.Model.Network.StadiumModel.ResultTicketsStad.ResultTicketsStad;
 import com.example.myticket.R;
 import com.example.myticket.View.Adapter.StadChairsAdapter;
 import com.example.myticket.View.Adapter.StadiumChairsAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,9 +48,11 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
     private ImageView backBtn;
     private ImageView searchIcon;
     private TextView toolbarTitle;
+    private ImageView stadImage;
     private RecyclerView recyclerView;
-    private ArrayList<TicketType> ticketTypes;
+    private List<com.example.myticket.Model.Network.StadiumModel.Reservation.TicketType> ticketTypes;
     private ArrayList<String> ticketsStrings;
+    private ArrayList<String> blocksStrings;
     private ArrayList<String> blockName;
     private ApiCalling apiCalling;
     private SessionManager sessionManager;
@@ -51,8 +60,23 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
     private String date;
     private String id;
     private String matchId;
-
+    private String chossenOne;
+    private String choosenTwo;
+    private String choosenThree;
+    private String blockImage;
+    private String action;
     private ArrayList<ResultTicketsStad> resultTicketsStads;
+
+    private View view1;
+    private TextView yourSeats;
+    private TextView individualTitle;
+    private TextView priceEq;
+    private View view2;
+    private TextView subTotalTitle;
+    private TextView priceTotal;
+
+    private ProgressBar progressBar;
+    private Button retry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,26 +86,15 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
         apiCalling = new ApiCalling(this);
         sessionManager = new SessionManager(this);
         setToolbar();
-
-
+        findRefs();
         Intent intent = getIntent();
         if (intent.getAction() != null) {
-            String action = intent.getAction();
+            action = intent.getAction();
             if (action.equals("tickets")) {
-                if (intent.getData() != null) {
-                    date = intent.getStringExtra("date");
-                    matchId = intent.getStringExtra("matchId");
-                    String stringData = String.valueOf(intent.getData().getSchemeSpecificPart());
-                    GsonBuilder gsonBuilder = new GsonBuilder();
-                    Gson gson = gsonBuilder.create();
-                    TicketType[] results = gson.fromJson(stringData, TicketType[].class);
-                    ticketTypes = new ArrayList<>(Arrays.asList(results));
-                    ticketsStrings = new ArrayList<>();
-                    for (int i = 0 ; i<ticketTypes.size();i++){
-                        ticketsStrings.add(ticketTypes.get(i).getName());
-                    }
-                }
+                matchId = intent.getStringExtra("matchId");
+                senarioOne();
             }
+
 
             else if (action.equals("chairs")){
                 String stringData = String.valueOf(intent.getData().getSchemeSpecificPart());
@@ -89,58 +102,146 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
                 Gson gson = gsonBuilder.create();
                 ResultTicketsStad[] results = gson.fromJson(stringData, ResultTicketsStad[].class);
                 resultTicketsStads = new ArrayList<>(Arrays.asList(results));
+                chossenOne = intent.getStringExtra("firstChoice");
+                choosenTwo = intent.getStringExtra("secondChoice");
+                blockImage = intent.getStringExtra("blockImage");
+                matchId = intent.getStringExtra("matchId");
+                progressBar.setVisibility(View.GONE);
+                senarioTwo();
             }
         }
 
-        findRefs();
+
+
+
+
+
 
 
     }
+    private void senarioOne(){
+        action = "";
+        ticketsStrings.clear();
+        blocksStrings.clear();
+        resultTicketsStads.clear();
+        chossenOne = "";
+        choosenTwo = "";
+        placeSpinner.setEnabled(false);
+        placeSpinner.setClickable(false);
+
+        chairSpinner.setEnabled(false);
+        chairSpinner.setClickable(false);
+        chairSpinner.setText(" ");
+        progressBar.setVisibility(View.VISIBLE);
+
+
+        confirmBtn.setVisibility(View.GONE);
+        view1.setVisibility(View.GONE);
+        yourSeats.setVisibility(View.GONE);
+        individualTitle.setVisibility(View.GONE);
+        priceEq.setVisibility(View.GONE);
+        view2.setVisibility(View.GONE);
+        subTotalTitle.setVisibility(View.GONE);
+        priceTotal.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
+        apiCalling.getReservationDetails(matchId,sessionManager.handleLogin(),sessionManager.getDeviceLanguage(),this::getApiResponse);
+    }
+    private void senarioTwo() {
+
+        if (resultTicketsStads != null && action.equals("chairs")) {
+            Picasso.get().load(blockImage).into(stadImage);
+            ticketsStrings.add(chossenOne);
+            ticketsStrings.add(getResources().getString(R.string.change_selection));
+            priceEq.setText(" "+resultTicketsStads.size() + " X " + resultTicketsStads.get(0).getPrice());
+            String price = String.valueOf(resultTicketsStads.size() * Integer.parseInt(resultTicketsStads.get(0).getPrice()));
+            priceTotal.setText(" "+price +" "+ resultTicketsStads.get(0).getCurrency());
+            ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, R.layout.spinner_text, ticketsStrings);
+            adapter.setDropDownViewResource(R.layout.checked_text_spinner);
+            classSpinner.setAdapter(adapter);
+            classSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (position == 1){
+                        senarioOne();
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            blocksStrings.add(choosenTwo);
+            blocksStrings.add(getResources().getString(R.string.change_selection));
+            ArrayAdapter<CharSequence> placeAdapter = new ArrayAdapter(this, R.layout.spinner_text, blocksStrings);
+            placeAdapter.setDropDownViewResource(R.layout.checked_text_spinner);
+            placeSpinner.setAdapter(placeAdapter);
+            placeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (position == 1){
+                        senarioOne();
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            StadChairsAdapter stadChairsAdapter = new StadChairsAdapter(this, resultTicketsStads);
+            recyclerView.setAdapter(stadChairsAdapter);
+            chairSpinner.setText("");
+            for (int i = 0 ; i < resultTicketsStads.size() ; i++){
+                chairSpinner.append(" " + resultTicketsStads.get(i).getChairNum());
+            }
+
+
+            confirmBtn.setVisibility(View.VISIBLE);
+            view1.setVisibility(View.VISIBLE);
+            yourSeats.setVisibility(View.VISIBLE);
+            individualTitle.setVisibility(View.VISIBLE);
+            priceEq.setVisibility(View.VISIBLE);
+            view2.setVisibility(View.VISIBLE);
+            subTotalTitle.setVisibility(View.VISIBLE);
+            priceTotal.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+
+            confirmBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    apiCalling.clubReservation("Bearer " + sessionManager.getUserToken(), sessionManager.getDeviceLanguage(),
+                            resultTicketsStads, StadiumTicketsOptions.this::getApiResponse);
+                }
+            });
+        }
+    }
+
+
 
     private void findRefs() {
-        //TODO: put data from lists
+        ticketsStrings = new ArrayList<>();
+        blocksStrings = new ArrayList<>();
+        resultTicketsStads = new ArrayList<>();
+        stadImage = findViewById(R.id.stad_details_image);
         classSpinner = findViewById(R.id.spinner_type);
         placeSpinner = findViewById(R.id.spinner_type_place);
         chairSpinner = findViewById(R.id.spinner_chair);
         confirmBtn = findViewById(R.id.select_tickets_btn);
-        if (resultTicketsStads != null) {
-            recyclerView = findViewById(R.id.seats_titles_rv);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-            StadChairsAdapter stadChairsAdapter = new StadChairsAdapter(this, resultTicketsStads);
-            recyclerView.setAdapter(stadChairsAdapter);
+        recyclerView = findViewById(R.id.seats_titles_rv);
 
+        view1 = findViewById(R.id.view1);
+        yourSeats = findViewById(R.id.your_seats_title);
+        individualTitle = findViewById(R.id.individual_tile);
+        priceEq = findViewById(R.id.price_eq);
+        view2 = findViewById(R.id.view2);
+        subTotalTitle = findViewById(R.id.subTotal_title);
+        priceTotal = findViewById(R.id.price_total);
+        progressBar = findViewById(R.id.pb_book);
+        retry = findViewById(R.id.retry_book);
 
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = new Intent(StadiumTicketsOptions.this,StadPaymentConfirm.class);
-//                startActivity(intent);
-                Toast.makeText(StadiumTicketsOptions.this, "Please Select Chairs First", Toast.LENGTH_LONG).show();
-            }
-        });
-    }else {
-            ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, R.layout.spinner_text, ticketsStrings);
-//        CustomStadSpinnerAdapter stadSpinnerAdapter = new CustomStadSpinnerAdapter(this,R.layout.spinner_text,ticketTypes);
-            adapter.setDropDownViewResource(R.layout.checked_text_spinner);
-            classSpinner.setAdapter(adapter);
-            int position = classSpinner.getSelectedItemPosition();
-            TicketType ticketType = ticketTypes.get(position);
-            String text = ticketType.getName();
-            //TODO:fix the id take it after user selection
-            apiCalling.getStadiumBlocks(ticketType.getId().toString(), sessionManager.getUserToken(), this);
-
-            for (int i = 0; i < ticketTypes.size(); i++) {
-                if (ticketTypes.get(i).getName().equals(text)) {
-                    id = ticketTypes.get(i).getId().toString();
-                }
-            }
-
-
-//TODO:then remove this
-            ArrayAdapter<CharSequence> placeAdapter = new ArrayAdapter(this, R.layout.spinner_text, ticketsStrings);
-            placeAdapter.setDropDownViewResource(R.layout.checked_text_spinner);
-            placeSpinner.setAdapter(placeAdapter);
-        }
     }
 
     private void changeStatusBarColor(){
@@ -180,39 +281,124 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
 
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
+        retry.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
         if (tApiResponse instanceof ReservationMain){
+            placeSpinner.setEnabled(true);
+            placeSpinner.setClickable(true);
+            blocksStrings.clear();
+            chairSpinner.setText("");
             ReservationMain reservationMain = (ReservationMain) tApiResponse;
             List<ReservationResult> reservationResult = reservationMain.getReservationResult();
             if (reservationResult.size() > 0) {
-                String stadId = reservationResult.get(0).getStadiumId();
-                String text = classSpinner.getSelectedItem().toString();
-                chairSpinner.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(StadiumTicketsOptions.this, StadiumChairs.class);
-                        intent.putExtra("stadId", stadId);
-                        intent.putExtra("text", text);
-                        intent.putExtra("matchId", matchId);
-                        intent.putExtra("date", date);
-                        intent.putExtra("price", reservationResult.get(0).getPrice());
-                        intent.putExtra("currency", reservationResult.get(0).getCurrency());
-                        startActivity(intent);
-                    }
-                });
+
+                blocksStrings.add(getResources().getString(R.string.select_block_type));
+            for (int i = 0; i < reservationResult.size(); i++) {
+                blocksStrings.add(reservationResult.get(i).getName());
             }
 
+            ArrayAdapter<CharSequence> placeAdapter = new ArrayAdapter(this, R.layout.spinner_text, blocksStrings);
+            placeAdapter.setDropDownViewResource(R.layout.checked_text_spinner);
+            placeSpinner.setAdapter(placeAdapter);
+            placeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (position != 0){
+                        ReservationResult reservation = reservationResult.get(position -1 );
+                        choosenTwo = reservation.getName();
+                        Picasso.get().load(reservation.getImage()).into(stadImage);
+                        chairSpinner.setClickable(true);
+                        chairSpinner.setEnabled(true);
+                        chairSpinner.setText(getString(R.string.select_chairs));
+                        chairSpinner.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(StadiumTicketsOptions.this, StadiumChairs.class);
+                                intent.putExtra("stadId", stadiumId);
+                                intent.putExtra("text", reservation.getName());
+                                intent.putExtra("matchId", matchId);
+                                intent.putExtra("date", date);
+                                intent.putExtra("price", reservationResult.get(0).getPrice());
+                                intent.putExtra("currency", reservationResult.get(0).getCurrency());
+                                intent.putExtra("firstChoice",chossenOne);
+                                intent.putExtra("secondChoice",choosenTwo);
+                                intent.putExtra("blockImage",reservation.getImage());
+                                startActivity(intent);
+                            }
+                        });
+                    }
+                }
 
-////            blockName = new ArrayList<>();
-////            for (int i = 0 ; i<reservationResult.size();i++){
-////                blockName.add(reservationResult.get(i).getName());
-////            }
-//            ArrayAdapter<CharSequence> placeAdapter = new ArrayAdapter(this, R.layout.spinner_text,ticketsStrings);
-//            placeAdapter.setDropDownViewResource(R.layout.checked_text_spinner);
-//            classSpinner.setAdapter(placeAdapter);
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+            }
 
         }
 
+        else if (tApiResponse instanceof MainReservationDetails){
+            MainReservationDetails mainReservationDetails = (MainReservationDetails) tApiResponse;
+            ticketTypes = mainReservationDetails.getReservationDetails().getTicketType();
+            Picasso.get().load(mainReservationDetails.getReservationDetails().getStatdiumPlan()).into(stadImage);
+            date = mainReservationDetails.getReservationDetails().getMatchDate();
+            stadiumId = mainReservationDetails.getReservationDetails().getStadiumId();
 
+            ticketsStrings.add(getResources().getString(R.string.select_ticket_type));
+            for (int i = 0 ; i<ticketTypes.size();i++){
+                ticketsStrings.add(ticketTypes.get(i).getName());
+            }
+            ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, R.layout.spinner_text, ticketsStrings);
+            adapter.setDropDownViewResource(R.layout.checked_text_spinner);
+            classSpinner.setAdapter(adapter);
+            classSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (position != 0) {
+                        progressBar.setVisibility(View.VISIBLE);
+                        TicketType ticketType = ticketTypes.get(position - 1);
+                        chossenOne = ticketType.getName();
+                        apiCalling.getStadiumBlocks(ticketType.getId().toString(), sessionManager.getUserToken(), StadiumTicketsOptions.this::getApiResponse);
+                    }
+                    else {
+                        Toast.makeText(StadiumTicketsOptions.this,getResources().getString(R.string.choose_a_type),Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+            ArrayAdapter<CharSequence> placeAdapter = new ArrayAdapter(this, R.layout.spinner_text, blocksStrings);
+            placeAdapter.setDropDownViewResource(R.layout.checked_text_spinner);
+            placeSpinner.setAdapter(placeAdapter);
+
+        }
+
+        else if (tApiResponse instanceof GeneralApiesponse){
+            GeneralApiesponse generalApiesponse = (GeneralApiesponse) tApiResponse;
+            Intent intent = new Intent(StadiumTicketsOptions.this,HomeStadBottomNav.class);
+            startActivity(intent);
+            String msg = generalApiesponse.getMessage();
+            Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
+        }
+
+        else// if (message.contains("connection abort")|| message.contains("Failed to connect"))
+        {
+            Toast.makeText(this,"Check your internet connection", Toast.LENGTH_SHORT).show();
+            retry.setVisibility(View.VISIBLE);
+            retry.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    senarioOne();
+                }
+            });
+        }
     }
 
 }

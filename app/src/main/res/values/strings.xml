@@ -128,7 +128,7 @@
     <string name="match_details">Match Details</string>
     <string name="your_seats">YOUR SEATS:</string>
     <string name="individual_ticket">Individual Ticket:</string>
-    <string name="subtotal">SUBTOTAL</string>
+    <string name="subtotal">SUBTOTAL: </string>
     <string name="confirm_seats">Confirm Seats</string>
     <string name="select_chairs">Select Chairs</string>
     <string name="my_ticket">My Ticket</string>
@@ -136,6 +136,10 @@
     <string name="dialog_title">You are Offline</string>
     <string name="dialog_message">Oops! There is no Internet connection, Please check your connection and try again.</string>
     <string name="retry">Retry</string>
+    <string name="select_ticket_type">Select Ticket Type</string>
+    <string name="choose_a_type">Please Choose a Type</string>
+    <string name="select_block_type">Select Block Type</string>
+    <string name="change_selection">Change Selection</string>
 
 
 </resources>

@@ -30,6 +30,7 @@ import com.example.myticket.Model.Network.StadiumModel.Match.MainMatches;
 import com.example.myticket.Model.Network.StadiumModel.MyTicket.MyTicketMain;
 import com.example.myticket.Model.Network.StadiumModel.MyTicket.MyTicketMainDetail;
 import com.example.myticket.Model.Network.StadiumModel.Reservation.MainChairs;
+import com.example.myticket.Model.Network.StadiumModel.Reservation.MainReservationDetails;
 import com.example.myticket.Model.Network.StadiumModel.Reservation.ReservationMain;
 import com.example.myticket.Model.Network.StadiumModel.ResultTicketsStad.ResultTicketsStad;
 import com.example.myticket.Model.Network.StadiumModel.StadiumList.StadiumDetailsByID;
@@ -1847,6 +1848,47 @@ public class ApiCalling
 
             @Override
             public void onFailure(Call<MyTicketMainDetail> call, Throwable t) {
+                //fail internet connection
+                if (t instanceof IOException) {
+                    Log.e("ApiCheck**", "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue(),
+                            t.getMessage(), null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue(),
+                            t.getMessage(), null);
+                }
+            }
+        });
+
+    }
+
+    public void getReservationDetails(String matchId ,String authorization , String lang,final GeneralListener generalListener ) {
+
+        Map<String,String> map = new HashMap<>();
+        map.put("match_id",matchId);
+
+        Call<MainReservationDetails> call = apiInterface.getReservationDetails(
+                lang, authorization,map);
+
+        call.enqueue(new Callback<MainReservationDetails>() {
+            @Override
+            public void onResponse(Call<MainReservationDetails> call, Response<MainReservationDetails> response) {
+                if (response.isSuccessful()) {
+                    Log.e("onResponse", response.raw().toString());
+                    if (response.body().getSuccess()) {
+                        generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                                null, response.body());
+                    } else {
+                        generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                                response.body().getMessage(), response.body());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MainReservationDetails> call, Throwable t) {
                 //fail internet connection
                 if (t instanceof IOException) {
                     Log.e("ApiCheck**", "no internet connection");

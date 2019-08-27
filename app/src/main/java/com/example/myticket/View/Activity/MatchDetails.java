@@ -6,6 +6,8 @@ import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,6 +27,7 @@ import com.example.myticket.Model.Network.StadiumModel.Match.MainMatches;
 import com.example.myticket.Model.Network.StadiumModel.Match.TicketType;
 import com.example.myticket.R;
 import com.example.myticket.View.Adapter.MatchesAdapter;
+import com.example.myticket.View.Adapter.TicketsTypeAdapter;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -40,15 +43,8 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
     private TextView time;
     private TextView date;
     private TextView address;
-    private TextView firstText;
-    private TextView secondText;
-    private TextView thirdText;
-    private TextView fourthText;
-    private TextView firstPrice;
-    private TextView secondPrice;
-    private TextView thirdPrice;
-    private TextView fourthPrice;
     private Button bookBtn;
+    private RecyclerView ticketsTypeRv;
 
     private ImageView notificationIcon;
     private TextView toolbarTitle;
@@ -59,6 +55,7 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
     private FrameLayout frameLayout;
     private ConstraintLayout toolbar;
     private ImageView closeBtn;
+
 
     private String matchId;
     private ApiCalling apiCalling;
@@ -168,15 +165,6 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
         address = findViewById(R.id.stadium_address_text);
         bookBtn = findViewById(R.id.book_btn);
 
-        firstText = findViewById(R.id.the_first_text);
-        secondText = findViewById(R.id.the_second_text);
-        thirdText = findViewById(R.id.the_third_text);
-        fourthText = findViewById(R.id.the_fourth_text);
-
-        firstPrice = findViewById(R.id.the_first_price);
-        secondPrice = findViewById(R.id.the_second_price);
-        thirdPrice = findViewById(R.id.the_third_price);
-        fourthPrice = findViewById(R.id.the_fourth_price);
 
         toolbarTitle = findViewById(R.id.toolbar_title);
         notificationIcon = findViewById(R.id.toolbar_notifications);
@@ -190,6 +178,8 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
 
         progressBar = findViewById(R.id.slider_stad_pb);
         retry = findViewById(R.id.retry_btn_match_details);
+        ticketsTypeRv = findViewById(R.id.tickets_categories_rv);
+        ticketsTypeRv.setLayoutManager(new LinearLayoutManager(this));
 
     }
 
@@ -209,16 +199,17 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
             String msg = baseNoResult.getMessage();
             if (msg.contains("إلغاء") || msg.contains("unFollow")) {
                 notificationText.setText(msg);
-                notificationIcon.setImageResource(R.drawable.ic_notifications_off_black_24dp);
                 notificationImage.setImageResource(R.drawable.ic_notifications_off_black_24dp);
-                notificationIcon.setColorFilter(R.color.white);
+                notificationIcon.setImageResource(R.drawable.ic_notifications_off_black_24dp);
+
 
             } else {
                 notificationText.setText(msg);
                 Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
-                notificationIcon.setImageResource(R.drawable.ic_notifications_active_24dp);
                 notificationImage.setImageResource(R.drawable.ic_notifications_active_24dp);
-                notificationIcon.setColorFilter(R.color.white);
+                notificationIcon.setImageResource(R.drawable.ic_notifications_active_24dp);
+
+
 
             }
 
@@ -265,26 +256,8 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
         date.setText(matchDetails.getDate());
         address.setText(matchDetails.getStadiumAddress());
 
-        if (matchDetails.getTicketType().size() > 0){
-        if (matchDetails.getTicketType().get(0) != null) {
-            firstText.setText(matchDetails.getTicketType().get(0).getName());
-            firstPrice.setText(matchDetails.getTicketType().get(0).getPrice() + " " + matchDetails.getTicketType().get(0).getCurrency());
-        }
-
-        if (matchDetails.getTicketType().size() > 1 && matchDetails.getTicketType().get(1) != null) {
-            secondText.setText(matchDetails.getTicketType().get(1).getName());
-            secondPrice.setText(matchDetails.getTicketType().get(1).getPrice() + " " + matchDetails.getTicketType().get(1).getCurrency());
-        }
-
-        if (matchDetails.getTicketType().size() > 2 && matchDetails.getTicketType().get(2) != null) {
-            thirdText.setText(matchDetails.getTicketType().get(2).getName());
-            thirdPrice.setText(matchDetails.getTicketType().get(2).getPrice() + " " + matchDetails.getTicketType().get(2).getCurrency());
-
-          if (matchDetails.getTicketType().size() > 3 && matchDetails.getTicketType().get(3) != null) {
-                fourthText.setText(matchDetails.getTicketType().get(3).getName());
-                fourthPrice.setText(matchDetails.getTicketType().get(3).getPrice() + " " + matchDetails.getTicketType().get(3).getCurrency());
-            }
-        }
+        TicketsTypeAdapter ticketsTypeAdapter = new TicketsTypeAdapter(this,matchDetails.getTicketType());
+        ticketsTypeRv.setAdapter(ticketsTypeAdapter);
 
             bookBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -292,10 +265,8 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
                     if (!sessionManager.handleLogin().equals("")) {
                         Intent intent = new Intent(MatchDetails.this, StadiumTicketsOptions.class);
                         intent.setAction("tickets");
-                        intent.putExtra("date",matchDetails.getDate());
                         intent.putExtra("matchId",matchId);
-                        String ListDumb = new Gson().toJson(matchDetails.getTicketType());
-                        intent.setData(Uri.fromParts("schemeTicket", ListDumb, null));
+
                         startActivity(intent);
                     }
                     else {
@@ -309,4 +280,4 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
             });
         }
     }
-}
+
