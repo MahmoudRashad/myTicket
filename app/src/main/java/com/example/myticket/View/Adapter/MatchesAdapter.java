@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -89,6 +90,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
         if (tApiResponse instanceof  BaseNoResult) {
+
             BaseNoResult baseNoResult = (BaseNoResult) tApiResponse;
             String msg = baseNoResult.getMessage();
             if (msg.contains("إلغاء")||msg.contains("unFollow")){
@@ -152,6 +154,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
                 if (!token.equals("")){
                     //set api
                     apiCalling.follow(token,matchesList.get(position).getId().toString(),MatchesAdapter.this::getApiResponse);
+
 //                    if (flag ==1){
 //                        //btg3 null
 //                        //23mli network call l klo tani w5las
@@ -159,6 +162,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
 //                    }
 
                 }
+
                 else {
                     Intent intent = new Intent(context,Login.class);
                     intent.putExtra("id",matchesList.get(position).getId().toString());
@@ -166,6 +170,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
                     intent.putExtra("flag","stad");
                     context.startActivity(intent);
                 }
+
             }
 
             else{

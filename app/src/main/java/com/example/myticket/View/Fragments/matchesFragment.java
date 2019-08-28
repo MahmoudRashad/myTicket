@@ -109,7 +109,7 @@ public class matchesFragment extends Fragment implements
         else
 //            if (message.contains("connection abort")|| message.contains("Failed to connect"))
             {
-            Toast.makeText(getContext(),"Check your internet connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),getResources().getString(R.string.check_connection), Toast.LENGTH_SHORT).show();
             retry.setVisibility(View.VISIBLE);
             retry.setOnClickListener(new View.OnClickListener() {
                 @Override

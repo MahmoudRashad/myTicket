@@ -33,6 +33,10 @@ public class Past implements Serializable
     @SerializedName("date")
     @Expose
     private String date;
+
+    @SerializedName("symbol_chair")
+    @Expose
+    private String symbol_chair;
     private final static long serialVersionUID = -6308416309511160434L;
 
     /**
@@ -129,4 +133,11 @@ public class Past implements Serializable
         this.date = date;
     }
 
+    public String getSymbol_chair() {
+        return symbol_chair;
+    }
+
+    public void setSymbol_chair(String symbol_chair) {
+        this.symbol_chair = symbol_chair;
+    }
 }

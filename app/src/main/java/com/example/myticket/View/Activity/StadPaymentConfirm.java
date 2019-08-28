@@ -85,7 +85,9 @@ public class StadPaymentConfirm extends AppCompatActivity implements GeneralList
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(StadPaymentConfirm.this,HomeStadBottomNav.class);
+                intent.putExtra("name","myTickets");
+                startActivity(intent);
             }
         });
     }

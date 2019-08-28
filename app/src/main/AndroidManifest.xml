@@ -45,7 +45,15 @@
         <activity android:name=".View.Activity.StadiumTicketsOptions" />
         <activity android:name=".View.Fragments.StadiumList" />
         <activity android:name=".View.Activity.StadiumDetails" />
-        <activity android:name=".View.Activity.MatchDetails" />
+
+        <activity android:name=".View.Activity.MatchDetails"
+            android:parentActivityName=".View.Activity.HomeStadBottomNav"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".View.Activity.HomeStadBottomNav" />
+        </activity>
         <activity android:name=".View.Activity.StadAllResults" />
         <activity
             android:name=".View.Activity.EditAccount"
@@ -62,6 +70,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".View.Activity.HomeCinema" />
         </activity>
+
         <activity
             android:name=".View.Activity.ChairsActivity"
             android:launchMode="singleTop" />

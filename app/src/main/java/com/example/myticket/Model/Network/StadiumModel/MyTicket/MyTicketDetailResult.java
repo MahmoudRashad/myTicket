@@ -20,6 +20,9 @@ public class MyTicketDetailResult implements Serializable
     @SerializedName("seat_num")
     @Expose
     private String seatNum;
+    @SerializedName("symbol_chair")
+    @Expose
+    private String symbol_chair;
     @SerializedName("team1_name")
     @Expose
     private String team1Name;
@@ -167,4 +170,11 @@ public class MyTicketDetailResult implements Serializable
         this.qrCode = qrCode;
     }
 
+    public String getSymbol_chair() {
+        return symbol_chair;
+    }
+
+    public void setSymbol_chair(String symbol_chair) {
+        this.symbol_chair = symbol_chair;
+    }
 }

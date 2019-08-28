@@ -132,6 +132,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
             <Button
@@ -182,7 +183,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/grey_line"
                 android:layout_marginTop="16dp"
-                android:text="STADIUM"
+                android:text="@string/stadium"
                 android:textColor="@color/stad_grey_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:layout_marginStart="16dp"

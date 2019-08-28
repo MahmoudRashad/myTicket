@@ -11,6 +11,10 @@ public class Seat implements Serializable
     @SerializedName("seat_num")
     @Expose
     private String seatNum;
+
+    @SerializedName("symbol_chair")
+    @Expose
+    private String symbol_chair;
     private final static long serialVersionUID = -7559269203485223492L;
 
     /**
@@ -37,4 +41,7 @@ public class Seat implements Serializable
         this.seatNum = seatNum;
     }
 
+    public String getSymbol_chair() {
+        return symbol_chair;
+    }
 }

@@ -94,6 +94,8 @@
             android:layout_width="wrap_content"
             android:layout_height="42dp"
             android:elevation="4dp"
+            android:visibility="gone"
+            android:indeterminateTint="@color/white"
             android:layout_gravity="center" />
         <Button
             android:id="@+id/login_btn"
@@ -115,7 +117,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="forget password ?"
+        android:text="@string/forget_password"
         android:textColor="@color/stad_grey_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/frame_login" />

@@ -194,7 +194,11 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
             recyclerView.setAdapter(stadChairsAdapter);
             chairSpinner.setText("");
             for (int i = 0 ; i < resultTicketsStads.size() ; i++){
-                chairSpinner.append(" " + resultTicketsStads.get(i).getChairNum());
+               if (i != resultTicketsStads.size() -1 ){
+                    chairSpinner.append(" " + resultTicketsStads.get(i).getChairSymbol()+ resultTicketsStads.get(i).getChairNum()+",");
+                }
+                else
+                    chairSpinner.append(" " + resultTicketsStads.get(i).getChairSymbol()+ resultTicketsStads.get(i).getChairNum());
             }
 
 

@@ -47,12 +47,12 @@ public class MyTicketsStadAdapter  extends RecyclerView.Adapter<MyTicketsStadAda
         TicketsViewHolder.stadiumName.setText(ticket.getStadiumName());
         for (int j = 0 ; j< ticket.getSeats().size() ; j++){
             if (j == 0)
-                seats = ticket.getSeats().get(j).getSeatNum();
+                seats = ticket.getSeats().get(j).getSeatNum()+", ";
             else if (j != ticket.getSeats().size()-1){
-                seats = seats + " ," + ticket.getSeats().get(j).getSeatNum()+", ";
+                seats = seats +ticket.getSeats().get(j).getSymbol_chair()+" " +ticket.getSeats().get(j).getSeatNum()+", ";
             }
             else{
-                seats = seats + " ," + ticket.getSeats().get(j).getSeatNum();
+                seats = seats+ticket.getSeats().get(j).getSymbol_chair() +ticket.getSeats().get(j).getSeatNum();
             }
         }
         TicketsViewHolder.seats.setText(seats);

@@ -302,8 +302,14 @@ public class Register extends AppCompatActivity implements
             sessionManager.setUserEmail(responceReg.getResult().getEmail());
             sessionManager.setUserToken(responceReg.getAccessToken());
 
-            Intent intent = new Intent(Register.this, MainActivity.class);
-            startActivity(intent);
+            if (handleIntent()) {
+                Intent intent = new Intent(Register.this, HomeStadBottomNav.class);
+                startActivity(intent);
+            }
+            else{
+                Intent intent = new Intent(Register.this, HomeCinema.class);
+                startActivity(intent);
+            }
 
 
 

@@ -78,9 +78,9 @@ public class StadHomeFragment extends Fragment implements
         weeksViewPager.setAdapter(stadHomeViewPagerAdapter);
         weeksTabLayout.setupWithViewPager(weeksViewPager);
 
-        stadHomeViewPagerAdapter.addFragment(new matchesFragment(),"Today",1);
-        stadHomeViewPagerAdapter.addFragment(new matchesFragment(),"Week",2);
-        stadHomeViewPagerAdapter.addFragment(new matchesFragment(),"Next Week",3);
+        stadHomeViewPagerAdapter.addFragment(new matchesFragment(),getResources().getString(R.string.today),1);
+        stadHomeViewPagerAdapter.addFragment(new matchesFragment(),getResources().getString(R.string.week),2);
+        stadHomeViewPagerAdapter.addFragment(new matchesFragment(),getResources().getString(R.string.next_week),3);
 
 
         return view;

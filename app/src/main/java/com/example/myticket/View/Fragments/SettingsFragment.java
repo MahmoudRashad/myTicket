@@ -17,6 +17,7 @@ import com.example.myticket.View.Activity.EditAccount;
 import com.example.myticket.View.Activity.EditAccountStad;
 import com.example.myticket.View.Activity.Gate;
 import com.example.myticket.View.Activity.HomeCinema;
+import com.example.myticket.View.Activity.HomeStadBottomNav;
 import com.example.myticket.View.Activity.Login;
 
 /**
@@ -73,15 +74,15 @@ public class SettingsFragment extends Fragment {
                     if (sessionManager.getUserToken() == null ||
                             sessionManager.getUserToken() == "") {
 
-                        Intent intent = new Intent(getContext(), Login.class);
-                        intent.putExtra("flag", "stad");
-                        intent.putExtra("name","home");
+                        Intent intent = new Intent(getContext(), HomeStadBottomNav.class);
+//                        intent.putExtra("flag", "stad");
+//                        intent.putExtra("name","home");
                         startActivity(intent);
                     } else {
                         sessionManager.clearSessionManager();
-                        Intent intent = new Intent(getContext(), Login.class);
-                        intent.putExtra("flag", "stad");
-                        intent.putExtra("name","home");
+                        Intent intent = new Intent(getContext(), HomeStadBottomNav.class);
+//                        intent.putExtra("flag", "stad");
+//                        intent.putExtra("name","home");
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/green_gradient"
-    android:orientation="vertical"
     tools:context=".View.Activity.StadMainSearch">
 
     <android.support.design.widget.AppBarLayout
@@ -55,7 +54,7 @@
                 android:id="@+id/search_liveo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:searchLiveoHint="Search Matches"
+                app:searchLiveoHint="@string/search_matches"
                 />
         </FrameLayout>
 
@@ -72,9 +71,29 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="60dp"
             android:elevation="4dp"
+            android:paddingBottom="60dp"
             android:id="@+id/search_rv"
             />
+
+
+        <Button
+            android:id="@+id/retry_btn_match_details"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:background="@drawable/green_rect_bk"
+            android:backgroundTint="@color/green_tab"
+            android:text="@string/retry"
+            android:visibility="gone"
+            android:textColor="@color/stad_grey_text"
+            android:layout_gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
         <Button
             android:id="@+id/seeAll_search"
             android:layout_width="match_parent"
@@ -91,6 +110,17 @@
 
 
 
-
     </android.support.constraint.ConstraintLayout>
-</LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/slider_stad_pb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/green_tab"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</android.support.constraint.ConstraintLayout>

@@ -32,6 +32,7 @@ public class HomeStadBottomNav extends AppCompatActivity {
     private ImageView logo;
     private String tag;
     private BottomNavigationView navView;
+    private String previousPlace = "";
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -83,11 +84,51 @@ public class HomeStadBottomNav extends AppCompatActivity {
         setContentView(R.layout.activity_home_stad_bottom_nav);
 
         navView = findViewById(R.id.nav_view);
+        Intent intent = getIntent();
+        if (intent.hasExtra("name")){
+            previousPlace = intent.getStringExtra("name");
+
+        }
 
         tag = "home";
 
         setToolbar();
 
+
+    }
+
+    public void getPreviousPlace() {
+        if (previousPlace.equals("stads")){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new StadiumList())
+                    .commit();
+
+            navView.setSelectedItemId(R.id.stadiums_list);
+
+        }
+        else if (previousPlace.equals("settings")){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new SettingsFragment())
+                    .commit();
+
+            navView.setSelectedItemId(R.id.settings);
+
+        }
+
+        else if (previousPlace.equals("myTickets")){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new  FragmentMyTicketsStad())
+                    .commit();
+
+            navView.setSelectedItemId(R.id.my_tickets);
+
+        }
+        else {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, new StadHomeFragment())
+                    .commit();
+            navView.setSelectedItemId(R.id.navigation_home);
+        }
 
     }
 
@@ -136,12 +177,10 @@ public class HomeStadBottomNav extends AppCompatActivity {
     }
 
     private void start() {
-        navView.setSelectedItemId(R.id.navigation_home);
+        getPreviousPlace();
         if (checkInternetConnection()){
             navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, new StadHomeFragment())
-                    .commit();
+
         }
     }
 
@@ -155,7 +194,7 @@ public class HomeStadBottomNav extends AppCompatActivity {
             builder.setMessage(getResources().getString(R.string.dialog_message))
                     .setTitle(getResources().getString(R.string.dialog_title));
             builder.setCancelable(false);
-            builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(getResources().getString(R.string.retry), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     start();
                 }

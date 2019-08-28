@@ -48,7 +48,7 @@ public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAd
         confirmTicketsViewHolder.teamTwo.setText(myTicket.getTeam2Name());
         confirmTicketsViewHolder.stadiumName.setText(myTicket.getStadiumName());
         confirmTicketsViewHolder.class_type.setText(myTicket.getType());
-        confirmTicketsViewHolder.seat.setText(myTicket.getSeatNum());
+        confirmTicketsViewHolder.seat.setText(myTicket.getSymbol_chair() +" " +myTicket.getSeatNum());
         confirmTicketsViewHolder.date.setText(myTicket.getDate() + " ," + myTicket.getTime());
         Picasso.get()
                 .load(myTicket.getTeam1Image())

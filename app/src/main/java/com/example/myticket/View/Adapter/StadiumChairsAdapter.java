@@ -63,8 +63,8 @@ public class StadiumChairsAdapter extends  RecyclerView.Adapter<StadiumChairsAda
             @Override
             public void onClick(View v) {
                 boolean checked = chairViewHolder.checkedTextView.isChecked();
-                ResultTicketsStad resultTicketsStad = new ResultTicketsStad(matchId,date,chairsResult.getChairNum(),
-                        chairsResult.getId().toString(),"33",price,currency);
+                ResultTicketsStad resultTicketsStad = new ResultTicketsStad(matchId,date, chairsResult.getChairNum(),
+                        chairsResult.getChairSymbol(), chairsResult.getId().toString(),"33",price,currency);
                 // Check which checkbox was clicked
                 saveChairs.saveChairs(checked,resultTicketsStad);
 

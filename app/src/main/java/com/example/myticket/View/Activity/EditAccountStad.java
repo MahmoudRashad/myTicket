@@ -111,7 +111,10 @@ public class EditAccountStad extends AppCompatActivity implements GeneralListene
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                    Intent intent = new Intent(EditAccountStad.this,HomeStadBottomNav.class);
+                    intent.putExtra("name","settings");
+                    startActivity(intent);
+
             }
         });
     }

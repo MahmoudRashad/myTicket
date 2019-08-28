@@ -15,6 +15,10 @@ public class ResultTicketsStad {
     @Expose
     private String chairNum;
 
+    @SerializedName("symbol_chair")
+    @Expose
+    private String chairSymbol;
+
     @SerializedName("seat_id")
     @Expose
     private String seatId;
@@ -31,10 +35,11 @@ public class ResultTicketsStad {
     @Expose
     private String currency;
 
-    public ResultTicketsStad(String id, String date, String chairNum, String seatId, String qrCode, String price, String currency) {
+    public ResultTicketsStad(String id, String date, String chairNum, String chairSymbol, String seatId, String qrCode, String price, String currency) {
         this.id = id;
         this.date = date;
         this.chairNum = chairNum;
+        this.chairSymbol = chairSymbol;
         this.seatId = seatId;
         this.qrCode = qrCode;
         this.price = price;
@@ -96,4 +101,12 @@ public class ResultTicketsStad {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
+
+    public String getChairSymbol() {
+        return chairSymbol;
+    }
+    public void setChairSymbol(String chairSymbol) {
+        this.chairSymbol = chairSymbol;
+    }
+
 }

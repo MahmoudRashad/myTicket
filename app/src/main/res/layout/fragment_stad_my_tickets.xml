@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:paddingBottom="170dp"
         android:background="@color/white">
 
     </android.support.v7.widget.RecyclerView>

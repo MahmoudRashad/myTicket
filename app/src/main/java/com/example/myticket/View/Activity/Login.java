@@ -87,7 +87,7 @@ public class Login extends AppCompatActivity implements
         registerTv.setTypeface(myfont);
         forgetPasswordTv = findViewById(R.id.forget_password);
         forgetPasswordTv.setTypeface(myfont);
-        progressBar.setVisibility(View.GONE);
+
         setToolbar();
 
         mUsername = userName.getText().toString();
@@ -110,6 +110,7 @@ public class Login extends AppCompatActivity implements
                     loginUser = new User(mUsername, mPassword, deviceToken, deviceType, macAddress);
                     apiCalling.login(mUsername, mPassword, macAddress
                             , Login.this);
+                    progressBar.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -159,7 +160,9 @@ public class Login extends AppCompatActivity implements
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                if (intent.hasExtra("flag")){
+                    handleBack(getString(R.string.error));
+                }
             }
         });
     }
@@ -225,22 +228,46 @@ public class Login extends AppCompatActivity implements
             sessionManager.setUserToken(responceReg.getAccessToken());
 
 
-            if (flag) {
-                if (intent.hasExtra("name")) {
-                    if (intent.getStringExtra("name").equals("home")) {
+            handleBack(responceReg.getMessage());
+
+        }
+    }
+
+    private void handleBack(String message) {
+        if (flag) {
+            if (intent.hasExtra("name")) {
+                if (intent.getStringExtra("name").equals("home")) {
+                    Intent goBack = new Intent(Login.this, HomeStadBottomNav.class);
+                    startActivity(goBack);
+                }
+                else if (intent.getStringExtra("name").equals("match")){
+                    String matchId = intent.getStringExtra("matchId");
+                    Intent goBackToMatch = new Intent(Login.this, MatchDetails.class);
+                    goBackToMatch.putExtra("matchId",matchId);
+                    startActivity(goBackToMatch);
+                }
+                else if (intent.getStringExtra("name").equals("tickets")){
+                    if (!sessionManager.handleLogin().equals("")) {
+                        Intent goBack = new Intent(Login.this, HomeStadBottomNav.class);
+                        goBack.putExtra("name", "myTickets");
+                        startActivity(goBack);
+                    }
+                    else{
                         Intent goBack = new Intent(Login.this, HomeStadBottomNav.class);
                         startActivity(goBack);
-                    } else {
-                        Intent intent = new Intent(Login.this, HomeCinema.class);
-                        startActivity(intent);
                     }
                 }
+                else {
+                    Intent intent = new Intent(Login.this, HomeCinema.class);
+                    startActivity(intent);
+                }
+            }
 
-            } else {
+        } else {
+            if (!message.equals("")) {
                 progressBar.setVisibility(View.GONE);
                 btnLogin.setVisibility(View.VISIBLE);
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-
             }
         }
     }

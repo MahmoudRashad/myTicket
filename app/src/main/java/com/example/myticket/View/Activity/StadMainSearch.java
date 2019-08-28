@@ -11,7 +11,9 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myticket.Model.Network.DataModel.Search.Result;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
@@ -43,6 +45,9 @@ public class StadMainSearch extends AppCompatActivity implements SearchLiveo.OnS
     private Typeface myfont;
     private Intent intent;
     private String tag;
+    private ProgressBar progressBar;
+    private Button retry;
+    private String query;
 
 
     @Override
@@ -62,6 +67,8 @@ public class StadMainSearch extends AppCompatActivity implements SearchLiveo.OnS
 
         autoCompleteRv = findViewById(R.id.search_rv);
         seeAll = findViewById(R.id.seeAll_search);
+        progressBar = findViewById(R.id.slider_stad_pb);
+        retry = findViewById(R.id.retry_btn_match_details);
         seeAll.setTypeface(myfont);
         seeAll.setVisibility(View.GONE);
         seeAll.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +109,7 @@ public class StadMainSearch extends AppCompatActivity implements SearchLiveo.OnS
 
     @Override
     public void changedSearch(CharSequence charSequence) {
-        String query = charSequence.toString();
+        query = charSequence.toString();
         doSearch(query);
 
     }
@@ -113,10 +120,12 @@ public class StadMainSearch extends AppCompatActivity implements SearchLiveo.OnS
         if (!query.equals("")) {
             if (tag != null) {
                 apiCalling.getStadiumsSerachResults(query, this);
+                progressBar.setVisibility(View.VISIBLE);
 
             } else {
 
                 apiCalling.getTeamSearchResults(query, this);
+                progressBar.setVisibility(View.VISIBLE);
             }
         }
 
@@ -126,7 +135,7 @@ public class StadMainSearch extends AppCompatActivity implements SearchLiveo.OnS
         mSearchLiveo.hideVoice();
         mSearchLiveo.show();
         if (tag != null){
-            mSearchLiveo.hint("Search Stadiums");
+            mSearchLiveo.hint(getResources().getString(R.string.search_stadiums));
         }
         if (mSearchLiveo.isShown()){
             autoCompleteRv.setVisibility(View.VISIBLE);
@@ -142,6 +151,7 @@ public class StadMainSearch extends AppCompatActivity implements SearchLiveo.OnS
 
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
+        progressBar.setVisibility(View.GONE);
         if (tApiResponse instanceof StadiumListMain){
             StadiumListMain stadiumListMain = (StadiumListMain) tApiResponse;
             ArrayList<StadDetails> stadDetails = (ArrayList<StadDetails>) stadiumListMain.getStadDetails();
@@ -164,6 +174,25 @@ public class StadMainSearch extends AppCompatActivity implements SearchLiveo.OnS
 //            else {
 //                seeAll.setVisibility(View.VISIBLE);
 //            }
+        }
+        else// if (message.contains("connection abort")|| message.contains("Failed to connect"))
+        {
+            Toast.makeText(this,getResources().getString(R.string.check_connection), Toast.LENGTH_SHORT).show();
+            retry.setVisibility(View.VISIBLE);
+            retry.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (tag != null) {
+                        apiCalling.getStadiumsSerachResults(query, StadMainSearch.this::getApiResponse);
+                        progressBar.setVisibility(View.VISIBLE);
+
+                    } else {
+
+                        apiCalling.getTeamSearchResults(query, StadMainSearch.this::getApiResponse);
+                        progressBar.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
         }
 
     }

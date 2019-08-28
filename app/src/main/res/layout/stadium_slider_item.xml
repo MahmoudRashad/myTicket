@@ -23,6 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textSize="14sp"
+        android:visibility="gone"
         />
     <ImageView
         android:id="@+id/vs_image"

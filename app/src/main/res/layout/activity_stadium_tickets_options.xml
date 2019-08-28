@@ -120,7 +120,7 @@
         <Button
             android:id="@+id/spinner_chair"
             android:layout_width="match_parent"
-            android:layout_height="62dp"
+            android:layout_height="wrap_content"
             style="@style/spinner_style"
             app:layout_constraintTop_toBottomOf="@id/spinner_type_place_linear"
             app:layout_constraintStart_toStartOf="parent"
@@ -129,6 +129,8 @@
             android:textColor="@color/stad_grey_text"
             android:textAlignment="textStart"
             android:textAllCaps="false"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
             android:elevation="12dp"
             android:paddingStart="32dp"
             android:layout_marginStart="13dp"
@@ -165,16 +167,23 @@
             android:textStyle="bold"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
-            android:visibility="gone"/>
+            android:visibility="gone"
+
+            />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/seats_titles_rv"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             app:layout_constraintStart_toEndOf="@id/your_seats_title"
             app:layout_constraintTop_toTopOf="@id/your_seats_title"
             app:layout_constraintBottom_toBottomOf="@id/your_seats_title"
-            android:visibility="gone"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+            android:paddingEnd="20dp"
+
+            />
 
         <TextView
             android:id="@+id/individual_tile"
@@ -226,6 +235,7 @@
             android:layout_marginBottom="14dp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
             android:visibility="gone"/>
 
         <TextView

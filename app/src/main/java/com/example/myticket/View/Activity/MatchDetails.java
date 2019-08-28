@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -61,8 +62,10 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
     private ApiCalling apiCalling;
     private SessionManager sessionManager;
 
+    private ProgressBar notificationPb;
     private ProgressBar progressBar;
     private Button retry;
+    private String token;
 
 
     @Override
@@ -77,7 +80,7 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
         Intent intent = getIntent();
         if (intent.hasExtra("matchId")) {
             matchId = intent.getStringExtra("matchId");
-            String token = sessionManager.handleLogin();
+            token = sessionManager.handleLogin();
             apiCalling.getMatchDetails(matchId, token, this);
         }
         findRefs();
@@ -99,13 +102,14 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
         toolbarBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                NavUtils.navigateUpFromSameTask(MatchDetails.this);
             }
         });
 
         notificationIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                notificationPb.setVisibility(View.VISIBLE);
                 String token = sessionManager.handleLogin();
                 if (!token.equals("")) {
                     //set api
@@ -114,9 +118,9 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
 
                 } else {
                     Intent intent = new Intent(MatchDetails.this, Login.class);
-                    intent.putExtra("id", matchDetails.getId());
-                    intent.putExtra("name", "home");
+                    intent.putExtra("name", "match");
                     intent.putExtra("flag", "stad");
+                    intent.putExtra("matchId", matchId);
                     startActivity(intent);
                 }
             }
@@ -180,12 +184,14 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
         retry = findViewById(R.id.retry_btn_match_details);
         ticketsTypeRv = findViewById(R.id.tickets_categories_rv);
         ticketsTypeRv.setLayoutManager(new LinearLayoutManager(this));
+        notificationPb = findViewById(R.id.noti_pb);
 
     }
 
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
         progressBar.setVisibility(View.GONE);
+        notificationPb.setVisibility(View.GONE);
         if (tApiResponse instanceof MainMatches) {
             MainMatches mainMatches = (MainMatches) tApiResponse;
             List<com.example.myticket.Model.Network.StadiumModel.Match.MatchDetails> matchDetails = mainMatches.getResult();
@@ -222,10 +228,7 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
             retry.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(MatchDetails.this, HomeStadBottomNav.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+                    apiCalling.getMatchDetails(matchId, token, MatchDetails.this::getApiResponse);
                 }
             });
         }
@@ -266,14 +269,13 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
                         Intent intent = new Intent(MatchDetails.this, StadiumTicketsOptions.class);
                         intent.setAction("tickets");
                         intent.putExtra("matchId",matchId);
-
                         startActivity(intent);
                     }
                     else {
                         Intent intent = new Intent(MatchDetails.this,Login.class);
-                        //TODO: send this place with the login
-                        intent.putExtra("name","home");
+                        intent.putExtra("name","match");
                         intent.putExtra("flag","flag");
+                        intent.putExtra("matchId",matchId);
                         startActivity(intent);
                     }
                 }

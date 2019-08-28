@@ -88,7 +88,9 @@ public class StadiumDetails extends AppCompatActivity implements GeneralListener
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(StadiumDetails.this,HomeStadBottomNav.class);
+                intent.putExtra("name","stads");
+                startActivity(intent);
             }
         });
     }
@@ -104,7 +106,7 @@ public class StadiumDetails extends AppCompatActivity implements GeneralListener
         }
         else// if (message.contains("connection abort")|| message.contains("Failed to connect"))
         {
-            Toast.makeText(this,"Check your internet connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getResources().getString(R.string.check_connection), Toast.LENGTH_SHORT).show();
             retry.setVisibility(View.VISIBLE);
             retry.setOnClickListener(new View.OnClickListener() {
                 @Override

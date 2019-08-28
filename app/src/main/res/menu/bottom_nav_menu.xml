@@ -4,23 +4,23 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="Home" />
+        android:title="@string/home" />
 
     <item
         android:id="@+id/stadiums_list"
         android:icon="@drawable/ic_big_stadium"
-        android:title="Stadiums" />
+        android:title="@string/stadiums" />
 
     <item
         android:id="@+id/my_tickets"
         android:icon="@drawable/ic_tickets"
         android:iconTint="@color/white"
-        android:title="My Tickets" />
+        android:title="@string/my_tickets" />
 
     <item
         android:id="@+id/settings"
         android:icon="@drawable/ic_settings_24px"
-        android:title="Settings" />
+        android:title="@string/settings" />
 
 
 </menu>

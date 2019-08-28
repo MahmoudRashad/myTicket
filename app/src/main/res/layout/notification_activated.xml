@@ -17,6 +17,8 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="64dp"/>
 
+
+
 <android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -38,6 +40,10 @@
         app:layout_constraintBottom_toTopOf="@id/activated_text"
         android:tint="@color/light_green"
         />
+
+
+
+
     <TextView
         android:id="@+id/activated_text"
         android:layout_width="wrap_content"
@@ -52,4 +58,13 @@
     
 
 </android.support.constraint.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/noti_pb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/green_tab"
+        android:layout_gravity="center|top"
+        android:layout_marginTop="120dp"
+        />
 </FrameLayout>

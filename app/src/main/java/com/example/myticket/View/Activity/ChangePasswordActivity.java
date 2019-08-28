@@ -2,11 +2,14 @@ package com.example.myticket.View.Activity;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -47,13 +50,14 @@ public class ChangePasswordActivity extends AppCompatActivity
     private ImageView backBtn;
     private ImageView searchIcon;
     private TextView toolbarTitle;
+    private Intent intent;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        Intent intent = getIntent();
+        changeStatusBarColor();
+        intent = getIntent();
         if (intent.hasExtra("flag")){
             setContentView(R.layout.activity_change_password_stad);
         }
@@ -73,7 +77,14 @@ public class ChangePasswordActivity extends AppCompatActivity
         sessionManager = new SessionManager(this);
         apiCalling = new ApiCalling(this);
     }
-
+    private void changeStatusBarColor(){
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.status_bar));
+        }
+    }
     public void findViewsToReferences1() {
 
 
@@ -125,8 +136,16 @@ public class ChangePasswordActivity extends AppCompatActivity
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                if (intent.hasExtra("flag")){
+                Intent intent = new Intent(ChangePasswordActivity.this,HomeStadBottomNav.class);
+                intent.putExtra("name","settings");
+                startActivity(intent);
             }
+                else {
+                    finish();
+                }
+            }
+
         });
     }
 
@@ -239,10 +258,6 @@ public class ChangePasswordActivity extends AppCompatActivity
 //            }
 //        });
     }
-
-
-
-
 
 //    @Override
 //    public void getApiResponse(int status, String message, Object tApiResponse) {

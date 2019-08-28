@@ -75,6 +75,7 @@ public class FragmentMyTicketsStad extends Fragment implements GeneralListener {
         else{
             Intent intent = new Intent(getContext(), Login.class);
             intent.putExtra("flag","stad");
+            intent.putExtra("name","tickets");
             startActivity(intent);
         }
     }
@@ -92,7 +93,7 @@ public class FragmentMyTicketsStad extends Fragment implements GeneralListener {
         }
         else// if (message.contains("connection abort")|| message.contains("Failed to connect"))
         {
-            Toast.makeText(getContext(),"Check your internet connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),getResources().getString(R.string.check_connection), Toast.LENGTH_SHORT).show();
             retry.setVisibility(View.VISIBLE);
             retry.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -108,8 +109,8 @@ public class FragmentMyTicketsStad extends Fragment implements GeneralListener {
 
     private void setData(List<Past> pastTickets, List<Past> upcomingTickets) {
         viewPagerAdapter.clear();
-        viewPagerAdapter.addFragment(new StadMyTickets(),"UPCOMING",upcomingTickets);
-        viewPagerAdapter.addFragment(new StadMyTickets(),"PAST",pastTickets);
+        viewPagerAdapter.addFragment(new StadMyTickets(),getResources().getString(R.string.upcoming),upcomingTickets);
+        viewPagerAdapter.addFragment(new StadMyTickets(),getResources().getString(R.string.past),pastTickets);
         viewPagerAdapter.notifyDataSetChanged();
         ticketsViewPager.setAdapter(viewPagerAdapter);
         ticketsTab.setupWithViewPager(ticketsViewPager);
