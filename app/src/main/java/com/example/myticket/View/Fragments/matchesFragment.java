@@ -44,6 +44,8 @@ public class matchesFragment extends Fragment implements
     private String lang;
     private String token;
     private Button retry;
+    private int id;
+    private int dir = 0;
 
     public matchesFragment() {
         // Required empty public constructor
@@ -63,6 +65,8 @@ public class matchesFragment extends Fragment implements
         if (this.getArguments() != null) {
             flag = this.getArguments().getInt("flag");
         }
+        id = view.getLayoutDirection();
+
         sessionManager = new SessionManager(getContext());
         lang = sessionManager.getDeviceLanguage();
         token = sessionManager.getUserToken();
@@ -89,18 +93,39 @@ public class matchesFragment extends Fragment implements
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
         progressBar.setVisibility(View.GONE);
+        if (id == View.LAYOUT_DIRECTION_RTL){
+            dir = 1;
+        }
+        else{
+            dir =2;
+        }
         if (tApiResponse instanceof MainHomeMatches) {
             MainHomeMatches Leagues = (MainHomeMatches) tApiResponse;
             switch(flag){
                 case 1:
                     todayList =  Leagues.getResult();
-                    adapter = new HomeStadiumMainAdapter(getContext(),todayList);
+                    if (dir == 1)
+                    adapter = new HomeStadiumMainAdapter(getContext(),todayList,R.layout.btola_rv_item_arabic);
+                    else {
+                        adapter = new HomeStadiumMainAdapter(getContext(),todayList,R.layout.btola_rv_item);
+
+                    }
                 case 2:
                     weekList = Leagues.getResult();
-                    adapter = new HomeStadiumMainAdapter(getContext(),weekList);
+                    if (dir == 1)
+                        adapter = new HomeStadiumMainAdapter(getContext(),weekList,R.layout.btola_rv_item_arabic);
+                    else {
+                        adapter = new HomeStadiumMainAdapter(getContext(),weekList,R.layout.btola_rv_item);
+
+                    }
                 case 3:
                     nextWeekList = Leagues.getResult();
-                    adapter = new HomeStadiumMainAdapter(getContext(),nextWeekList);
+                    if (dir == 1)
+                        adapter = new HomeStadiumMainAdapter(getContext(),nextWeekList,R.layout.btola_rv_item_arabic);
+                    else {
+                        adapter = new HomeStadiumMainAdapter(getContext(),nextWeekList,R.layout.btola_rv_item);
+
+                    }
             }
             mainBtolatRv.setAdapter(adapter);
 

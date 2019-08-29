@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,12 +16,10 @@ import com.example.myticket.Model.Network.DataModel.BaseNoResult.BaseNoResult;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.R;
-import com.example.myticket.View.Activity.CinemaDetailsPage;
 import com.example.myticket.View.Activity.Login;
 import com.example.myticket.View.Activity.MatchDetails;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesAdapterViewHolder> implements GeneralListener {
@@ -34,19 +31,22 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
     private String matchId;
     private SessionManager sessionManager;
     com.example.myticket.Model.Network.StadiumModel.Match.MatchDetails matchDetails;
+    private int layout;
 
-    public MatchesAdapter(Context context, List<com.example.myticket.Model.Network.StadiumModel.Match.MatchDetails> matchesList) {
+    public MatchesAdapter(Context context, List<com.example.myticket.Model.Network.StadiumModel.Match.MatchDetails> matchesList, int layout) {
         this.context = context;
         this.matchesList = matchesList;
         apiCalling = new ApiCalling(context);
         sessionManager = new SessionManager(context);
+        this.layout = layout;
+
     }
 
     @NonNull
     @Override
     public MatchesAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.btola_rv_item,viewGroup,false);
+        View view = inflater.inflate(layout,viewGroup,false);
         return new MatchesAdapterViewHolder(view);
     }
 
@@ -65,7 +65,6 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
         Picasso.get()
                 .load(matchDetails.getTeam2Image())
                 .into(matchesAdapterViewHolder.teamTwoImage);
-
 
 
         if (matchDetails.getFollowStatus() == 1)
@@ -129,6 +128,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
         private ImageView followImage;
         private ImageView greenBackground;
 
+
         public MatchesAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
             timeText = itemView.findViewById(R.id.cardView_time);
@@ -140,6 +140,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
             teamTwoName = itemView.findViewById(R.id.team_two_name_card_view);
             followImage = itemView.findViewById(R.id.follow_img);
             greenBackground = itemView.findViewById(R.id.green);
+
             itemView.setOnClickListener(this);
             greenBackground.setOnClickListener(this);
 

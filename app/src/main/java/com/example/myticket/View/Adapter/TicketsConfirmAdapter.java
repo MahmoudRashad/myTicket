@@ -2,14 +2,12 @@ package com.example.myticket.View.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,10 +24,12 @@ public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAd
     private Context context;
     private List<MyTicketDetailResult> myTicketDetailResult;
     private MyTicketDetailResult myTicket;
+    private int layout;
 
-    public TicketsConfirmAdapter(Context context,List<MyTicketDetailResult> myTicketDetailResult) {
+    public TicketsConfirmAdapter(Context context, List<MyTicketDetailResult> myTicketDetailResult, int layout) {
         this.context = context;
         this.myTicketDetailResult = myTicketDetailResult;
+        this.layout = layout;
     }
 
 
@@ -37,7 +37,9 @@ public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAd
     @Override
     public ConfirmTicketsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.tickets_green_rv_item,viewGroup,false);
+
+        View view = inflater.inflate(layout,viewGroup,false);
+
         return new ConfirmTicketsViewHolder(view);
     }
 
@@ -58,6 +60,7 @@ public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAd
                 .into(confirmTicketsViewHolder.teamTwoImage);
 
 
+
     }
 
     @Override
@@ -75,6 +78,7 @@ public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAd
         private TextView seat;
         private TextView class_type;
         private TextView date;
+        private ConstraintLayout constraintLayout;
 
         public ConfirmTicketsViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -87,6 +91,8 @@ public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAd
             date = itemView.findViewById(R.id.match_time_text);
             class_type = itemView.findViewById(R.id.ticket_class_value);
             seat = itemView.findViewById(R.id.ticket_seat_value);
+            constraintLayout = itemView.findViewById(R.id.green_rv);
+
 
         }
 

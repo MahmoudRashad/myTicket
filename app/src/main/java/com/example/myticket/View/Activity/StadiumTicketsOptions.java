@@ -78,6 +78,8 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
     private ProgressBar progressBar;
     private Button retry;
 
+    private String mainUrl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,7 +151,9 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
     private void senarioTwo() {
 
         if (resultTicketsStads != null && action.equals("chairs")) {
-            Picasso.get().load(blockImage).into(stadImage);
+            if (!blockImage.equals("")) {
+                Picasso.get().load(blockImage).into(stadImage);
+            }
             ticketsStrings.add(chossenOne);
             ticketsStrings.add(getResources().getString(R.string.change_selection));
             priceEq.setText(" "+resultTicketsStads.size() + " X " + resultTicketsStads.get(0).getPrice());
@@ -310,7 +314,10 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
                     if (position != 0){
                         ReservationResult reservation = reservationResult.get(position -1 );
                         choosenTwo = reservation.getName();
-                        Picasso.get().load(reservation.getImage()).into(stadImage);
+                        String url = reservation.getImage();
+                        if (!url.equals("")) {
+                            Picasso.get().load(url).into(stadImage);
+                        }
                         chairSpinner.setClickable(true);
                         chairSpinner.setEnabled(true);
                         chairSpinner.setText(getString(R.string.select_chairs));
@@ -326,7 +333,11 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
                                 intent.putExtra("currency", reservationResult.get(0).getCurrency());
                                 intent.putExtra("firstChoice",chossenOne);
                                 intent.putExtra("secondChoice",choosenTwo);
-                                intent.putExtra("blockImage",reservation.getImage());
+                                if (!url.equals("")) {
+                                    intent.putExtra("blockImage",reservation.getImage());
+                                }
+                                intent.putExtra("blockImage",mainUrl);
+
                                 startActivity(intent);
                             }
                         });
@@ -346,7 +357,10 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
         else if (tApiResponse instanceof MainReservationDetails){
             MainReservationDetails mainReservationDetails = (MainReservationDetails) tApiResponse;
             ticketTypes = mainReservationDetails.getReservationDetails().getTicketType();
-            Picasso.get().load(mainReservationDetails.getReservationDetails().getStatdiumPlan()).into(stadImage);
+            mainUrl = mainReservationDetails.getReservationDetails().getStatdiumPlan();
+            if (!mainUrl.equals("")) {
+                Picasso.get().load(mainUrl).into(stadImage);
+            }
             date = mainReservationDetails.getReservationDetails().getMatchDate();
             stadiumId = mainReservationDetails.getReservationDetails().getStadiumId();
 
@@ -394,7 +408,7 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
 
         else// if (message.contains("connection abort")|| message.contains("Failed to connect"))
         {
-            Toast.makeText(this,"Check your internet connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getResources().getString(R.string.check_connection), Toast.LENGTH_SHORT).show();
             retry.setVisibility(View.VISIBLE);
             retry.setOnClickListener(new View.OnClickListener() {
                 @Override

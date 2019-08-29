@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -83,6 +84,7 @@ public class EditAccountStad extends AppCompatActivity implements GeneralListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        changeStatusBarColor();
         setContentView(R.layout.activity_edit_account_stad);
         myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
         setToolbar();
@@ -98,6 +100,15 @@ public class EditAccountStad extends AppCompatActivity implements GeneralListene
     protected void onStart() {
         super.onStart();
         setDataOfViews();
+    }
+
+    private void changeStatusBarColor(){
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.status_bar));
+        }
     }
 
     private void setToolbar() {

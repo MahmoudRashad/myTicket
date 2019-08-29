@@ -2,6 +2,7 @@ package com.example.myticket.View.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -58,18 +59,8 @@ public class StadHomeFragment extends Fragment implements
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_stad_home, container, false);
-
-        weeksTabLayout = view.findViewById(R.id.stadium_tabs);
-        weeksViewPager = view.findViewById(R.id.viewpager_stad);
-        sliderPager = view.findViewById(R.id.stadium_home_banner);
-        progressBar = view.findViewById(R.id.slider_stad_pb);
-        matches_now = view.findViewById(R.id.no_matches_now);
-        retry = view.findViewById(R.id.slider_retry_btn);
-
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         apiCalling = new ApiCalling(getContext());
         apiCalling.getMatchesSlider(this);
 
@@ -82,9 +73,28 @@ public class StadHomeFragment extends Fragment implements
         stadHomeViewPagerAdapter.addFragment(new matchesFragment(),getResources().getString(R.string.week),2);
         stadHomeViewPagerAdapter.addFragment(new matchesFragment(),getResources().getString(R.string.next_week),3);
 
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_stad_home, container, false);
+
+        weeksTabLayout = view.findViewById(R.id.stadium_tabs);
+        weeksViewPager = view.findViewById(R.id.viewpager_stad);
+        sliderPager = view.findViewById(R.id.stadium_home_banner);
+        progressBar = view.findViewById(R.id.slider_stad_pb);
+        matches_now = view.findViewById(R.id.no_matches_now);
+        retry = view.findViewById(R.id.slider_retry_btn);
+
+
+
 
         return view;
     }
+
+
 
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
@@ -104,7 +114,7 @@ public class StadHomeFragment extends Fragment implements
         }
       else// if (message.contains("connection abort")|| message.contains("Failed to connect"))
             {
-            Toast.makeText(getContext(),"Check your internet connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),getResources().getString(R.string.check_connection), Toast.LENGTH_SHORT).show();
             retry.setVisibility(View.VISIBLE);
             retry.setOnClickListener(new View.OnClickListener() {
                 @Override

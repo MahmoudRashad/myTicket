@@ -153,6 +153,7 @@
     <string name="old_password">Old Password</string>
     <string name="new_password_">New Password</string>
     <string name="confirm_new_password">Confirm New Password</string>
+    <string name="no_matches_are_being_played_now">No matches are being played now</string>
 
 
 </resources>

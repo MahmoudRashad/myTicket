@@ -123,6 +123,12 @@ public class HomeStadBottomNav extends AppCompatActivity {
             navView.setSelectedItemId(R.id.my_tickets);
 
         }
+        else if (previousPlace.equals("")){
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, new StadHomeFragment())
+                    .commit();
+            navView.setSelectedItemId(R.id.navigation_home);
+        }
         else {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, new StadHomeFragment())
@@ -158,6 +164,7 @@ public class HomeStadBottomNav extends AppCompatActivity {
         backBtn = findViewById(R.id.toolbar_back);
         backBtn.setVisibility(View.GONE);
         logo.setVisibility(View.VISIBLE);
+        int id = navView.getSelectedItemId();
         searchIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,13 +172,10 @@ public class HomeStadBottomNav extends AppCompatActivity {
                 if (tag.equals("stadiums")){
                     intent.putExtra("tag",tag);
                 }
+                if (previousPlace.equals("MyTickets")|| id == R.id.navigation_home || id == R.id.my_tickets){
+                    intent.putExtra("name","MyTickets");
+                }
                 startActivity(intent);
-            }
-        });
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
             }
         });
     }

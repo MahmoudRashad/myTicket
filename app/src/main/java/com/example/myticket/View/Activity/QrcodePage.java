@@ -3,10 +3,13 @@ package com.example.myticket.View.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,6 +35,7 @@ public class QrcodePage extends AppCompatActivity {
 
         if (intent.getAction().equals("green")) {
             setContentView(R.layout.activity_qr_code_stad);
+            changeStatusBarColor();
         }
         else{
             setContentView(R.layout.activity_qrcode_page);
@@ -55,6 +59,16 @@ public class QrcodePage extends AppCompatActivity {
         }
         imvQrCode.setImageBitmap(bitmap);
     }
+
+    private void changeStatusBarColor(){
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.status_bar));
+        }
+    }
+
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(getString(R.string.my_ticket));
@@ -62,13 +76,7 @@ public class QrcodePage extends AppCompatActivity {
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
 
-        searchIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(QrcodePage.this,SearchPage.class);
-                startActivity(intent);
-            }
-        });
+        searchIcon.setVisibility(View.GONE);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

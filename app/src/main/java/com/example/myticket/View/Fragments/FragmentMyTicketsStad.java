@@ -46,10 +46,17 @@ public class FragmentMyTicketsStad extends Fragment implements GeneralListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         apiCalling = new ApiCalling(getContext());
         sessionManager = new SessionManager(getContext());
-
-
+        viewPagerAdapter = new StadMyTicketsViewPagerAdapter(getChildFragmentManager());
     }
 
     @Override
@@ -60,7 +67,7 @@ public class FragmentMyTicketsStad extends Fragment implements GeneralListener {
         ticketsViewPager = view.findViewById(R.id.stad_tickets_viewpager);
         retry = view.findViewById(R.id.stad_list_retry_btn);
         progressBar = view.findViewById(R.id.slider_stad_pb);
-        viewPagerAdapter = new StadMyTicketsViewPagerAdapter(getChildFragmentManager());
+
         return view;
     }
 

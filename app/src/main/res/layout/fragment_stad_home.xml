@@ -38,7 +38,7 @@
             android:id="@+id/no_matches_now"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No matches are being played now"
+            android:text="@string/no_matches_are_being_played_now"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:layout_gravity="center"

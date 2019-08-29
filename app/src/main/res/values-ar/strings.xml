@@ -39,8 +39,8 @@
     <string name="verified">مؤكد</string>
     <string name="update">تحديث</string>
     <string name="send_reset_link">أرسل رابط إعادة التعيين</string>
-    <string name="cinema">سينمات</string>
-    <string name="stadium">ملاعب</string>
+    <string name="cinema">سينما</string>
+    <string name="stadium">ملعب</string>
     <string name="now_playing">يعرض الآن</string>
     <string name="see_all">عرض الكل</string>
     <string name="near_by_cinemas">السينمات المجاورة</string>
@@ -147,6 +147,7 @@
     <string name="old_password">كلمة السر القديمة</string>
     <string name="new_password_">كلمة السر الجديدة</string>
     <string name="confirm_new_password">تأكيد كلمة السر الجديدة</string>
+    <string name="no_matches_are_being_played_now">لا يوجد مباريات الآن</string>
 
 
 </resources>

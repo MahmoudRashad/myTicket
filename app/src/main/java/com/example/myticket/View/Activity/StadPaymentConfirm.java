@@ -2,6 +2,7 @@ package com.example.myticket.View.Activity;
 
 import android.content.Intent;
 import android.os.Build;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -34,6 +35,7 @@ public class StadPaymentConfirm extends AppCompatActivity implements GeneralList
     private String matchId;
     private ApiCalling apiCalling;
     private SessionManager sessionManager;
+    private ConstraintLayout constraintLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,7 @@ public class StadPaymentConfirm extends AppCompatActivity implements GeneralList
         apiCalling = new ApiCalling(this);
         sessionManager = new SessionManager(this);
         Intent intent = getIntent();
+        constraintLayout = findViewById(R.id.stad_payment_confirm);
         if (intent.hasExtra("matchId")) {
             matchId = intent.getStringExtra("matchId");
 
@@ -97,7 +100,11 @@ public class StadPaymentConfirm extends AppCompatActivity implements GeneralList
         if (tApiResponse instanceof MyTicketMainDetail){
             MyTicketMainDetail myTicketMainDetail = (MyTicketMainDetail) tApiResponse;
             List<MyTicketDetailResult> myTicketDetailResult = myTicketMainDetail.getMyTicketDetailResult();
-            ticketsConfirmAdapter = new TicketsConfirmAdapter(this,myTicketDetailResult);
+            if (constraintLayout.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL){
+                ticketsConfirmAdapter = new TicketsConfirmAdapter(this,myTicketDetailResult,R.layout.green_rv_item_arabic);
+            }else {
+                ticketsConfirmAdapter = new TicketsConfirmAdapter(this, myTicketDetailResult, R.layout.tickets_green_rv_item);
+            }
             ticketsRV.setAdapter(ticketsConfirmAdapter);
 
         }

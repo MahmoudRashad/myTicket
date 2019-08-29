@@ -3,10 +3,13 @@ package com.example.myticket.View.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -68,8 +71,10 @@ public class Login extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getSupportActionBar().hide();
+
         intent = getIntent();
         flag = handleIntent();
+        if (flag) changeStatusBarColor();
 
         apiCalling = new ApiCalling(this);
         myfont = Typeface.createFromAsset(this.getAssets(), "fonts/segoe_ui.ttf");
@@ -148,6 +153,15 @@ public class Login extends AppCompatActivity implements
             return false;
         }
     }
+    private void changeStatusBarColor(){
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.status_bar));
+        }
+    }
+
 
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);

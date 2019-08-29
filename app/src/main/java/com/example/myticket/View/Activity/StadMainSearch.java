@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -24,11 +23,9 @@ import com.example.myticket.Model.Network.StadiumModel.StadiumList.StadDetails;
 import com.example.myticket.Model.Network.StadiumModel.StadiumList.StadiumListMain;
 import com.example.myticket.R;
 import com.example.myticket.View.Adapter.MatchesAdapter;
-import com.example.myticket.View.Adapter.StadSearchAdapter;
 import com.example.myticket.View.Adapter.StadiumsAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import br.com.liveo.searchliveo.SearchLiveo;
 
@@ -48,6 +45,7 @@ public class StadMainSearch extends AppCompatActivity implements SearchLiveo.OnS
     private ProgressBar progressBar;
     private Button retry;
     private String query;
+    private String name = "";
 
 
     @Override
@@ -59,6 +57,9 @@ public class StadMainSearch extends AppCompatActivity implements SearchLiveo.OnS
         if (intent.hasExtra("tag") && intent.getStringExtra("tag").equals("stadiums")) {
             tag = intent.getStringExtra("tag");
 
+        }
+        if (intent.hasExtra("name")){
+            name = intent.getStringExtra("name");
         }
         myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
 
@@ -102,6 +103,12 @@ public class StadMainSearch extends AppCompatActivity implements SearchLiveo.OnS
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (name.equals("MyTickets")){
+                    Intent intent = new Intent(StadMainSearch.this,HomeStadBottomNav.class);
+                    intent.putExtra("name", "MyTickets");
+                    startActivity(intent);
+                }
+                else
                 finish();
             }
         });
@@ -167,7 +174,7 @@ public class StadMainSearch extends AppCompatActivity implements SearchLiveo.OnS
         else if (tApiResponse instanceof MainMatches){
             MainMatches mainMatches = (MainMatches) tApiResponse;
             ArrayList<MatchDetails> matches = (ArrayList<MatchDetails>) mainMatches.getResult();
-            autoCompleteRv.setAdapter(new MatchesAdapter(this,matches));
+            autoCompleteRv.setAdapter(new MatchesAdapter(this,matches, R.layout.btola_rv_item));
 //            if (matches.size() <= 5){
 //                seeAll.setVisibility(View.GONE);
 //            }
