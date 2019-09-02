@@ -141,6 +141,27 @@
 
 
             />
+        <EditText
+            android:id="@+id/tickets_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/spinner_type_place_linear"
+            app:layout_constraintStart_toStartOf="parent"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/stad_grey_text"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp"
+            android:elevation="12dp"
+            android:paddingStart="32dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="13dp"
+            android:layout_marginTop="13dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColorHint="@color/grey_star"
+            android:visibility="gone"
+            android:hint="@string/enter_number_of_tickets"/>
 
 
         <View

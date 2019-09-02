@@ -26,6 +26,7 @@ import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.Model.Network.StadiumModel.Match.MainMatchDetails;
 import com.example.myticket.Model.Network.StadiumModel.Match.MainMatches;
 import com.example.myticket.Model.Network.StadiumModel.Match.TicketType;
+import com.example.myticket.Model.Network.StadiumModel.Reservation.MainLimit;
 import com.example.myticket.R;
 import com.example.myticket.View.Adapter.MatchesAdapter;
 import com.example.myticket.View.Adapter.TicketsTypeAdapter;
@@ -221,9 +222,24 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
 
         }
 
+        else if (tApiResponse instanceof MainLimit){
+            MainLimit mainLimit = (MainLimit) tApiResponse;
+            int limit = mainLimit.getLimit().getLimit();
+            if (limit > 0){
+                Intent intent = new Intent(MatchDetails.this, StadiumTicketsOptions.class);
+                intent.setAction("tickets");
+                intent.putExtra("limit",limit);
+                intent.putExtra("matchId",matchId);
+                startActivity(intent);
+            }
+            else if (limit == 0){
+                Toast.makeText(MatchDetails.this,getResources().getString(R.string.limit_warning),Toast.LENGTH_LONG).show();
+            }
+        }
+
         else// if (message.contains("connection abort")|| message.contains("Failed to connect"))
         {
-            Toast.makeText(this,"Check your internet connection", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getResources().getString(R.string.check_connection), Toast.LENGTH_SHORT).show();
             retry.setVisibility(View.VISIBLE);
             retry.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -266,10 +282,7 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
                 @Override
                 public void onClick(View v) {
                     if (!sessionManager.handleLogin().equals("")) {
-                        Intent intent = new Intent(MatchDetails.this, StadiumTicketsOptions.class);
-                        intent.setAction("tickets");
-                        intent.putExtra("matchId",matchId);
-                        startActivity(intent);
+                        apiCalling.getLimit(matchId,sessionManager.handleLogin(),sessionManager.getDeviceLanguage(),MatchDetails.this::getApiResponse);
                     }
                     else {
                         Intent intent = new Intent(MatchDetails.this,Login.class);

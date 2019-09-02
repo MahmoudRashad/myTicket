@@ -30,11 +30,11 @@
         app:layout_constraintStart_toEndOf="@id/stad_image_item"
         app:layout_constraintTop_toTopOf="@id/stad_image_item"
         android:src="@drawable/ic_big_stadium"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         />
     <TextView
         android:id="@+id/stadium_name_text"
-        android:layout_width="194dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/stad_icon"
         app:layout_constraintBottom_toBottomOf="@id/stad_icon"
@@ -45,7 +45,7 @@
         android:textAlignment="textStart"
         android:maxLines="2"
         android:textColor="@color/stad_grey_text"
-        android:textSize="15dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         />
 
     <ImageView
@@ -53,14 +53,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@id/stad_image_item"
-        app:layout_constraintTop_toBottomOf="@id/stad_icon"
+        app:layout_constraintTop_toTopOf="@id/stad_image_item"
+        app:layout_constraintBottom_toBottomOf="@id/stad_image_item"
         android:src="@drawable/ic_business_24dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+
         />
     <TextView
         android:id="@+id/stadium_address_text"
-        android:layout_width="194dp"
+        android:layout_width="160dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@id/address_icon"
         app:layout_constraintBottom_toBottomOf="@id/address_icon"
@@ -92,8 +93,7 @@
         android:src="@drawable/ic_pin_drop_24dp"
         app:layout_constraintStart_toEndOf="@id/stad_image_item"
         app:layout_constraintBottom_toBottomOf="@id/stad_image_item"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"/>
 
     <Button

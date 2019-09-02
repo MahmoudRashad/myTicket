@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/green_gradient"
+    tools:context=".View.Activity.EditAccount"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/green_gradient"
-    tools:context=".View.Activity.EditAccount">
+android:background="@drawable/green_gradient"
+
+    >
 
     <!--<ImageView-->
     <!--android:id="@+id/profile_image"-->
@@ -291,3 +298,4 @@
         app:layout_constraintTop_toBottomOf="@+id/profile_Address" />
 
 </android.support.constraint.ConstraintLayout>
+</ScrollView>

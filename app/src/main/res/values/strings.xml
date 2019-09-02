@@ -154,6 +154,10 @@
     <string name="new_password_">New Password</string>
     <string name="confirm_new_password">Confirm New Password</string>
     <string name="no_matches_are_being_played_now">No matches are being played now</string>
+    <string name="limit_warning">You have reached your reservation limit for this match</string>
+    <string name="your_limit_is">Your tickets limit is</string>
+    <string name="tickets">tickets.</string>
+    <string name="enter_number_of_tickets">Enter number of tickets</string>
 
 
 </resources>

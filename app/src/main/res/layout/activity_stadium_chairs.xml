@@ -12,6 +12,17 @@
         android:id="@+id/chairs_toolbar"
         layout="@layout/stad_top_toolbar"/>
 
+    <TextView
+        android:id="@+id/text_limit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/chairs_toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/stad_chairs_rv"
+        android:layout_marginStart="16dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/colorAccent"
+        />
 
 
     <android.support.v7.widget.RecyclerView
@@ -23,7 +34,7 @@
         app:layout_constraintTop_toBottomOf="@id/chairs_toolbar"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="66dp"
+        android:layout_marginTop="90dp"
         android:background="@drawable/white_rect_bk"
         android:layout_marginBottom="66dp"/>
 

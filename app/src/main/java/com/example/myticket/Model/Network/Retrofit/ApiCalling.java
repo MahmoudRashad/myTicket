@@ -30,6 +30,7 @@ import com.example.myticket.Model.Network.StadiumModel.Match.MainMatches;
 import com.example.myticket.Model.Network.StadiumModel.MyTicket.MyTicketMain;
 import com.example.myticket.Model.Network.StadiumModel.MyTicket.MyTicketMainDetail;
 import com.example.myticket.Model.Network.StadiumModel.Reservation.MainChairs;
+import com.example.myticket.Model.Network.StadiumModel.Reservation.MainLimit;
 import com.example.myticket.Model.Network.StadiumModel.Reservation.MainReservationDetails;
 import com.example.myticket.Model.Network.StadiumModel.Reservation.ReservationMain;
 import com.example.myticket.Model.Network.StadiumModel.ResultTicketsStad.ResultTicketsStad;
@@ -1683,10 +1684,11 @@ public class ApiCalling
 
     }
 
-    public void getChairs(String id,String blockName, String token,final GeneralListener generalListener) {
+    public void getChairs(String id,String blockName,String matchId, String token,final GeneralListener generalListener) {
         Map<String,String> map = new HashMap<>();
         map.put("stadium_id",id);
         map.put("block_name",blockName);
+        map.put("match_id",matchId);
         Call<MainChairs> call = apiInterface.getChairs(token,map);
         call.enqueue(new Callback<MainChairs>() {
             @Override
@@ -1889,6 +1891,47 @@ public class ApiCalling
 
             @Override
             public void onFailure(Call<MainReservationDetails> call, Throwable t) {
+                //fail internet connection
+                if (t instanceof IOException) {
+                    Log.e("ApiCheck**", "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue(),
+                            t.getMessage(), null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue(),
+                            t.getMessage(), null);
+                }
+            }
+        });
+
+    }
+
+    public void getLimit(String matchId ,String authorization , String lang,final GeneralListener generalListener ) {
+
+        Map<String,String> map = new HashMap<>();
+        map.put("match_id",matchId);
+
+        Call<MainLimit> call = apiInterface.getLimit(
+                lang, authorization,map);
+
+        call.enqueue(new Callback<MainLimit>() {
+            @Override
+            public void onResponse(Call<MainLimit> call, Response<MainLimit> response) {
+                if (response.isSuccessful()) {
+                    Log.e("onResponse", response.raw().toString());
+                    if (response.body().getSuccess()) {
+                        generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                                null, response.body());
+                    } else {
+                        generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                                response.body().getMessage(), response.body());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MainLimit> call, Throwable t) {
                 //fail internet connection
                 if (t instanceof IOException) {
                     Log.e("ApiCheck**", "no internet connection");

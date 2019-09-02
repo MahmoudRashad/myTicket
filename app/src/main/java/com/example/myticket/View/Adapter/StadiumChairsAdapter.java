@@ -23,11 +23,12 @@ public class StadiumChairsAdapter extends  RecyclerView.Adapter<StadiumChairsAda
     private String date;
     private String price;
     private String currency;
-    private ArrayList<ResultTicketsStad> resultTicketsStad;
+    private int limit;
+    private int counter = 0;
 
 
     public StadiumChairsAdapter(List<ChairsResult> chairsResults, Context context,
-                                StadiumChairsAdapter.saveChairs saveChairs, String matchId, String date, String price, String currency) {
+                                StadiumChairsAdapter.saveChairs saveChairs, String matchId, String date, String price, String currency,int limit) {
         this.chairsResults = chairsResults;
         this.context = context;
         this.saveChairs = saveChairs;
@@ -35,6 +36,8 @@ public class StadiumChairsAdapter extends  RecyclerView.Adapter<StadiumChairsAda
         this.date = date;
         this.price = price;
         this.currency = currency;
+        this.limit = limit;
+        counter = limit;
     }
 
     @NonNull
@@ -50,32 +53,40 @@ public class StadiumChairsAdapter extends  RecyclerView.Adapter<StadiumChairsAda
         ChairsResult chairsResult = chairsResults.get(i);
         String chairName = chairsResult.getChairSymbol() + chairsResult.getChairNum();
         chairViewHolder.checkedTextView.setText(chairName);
-        resultTicketsStad = new ArrayList<>();
-        chairViewHolder.checkedTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
 
-        chairViewHolder.checkedTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean checked = chairViewHolder.checkedTextView.isChecked();
-                ResultTicketsStad resultTicketsStad = new ResultTicketsStad(matchId,date, chairsResult.getChairNum(),
-                        chairsResult.getChairSymbol(), chairsResult.getId().toString(),"33",price,currency);
-                // Check which checkbox was clicked
-                saveChairs.saveChairs(checked,resultTicketsStad);
+            chairViewHolder.checkedTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                        boolean checked = chairViewHolder.checkedTextView.isChecked();
 
-            }
-        });
+                            if (!checked)
+                                counter++;
+                            else {
+                                if (counter == 0){
+                                    chairViewHolder.checkedTextView.setChecked(false);
+                                }
+                                    else{
+                                    counter--;
+                                    }
+                            }
+                                ResultTicketsStad resultTicketsStad = new ResultTicketsStad(matchId, date, chairsResult.getChairNum(),
+                                        chairsResult.getChairSymbol(), chairsResult.getId().toString(), "33", price, currency);
+                                // Check which checkbox was clicked
+                                saveChairs.saveChairs(checked, resultTicketsStad);
+                            }
 
-    }
+            });
+
+
+        }
+
 
     @Override
     public int getItemCount() {
+        if (chairsResults.size() > 0)
         return chairsResults.size();
+        else return 0;
     }
 
     public class ChairViewHolder extends RecyclerView.ViewHolder {

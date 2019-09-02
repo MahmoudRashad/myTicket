@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -21,9 +22,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myticket.Model.Data.SessionManager;
+import com.example.myticket.Model.Network.DataModel.BaseNoResult.BaseNoResult;
 import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
+import com.example.myticket.Model.Network.StadiumModel.Reservation.ChairsResult;
+import com.example.myticket.Model.Network.StadiumModel.Reservation.MainChairs;
 import com.example.myticket.Model.Network.StadiumModel.Reservation.MainReservationDetails;
 import com.example.myticket.Model.Network.StadiumModel.Reservation.ReservationMain;
 import com.example.myticket.Model.Network.StadiumModel.Reservation.ReservationResult;
@@ -79,6 +83,11 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
     private Button retry;
 
     private String mainUrl;
+    private int limit;
+    private ReservationResult reservation;
+    List<ReservationResult> reservationResult;
+    String url;
+    private EditText ticketsEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +103,7 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
             action = intent.getAction();
             if (action.equals("tickets")) {
                 matchId = intent.getStringExtra("matchId");
+                limit = intent.getIntExtra("limit",4);
                 senarioOne();
             }
 
@@ -150,12 +160,13 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
     }
     private void senarioTwo() {
 
-        if (resultTicketsStads != null && action.equals("chairs")) {
+        if (resultTicketsStads != null && action.equals("chairs") && resultTicketsStads.size() > 0) {
             if (!blockImage.equals("")) {
                 Picasso.get().load(blockImage).into(stadImage);
             }
             ticketsStrings.add(chossenOne);
             ticketsStrings.add(getResources().getString(R.string.change_selection));
+
             priceEq.setText(" "+resultTicketsStads.size() + " X " + resultTicketsStads.get(0).getPrice());
             String price = String.valueOf(resultTicketsStads.size() * Integer.parseInt(resultTicketsStads.get(0).getPrice()));
             priceTotal.setText(" "+price +" "+ resultTicketsStads.get(0).getCurrency());
@@ -249,6 +260,7 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
         priceTotal = findViewById(R.id.price_total);
         progressBar = findViewById(R.id.pb_book);
         retry = findViewById(R.id.retry_book);
+        ticketsEditText = findViewById(R.id.tickets_edit_text);
 
     }
 
@@ -297,7 +309,7 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
             blocksStrings.clear();
             chairSpinner.setText("");
             ReservationMain reservationMain = (ReservationMain) tApiResponse;
-            List<ReservationResult> reservationResult = reservationMain.getReservationResult();
+             reservationResult = reservationMain.getReservationResult();
             if (reservationResult.size() > 0) {
 
                 blocksStrings.add(getResources().getString(R.string.select_block_type));
@@ -312,35 +324,14 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     if (position != 0){
-                        ReservationResult reservation = reservationResult.get(position -1 );
+                        reservation = reservationResult.get(position -1 );
                         choosenTwo = reservation.getName();
-                        String url = reservation.getImage();
+                        url = reservation.getImage();
                         if (!url.equals("")) {
                             Picasso.get().load(url).into(stadImage);
                         }
-                        chairSpinner.setClickable(true);
-                        chairSpinner.setEnabled(true);
-                        chairSpinner.setText(getString(R.string.select_chairs));
-                        chairSpinner.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(StadiumTicketsOptions.this, StadiumChairs.class);
-                                intent.putExtra("stadId", stadiumId);
-                                intent.putExtra("text", reservation.getName());
-                                intent.putExtra("matchId", matchId);
-                                intent.putExtra("date", date);
-                                intent.putExtra("price", reservationResult.get(0).getPrice());
-                                intent.putExtra("currency", reservationResult.get(0).getCurrency());
-                                intent.putExtra("firstChoice",chossenOne);
-                                intent.putExtra("secondChoice",choosenTwo);
-                                if (!url.equals("")) {
-                                    intent.putExtra("blockImage",reservation.getImage());
-                                }
-                                intent.putExtra("blockImage",mainUrl);
-
-                                startActivity(intent);
-                            }
-                        });
+                        apiCalling.getChairs(stadiumId, reservation.getName(), matchId,"Bearer " + sessionManager.getUserToken(),
+                                StadiumTicketsOptions.this::getApiResponse);
                     }
                 }
 
@@ -405,6 +396,60 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
             String msg = generalApiesponse.getMessage();
             Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
         }
+
+        else if (tApiResponse instanceof MainChairs) {
+            MainChairs mainChairs = (MainChairs) tApiResponse;
+            String msg = mainChairs.getMessage();
+            if (msg.equals("empty")) {
+                ticketsEditText.setVisibility(View.VISIBLE);
+                chairSpinner.setVisibility(View.GONE);
+                //TODO: send number of chairs
+
+            }
+            else if (!mainChairs.getSuccess()){
+                ticketsEditText.setVisibility(View.GONE);
+                chairSpinner.setVisibility(View.GONE);
+                Toast.makeText(StadiumTicketsOptions.this,mainChairs.getMessage(),Toast.LENGTH_LONG).show();
+            }
+            else {
+                ticketsEditText.setVisibility(View.GONE);
+                chairSpinner.setVisibility(View.VISIBLE);
+                chairSpinner.setClickable(true);
+                chairSpinner.setEnabled(true);
+                chairSpinner.setText(getString(R.string.select_chairs));
+                chairSpinner.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(StadiumTicketsOptions.this, StadiumChairs.class);
+                        intent.putExtra("stadId", stadiumId);
+                        intent.putExtra("text", reservation.getName());
+                        intent.putExtra("matchId", matchId);
+                        intent.putExtra("date", date);
+                        intent.putExtra("price", reservationResult.get(0).getPrice());
+                        intent.putExtra("currency", reservationResult.get(0).getCurrency());
+                        intent.putExtra("firstChoice", chossenOne);
+                        intent.putExtra("secondChoice", choosenTwo);
+                        intent.putExtra("limit", limit);
+                        if (!url.equals("")) {
+                            intent.putExtra("blockImage", reservation.getImage());
+                        }
+                        intent.putExtra("blockImage", mainUrl);
+
+                        startActivity(intent);
+                    }
+                });
+
+            }
+        }
+
+//        else if (tApiResponse instanceof BaseNoResult){
+//            BaseNoResult baseNoResult = (BaseNoResult) tApiResponse;
+//            if (baseNoResult.getMessage().equals("empty")){
+//                ticketsEditText.setVisibility(View.VISIBLE);
+//                chairSpinner.setVisibility(View.GONE);
+//                //TODO: send number of chairs
+//            }
+//        }
 
         else// if (message.contains("connection abort")|| message.contains("Failed to connect"))
         {

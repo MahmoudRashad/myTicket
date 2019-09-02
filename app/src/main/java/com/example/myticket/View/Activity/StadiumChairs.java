@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myticket.Model.Data.SessionManager;
+import com.example.myticket.Model.Network.DataModel.BaseNoResult.BaseNoResult;
 import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
@@ -52,6 +53,8 @@ public class StadiumChairs extends AppCompatActivity implements GeneralListener,
 
     private String stadId;
     private String text;
+    private int limit;
+    private TextView textLimit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +65,7 @@ public class StadiumChairs extends AppCompatActivity implements GeneralListener,
         confirmBtn = findViewById(R.id.select_chairs_btn);
         progressBar = findViewById(R.id.pb_chair);
         retry = findViewById(R.id.retry_chair);
+        textLimit = findViewById(R.id.text_limit);
         chairsRv.setLayoutManager(new LinearLayoutManager(this));
         apiCalling = new ApiCalling(this);
         sessionManager = new SessionManager(this);
@@ -77,7 +81,9 @@ public class StadiumChairs extends AppCompatActivity implements GeneralListener,
             one = intent.getStringExtra("firstChoice");
             two =intent.getStringExtra("secondChoice");
             blockImage = intent.getStringExtra("blockImage");
-            apiCalling.getChairs(stadId, text, "Bearer " + sessionManager.getUserToken(), this);
+            limit = intent.getIntExtra("limit",4);
+            textLimit.setText(getResources().getString(R.string.your_limit_is) +" " +limit + " "+getResources().getString(R.string.tickets));
+            apiCalling.getChairs(stadId, text, matchId,"Bearer " + sessionManager.getUserToken(), this);
         }
 
     }
@@ -113,7 +119,7 @@ public class StadiumChairs extends AppCompatActivity implements GeneralListener,
         if (tApiResponse instanceof MainChairs){
             MainChairs mainChairs = (MainChairs) tApiResponse;
             List<ChairsResult> chairsResult = mainChairs.getChairsResult();
-            stadiumChairsAdapter = new StadiumChairsAdapter(chairsResult,this,this,matchId,date,price,currency);
+            stadiumChairsAdapter = new StadiumChairsAdapter(chairsResult,this,this,matchId,date,price,currency,limit);
             chairsRv.setAdapter(stadiumChairsAdapter);
             confirmBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -134,6 +140,7 @@ public class StadiumChairs extends AppCompatActivity implements GeneralListener,
             });
         }
 
+
         else// if (message.contains("connection abort")|| message.contains("Failed to connect"))
         {
             Toast.makeText(this,getResources().getString(R.string.check_connection), Toast.LENGTH_SHORT).show();
@@ -142,7 +149,7 @@ public class StadiumChairs extends AppCompatActivity implements GeneralListener,
                 @Override
                 public void onClick(View v) {
                     progressBar.setVisibility(View.VISIBLE);
-                    apiCalling.getChairs(stadId, text, "Bearer " + sessionManager.getUserToken(), StadiumChairs.this::getApiResponse);
+                    apiCalling.getChairs(stadId, text, matchId,"Bearer " + sessionManager.getUserToken(), StadiumChairs.this::getApiResponse);
                 }
             });
         }
@@ -154,7 +161,12 @@ public class StadiumChairs extends AppCompatActivity implements GeneralListener,
         if (checked)
         resultTicketsStads.add(resultTicketsStad);
         else{
-            resultTicketsStads.remove(resultTicketsStad);
+            for (int i = 1; i <resultTicketsStads.size() ; i++){
+                if (resultTicketsStad.getId().equals(resultTicketsStads.get(i).getId())){
+                    resultTicketsStads.remove(resultTicketsStad);
+                    break;
+                }
+            }
         }
     }
 }
