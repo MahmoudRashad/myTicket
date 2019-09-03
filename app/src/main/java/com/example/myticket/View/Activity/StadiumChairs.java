@@ -134,7 +134,8 @@ public class StadiumChairs extends AppCompatActivity implements GeneralListener,
                     intent.putExtra("secondChoice",two);
                     intent.putExtra("blockImage",blockImage);
                     intent.putExtra("matchId",matchId);
-                    startActivity(intent);
+                    setResult(RESULT_OK,intent);
+                    finish();
 
                 }
             });

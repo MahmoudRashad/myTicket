@@ -3,6 +3,7 @@ package com.example.myticket.View.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -70,7 +71,7 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
     private String blockImage;
     private String action;
     private ArrayList<ResultTicketsStad> resultTicketsStads;
-
+    static final int PICK_CHAIRS_REQUEST = 111;
     private View view1;
     private TextView yourSeats;
     private TextView individualTitle;
@@ -108,19 +109,19 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
             }
 
 
-            else if (action.equals("chairs")){
-                String stringData = String.valueOf(intent.getData().getSchemeSpecificPart());
-                GsonBuilder gsonBuilder = new GsonBuilder();
-                Gson gson = gsonBuilder.create();
-                ResultTicketsStad[] results = gson.fromJson(stringData, ResultTicketsStad[].class);
-                resultTicketsStads = new ArrayList<>(Arrays.asList(results));
-                chossenOne = intent.getStringExtra("firstChoice");
-                choosenTwo = intent.getStringExtra("secondChoice");
-                blockImage = intent.getStringExtra("blockImage");
-                matchId = intent.getStringExtra("matchId");
-                progressBar.setVisibility(View.GONE);
-                senarioTwo();
-            }
+//            else if (action.equals("chairs")){
+//                String stringData = String.valueOf(intent.getData().getSchemeSpecificPart());
+//                GsonBuilder gsonBuilder = new GsonBuilder();
+//                Gson gson = gsonBuilder.create();
+//                ResultTicketsStad[] results = gson.fromJson(stringData, ResultTicketsStad[].class);
+//                resultTicketsStads = new ArrayList<>(Arrays.asList(results));
+//                chossenOne = intent.getStringExtra("firstChoice");
+//                choosenTwo = intent.getStringExtra("secondChoice");
+//                blockImage = intent.getStringExtra("blockImage");
+//                matchId = intent.getStringExtra("matchId");
+//                progressBar.setVisibility(View.GONE);
+//                senarioTwo();
+//            }
         }
 
 
@@ -300,6 +301,23 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == PICK_CHAIRS_REQUEST && resultCode == RESULT_OK){
+            Toast.makeText(StadiumTicketsOptions.this,"OK",Toast.LENGTH_LONG).show();
+            String stringData = String.valueOf(data.getData().getSchemeSpecificPart());
+                GsonBuilder gsonBuilder = new GsonBuilder();
+                Gson gson = gsonBuilder.create();
+                ResultTicketsStad[] results = gson.fromJson(stringData, ResultTicketsStad[].class);
+                resultTicketsStads = new ArrayList<>(Arrays.asList(results));
+//                chossenOne = data.getStringExtra("firstChoice");
+//                choosenTwo = data.getStringExtra("secondChoice");
+//                blockImage = data.getStringExtra("blockImage");
+//                matchId = data.getStringExtra("matchId");
+
+        }
+    }
+
+    @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
         retry.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
@@ -420,6 +438,7 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
                 chairSpinner.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         Intent intent = new Intent(StadiumTicketsOptions.this, StadiumChairs.class);
                         intent.putExtra("stadId", stadiumId);
                         intent.putExtra("text", reservation.getName());
@@ -435,7 +454,7 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
                         }
                         intent.putExtra("blockImage", mainUrl);
 
-                        startActivity(intent);
+                        startActivityForResult(intent,PICK_CHAIRS_REQUEST);
                     }
                 });
 
