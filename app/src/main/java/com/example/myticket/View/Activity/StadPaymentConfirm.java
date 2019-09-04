@@ -1,8 +1,13 @@
 package com.example.myticket.View.Activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
@@ -36,6 +42,7 @@ public class StadPaymentConfirm extends AppCompatActivity implements GeneralList
     private ApiCalling apiCalling;
     private SessionManager sessionManager;
     private ConstraintLayout constraintLayout;
+    private List<MyTicketDetailResult> myTicketDetailResult;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,17 +102,46 @@ public class StadPaymentConfirm extends AppCompatActivity implements GeneralList
         });
     }
 
+    public void afterGivingPermission(List<MyTicketDetailResult> myTicketDetailResult){
+        if (constraintLayout.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL){
+            ticketsConfirmAdapter = new TicketsConfirmAdapter(this,myTicketDetailResult,R.layout.green_rv_item_arabic);
+        }else {
+            ticketsConfirmAdapter = new TicketsConfirmAdapter(this, myTicketDetailResult, R.layout.tickets_green_rv_item);
+        }
+        ticketsRV.setAdapter(ticketsConfirmAdapter);
+    }
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
         if (tApiResponse instanceof MyTicketMainDetail){
             MyTicketMainDetail myTicketMainDetail = (MyTicketMainDetail) tApiResponse;
-            List<MyTicketDetailResult> myTicketDetailResult = myTicketMainDetail.getMyTicketDetailResult();
-            if (constraintLayout.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL){
-                ticketsConfirmAdapter = new TicketsConfirmAdapter(this,myTicketDetailResult,R.layout.green_rv_item_arabic);
-            }else {
-                ticketsConfirmAdapter = new TicketsConfirmAdapter(this, myTicketDetailResult, R.layout.tickets_green_rv_item);
+            myTicketDetailResult = myTicketMainDetail.getMyTicketDetailResult();
+
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                // Permission is not granted
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},1);
             }
-            ticketsRV.setAdapter(ticketsConfirmAdapter);
+            else {
+                afterGivingPermission(myTicketDetailResult);
+            }
+
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case 1:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    afterGivingPermission(myTicketDetailResult);
+                } else {
+                    Toast.makeText(this,"Please give permission to the app",Toast.LENGTH_LONG).show();
+                }
+                return;
 
         }
     }

@@ -158,6 +158,7 @@
     <string name="your_limit_is">Your tickets limit is</string>
     <string name="tickets">tickets.</string>
     <string name="enter_number_of_tickets">Enter number of tickets</string>
+    <string name="download_ticket">Download Ticket</string>
 
 
 </resources>

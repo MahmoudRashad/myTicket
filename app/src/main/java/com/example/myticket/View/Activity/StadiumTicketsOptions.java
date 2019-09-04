@@ -106,6 +106,7 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
                 matchId = intent.getStringExtra("matchId");
                 limit = intent.getIntExtra("limit",4);
                 senarioOne();
+                apiCalling.getReservationDetails(matchId,sessionManager.handleLogin(),sessionManager.getDeviceLanguage(),this::getApiResponse);
             }
 
 
@@ -157,86 +158,54 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
         subTotalTitle.setVisibility(View.GONE);
         priceTotal.setVisibility(View.GONE);
         recyclerView.setVisibility(View.GONE);
-        apiCalling.getReservationDetails(matchId,sessionManager.handleLogin(),sessionManager.getDeviceLanguage(),this::getApiResponse);
+
     }
     private void senarioTwo() {
 
-        if (resultTicketsStads != null && action.equals("chairs") && resultTicketsStads.size() > 0) {
-            if (!blockImage.equals("")) {
-                Picasso.get().load(blockImage).into(stadImage);
-            }
-            ticketsStrings.add(chossenOne);
-            ticketsStrings.add(getResources().getString(R.string.change_selection));
-
-            priceEq.setText(" "+resultTicketsStads.size() + " X " + resultTicketsStads.get(0).getPrice());
-            String price = String.valueOf(resultTicketsStads.size() * Integer.parseInt(resultTicketsStads.get(0).getPrice()));
-            priceTotal.setText(" "+price +" "+ resultTicketsStads.get(0).getCurrency());
-            ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, R.layout.spinner_text, ticketsStrings);
-            adapter.setDropDownViewResource(R.layout.checked_text_spinner);
-            classSpinner.setAdapter(adapter);
-            classSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    if (position == 1){
-                        senarioOne();
-                    }
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-            blocksStrings.add(choosenTwo);
-            blocksStrings.add(getResources().getString(R.string.change_selection));
-            ArrayAdapter<CharSequence> placeAdapter = new ArrayAdapter(this, R.layout.spinner_text, blocksStrings);
-            placeAdapter.setDropDownViewResource(R.layout.checked_text_spinner);
-            placeSpinner.setAdapter(placeAdapter);
-            placeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    if (position == 1){
-                        senarioOne();
-                    }
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-            recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-            StadChairsAdapter stadChairsAdapter = new StadChairsAdapter(this, resultTicketsStads);
-            recyclerView.setAdapter(stadChairsAdapter);
-            chairSpinner.setText("");
-            for (int i = 0 ; i < resultTicketsStads.size() ; i++){
-               if (i != resultTicketsStads.size() -1 ){
-                    chairSpinner.append(" " + resultTicketsStads.get(i).getChairSymbol()+ resultTicketsStads.get(i).getChairNum()+",");
-                }
-                else
-                    chairSpinner.append(" " + resultTicketsStads.get(i).getChairSymbol()+ resultTicketsStads.get(i).getChairNum());
-            }
+//        if (resultTicketsStads != null && action.equals("chairs") && resultTicketsStads.size() > 0) {
+//            if (!blockImage.equals("")) {
+//                Picasso.get().load(blockImage).into(stadImage);
+//            }
+//            ticketsStrings.add(chossenOne);
+//            ticketsStrings.add(getResources().getString(R.string.change_selection));
 
 
-            confirmBtn.setVisibility(View.VISIBLE);
-            view1.setVisibility(View.VISIBLE);
-            yourSeats.setVisibility(View.VISIBLE);
-            individualTitle.setVisibility(View.VISIBLE);
-            priceEq.setVisibility(View.VISIBLE);
-            view2.setVisibility(View.VISIBLE);
-            subTotalTitle.setVisibility(View.VISIBLE);
-            priceTotal.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.VISIBLE);
+//            ArrayAdapter<CharSequence> adapter = new ArrayAdapter(this, R.layout.spinner_text, ticketsStrings);
+//            adapter.setDropDownViewResource(R.layout.checked_text_spinner);
+//            classSpinner.setAdapter(adapter);
+//            classSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                @Override
+//                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                    if (position == 1){
+//                        senarioOne();
+//                    }
+//                }
+//
+//                @Override
+//                public void onNothingSelected(AdapterView<?> parent) {
+//
+//                }
+//            });
+//            blocksStrings.add(choosenTwo);
+//            blocksStrings.add(getResources().getString(R.string.change_selection));
+//            ArrayAdapter<CharSequence> placeAdapter = new ArrayAdapter(this, R.layout.spinner_text, blocksStrings);
+//            placeAdapter.setDropDownViewResource(R.layout.checked_text_spinner);
+//            placeSpinner.setAdapter(placeAdapter);
+//            placeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                @Override
+//                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                    if (position == 1){
+//                        senarioOne();
+//                    }
+//                }
+//
+//                @Override
+//                public void onNothingSelected(AdapterView<?> parent) {
+//
+//                }
+//            });
 
-            confirmBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    progressBar.setVisibility(View.VISIBLE);
-                    apiCalling.clubReservation("Bearer " + sessionManager.getUserToken(), sessionManager.getDeviceLanguage(),
-                            resultTicketsStads, StadiumTicketsOptions.this::getApiResponse);
-                }
-            });
-        }
+       // }
     }
 
 
@@ -309,10 +278,43 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
                 Gson gson = gsonBuilder.create();
                 ResultTicketsStad[] results = gson.fromJson(stringData, ResultTicketsStad[].class);
                 resultTicketsStads = new ArrayList<>(Arrays.asList(results));
-//                chossenOne = data.getStringExtra("firstChoice");
-//                choosenTwo = data.getStringExtra("secondChoice");
-//                blockImage = data.getStringExtra("blockImage");
-//                matchId = data.getStringExtra("matchId");
+
+            priceEq.setText(" "+resultTicketsStads.size() + " X " + resultTicketsStads.get(0).getPrice());
+            String price = String.valueOf(resultTicketsStads.size() * Integer.parseInt(resultTicketsStads.get(0).getPrice()));
+            priceTotal.setText(" "+price +" "+ resultTicketsStads.get(0).getCurrency());
+
+            recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            StadChairsAdapter stadChairsAdapter = new StadChairsAdapter(this, resultTicketsStads);
+            recyclerView.setAdapter(stadChairsAdapter);
+            chairSpinner.setText("");
+            for (int i = 0 ; i < resultTicketsStads.size() ; i++){
+                if (i != resultTicketsStads.size() -1 ){
+                    chairSpinner.append(" " + resultTicketsStads.get(i).getChairSymbol()+ resultTicketsStads.get(i).getChairNum()+",");
+                }
+                else
+                    chairSpinner.append(" " + resultTicketsStads.get(i).getChairSymbol()+ resultTicketsStads.get(i).getChairNum());
+            }
+
+
+            confirmBtn.setVisibility(View.VISIBLE);
+            view1.setVisibility(View.VISIBLE);
+            yourSeats.setVisibility(View.VISIBLE);
+            individualTitle.setVisibility(View.VISIBLE);
+            priceEq.setVisibility(View.VISIBLE);
+            view2.setVisibility(View.VISIBLE);
+            subTotalTitle.setVisibility(View.VISIBLE);
+            priceTotal.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+
+            confirmBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    progressBar.setVisibility(View.VISIBLE);
+                    apiCalling.clubReservation("Bearer " + sessionManager.getUserToken(), sessionManager.getDeviceLanguage(),
+                            resultTicketsStads, StadiumTicketsOptions.this::getApiResponse);
+                }
+            });
+
 
         }
     }

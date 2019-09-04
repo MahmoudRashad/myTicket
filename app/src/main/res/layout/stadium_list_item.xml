@@ -39,7 +39,7 @@
         app:layout_constraintTop_toTopOf="@id/stad_icon"
         app:layout_constraintBottom_toBottomOf="@id/stad_icon"
         app:layout_constraintStart_toEndOf="@id/stad_icon"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="8dp"
         android:text="King abdallah stadium"
         android:textAllCaps="true"
         android:textAlignment="textStart"
@@ -66,7 +66,7 @@
         app:layout_constraintTop_toTopOf="@id/address_icon"
         app:layout_constraintBottom_toBottomOf="@id/address_icon"
         app:layout_constraintStart_toEndOf="@id/address_icon"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="8dp"
         android:textAlignment="textStart"
         android:maxLines="2"
         android:text="Riyadh City"
@@ -83,7 +83,7 @@
         app:layout_constraintTop_toTopOf="@id/ic_pin"
         app:layout_constraintBottom_toBottomOf="@id/ic_pin"
         android:layout_marginEnd="16dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         />
     <ImageView
@@ -94,7 +94,7 @@
         app:layout_constraintStart_toEndOf="@id/stad_image_item"
         app:layout_constraintBottom_toBottomOf="@id/stad_image_item"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"/>
+        />
 
     <Button
         android:id="@+id/details_btn"

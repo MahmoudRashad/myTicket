@@ -85,11 +85,13 @@
 
     <TextView
         android:id="@+id/seats_value"
-        android:layout_width="120dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         app:layout_constraintStart_toEndOf="@id/seats_title"
         app:layout_constraintTop_toBottomOf="@id/stadium_name_event"
         android:layout_marginTop="4dp"
+        android:paddingEnd="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:textColor="@color/stad_grey_text"
         />

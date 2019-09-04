@@ -1,22 +1,36 @@
 package com.example.myticket.View.Adapter;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myticket.Model.Network.StadiumModel.MyTicket.MyTicketDetailResult;
 import com.example.myticket.R;
 import com.example.myticket.View.Activity.QrcodePage;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAdapter.ConfirmTicketsViewHolder> {
@@ -25,11 +39,13 @@ public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAd
     private List<MyTicketDetailResult> myTicketDetailResult;
     private MyTicketDetailResult myTicket;
     private int layout;
+    private ByteArrayOutputStream bytearrayoutputstream;
 
     public TicketsConfirmAdapter(Context context, List<MyTicketDetailResult> myTicketDetailResult, int layout) {
         this.context = context;
         this.myTicketDetailResult = myTicketDetailResult;
         this.layout = layout;
+
     }
 
 
@@ -78,11 +94,11 @@ public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAd
         private TextView seat;
         private TextView class_type;
         private TextView date;
+        private ImageView downloadIcon;
         private ConstraintLayout constraintLayout;
 
         public ConfirmTicketsViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this);
             teamOne = itemView.findViewById(R.id.team_one_name);
             teamTwo = itemView.findViewById(R.id.team_two_name);
             teamOneImage = itemView.findViewById(R.id.image_one);
@@ -91,6 +107,8 @@ public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAd
             date = itemView.findViewById(R.id.match_time_text);
             class_type = itemView.findViewById(R.id.ticket_class_value);
             seat = itemView.findViewById(R.id.ticket_seat_value);
+            downloadIcon = itemView.findViewById(R.id.download_icon);
+            downloadIcon.setOnClickListener(this);
             constraintLayout = itemView.findViewById(R.id.green_rv);
 
 
@@ -98,13 +116,76 @@ public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAd
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
-            String qrCode = myTicketDetailResult.get(position).getQrCode();
-            Intent intent = new Intent(context, QrcodePage.class);
-            intent.setAction("green");
-            intent.putExtra("qr",qrCode);
-            context.startActivity(intent);
+         //   int position = getAdapterPosition();
+
+
+//            String qrCode = myTicketDetailResult.get(position).getQrCode();
+//            Intent intent = new Intent(context, QrcodePage.class);
+//            intent.setAction("green");
+//            intent.putExtra("qr",qrCode);
+//            context.startActivity(intent);
+            Bitmap bitmap = getBitmapFromView(itemView);
+            saveBitmap(bitmap);
             }
         }
+
+    public static Bitmap getBitmapFromView(View view) {
+        //Define a bitmap with the same size as the view
+        Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        //Bind a canvas to it
+        Canvas canvas = new Canvas(returnedBitmap);
+        //Get the view's background
+        Drawable bgDrawable =view.getBackground();
+        if (bgDrawable!=null)
+            //has background drawable, then draw it on the canvas
+            bgDrawable.draw(canvas);
+        else
+            //does not have background drawable, then draw white background on the canvas
+            canvas.drawColor(Color.WHITE);
+        // draw the view on the canvas
+        view.draw(canvas);
+        //return the bitmap
+        return returnedBitmap;
+    }
+
+    private void saveBitmap(Bitmap bitmap) {
+        bytearrayoutputstream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 60, bytearrayoutputstream);
+
+
+        File filepath = Environment.getExternalStorageDirectory();
+
+        File mainFile = new File(filepath.getAbsolutePath()
+                + "/My Ticket/");
+        try
+
+        {
+            if (!mainFile.exists()) {
+                mainFile.mkdir();
+            }
+            mainFile.createNewFile();
+            String timeStamp = String.valueOf(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
+            File file = new File(mainFile,timeStamp+".png");
+            FileOutputStream fileoutputstream = new FileOutputStream(file);
+
+            fileoutputstream.write(bytearrayoutputstream.toByteArray());
+            fileoutputstream.flush();
+            fileoutputstream.close();
+            Toast.makeText(context, "Image Saved Successfully to: " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
+
+        }
+
+        catch (Exception e)
+
+        {
+
+            e.printStackTrace();
+
+        }
+
+
+    }
+
+
     }
 
