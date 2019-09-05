@@ -69,7 +69,12 @@ public class StadiumDetails extends AppCompatActivity implements GeneralListener
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(StadiumDetails.this,HomeStadBottomNav.class);
+        intent.putExtra("name","stads");
+        startActivity(intent);
+    }
 
     private void setToolbar(StadDetails stadDetails) {
         toolbarTitle = findViewById(R.id.toolbar_title);

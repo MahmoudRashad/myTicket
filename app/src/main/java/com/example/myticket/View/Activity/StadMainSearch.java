@@ -85,6 +85,11 @@ public class StadMainSearch extends AppCompatActivity implements SearchLiveo.OnS
         setSearchToolbar();
     }
 
+    @Override
+    public void onBackPressed() {
+        goBack();
+    }
+
     private void setToolbar() {
 
         toolbarTitle = findViewById(R.id.toolbar_title);
@@ -103,15 +108,19 @@ public class StadMainSearch extends AppCompatActivity implements SearchLiveo.OnS
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (name.equals("MyTickets")){
-                    Intent intent = new Intent(StadMainSearch.this,HomeStadBottomNav.class);
-                    intent.putExtra("name", "MyTickets");
-                    startActivity(intent);
-                }
-                else
-                finish();
+                goBack();
             }
         });
+    }
+
+    private void goBack() {
+        if (name.equals("MyTickets")){
+            Intent intent = new Intent(StadMainSearch.this,HomeStadBottomNav.class);
+            intent.putExtra("name", "MyTickets");
+            startActivity(intent);
+        }
+        else
+            finish();
     }
 
     @Override

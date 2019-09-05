@@ -147,17 +147,10 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
         chairSpinner.setClickable(false);
         chairSpinner.setText(" ");
         progressBar.setVisibility(View.VISIBLE);
+        viewsGone();
 
 
-        confirmBtn.setVisibility(View.GONE);
-        view1.setVisibility(View.GONE);
-        yourSeats.setVisibility(View.GONE);
-        individualTitle.setVisibility(View.GONE);
-        priceEq.setVisibility(View.GONE);
-        view2.setVisibility(View.GONE);
-        subTotalTitle.setVisibility(View.GONE);
-        priceTotal.setVisibility(View.GONE);
-        recyclerView.setVisibility(View.GONE);
+
 
     }
     private void senarioTwo() {
@@ -208,6 +201,17 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
        // }
     }
 
+    private void viewsGone(){
+        confirmBtn.setVisibility(View.GONE);
+        view1.setVisibility(View.GONE);
+        yourSeats.setVisibility(View.GONE);
+        individualTitle.setVisibility(View.GONE);
+        priceEq.setVisibility(View.GONE);
+        view2.setVisibility(View.GONE);
+        subTotalTitle.setVisibility(View.GONE);
+        priceTotal.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
+    }
 
 
     private void findRefs() {
@@ -333,6 +337,7 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
             if (reservationResult.size() > 0) {
 
                 blocksStrings.add(getResources().getString(R.string.select_block_type));
+                viewsGone();
             for (int i = 0; i < reservationResult.size(); i++) {
                 blocksStrings.add(reservationResult.get(i).getName());
             }
@@ -432,11 +437,13 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
                 Toast.makeText(StadiumTicketsOptions.this,mainChairs.getMessage(),Toast.LENGTH_LONG).show();
             }
             else {
+                viewsGone();
                 ticketsEditText.setVisibility(View.GONE);
                 chairSpinner.setVisibility(View.VISIBLE);
                 chairSpinner.setClickable(true);
                 chairSpinner.setEnabled(true);
                 chairSpinner.setText(getString(R.string.select_chairs));
+
                 chairSpinner.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

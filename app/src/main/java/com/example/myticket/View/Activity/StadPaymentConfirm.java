@@ -73,7 +73,12 @@ public class StadPaymentConfirm extends AppCompatActivity implements GeneralList
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(StadPaymentConfirm.this,HomeStadBottomNav.class);
+        intent.putExtra("name","myTickets");
+        startActivity(intent);
+    }
 
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
@@ -81,6 +86,7 @@ public class StadPaymentConfirm extends AppCompatActivity implements GeneralList
 
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
+
 
         searchIcon.setOnClickListener(new View.OnClickListener() {
             @Override

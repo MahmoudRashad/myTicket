@@ -118,6 +118,12 @@ public class ChangePasswordActivity extends AppCompatActivity
 //
 //    }
 
+
+    @Override
+    public void onBackPressed() {
+        goback();
+    }
+
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(getString(R.string.change_password));
@@ -136,17 +142,21 @@ public class ChangePasswordActivity extends AppCompatActivity
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (intent.hasExtra("flag")){
-                Intent intent = new Intent(ChangePasswordActivity.this,HomeStadBottomNav.class);
-                intent.putExtra("name","settings");
-                startActivity(intent);
-            }
-                else {
-                    finish();
-                }
+               goback();
             }
 
         });
+    }
+
+    private void goback() {
+        if (intent.hasExtra("flag")){
+            Intent intent = new Intent(ChangePasswordActivity.this,HomeStadBottomNav.class);
+            intent.putExtra("name","settings");
+            startActivity(intent);
+        }
+        else {
+            finish();
+        }
     }
 
     public void setListenerOfViews1()

@@ -154,6 +154,11 @@ public class HomeStadBottomNav extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(HomeStadBottomNav.this,Gate.class);
+        startActivity(intent);
+    }
 
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);

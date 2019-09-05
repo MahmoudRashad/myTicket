@@ -111,6 +111,17 @@ public class EditAccountStad extends AppCompatActivity implements GeneralListene
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        goback();
+    }
+
+    private void goback() {
+        Intent intent = new Intent(EditAccountStad.this,HomeStadBottomNav.class);
+        intent.putExtra("name","settings");
+        startActivity(intent);
+    }
+
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(getString(R.string.edit_account));
@@ -122,9 +133,7 @@ public class EditAccountStad extends AppCompatActivity implements GeneralListene
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Intent intent = new Intent(EditAccountStad.this,HomeStadBottomNav.class);
-                    intent.putExtra("name","settings");
-                    startActivity(intent);
+                    goback();
 
             }
         });
