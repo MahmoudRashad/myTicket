@@ -224,8 +224,13 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
 
         else if (tApiResponse instanceof MainLimit){
             MainLimit mainLimit = (MainLimit) tApiResponse;
-            int limit = mainLimit.getLimit().getLimit();
-            if (limit > 0){
+            boolean allowedStatus = mainLimit.getSuccess();
+            if (!allowedStatus){
+                Toast.makeText(this,mainLimit.getMessage(),Toast.LENGTH_LONG).show();
+            }
+            else {
+                int limit = mainLimit.getLimit().getLimit();
+             if (limit > 0){
                 Intent intent = new Intent(MatchDetails.this, StadiumTicketsOptions.class);
                 intent.setAction("tickets");
                 intent.putExtra("limit",limit);
@@ -236,7 +241,7 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
                 Toast.makeText(MatchDetails.this,getResources().getString(R.string.limit_warning),Toast.LENGTH_LONG).show();
             }
         }
-
+        }
         else// if (message.contains("connection abort")|| message.contains("Failed to connect"))
         {
             Toast.makeText(this,getResources().getString(R.string.check_connection), Toast.LENGTH_SHORT).show();

@@ -153,7 +153,7 @@ public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAd
         bitmap.compress(Bitmap.CompressFormat.PNG, 60, bytearrayoutputstream);
 
 
-        File filepath = Environment.getExternalStorageDirectory();
+        File filepath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
         File mainFile = new File(filepath.getAbsolutePath()
                 + "/My Ticket/");

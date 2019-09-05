@@ -162,9 +162,9 @@ public class StadiumChairs extends AppCompatActivity implements GeneralListener,
         if (checked)
         resultTicketsStads.add(resultTicketsStad);
         else{
-            for (int i = 1; i <resultTicketsStads.size() ; i++){
-                if (resultTicketsStad.getId().equals(resultTicketsStads.get(i).getId())){
-                    resultTicketsStads.remove(resultTicketsStad);
+            for (int i = 0; i <resultTicketsStads.size() ; i++){
+                if (resultTicketsStad.getChairSymbol().equals(resultTicketsStads.get(i).getChairSymbol())&& resultTicketsStad.getChairNum().equals(resultTicketsStads.get(i).getChairNum())){
+                    resultTicketsStads.remove(resultTicketsStads.get(i));
                     break;
                 }
             }
