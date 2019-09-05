@@ -293,10 +293,10 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
             chairSpinner.setText("");
             for (int i = 0 ; i < resultTicketsStads.size() ; i++){
                 if (i != resultTicketsStads.size() -1 ){
-                    chairSpinner.append(" " + resultTicketsStads.get(i).getChairSymbol()+ resultTicketsStads.get(i).getChairNum()+",");
+                    chairSpinner.append(" " + resultTicketsStads.get(i).getChairSymbol()+"-" +resultTicketsStads.get(i).getChairNum()+",");
                 }
                 else
-                    chairSpinner.append(" " + resultTicketsStads.get(i).getChairSymbol()+ resultTicketsStads.get(i).getChairNum());
+                    chairSpinner.append(" " + resultTicketsStads.get(i).getChairSymbol()+ "-"+resultTicketsStads.get(i).getChairNum());
             }
 
 

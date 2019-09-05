@@ -145,7 +145,7 @@ public class StadPaymentConfirm extends AppCompatActivity implements GeneralList
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     afterGivingPermission(myTicketDetailResult);
                 } else {
-                    Toast.makeText(this,"Please give permission to the app",Toast.LENGTH_LONG).show();
+                    Toast.makeText(this,getResources().getString(R.string.permission),Toast.LENGTH_LONG).show();
                 }
                 return;
 

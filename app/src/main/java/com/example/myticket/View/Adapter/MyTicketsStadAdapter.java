@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class MyTicketsStadAdapter  extends RecyclerView.Adapter<MyTicketsStadAdapter.TicketsViewHolder> {
     private ArrayList<Past> tickets;
     private Context context;
-    private String seats;
+
     public MyTicketsStadAdapter(ArrayList<Past> tickets, Context context) {
         this.tickets = tickets;
         this.context = context;
@@ -46,16 +46,13 @@ public class MyTicketsStadAdapter  extends RecyclerView.Adapter<MyTicketsStadAda
         TicketsViewHolder.date.setText(ticket.getDate());
         TicketsViewHolder.stadiumName.setText(ticket.getStadiumName());
         for (int j = 0 ; j< ticket.getSeats().size() ; j++){
-            if (j == 0)
-                seats = ticket.getSeats().get(j).getSeatNum()+", ";
-            else if (j != ticket.getSeats().size()-1){
-                seats = seats +ticket.getSeats().get(j).getSymbol_chair()+" " +ticket.getSeats().get(j).getSeatNum()+", ";
+           if (j != ticket.getSeats().size()-1){
+                TicketsViewHolder.seats.append(ticket.getSeats().get(j).getSymbol_chair()+"-" +ticket.getSeats().get(j).getSeatNum()+", ");
             }
             else{
-                seats = seats+ticket.getSeats().get(j).getSymbol_chair() +ticket.getSeats().get(j).getSeatNum();
+                TicketsViewHolder.seats.append(ticket.getSeats().get(j).getSymbol_chair()+"-" +ticket.getSeats().get(j).getSeatNum());
             }
         }
-        TicketsViewHolder.seats.setText(seats);
         TicketsViewHolder.details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

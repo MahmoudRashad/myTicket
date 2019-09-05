@@ -153,6 +153,8 @@
     <string name="tickets">tickets.</string>
     <string name="enter_number_of_tickets">Enter number of tickets</string>
     <string name="download_ticket">Download Ticket</string>
+    <string name="block">Block:</string>
+    <string name="permission">Please give permission to the app</string>
 
 
 </resources>

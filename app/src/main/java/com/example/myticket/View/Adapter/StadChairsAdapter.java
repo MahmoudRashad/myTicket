@@ -37,10 +37,10 @@ public class StadChairsAdapter extends RecyclerView.Adapter<StadChairsAdapter.ch
         ResultTicketsStad resultTicketsStad = results.get(i);
 
         if (i != results.size() -1 ){
-            chairViewHolder.seat.append(" " + resultTicketsStad.getChairSymbol() + resultTicketsStad.getChairNum()+",");
+            chairViewHolder.seat.append(" " + resultTicketsStad.getChairSymbol() +"-"+ resultTicketsStad.getChairNum()+",");
         }
         else
-        chairViewHolder.seat.append(" " + resultTicketsStad.getChairSymbol()  +resultTicketsStad.getChairNum());
+        chairViewHolder.seat.append(" " + resultTicketsStad.getChairSymbol() +"-"+resultTicketsStad.getChairNum());
 
     }
 

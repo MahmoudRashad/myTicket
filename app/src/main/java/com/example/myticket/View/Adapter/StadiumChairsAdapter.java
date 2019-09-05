@@ -51,7 +51,7 @@ public class StadiumChairsAdapter extends  RecyclerView.Adapter<StadiumChairsAda
     @Override
     public void onBindViewHolder(@NonNull ChairViewHolder chairViewHolder, int i) {
         ChairsResult chairsResult = chairsResults.get(i);
-        String chairName = chairsResult.getChairSymbol() + chairsResult.getChairNum();
+        String chairName = chairsResult.getChairSymbol() +"-"+ chairsResult.getChairNum();
         chairViewHolder.checkedTextView.setText(chairName);
 
 

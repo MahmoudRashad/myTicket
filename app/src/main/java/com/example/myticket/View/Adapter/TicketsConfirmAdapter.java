@@ -66,7 +66,8 @@ public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAd
         confirmTicketsViewHolder.teamTwo.setText(myTicket.getTeam2Name());
         confirmTicketsViewHolder.stadiumName.setText(myTicket.getStadiumName());
         confirmTicketsViewHolder.class_type.setText(myTicket.getType());
-        confirmTicketsViewHolder.seat.setText(myTicket.getSymbol_chair() +" " +myTicket.getSeatNum());
+        confirmTicketsViewHolder.blockName.setText(myTicket.getBlockName());
+        confirmTicketsViewHolder.seat.setText(myTicket.getSymbol_chair() +"-" +myTicket.getSeatNum());
         confirmTicketsViewHolder.date.setText(myTicket.getDate() + " ," + myTicket.getTime());
         Picasso.get()
                 .load(myTicket.getTeam1Image())
@@ -95,6 +96,7 @@ public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAd
         private TextView class_type;
         private TextView date;
         private ImageView downloadIcon;
+        private TextView blockName;
         private ConstraintLayout constraintLayout;
 
         public ConfirmTicketsViewHolder(@NonNull View itemView) {
@@ -108,6 +110,7 @@ public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAd
             class_type = itemView.findViewById(R.id.ticket_class_value);
             seat = itemView.findViewById(R.id.ticket_seat_value);
             downloadIcon = itemView.findViewById(R.id.download_icon);
+            blockName = itemView.findViewById(R.id.ticket_block_value);
             downloadIcon.setOnClickListener(this);
             constraintLayout = itemView.findViewById(R.id.green_rv);
 
