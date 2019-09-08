@@ -200,7 +200,7 @@ public class Login extends AppCompatActivity implements
 //        sessionManager.setUserEmail(modelLogin.getStadDetails().getEmail());
 //        sessionManager.setUserToken(modelLogin.getAccessToken());
 //
-//        Intent intent = new Intent(Login.this, MainActivity.class);
+//        Intent intent = new Intent(Login.this, MainPaymentActivity.class);
 //        startActivity(intent);
 //
 //        Toast.makeText(this,modelLogin.getStatusText() + "Successful Login",Toast.LENGTH_SHORT).show();

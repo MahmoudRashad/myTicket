@@ -163,4 +163,5 @@
     <string name="permission">Please give permission to the app</string>
 
 
+    <string name="showDetails">Show stored card</string>
 </resources>
