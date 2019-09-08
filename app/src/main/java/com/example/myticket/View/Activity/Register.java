@@ -154,6 +154,7 @@ public class Register extends AppCompatActivity implements
                 else {
                     btnReg.setVisibility(View.INVISIBLE);
                     progressBar.setVisibility(View.VISIBLE);
+                    macAddress = getMacAddress();
                     userRegister = new UserRegister(mFullname, mEmail, mUsername, mPhone, mAddress, deviceToken, mPassword, deviceType, macAddress);
 
                     Map<String , String> queryMap = new HashMap<>();
@@ -222,6 +223,7 @@ public class Register extends AppCompatActivity implements
 
     private String getMacAddress(){
         try {
+            //TODO: debug this
             List<NetworkInterface> all = Collections.list(NetworkInterface.getNetworkInterfaces());
             for (NetworkInterface nif : all) {
                 if (!nif.getName().equalsIgnoreCase("wlan0")) continue;

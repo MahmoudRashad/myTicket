@@ -92,7 +92,7 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
 
             BaseNoResult baseNoResult = (BaseNoResult) tApiResponse;
             String msg = baseNoResult.getMessage();
-            if (msg.contains("إلغاء")||msg.contains("unFollow")){
+            if (msg.contains("الغاء")||msg.contains("unFollow")){
                 Toast.makeText(context,msg,Toast.LENGTH_LONG).show();
                 flag = 0;
                 matchesList.get(position).setFollowStatus(0);

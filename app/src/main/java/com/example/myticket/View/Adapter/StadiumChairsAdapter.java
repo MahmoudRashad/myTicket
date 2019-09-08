@@ -14,6 +14,7 @@ import com.example.myticket.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class StadiumChairsAdapter extends  RecyclerView.Adapter<StadiumChairsAdapter.ChairViewHolder> {
     private List<ChairsResult> chairsResults;
@@ -53,8 +54,7 @@ public class StadiumChairsAdapter extends  RecyclerView.Adapter<StadiumChairsAda
         ChairsResult chairsResult = chairsResults.get(i);
         String chairName = chairsResult.getChairSymbol() +"-"+ chairsResult.getChairNum();
         chairViewHolder.checkedTextView.setText(chairName);
-
-
+        String code = chairsResult.getId().toString() + chairsResult.getChairNum() + matchId + generateRandomNumber();
             chairViewHolder.checkedTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -71,7 +71,7 @@ public class StadiumChairsAdapter extends  RecyclerView.Adapter<StadiumChairsAda
                                     }
                             }
                                 ResultTicketsStad resultTicketsStad = new ResultTicketsStad(matchId, date, chairsResult.getChairNum(),
-                                        chairsResult.getChairSymbol(), chairsResult.getId().toString(), "33", price, currency);
+                                        chairsResult.getChairSymbol(), chairsResult.getId().toString(), code, price, currency);
                                 // Check which checkbox was clicked
                                 saveChairs.saveChairs(checked, resultTicketsStad);
                             }
@@ -96,6 +96,13 @@ public class StadiumChairsAdapter extends  RecyclerView.Adapter<StadiumChairsAda
             checkedTextView = itemView.findViewById(R.id.checked_tv_stad_chairs);
             this.setIsRecyclable(false);
         }
+    }
+
+    private String generateRandomNumber(){
+        Random r = new Random();
+        int random = r.nextInt(10000 - 100) + 100;
+        String randomString = String.valueOf(random);
+        return randomString;
     }
 
     public interface saveChairs{

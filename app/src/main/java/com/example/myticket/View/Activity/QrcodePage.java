@@ -53,7 +53,7 @@ public class QrcodePage extends AppCompatActivity {
         ImageView imvQrCode = findViewById(R.id.qr_image_view);
         Bitmap bitmap = null;
         try {
-            bitmap = textToImage(qrCode, 500, 500);
+            bitmap = textToImage(qrCode, 800, 300);
         } catch (WriterException e) {
             e.printStackTrace();
         }
@@ -87,7 +87,7 @@ public class QrcodePage extends AppCompatActivity {
     private Bitmap textToImage(String text, int width, int height) throws WriterException, NullPointerException {
         BitMatrix bitMatrix;
         try {
-            bitMatrix = new MultiFormatWriter().encode(text, BarcodeFormat.DATA_MATRIX.QR_CODE,
+            bitMatrix = new MultiFormatWriter().encode(text, BarcodeFormat.DATA_MATRIX.CODABAR,
                     width, height, null);
         } catch (IllegalArgumentException Illegalargumentexception) {
             return null;

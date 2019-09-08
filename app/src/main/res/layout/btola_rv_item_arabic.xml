@@ -135,7 +135,7 @@
         android:background="@drawable/green_half_rect"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:rotation="90"
+        android:rotation="-90"
         />
     <ImageView
         android:id="@+id/follow_img"

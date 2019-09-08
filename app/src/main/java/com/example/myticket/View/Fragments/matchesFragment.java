@@ -93,7 +93,7 @@ public class matchesFragment extends Fragment implements
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
         progressBar.setVisibility(View.GONE);
-        if (id == View.LAYOUT_DIRECTION_RTL){
+        if (sessionManager.getDeviceLanguage().equals("ar")){
             dir = 1;
         }
         else{

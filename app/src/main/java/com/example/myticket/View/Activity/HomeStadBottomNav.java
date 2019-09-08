@@ -142,6 +142,7 @@ public class HomeStadBottomNav extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         start();
+        // if previous place == null go to home w 5las
     }
 
     private void changeStatusBarColor(){

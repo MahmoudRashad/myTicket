@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -24,6 +25,10 @@ import android.widget.Toast;
 import com.example.myticket.Model.Network.StadiumModel.MyTicket.MyTicketDetailResult;
 import com.example.myticket.R;
 import com.example.myticket.View.Activity.QrcodePage;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
@@ -75,8 +80,14 @@ public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAd
         Picasso.get()
                 .load(myTicket.getTeam2Image())
                 .into(confirmTicketsViewHolder.teamTwoImage);
+        Bitmap bitmap = null;
+        try {
+            bitmap = textToImage(myTicket.getQrCode(),900, 300);
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
 
-
+        confirmTicketsViewHolder.barCodeImage.setImageBitmap(bitmap);
 
     }
 
@@ -97,6 +108,7 @@ public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAd
         private TextView date;
         private ImageView downloadIcon;
         private TextView blockName;
+        private ImageView barCodeImage;
         private ConstraintLayout constraintLayout;
 
         public ConfirmTicketsViewHolder(@NonNull View itemView) {
@@ -111,21 +123,23 @@ public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAd
             seat = itemView.findViewById(R.id.ticket_seat_value);
             downloadIcon = itemView.findViewById(R.id.download_icon);
             blockName = itemView.findViewById(R.id.ticket_block_value);
+            barCodeImage = itemView.findViewById(R.id.bar_code_image);
             downloadIcon.setOnClickListener(this);
             constraintLayout = itemView.findViewById(R.id.green_rv);
+            barCodeImage = itemView.findViewById(R.id.bar_code_image);
 
 
         }
 
         @Override
         public void onClick(View v) {
-         //   int position = getAdapterPosition();
-
-
+//            int position = getAdapterPosition();
+//
+//
 //            String qrCode = myTicketDetailResult.get(position).getQrCode();
 //            Intent intent = new Intent(context, QrcodePage.class);
 //            intent.setAction("green");
-//            intent.putExtra("qr",qrCode);
+//            intent.putExtra("qr","3318113");
 //            context.startActivity(intent);
             Bitmap bitmap = getBitmapFromView(itemView);
             saveBitmap(bitmap);
@@ -189,6 +203,35 @@ public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAd
 
     }
 
+    private Bitmap textToImage(String text, int width, int height) throws WriterException, NullPointerException {
+        BitMatrix bitMatrix;
+        try {
+            bitMatrix = new MultiFormatWriter().encode(text, BarcodeFormat.DATA_MATRIX.CODABAR,
+                    width, height, null);
+        } catch (IllegalArgumentException Illegalargumentexception) {
+            return null;
+        }
 
+        int bitMatrixWidth = bitMatrix.getWidth();
+        int bitMatrixHeight = bitMatrix.getHeight();
+        int[] pixels = new int[bitMatrixWidth * bitMatrixHeight];
+
+        int colorWhite = 0xFFFFFFFF;
+        int colorBlack = 0xFF000000;
+
+        for (int y = 0; y < bitMatrixHeight; y++) {
+            int offset = y * bitMatrixWidth;
+            for (int x = 0; x < bitMatrixWidth; x++) {
+                pixels[offset + x] = bitMatrix.get(x, y) ? colorBlack : colorWhite;
+            }
+        }
+        Matrix matrix = new Matrix();
+        matrix.postRotate(90);
+        Bitmap bitmap = Bitmap.createBitmap(bitMatrixWidth, bitMatrixHeight, Bitmap.Config.ARGB_4444);
+        bitmap.setPixels(pixels, 0, width, 0, 0, bitMatrixWidth, bitMatrixHeight);
+        Bitmap rotated = Bitmap.createBitmap(bitmap,0,0,bitmap.getWidth(), bitmap.getHeight(),matrix, true);
+
+        return rotated;
+    }
     }
 
