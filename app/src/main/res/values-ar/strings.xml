@@ -160,4 +160,5 @@
     <string name="showDetails">اظهار الكروت المسجلة</string>
     <string name="no_tickets_available">لا يوجد تذاكر</string>
     <string name="no_search_results">لا يوجد نتائج للبحث</string>
+    <string name="no_matches_available">No Matches Available</string>
 </resources>

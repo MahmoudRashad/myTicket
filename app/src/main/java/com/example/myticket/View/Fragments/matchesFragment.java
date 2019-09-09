@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myticket.Model.Data.SessionManager;
@@ -48,6 +49,7 @@ public class matchesFragment extends Fragment implements
     private int id;
     private int dir = 0;
     private Typeface myfont;
+    private TextView noMatches;
 
     public matchesFragment() {
         // Required empty public constructor
@@ -83,7 +85,9 @@ public class matchesFragment extends Fragment implements
         mainBtolatRv = view.findViewById(R.id.btolat_rv);
         progressBar = view.findViewById(R.id.matches_pb);
         retry = view.findViewById(R.id.matches_retry_btn);
+        noMatches = view.findViewById(R.id.no_matches);
         retry.setTypeface(myfont);
+        noMatches.setTypeface(myfont);
         mainBtolatRv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return view;
@@ -98,6 +102,7 @@ public class matchesFragment extends Fragment implements
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
         progressBar.setVisibility(View.GONE);
+        noMatches.setVisibility(View.GONE);
         if (sessionManager.getDeviceLanguage().equals("ar")){
             dir = 1;
         }
@@ -109,27 +114,39 @@ public class matchesFragment extends Fragment implements
             switch(flag){
                 case 1:
                     todayList =  Leagues.getResult();
-                    if (dir == 1)
-                    adapter = new HomeStadiumMainAdapter(getContext(),todayList,R.layout.btola_rv_item_arabic);
-                    else {
-                        adapter = new HomeStadiumMainAdapter(getContext(),todayList,R.layout.btola_rv_item);
+                    if (todayList.size() != 0){
+                        if (dir == 1)
+                        adapter = new HomeStadiumMainAdapter(getContext(),todayList,R.layout.btola_rv_item_arabic);
+                        else {
+                            adapter = new HomeStadiumMainAdapter(getContext(),todayList,R.layout.btola_rv_item);
 
+                        }
+                        }else{
+                            noMatches.setVisibility(View.VISIBLE);
                     }
                 case 2:
                     weekList = Leagues.getResult();
-                    if (dir == 1)
-                        adapter = new HomeStadiumMainAdapter(getContext(),weekList,R.layout.btola_rv_item_arabic);
-                    else {
-                        adapter = new HomeStadiumMainAdapter(getContext(),weekList,R.layout.btola_rv_item);
+                    if (weekList.size() != 0){
+                        if (dir == 1)
+                            adapter = new HomeStadiumMainAdapter(getContext(),weekList,R.layout.btola_rv_item_arabic);
+                        else {
+                            adapter = new HomeStadiumMainAdapter(getContext(),weekList,R.layout.btola_rv_item);
 
+                        }
+                    }else{
+                        noMatches.setVisibility(View.VISIBLE);
                     }
                 case 3:
                     nextWeekList = Leagues.getResult();
+                    if (nextWeekList.size() != 0){
                     if (dir == 1)
                         adapter = new HomeStadiumMainAdapter(getContext(),nextWeekList,R.layout.btola_rv_item_arabic);
                     else {
                         adapter = new HomeStadiumMainAdapter(getContext(),nextWeekList,R.layout.btola_rv_item);
 
+                    }
+                    }else{
+                        noMatches.setVisibility(View.VISIBLE);
                     }
             }
             mainBtolatRv.setAdapter(adapter);
