@@ -119,13 +119,13 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-        GoResetBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ResetPassword.class);
-                startActivity(intent);
-            }
-        });
+//        GoResetBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, ResetPassword.class);
+//                startActivity(intent);
+//            }
+//        });
         MapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,6 +1,7 @@
 package com.example.myticket.View.Activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -91,6 +92,9 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
     String url;
     private EditText ticketsEditText;
 
+    private Typeface myfont;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +102,8 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
         setContentView(R.layout.activity_stadium_tickets_options);
         apiCalling = new ApiCalling(this);
         sessionManager = new SessionManager(this);
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
+
         setToolbar();
         findRefs();
         Intent intent = getIntent();
@@ -223,19 +229,28 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
         classSpinner = findViewById(R.id.spinner_type);
         placeSpinner = findViewById(R.id.spinner_type_place);
         chairSpinner = findViewById(R.id.spinner_chair);
+        chairSpinner.setTypeface(myfont);
         confirmBtn = findViewById(R.id.select_tickets_btn);
+        confirmBtn.setTypeface(myfont);
         recyclerView = findViewById(R.id.seats_titles_rv);
 
         view1 = findViewById(R.id.view1);
         yourSeats = findViewById(R.id.your_seats_title);
+        yourSeats.setTypeface(myfont);
         individualTitle = findViewById(R.id.individual_tile);
+        individualTitle.setTypeface(myfont);
         priceEq = findViewById(R.id.price_eq);
+        priceEq.setTypeface(myfont);
         view2 = findViewById(R.id.view2);
         subTotalTitle = findViewById(R.id.subTotal_title);
+        subTotalTitle.setTypeface(myfont);
         priceTotal = findViewById(R.id.price_total);
+        priceTotal.setTypeface(myfont);
         progressBar = findViewById(R.id.pb_book);
         retry = findViewById(R.id.retry_book);
+        retry.setTypeface(myfont);
         ticketsEditText = findViewById(R.id.tickets_edit_text);
+        ticketsEditText.setTypeface(myfont);
 
     }
 
@@ -253,6 +268,7 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
        toolbarTitle.setText(getString(R.string.reservation));
+       toolbarTitle.setTypeface(myfont);
 
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);

@@ -38,11 +38,11 @@
                 android:layout_gravity="center"/>
             <ImageView
                 android:id="@+id/toolbar_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:src="@drawable/ic_backward_arrow_1"
                 android:layout_gravity="center_vertical|start"
-                android:layout_margin="16dp"
+                android:padding="18dp"
                 android:visibility="visible"/>
 
             <ImageView
@@ -56,20 +56,21 @@
 
             <ImageView
                 android:id="@+id/toolbar_Search"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:src="@drawable/ic_search_24px"
                 android:layout_gravity="center_vertical|end"
-                android:layout_margin="16dp"/>
+                android:visibility="visible"
+                android:padding="18dp"/>
 
             <ImageView
                 android:id="@+id/toolbar_notifications"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:layout_gravity="center_vertical|end"
                 android:tint="@color/white"
                 android:visibility="gone"
-                android:layout_margin="16dp"/>
+                android:padding="16dp"/>
 
             <ImageView
                 android:visibility="gone"

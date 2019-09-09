@@ -1,6 +1,7 @@
 package com.example.myticket.View.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,11 +22,17 @@ public class HomeStadiumMainAdapter extends RecyclerView.Adapter<HomeStadiumMain
     private Context context;
     private List<Leagues> leaguesList;
     private int layout;
+    private Typeface myfont;
+
 
     public HomeStadiumMainAdapter(Context context, List<Leagues> leaguesList,int layout) {
         this.context = context;
         this.leaguesList = leaguesList;
         this.layout = layout;
+        if (context != null) {
+            myfont = Typeface.createFromAsset(context.getAssets(), "fonts/segoe_ui.ttf");
+        }
+
     }
 
     @NonNull
@@ -63,6 +70,7 @@ public class HomeStadiumMainAdapter extends RecyclerView.Adapter<HomeStadiumMain
         public AllChampsViewHolder(@NonNull View itemView) {
             super(itemView);
             btolaName = itemView.findViewById(R.id.btola_name);
+            btolaName.setTypeface(myfont);
             recyclerView = itemView.findViewById(R.id.matches_rv);
             layout = itemView.findViewById(R.id.layout_btolat);
 

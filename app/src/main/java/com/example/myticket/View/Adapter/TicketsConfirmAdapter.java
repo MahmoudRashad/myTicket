@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -45,11 +46,15 @@ public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAd
     private MyTicketDetailResult myTicket;
     private int layout;
     private ByteArrayOutputStream bytearrayoutputstream;
+    private Typeface myfont;
+
 
     public TicketsConfirmAdapter(Context context, List<MyTicketDetailResult> myTicketDetailResult, int layout) {
         this.context = context;
         this.myTicketDetailResult = myTicketDetailResult;
         this.layout = layout;
+        if (context!= null)
+        myfont = Typeface.createFromAsset(context.getAssets(),"fonts/segoe_ui.ttf");
 
     }
 
@@ -114,15 +119,22 @@ public class TicketsConfirmAdapter extends RecyclerView.Adapter<TicketsConfirmAd
         public ConfirmTicketsViewHolder(@NonNull View itemView) {
             super(itemView);
             teamOne = itemView.findViewById(R.id.team_one_name);
+            teamOne.setTypeface(myfont);
             teamTwo = itemView.findViewById(R.id.team_two_name);
+            teamTwo.setTypeface(myfont);
             teamOneImage = itemView.findViewById(R.id.image_one);
             teamTwoImage = itemView.findViewById(R.id.image_two);
             stadiumName = itemView.findViewById(R.id.stadium_name_text);
+            stadiumName.setTypeface(myfont);
             date = itemView.findViewById(R.id.match_time_text);
+            date.setTypeface(myfont);
             class_type = itemView.findViewById(R.id.ticket_class_value);
+            class_type.setTypeface(myfont);
             seat = itemView.findViewById(R.id.ticket_seat_value);
+            seat.setTypeface(myfont);
             downloadIcon = itemView.findViewById(R.id.download_icon);
             blockName = itemView.findViewById(R.id.ticket_block_value);
+            blockName.setTypeface(myfont);
             barCodeImage = itemView.findViewById(R.id.bar_code_image);
             downloadIcon.setOnClickListener(this);
             constraintLayout = itemView.findViewById(R.id.green_rv);

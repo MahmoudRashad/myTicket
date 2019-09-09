@@ -1,6 +1,7 @@
 package com.example.myticket.View.Fragments;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -46,6 +47,8 @@ public class StadHomeFragment extends Fragment implements
     private ProgressBar progressBar;
     private Button retry;
     private TextView matches_now;
+    private Typeface myfont;
+
 
     public StadHomeFragment() {
         // Required empty public constructor
@@ -63,7 +66,6 @@ public class StadHomeFragment extends Fragment implements
         super.onActivityCreated(savedInstanceState);
         apiCalling = new ApiCalling(getContext());
         apiCalling.getMatchesSlider(this);
-
         stadHomeViewPagerAdapter = new StadHomeViewPagerAdapter(getChildFragmentManager());
 
         weeksViewPager.setAdapter(stadHomeViewPagerAdapter);
@@ -80,13 +82,16 @@ public class StadHomeFragment extends Fragment implements
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_stad_home, container, false);
+        myfont = Typeface.createFromAsset(getContext().getAssets(),"fonts/segoe_ui.ttf");
 
         weeksTabLayout = view.findViewById(R.id.stadium_tabs);
         weeksViewPager = view.findViewById(R.id.viewpager_stad);
         sliderPager = view.findViewById(R.id.stadium_home_banner);
         progressBar = view.findViewById(R.id.slider_stad_pb);
         matches_now = view.findViewById(R.id.no_matches_now);
+        matches_now.setTypeface(myfont);
         retry = view.findViewById(R.id.slider_retry_btn);
+        retry.setTypeface(myfont);
 
 
 

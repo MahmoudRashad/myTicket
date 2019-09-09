@@ -2,6 +2,7 @@ package com.example.myticket.View.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -46,6 +47,7 @@ public class matchesFragment extends Fragment implements
     private Button retry;
     private int id;
     private int dir = 0;
+    private Typeface myfont;
 
     public matchesFragment() {
         // Required empty public constructor
@@ -55,6 +57,7 @@ public class matchesFragment extends Fragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         apiCalling = new ApiCalling(getContext());
+
     }
 
     @Override
@@ -62,6 +65,8 @@ public class matchesFragment extends Fragment implements
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_matches, container, false);
+        myfont = Typeface.createFromAsset(getContext().getAssets(),"fonts/segoe_ui.ttf");
+
         if (this.getArguments() != null) {
             flag = this.getArguments().getInt("flag");
         }
@@ -78,7 +83,7 @@ public class matchesFragment extends Fragment implements
         mainBtolatRv = view.findViewById(R.id.btolat_rv);
         progressBar = view.findViewById(R.id.matches_pb);
         retry = view.findViewById(R.id.matches_retry_btn);
-
+        retry.setTypeface(myfont);
         mainBtolatRv.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         return view;
@@ -133,18 +138,20 @@ public class matchesFragment extends Fragment implements
 
         else
 //            if (message.contains("connection abort")|| message.contains("Failed to connect"))
-            {
-            Toast.makeText(getContext(),getResources().getString(R.string.check_connection), Toast.LENGTH_SHORT).show();
-            retry.setVisibility(View.VISIBLE);
-            retry.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getContext(), HomeStadBottomNav.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                }
-            });
+        {
+            if (getContext() != null) {
+                Toast.makeText(getContext(), getResources().getString(R.string.check_connection), Toast.LENGTH_SHORT).show();
+                retry.setVisibility(View.VISIBLE);
+                retry.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getContext(), HomeStadBottomNav.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
+                });
+            }
         }
     }
 }

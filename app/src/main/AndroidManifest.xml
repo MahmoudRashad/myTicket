@@ -90,9 +90,6 @@
             android:name=".View.Activity.SearchPage"
             android:launchMode="singleTop" />
         <activity
-            android:name=".View.Activity.ResetPassword"
-            android:launchMode="singleTop" />
-        <activity
             android:name=".View.Activity.MovieDetailsPage"
             android:launchMode="singleTop"
             android:parentActivityName=".View.Activity.HomeCinema"
@@ -121,9 +118,6 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".View.Activity.ForgetPassword"
-            android:launchMode="singleTop" />
-        <activity
-            android:name=".View.Activity.HomeStadium"
             android:launchMode="singleTop" />
         <activity
             android:name=".View.Activity.Register"

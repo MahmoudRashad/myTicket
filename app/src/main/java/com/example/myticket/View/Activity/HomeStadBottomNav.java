@@ -28,7 +28,6 @@ public class HomeStadBottomNav extends AppCompatActivity {
 
     private ImageView backBtn;
     private ImageView searchIcon;
-    private TextView toolbarTitle;
     private ImageView logo;
     private String tag;
     private BottomNavigationView navView;
@@ -141,8 +140,15 @@ public class HomeStadBottomNav extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        start();
-        // if previous place == null go to home w 5las
+//        if (previousPlace.equals("") || previousPlace == null){
+//            getSupportFragmentManager().beginTransaction()
+//                    .add(R.id.fragment_container, new StadHomeFragment())
+//                    .commit();
+//            navView.setSelectedItemId(R.id.navigation_home);
+//        }
+//        else {
+            start();
+       // }
     }
 
     private void changeStatusBarColor(){
@@ -162,7 +168,6 @@ public class HomeStadBottomNav extends AppCompatActivity {
     }
 
     private void setToolbar() {
-        toolbarTitle = findViewById(R.id.toolbar_title);
 //        toolbarTitle.setText(getString(R.string.all_results));
 //        toolbarTitle.setTypeface(myfont);
         logo = findViewById(R.id.logo_toolbar);

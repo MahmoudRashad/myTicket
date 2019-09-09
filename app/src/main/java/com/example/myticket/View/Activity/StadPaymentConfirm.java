@@ -3,6 +3,7 @@ package com.example.myticket.View.Activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -41,6 +42,8 @@ public class StadPaymentConfirm extends AppCompatActivity implements GeneralList
     private String matchId;
     private ApiCalling apiCalling;
     private SessionManager sessionManager;
+    private Typeface myfont;
+
     private ConstraintLayout constraintLayout;
     private List<MyTicketDetailResult> myTicketDetailResult;
     @Override
@@ -48,6 +51,8 @@ public class StadPaymentConfirm extends AppCompatActivity implements GeneralList
         super.onCreate(savedInstanceState);
         changeStatusBarColor();
         setContentView(R.layout.activity_stad_payment_confirm);
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
+
         setToolbar();
 
         apiCalling = new ApiCalling(this);
@@ -83,6 +88,7 @@ public class StadPaymentConfirm extends AppCompatActivity implements GeneralList
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
        toolbarTitle.setText(getString(R.string.reservation));
+       toolbarTitle.setTypeface(myfont);
 
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);

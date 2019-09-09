@@ -2,6 +2,7 @@ package com.example.myticket.View.Fragments;
 
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -31,6 +32,8 @@ public class SettingsFragment extends Fragment {
     private TextView logout;
     private SessionManager sessionManager;
     String token;
+    private Typeface myfont;
+
 
 
     public SettingsFragment() {
@@ -44,11 +47,17 @@ public class SettingsFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        myfont = Typeface.createFromAsset(getContext().getAssets(),"fonts/segoe_ui.ttf");
+
         sessionManager = new SessionManager(getContext());
         profileTv = view.findViewById(R.id.textView6);
+        profileTv.setTypeface(myfont);
         changePasswordTv = view.findViewById(R.id.textView11);
+        changePasswordTv.setTypeface(myfont);
         backGate = view.findViewById(R.id.textView29);
+        backGate.setTypeface(myfont);
         logout = view.findViewById(R.id.text_login);
+        logout.setTypeface(myfont);
         token = sessionManager.handleLogin();
         if (!token.equals("")) {
             logout.setText(getString(R.string.logout));

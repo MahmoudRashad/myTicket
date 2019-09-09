@@ -38,7 +38,7 @@
     <string name="phone_number">رفم الجوال</string>
     <string name="verified">مؤكد</string>
     <string name="update">تحديث</string>
-    <string name="send_reset_link">أرسل رابط إعادة التعيين</string>
+    <string name="send_reset_link">إرسال البريد الإلكتروني</string>
     <string name="cinema">سينما</string>
     <string name="stadium">ملعب</string>
     <string name="now_playing">يعرض الآن</string>
@@ -115,7 +115,7 @@
     <string name="retry">إعادة المحاولة</string>
     <string name="select_ticket_type">إختر نوع التذكرة</string>
     <string name="choose_a_type">من فضلك إختر نوع التذكرة</string>
-    <string name="select_block_type">من فضلك إختر نوع المدرج</string>
+    <string name="select_block_type">من فضلك إختر نوع المربع</string>
     <string name="change_selection">تغيير الإختيار</string>
     <string name="error">حدث خطأ</string>
     <string name="title_activity_home_stad_bottom_nav">HomeStadBottomNav</string>
@@ -148,14 +148,16 @@
     <string name="new_password_">كلمة السر الجديدة</string>
     <string name="confirm_new_password">تأكيد كلمة السر الجديدة</string>
     <string name="no_matches_are_being_played_now">لا يوجد مباريات الآن</string>
-    <string name="limit_warning">You have reached your reservation limit in this match</string>
-    <string name="your_limit_is">Your tickets limit is</string>
-    <string name="tickets">tickets.</string>
-    <string name="enter_number_of_tickets">Enter number of tickets</string>
-    <string name="download_ticket">Download Ticket</string>
-    <string name="block">Block:</string>
-    <string name="permission">Please give permission to the app</string>
+    <string name="limit_warning">لقد وصلت لأقصي عدد من التذاكر المحجوزة في هذه المباراة</string>
+    <string name="your_limit_is">أقصي عدد من التذاكر للحجز</string>
+    <string name="tickets">تذاكر.</string>
+    <string name="enter_number_of_tickets">أدخل عدد التذاكر</string>
+    <string name="download_ticket">تحميل التذكرة</string>
+    <string name="block">المربع:</string>
+    <string name="permission">برجاء توفير جميع الأذونات للتطبيق</string>
 
 
     <string name="showDetails">اظهار الكروت المسجلة</string>
+    <string name="no_tickets_available">لا يوجد تذاكر</string>
+    <string name="no_search_results">لا يوجد نتائج للبحث</string>
 </resources>

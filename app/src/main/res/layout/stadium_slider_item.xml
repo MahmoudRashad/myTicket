@@ -27,27 +27,25 @@
         />
     <ImageView
         android:id="@+id/vs_image"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="107dp"
         android:background="@drawable/silver_gradient"
 
         />
-    <TextView
+    <ImageView
         android:id="@+id/text_vs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="88dp"
-        android:text="V"
-        android:textSize="28dp"
-        android:textColor="	#282828"
-        android:textStyle="bold"/>
+        android:layout_marginTop="108dp"
+        android:src="@drawable/vs_logo"
+        />
 
     <TextView
         android:id="@+id/banner_stadium_name"
@@ -62,6 +60,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/grey_star"
         android:textAllCaps="true"
+        android:layout_marginTop="4dp"
         android:textStyle="bold"/>
 
     <ImageView
@@ -74,7 +73,7 @@
         app:layout_constraintEnd_toStartOf="@id/vs_image"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginEnd="24dp"
-        android:layout_marginTop="82dp"/>
+        android:layout_marginTop="85dp"/>
 
     <TextView
         android:id="@+id/team_one_name"
@@ -110,7 +109,7 @@
         app:layout_constraintStart_toEndOf="@id/vs_image"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="82dp"/>
+        android:layout_marginTop="85dp"/>
 
     <TextView
         android:id="@+id/team_two_name"
@@ -126,14 +125,25 @@
         android:textAlignment="center"
         android:text="Team Two"/>
 
-    <!--<TextView-->
-        <!--android:id="@+id/team_two_country"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--app:layout_constraintTop_toBottomOf="@id/team_two_name"-->
-        <!--android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
-        <!--app:layout_constraintEnd_toEndOf="@id/team_two_name"-->
-        <!--app:layout_constraintStart_toStartOf="@id/team_two_name"-->
-        <!--tools:text="Team Two"/>-->
+    <TextView
+        android:id="@+id/cardView_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="52dp"
+        android:textStyle="bold"
+        android:textColor="@color/red"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+    <TextView
+        android:id="@+id/date_cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardView_time"
+        android:textColor="@color/grey_star"/>
 
 </android.support.constraint.ConstraintLayout>

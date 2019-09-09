@@ -2,6 +2,7 @@ package com.example.myticket.View.Fragments;
 
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -38,6 +39,8 @@ public class FragmentMyTicketsStad extends Fragment implements GeneralListener {
     private StadMyTicketsViewPagerAdapter viewPagerAdapter;
     private ApiCalling apiCalling;
     private SessionManager sessionManager;
+    private Typeface myfont;
+
 
     public FragmentMyTicketsStad() {
         // Required empty public constructor
@@ -56,6 +59,8 @@ public class FragmentMyTicketsStad extends Fragment implements GeneralListener {
         super.onActivityCreated(savedInstanceState);
         apiCalling = new ApiCalling(getContext());
         sessionManager = new SessionManager(getContext());
+        myfont = Typeface.createFromAsset(getContext().getAssets(),"fonts/segoe_ui.ttf");
+
         viewPagerAdapter = new StadMyTicketsViewPagerAdapter(getChildFragmentManager());
     }
 
@@ -66,6 +71,7 @@ public class FragmentMyTicketsStad extends Fragment implements GeneralListener {
         ticketsTab = view.findViewById(R.id.sliding_tabs);
         ticketsViewPager = view.findViewById(R.id.stad_tickets_viewpager);
         retry = view.findViewById(R.id.stad_list_retry_btn);
+        retry.setTypeface(myfont);
         progressBar = view.findViewById(R.id.slider_stad_pb);
 
         return view;
@@ -115,11 +121,13 @@ public class FragmentMyTicketsStad extends Fragment implements GeneralListener {
     }
 
     private void setData(List<Past> pastTickets, List<Past> upcomingTickets) {
-        viewPagerAdapter.clear();
-        viewPagerAdapter.addFragment(new StadMyTickets(),getResources().getString(R.string.upcoming),upcomingTickets);
-        viewPagerAdapter.addFragment(new StadMyTickets(),getResources().getString(R.string.past),pastTickets);
-        viewPagerAdapter.notifyDataSetChanged();
-        ticketsViewPager.setAdapter(viewPagerAdapter);
-        ticketsTab.setupWithViewPager(ticketsViewPager);
+        if (getContext() != null) {
+            viewPagerAdapter.clear();
+            viewPagerAdapter.addFragment(new StadMyTickets(), getResources().getString(R.string.upcoming), upcomingTickets);
+            viewPagerAdapter.addFragment(new StadMyTickets(), getResources().getString(R.string.past), pastTickets);
+            viewPagerAdapter.notifyDataSetChanged();
+            ticketsViewPager.setAdapter(viewPagerAdapter);
+            ticketsTab.setupWithViewPager(ticketsViewPager);
+        }
     }
 }

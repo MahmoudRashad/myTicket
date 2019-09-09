@@ -21,7 +21,7 @@ import java.util.List;
 public class UpcComingFragment extends Fragment {
 
     List<ResultTickets> comingList;
-    RecyclerView ticketsRv ;
+    RecyclerView ticketsRv;
 
     public UpcComingFragment() {
         // Required empty public constructor

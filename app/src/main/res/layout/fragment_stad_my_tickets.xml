@@ -6,6 +6,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".View.Fragments.StadMyTickets">
 
+
+    <TextView
+        android:id="@+id/no_matches_booked"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_tickets_available"
+        android:textColor="@color/stad_grey_text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="200dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_tickets_rv"
         android:layout_width="match_parent"

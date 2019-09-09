@@ -1,6 +1,7 @@
 package com.example.myticket.View.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,10 +19,15 @@ public class StadChairsAdapter extends RecyclerView.Adapter<StadChairsAdapter.ch
 
     private Context context;
     private ArrayList<ResultTicketsStad> results;
+    private Typeface myfont;
+
 
     public StadChairsAdapter(Context context, ArrayList<ResultTicketsStad> results) {
         this.context = context;
         this.results = results;
+        if (context!= null)
+        myfont = Typeface.createFromAsset(context.getAssets(),"fonts/segoe_ui.ttf");
+
     }
 
     @NonNull
@@ -54,6 +60,7 @@ public class StadChairsAdapter extends RecyclerView.Adapter<StadChairsAdapter.ch
         public chairViewHolder(@NonNull View itemView) {
             super(itemView);
             seat = itemView.findViewById(R.id.seat_number_text);
+            seat.setTypeface(myfont);
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.myticket.View.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,9 +18,14 @@ import java.util.List;
 public class TicketsTypeAdapter extends RecyclerView.Adapter<TicketsTypeAdapter.TicketsType> {
     Context context;
     List<TicketType> ticketsTypes;
+    private Typeface myfont;
+
     public TicketsTypeAdapter(Context context, List<TicketType> ticketType) {
         this.context = context;
         this.ticketsTypes = ticketType;
+        if (context!= null)
+        myfont = Typeface.createFromAsset(context.getAssets(),"fonts/segoe_ui.ttf");
+
     }
 
     @NonNull
@@ -49,7 +55,9 @@ public class TicketsTypeAdapter extends RecyclerView.Adapter<TicketsTypeAdapter.
         public TicketsType(@NonNull View itemView) {
             super(itemView);
             type = itemView.findViewById(R.id.the_type_text);
+            type.setTypeface(myfont);
             price = itemView.findViewById(R.id.the_type_price);
+            price.setTypeface(myfont);
         }
     }
 }

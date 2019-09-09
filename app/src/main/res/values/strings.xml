@@ -164,4 +164,6 @@
 
 
     <string name="showDetails">Show stored card</string>
+    <string name="no_tickets_available">No Tickets Available</string>
+    <string name="no_search_results">No Search Results</string>
 </resources>

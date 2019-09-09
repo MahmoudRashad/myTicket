@@ -31,11 +31,12 @@
                 />
             <ImageView
                 android:id="@+id/toolbar_back"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="56dp"
+                android:layout_height="53dp"
                 android:src="@drawable/ic_backward_arrow_1"
                 android:layout_gravity="center_vertical|start"
-                android:layout_margin="16dp"/>
+                android:padding="16dp"
+               />
             <TextView
                 android:id="@+id/toolbar_title"
                 android:layout_width="wrap_content"
@@ -44,11 +45,11 @@
                 android:layout_gravity="center"/>
             <ImageView
                 android:id="@+id/toolbar_Search"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="56dp"
+                android:layout_height="53dp"
                 android:src="@drawable/ic_search_24px"
                 android:layout_gravity="center_vertical|end"
-                android:layout_margin="16dp"/>
+                android:padding="16dp"/>
 
             <br.com.liveo.searchliveo.SearchLiveo
                 android:id="@+id/search_liveo"
@@ -111,6 +112,21 @@
 
 
     </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/no_results"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/stad_grey_text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:text="@string/no_search_results"
+        />
 
     <ProgressBar
         android:id="@+id/slider_stad_pb"

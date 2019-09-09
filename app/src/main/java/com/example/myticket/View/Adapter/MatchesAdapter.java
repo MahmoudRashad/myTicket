@@ -2,6 +2,7 @@ package com.example.myticket.View.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,6 +33,8 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
     private SessionManager sessionManager;
     com.example.myticket.Model.Network.StadiumModel.Match.MatchDetails matchDetails;
     private int layout;
+    private Typeface myfont;
+
 
     public MatchesAdapter(Context context, List<com.example.myticket.Model.Network.StadiumModel.Match.MatchDetails> matchesList, int layout) {
         this.context = context;
@@ -39,6 +42,9 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
         apiCalling = new ApiCalling(context);
         sessionManager = new SessionManager(context);
         this.layout = layout;
+        if (context!= null)
+        myfont = Typeface.createFromAsset(context.getAssets(),"fonts/segoe_ui.ttf");
+
 
     }
 
@@ -132,12 +138,17 @@ public class MatchesAdapter extends RecyclerView.Adapter<MatchesAdapter.MatchesA
         public MatchesAdapterViewHolder(@NonNull View itemView) {
             super(itemView);
             timeText = itemView.findViewById(R.id.cardView_time);
+            timeText.setTypeface(myfont);
             dateText = itemView.findViewById(R.id.date_cardView);
+            dateText.setTypeface(myfont);
             teamOneImage = itemView.findViewById(R.id.team_one_image_card_view);
             teamTwoImage = itemView.findViewById(R.id.team_two_image_card_view);
             stadiumName = itemView.findViewById(R.id.cardView_stad_name);
+            stadiumName.setTypeface(myfont);
             teamOneName = itemView.findViewById(R.id.team_one_name_card_view);
+            teamOneName.setTypeface(myfont);
             teamTwoName = itemView.findViewById(R.id.team_two_name_card_view);
+            teamTwoName.setTypeface(myfont);
             followImage = itemView.findViewById(R.id.follow_img);
             greenBackground = itemView.findViewById(R.id.green);
 

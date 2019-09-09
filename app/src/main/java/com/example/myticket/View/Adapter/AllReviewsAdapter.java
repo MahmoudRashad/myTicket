@@ -25,6 +25,7 @@ public class AllReviewsAdapter extends RecyclerView.Adapter<AllReviewsAdapter.Re
     public AllReviewsAdapter(Context context, ArrayList<Result> movieDetails) {
         this.context = context;
         this.allComments = movieDetails;
+        if (context!= null)
         myfont = Typeface.createFromAsset(context.getAssets(),"fonts/segoe_ui.ttf");
 
 

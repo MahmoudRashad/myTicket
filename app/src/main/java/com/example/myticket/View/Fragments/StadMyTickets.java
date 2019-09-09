@@ -1,5 +1,6 @@
 package com.example.myticket.View.Fragments;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.myticket.Model.Network.StadiumModel.MyTicket.Past;
 import com.example.myticket.R;
@@ -22,6 +24,9 @@ public class StadMyTickets extends Fragment {
     private MyTicketsStadAdapter myTicketsStadAdapter;
     private String dumb;
     private ArrayList<Past> list;
+    private TextView noBookedTickets;
+    private Typeface myfont;
+
 
     public StadMyTickets() {
 
@@ -37,8 +42,12 @@ public class StadMyTickets extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_stad_my_tickets, container, false);
+        myfont = Typeface.createFromAsset(getContext().getAssets(),"fonts/segoe_ui.ttf");
+
         ticketsRV = view.findViewById(R.id.my_tickets_rv);
         ticketsRV.setLayoutManager(new LinearLayoutManager(getActivity()));
+        noBookedTickets = view.findViewById(R.id.no_matches_booked);
+        noBookedTickets.setTypeface(myfont);
 
         return view;
     }
@@ -54,6 +63,10 @@ public class StadMyTickets extends Fragment {
             list = new ArrayList<>(Arrays.asList(results));
             myTicketsStadAdapter = new MyTicketsStadAdapter(list, getContext());
             ticketsRV.setAdapter(myTicketsStadAdapter);
+        }
+        else{
+            noBookedTickets.setVisibility(View.VISIBLE);
+
         }
     }
 }

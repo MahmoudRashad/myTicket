@@ -25,6 +25,10 @@ import com.example.myticket.Model.Network.Retrofit.ApiCalling;
 import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.R;
 
+import java.net.NetworkInterface;
+import java.util.Collections;
+import java.util.List;
+
 public class Login extends AppCompatActivity implements
         GeneralListener {
 
@@ -38,8 +42,8 @@ public class Login extends AppCompatActivity implements
 
     private String mUsername;
     private String mPassword;
-    private String macAddress = "mac";
-    private String deviceToken = "987654321";
+    private String macAddress;
+    private String deviceToken = "0";
     private String deviceType = "1";
     private SharedPreferences sharedPreferences;
     private String prefFile = "com.example.android.shared";
@@ -111,9 +115,8 @@ public class Login extends AppCompatActivity implements
                         TextUtils.isEmpty(mUsername)) {
                     Toast.makeText(Login.this, getString(R.string.please_fill_all_fields), Toast.LENGTH_LONG).show();
                 } else {
-
-                    loginUser = new User(mUsername, mPassword, deviceToken, deviceType, macAddress);
-                    apiCalling.login(mUsername, mPassword, macAddress
+                    macAddress = getMacAddress();
+                    apiCalling.login(mUsername, mPassword,macAddress
                             , Login.this);
                     progressBar.setVisibility(View.VISIBLE);
                 }
@@ -226,12 +229,10 @@ public class Login extends AppCompatActivity implements
 
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
-
-
+        progressBar.setVisibility(View.GONE);
+        MainResponceReg responceReg = (MainResponceReg) tApiResponse;
         if (status == ErrorTypeEnum.noError.getValue()) {
-            MainResponceReg responceReg = (MainResponceReg) tApiResponse;
             progressBar.setVisibility(View.GONE);
-
 
             sessionManager.setNameOfUser(responceReg.getResult().getUserName());
             sessionManager.setUserId(responceReg.getResult().getId());
@@ -245,7 +246,11 @@ public class Login extends AppCompatActivity implements
             handleBack(responceReg.getMessage());
 
         }
+        else{
+            Toast.makeText(this,message,Toast.LENGTH_LONG).show();
+        }
     }
+
 
     private void handleBack(String message) {
         if (flag) {
@@ -284,5 +289,32 @@ public class Login extends AppCompatActivity implements
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+    private String getMacAddress(){
+        try {
+            //TODO: debug this
+            List<NetworkInterface> all = Collections.list(NetworkInterface.getNetworkInterfaces());
+            for (NetworkInterface nif : all) {
+                if (!nif.getName().equalsIgnoreCase("wlan0")) continue;
+
+                byte[] macBytes = nif.getHardwareAddress();
+                if (macBytes == null) {
+                    return "";
+                }
+
+                StringBuilder res1 = new StringBuilder();
+                for (byte b : macBytes) {
+                    res1.append(String.format("%02X:",b));
+                }
+
+                if (res1.length() > 0) {
+                    res1.deleteCharAt(res1.length() - 1);
+                }
+                return res1.toString();
+            }
+        } catch (Exception ex) {
+        }
+        return "02:00:00:00:00:00";
     }
 }

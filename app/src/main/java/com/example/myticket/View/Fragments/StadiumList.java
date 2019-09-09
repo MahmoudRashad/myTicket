@@ -1,6 +1,7 @@
 package com.example.myticket.View.Fragments;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -32,6 +33,8 @@ public class StadiumList extends Fragment implements
     private ArrayList<StadDetails> stadiumsList;
     private Button retry;
     private ProgressBar progressBar;
+    private Typeface myfont;
+
 
     public StadiumList() {
     }
@@ -47,9 +50,12 @@ public class StadiumList extends Fragment implements
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stadium_list, container, false);
         apiCalling = new ApiCalling(getContext());
+        myfont = Typeface.createFromAsset(getContext().getAssets(),"fonts/segoe_ui.ttf");
+
         apiCalling.StadiumsListCall(this);
         stadiumRv = view.findViewById(R.id.stadiums_rv);
         retry = view.findViewById(R.id.stad_list_retry_btn);
+        retry.setTypeface(myfont);
         progressBar = view.findViewById(R.id.slider_stad_pb);
         stadiumRv.setLayoutManager(new LinearLayoutManager(getContext()));
 

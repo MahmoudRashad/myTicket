@@ -1,6 +1,7 @@
 package com.example.myticket.View.Activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.support.constraint.ConstraintLayout;
@@ -47,6 +48,7 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
     private TextView address;
     private Button bookBtn;
     private RecyclerView ticketsTypeRv;
+    private Typeface myfont;
 
     private ImageView notificationIcon;
     private TextView toolbarTitle;
@@ -67,6 +69,9 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
     private ProgressBar progressBar;
     private Button retry;
     private String token;
+    private TextView categoriesTitle;
+    private TextView stadiumTitle;
+    private TextView mapBtn;
 
 
     @Override
@@ -77,7 +82,7 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
 
         apiCalling = new ApiCalling(this);
         sessionManager = new SessionManager(this);
-
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
         Intent intent = getIntent();
         if (intent.hasExtra("matchId")) {
             matchId = intent.getStringExtra("matchId");
@@ -160,24 +165,35 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
 
     private void findRefs() {
         stadiumName = findViewById(R.id.stadium_name_text);
+        stadiumName.setTypeface(myfont);
         btolaName = findViewById(R.id.detail_btola_name);
+        btolaName.setTypeface(myfont);
         teamOneName = findViewById(R.id.team_one_name);
+        teamOneName.setTypeface(myfont);
         teamTwoName = findViewById(R.id.team_two_name);
+        teamTwoName.setTypeface(myfont);
         teamOneImage = findViewById(R.id.team_one_image_card_view);
         teamTwoImage = findViewById(R.id.team_two_image_card_view);
         time = findViewById(R.id.cardView_time);
+        time.setTypeface(myfont);
         date = findViewById(R.id.date_cardView);
+        date.setTypeface(myfont);
         address = findViewById(R.id.stadium_address_text);
+        address.setTypeface(myfont);
         bookBtn = findViewById(R.id.book_btn);
-
+        bookBtn.setTypeface(myfont);
+        categoriesTitle = findViewById(R.id.tickets_categories_title);
+        categoriesTitle.setTypeface(myfont);
 
         toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setTypeface(myfont);
         notificationIcon = findViewById(R.id.toolbar_notifications);
         searchIcon = findViewById(R.id.toolbar_Search);
         toolbarBack = findViewById(R.id.toolbar_back);
         frameLayout = findViewById(R.id.notification_activated_layout);
         notificationImage = findViewById(R.id.notification_image);
         notificationText = findViewById(R.id.activated_text);
+        notificationText.setTypeface(myfont);
         closeBtn = findViewById(R.id.close_notifictaion);
         toolbar = findViewById(R.id.top_match_details);
 
@@ -186,6 +202,10 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
         ticketsTypeRv = findViewById(R.id.tickets_categories_rv);
         ticketsTypeRv.setLayoutManager(new LinearLayoutManager(this));
         notificationPb = findViewById(R.id.noti_pb);
+        stadiumTitle = findViewById(R.id.stadium_title);
+        stadiumTitle.setTypeface(myfont);
+        mapBtn = findViewById(R.id.location_on_map);
+        mapBtn.setTypeface(myfont);
 
     }
 
@@ -280,24 +300,29 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
         date.setText(matchDetails.getDate());
         address.setText(matchDetails.getStadiumAddress());
 
-        TicketsTypeAdapter ticketsTypeAdapter = new TicketsTypeAdapter(this,matchDetails.getTicketType());
-        ticketsTypeRv.setAdapter(ticketsTypeAdapter);
-
+        if (matchDetails.getTicketType().size() != 0) {
+            TicketsTypeAdapter ticketsTypeAdapter = new TicketsTypeAdapter(this, matchDetails.getTicketType());
+            ticketsTypeRv.setAdapter(ticketsTypeAdapter);
             bookBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (!sessionManager.handleLogin().equals("")) {
-                        apiCalling.getLimit(matchId,sessionManager.handleLogin(),sessionManager.getDeviceLanguage(),MatchDetails.this::getApiResponse);
-                    }
-                    else {
-                        Intent intent = new Intent(MatchDetails.this,Login.class);
-                        intent.putExtra("name","match");
-                        intent.putExtra("flag","flag");
-                        intent.putExtra("matchId",matchId);
+                        apiCalling.getLimit(matchId, sessionManager.handleLogin(), sessionManager.getDeviceLanguage(), MatchDetails.this::getApiResponse);
+                    } else {
+                        Intent intent = new Intent(MatchDetails.this, Login.class);
+                        intent.putExtra("name", "match");
+                        intent.putExtra("flag", "flag");
+                        intent.putExtra("matchId", matchId);
                         startActivity(intent);
                     }
                 }
             });
         }
+        else {
+            ticketsTypeRv.setVisibility(View.GONE);
+            bookBtn.setVisibility(View.GONE);
+            categoriesTitle.setVisibility(View.GONE);
+        }
+    }
     }
 

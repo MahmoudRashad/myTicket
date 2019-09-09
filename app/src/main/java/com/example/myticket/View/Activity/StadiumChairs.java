@@ -1,6 +1,7 @@
 package com.example.myticket.View.Activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ public class StadiumChairs extends AppCompatActivity implements GeneralListener,
     private String one;
     private String two;
     private String blockImage;
+    private Typeface myfont;
 
     private ImageView backBtn;
     private ImageView searchIcon;
@@ -60,12 +62,14 @@ public class StadiumChairs extends AppCompatActivity implements GeneralListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stadium_chairs);
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
         setToolbar();
         chairsRv = findViewById(R.id.stad_chairs_rv);
         confirmBtn = findViewById(R.id.select_chairs_btn);
         progressBar = findViewById(R.id.pb_chair);
         retry = findViewById(R.id.retry_chair);
         textLimit = findViewById(R.id.text_limit);
+        textLimit.setTypeface(myfont);
         chairsRv.setLayoutManager(new LinearLayoutManager(this));
         apiCalling = new ApiCalling(this);
         sessionManager = new SessionManager(this);
@@ -90,6 +94,7 @@ public class StadiumChairs extends AppCompatActivity implements GeneralListener,
 
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
+        toolbarTitle.setTypeface(myfont);
         toolbarTitle.setText(getString(R.string.reservation));
 
         searchIcon = findViewById(R.id.toolbar_Search);

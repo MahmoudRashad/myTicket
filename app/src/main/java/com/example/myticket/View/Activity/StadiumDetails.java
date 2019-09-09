@@ -1,6 +1,7 @@
 package com.example.myticket.View.Activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +34,9 @@ public class StadiumDetails extends AppCompatActivity implements GeneralListener
     private TextView toolbarTitle;
     private ImageView backBtn;
     private ImageView searchIcon;
+    private TextView mapText;
+
+    private Typeface myfont;
 
     private ProgressBar progressBar;
     private Button retry;
@@ -50,12 +54,20 @@ public class StadiumDetails extends AppCompatActivity implements GeneralListener
             apiCalling.getStadiumDetail(id,this);
 
         }
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
+
         stadCover = findViewById(R.id.cover_photo_stad);
         stadName = findViewById(R.id.details_stadium_name);
+        stadName.setTypeface(myfont);
         stadAddress = findViewById(R.id.stadium_address_text);
+        stadAddress.setTypeface(myfont);
         stadDescription = findViewById(R.id.description_text);
+        stadDescription.setTypeface(myfont);
         progressBar = findViewById(R.id.slider_stad_pb);
         retry = findViewById(R.id.retry_btn_match_details);
+        retry.setTypeface(myfont);
+        mapText = findViewById(R.id.location_on_map);
+        mapText.setTypeface(myfont);
 
 
     }
@@ -79,6 +91,7 @@ public class StadiumDetails extends AppCompatActivity implements GeneralListener
     private void setToolbar(StadDetails stadDetails) {
         toolbarTitle = findViewById(R.id.toolbar_title);
         toolbarTitle.setText(stadDetails.getName());
+        toolbarTitle.setTypeface(myfont);
 //        toolbarTitle.setTypeface(myfont);
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);

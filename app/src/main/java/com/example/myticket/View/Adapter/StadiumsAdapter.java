@@ -2,6 +2,7 @@ package com.example.myticket.View.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
@@ -24,11 +25,15 @@ public class StadiumsAdapter extends RecyclerView.Adapter<StadiumsAdapter.Stadiu
     private ArrayList<StadDetails> list;
     private int flag = 0;
     private String stadId ="";
+    private Typeface myfont;
 
     public StadiumsAdapter(Context context, ArrayList<StadDetails> stadiumsList, int flag) {
         this.context = context;
         this.list = stadiumsList;
         this.flag = flag;
+        if (context!= null)
+        myfont = Typeface.createFromAsset(context.getAssets(),"fonts/segoe_ui.ttf");
+
     }
 
     @NonNull
@@ -94,9 +99,13 @@ public class StadiumsAdapter extends RecyclerView.Adapter<StadiumsAdapter.Stadiu
             stadImage = itemView.findViewById(R.id.stad_image_item);
             stadImage.setClipToOutline(true);
             stadName = itemView.findViewById(R.id.stadium_name_text);
+            stadName.setTypeface(myfont);
             stadAddress = itemView.findViewById(R.id.stadium_address_text);
+            stadAddress.setTypeface(myfont);
             stadMap = itemView.findViewById(R.id.location_on_map);
+            stadMap.setTypeface(myfont);
             details = itemView.findViewById(R.id.details_btn);
+            details.setTypeface(myfont);
             layout = itemView.findViewById(R.id.stadiums_item);
 
 

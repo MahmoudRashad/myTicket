@@ -46,12 +46,15 @@ public class StadMainSearch extends AppCompatActivity implements SearchLiveo.OnS
     private Button retry;
     private String query;
     private String name = "";
+    private TextView noResults;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stad_main_search);
+
+        myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
 
         intent = getIntent();
         if (intent.hasExtra("tag") && intent.getStringExtra("tag").equals("stadiums")) {
@@ -68,8 +71,12 @@ public class StadMainSearch extends AppCompatActivity implements SearchLiveo.OnS
 
         autoCompleteRv = findViewById(R.id.search_rv);
         seeAll = findViewById(R.id.seeAll_search);
+        seeAll.setTypeface(myfont);
         progressBar = findViewById(R.id.slider_stad_pb);
         retry = findViewById(R.id.retry_btn_match_details);
+        retry.setTypeface(myfont);
+        noResults = findViewById(R.id.no_results);
+        noResults.setTypeface(myfont);
         seeAll.setTypeface(myfont);
         seeAll.setVisibility(View.GONE);
         seeAll.setOnClickListener(new View.OnClickListener() {
@@ -168,9 +175,13 @@ public class StadMainSearch extends AppCompatActivity implements SearchLiveo.OnS
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
         progressBar.setVisibility(View.GONE);
+        noResults.setVisibility(View.GONE);
         if (tApiResponse instanceof StadiumListMain){
             StadiumListMain stadiumListMain = (StadiumListMain) tApiResponse;
             ArrayList<StadDetails> stadDetails = (ArrayList<StadDetails>) stadiumListMain.getStadDetails();
+            if (stadDetails.size() == 0){
+                noResults.setVisibility(View.VISIBLE);
+            }
             autoCompleteRv.setAdapter(new StadiumsAdapter(this,stadDetails,1));
 //            if (stadDetails.size() <= 5){
 //                seeAll.setVisibility(View.GONE);
@@ -183,6 +194,9 @@ public class StadMainSearch extends AppCompatActivity implements SearchLiveo.OnS
         else if (tApiResponse instanceof MainMatches){
             MainMatches mainMatches = (MainMatches) tApiResponse;
             ArrayList<MatchDetails> matches = (ArrayList<MatchDetails>) mainMatches.getResult();
+            if (matches.size() == 0){
+                noResults.setVisibility(View.VISIBLE);
+            }
             autoCompleteRv.setAdapter(new MatchesAdapter(this,matches, R.layout.btola_rv_item));
 //            if (matches.size() <= 5){
 //                seeAll.setVisibility(View.GONE);
