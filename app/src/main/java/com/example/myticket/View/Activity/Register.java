@@ -264,7 +264,7 @@ public class Register extends AppCompatActivity implements
 //        sessionManager.setUserEmail(responceReg.getStadDetails().getEmail());
 //        sessionManager.setUserToken(responceReg.getAccessToken());
 //
-//        Intent intent = new Intent(Register.this, MainActivity.class);
+//        Intent intent = new Intent(Register.this, MainPaymentActivity.class);
 //        startActivity(intent);
 //
 //        Toast.makeText(this,responceReg.getMessage(),Toast.LENGTH_SHORT).show();

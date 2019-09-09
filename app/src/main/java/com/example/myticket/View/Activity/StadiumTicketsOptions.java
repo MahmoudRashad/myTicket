@@ -35,6 +35,7 @@ import com.example.myticket.Model.Network.StadiumModel.Reservation.ReservationRe
 import com.example.myticket.Model.Network.StadiumModel.Reservation.TicketType;
 import com.example.myticket.Model.Network.StadiumModel.ResultTicketsStad.ResultTicketsStad;
 import com.example.myticket.R;
+import com.example.myticket.View.Activity.tler.MainPaymentActivity;
 import com.example.myticket.View.Adapter.StadChairsAdapter;
 import com.example.myticket.View.Adapter.StadiumChairsAdapter;
 import com.google.gson.Gson;
@@ -70,7 +71,7 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
     private String choosenThree;
     private String blockImage;
     private String action;
-    private ArrayList<ResultTicketsStad> resultTicketsStads;
+    static public ArrayList<ResultTicketsStad> resultTicketsStads;
     static final int PICK_CHAIRS_REQUEST = 111;
     private View view1;
     private TextView yourSeats;
@@ -313,9 +314,15 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
             confirmBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    progressBar.setVisibility(View.VISIBLE);
-                    apiCalling.clubReservation("Bearer " + sessionManager.getUserToken(), sessionManager.getDeviceLanguage(),
-                            resultTicketsStads, StadiumTicketsOptions.this::getApiResponse);
+
+                    Intent intent = new Intent(StadiumTicketsOptions.this,
+                            MainPaymentActivity.class);
+                    intent.putExtra("amount" , priceTotal.getText().toString());
+                    startActivity(intent);
+
+//                    progressBar.setVisibility(View.VISIBLE);
+//                    apiCalling.clubReservation("Bearer " + sessionManager.getUserToken(), sessionManager.getDeviceLanguage(),
+//                            resultTicketsStads, StadiumTicketsOptions.this);
                 }
             });
 
@@ -324,7 +331,8 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
     }
 
     @Override
-    public void getApiResponse(int status, String message, Object tApiResponse) {
+    public void getApiResponse(int status, String message, Object tApiResponse)
+    {
         retry.setVisibility(View.GONE);
         progressBar.setVisibility(View.GONE);
         if (tApiResponse instanceof ReservationMain){

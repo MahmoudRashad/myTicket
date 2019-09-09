@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@drawable/green_gradient">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fill Amount:"
+        android:textSize="20dp"
+        android:layout_margin="16dp"/>
+
+    <TextView
+        android:id="@+id/text_amount"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="350"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_margin="16dp"
+        android:background="@drawable/green_rect"
+        android:padding="16dp"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="sendMessage"
+        android:text="Pay"
+        android:layout_margin="16dp"
+        android:background="@color/dark_green"/>
+
+    <Button
+        android:id="@+id/cardButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="showCards"
+        android:text="@string/showDetails"
+        android:visibility="invisible"
+        />
+
+    <FrameLayout
+        android:id="@+id/cardFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</LinearLayout>
