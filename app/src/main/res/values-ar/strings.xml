@@ -132,7 +132,7 @@
     <string name="stadiums">الملاعب</string>
     <string name="settings">الإعدادات</string>
     <string name="today">اليوم</string>
-    <string name="week">الإسبوع</string>
+    <string name="week">الاسبوع</string>
     <string name="next_week">الإسبوع القادم</string>
     <string name="search_matches">بحث عن مباريات</string>
     <string name="search_stadiums">بحث عن ملاعب</string>
@@ -160,5 +160,5 @@
     <string name="showDetails">اظهار الكروت المسجلة</string>
     <string name="no_tickets_available">لا يوجد تذاكر</string>
     <string name="no_search_results">لا يوجد نتائج للبحث</string>
-    <string name="no_matches_available">No Matches Available</string>
+    <string name="no_matches_available">لا يوجد مباريات</string>
 </resources>
