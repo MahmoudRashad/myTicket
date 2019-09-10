@@ -7,6 +7,8 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -87,11 +89,15 @@ public class Register extends AppCompatActivity implements
 
     private ImageView visiblePass;
     private ImageView visibleRepPass;
+    private boolean passShown;
+    private boolean passRepShown;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getSupportActionBar().hide();
+        setTheme(R.style.AppTheme_green);
 
         intent = getIntent();
 
@@ -124,6 +130,8 @@ public class Register extends AppCompatActivity implements
         loginTv.setTypeface(myfont);
         progressBar = findViewById(R.id.progressBar_reg);
         progressBar.setVisibility(View.GONE);
+        visiblePass = findViewById(R.id.visible_pass_reg);
+        visibleRepPass = findViewById(R.id.visible_pass_rep_reg);
 
         setToolbar();
 
@@ -190,6 +198,19 @@ public class Register extends AppCompatActivity implements
             }
         });
 
+        visiblePass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                passShown = showAndHide(password,visiblePass,passShown);
+            }
+        });
+        visibleRepPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                passRepShown = showAndHide(repPassword,visibleRepPass,passRepShown);
+            }
+        });
+
     }
     private void setToolbar() {
         toolbarTitle = findViewById(R.id.toolbar_title);
@@ -224,6 +245,8 @@ public class Register extends AppCompatActivity implements
             window.setStatusBarColor(getResources().getColor(R.color.status_bar));
         }
     }
+
+
 
     private String getMacAddress(){
         try {
@@ -301,6 +324,21 @@ public class Register extends AppCompatActivity implements
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
+    }
+
+    private boolean showAndHide(EditText Et, ImageView visiblity, boolean shown) {
+        if (shown){
+            Et.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            visiblity.setImageDrawable(getResources().getDrawable(R.drawable.ic_visibility_off_24dp));
+            Et.setSelection(Et.getText().length());
+            return false;
+        }
+        else{
+            Et.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            visiblity.setImageDrawable(getResources().getDrawable(R.drawable.ic_visibilit_24dp));
+            Et.setSelection(Et.getText().length());
+            return true;
+        }
     }
 
     @Override

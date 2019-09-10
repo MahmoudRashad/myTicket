@@ -43,6 +43,8 @@ public class ForgetPassword extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
 
 //        getSupportActionBar().hide();
+        setTheme(R.style.AppTheme_green);
+
         intent = getIntent();
         if (intent.hasExtra("flag")) {
             setContentView(R.layout.activity_forget_password_stad);

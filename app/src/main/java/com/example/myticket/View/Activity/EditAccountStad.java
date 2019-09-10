@@ -20,8 +20,11 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -85,6 +88,7 @@ public class EditAccountStad extends AppCompatActivity implements GeneralListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         changeStatusBarColor();
+        setTheme(R.style.AppTheme_green);
         setContentView(R.layout.activity_edit_account_stad);
         myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
         setToolbar();
@@ -101,6 +105,7 @@ public class EditAccountStad extends AppCompatActivity implements GeneralListene
         super.onStart();
         setDataOfViews();
     }
+
 
     private void changeStatusBarColor(){
         if (Build.VERSION.SDK_INT >= 21) {
@@ -260,6 +265,7 @@ public class EditAccountStad extends AppCompatActivity implements GeneralListene
 
         layout = findViewById(R.id.container);
         nameTv = findViewById(R.id.name);
+        nameTv.setInputType(InputType.TYPE_NULL);
         phoneTv = findViewById(R.id.phone);
         emailTv = findViewById(R.id.email);
         addressTv = findViewById(R.id.address);

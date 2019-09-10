@@ -76,6 +76,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:maxLength="25"
                 android:drawableStart="@drawable/ic_lock_black_24dp"
                 android:background="@drawable/green_rect_bk"
                 android:drawableTint="@color/green_tab"
@@ -84,7 +85,7 @@
                 android:drawablePadding="16dp"
                 android:hint="@string/password"
                 android:paddingStart="16dp"
-                android:paddingEnd="16dp"
+                android:paddingEnd="42dp"
                 android:singleLine="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -107,16 +108,18 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-
+                android:maxLength="25"
                 android:background="@drawable/green_rect_bk"
                 android:drawableTint="@color/green_tab"
+                android:paddingEnd="42dp"
+
                 android:textColor="@color/stad_grey_text"
                 android:textColorHint="@color/grey_star"
                 android:drawableStart="@drawable/ic_lock_black_24dp"
                 android:drawablePadding="16dp"
                 android:hint="@string/confirmpassword"
                 android:paddingStart="16dp"
-                android:paddingEnd="16dp"
+
                 android:singleLine="true"
 
                 app:layout_constraintEnd_toEndOf="parent"
