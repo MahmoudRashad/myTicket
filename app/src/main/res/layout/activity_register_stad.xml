@@ -63,6 +63,8 @@
                 android:hint="@string/username"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:singleLine="true"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -83,9 +85,20 @@
                 android:hint="@string/password"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:singleLine="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/fullname_reg" />
+
+            <ImageView
+                android:id="@+id/visible_pass_reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@id/password_reg"
+                app:layout_constraintTop_toTopOf="@id/password_reg"
+                app:layout_constraintBottom_toBottomOf="@id/password_reg"
+                android:padding="16dp"
+                android:src="@drawable/ic_visibility_off_24dp"/>
 
             <EditText
                 android:id="@+id/rep_password_reg"
@@ -104,9 +117,21 @@
                 android:hint="@string/confirmpassword"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:singleLine="true"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/password_reg" />
+
+            <ImageView
+                android:id="@+id/visible_pass_rep_reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@id/rep_password_reg"
+                app:layout_constraintTop_toTopOf="@id/rep_password_reg"
+                app:layout_constraintBottom_toBottomOf="@id/rep_password_reg"
+                android:padding="16dp"
+                android:src="@drawable/ic_visibility_off_24dp"/>
 
 
             <EditText
@@ -120,6 +145,7 @@
                 android:drawableTint="@color/green_tab"
                 android:textColor="@color/stad_grey_text"
                 android:textColorHint="@color/grey_star"
+                android:singleLine="true"
 
                 android:drawableStart="@drawable/ic_person_black_24dp"
                 android:drawablePadding="16dp"
@@ -138,6 +164,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:singleLine="true"
 
                 android:drawableStart="@drawable/ic_phone_black_24dp"
                 android:drawablePadding="16dp"
@@ -167,6 +194,8 @@
                 android:textColorHint="@color/grey_star"
                 android:drawablePadding="16dp"
                 android:hint="@string/email"
+                android:singleLine="true"
+
                 android:inputType="textEmailAddress"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
@@ -186,6 +215,8 @@
                 android:hint="@string/address"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
+                android:singleLine="true"
+
                 android:background="@drawable/green_rect_bk"
                 android:drawableTint="@color/green_tab"
                 android:textColor="@color/stad_grey_text"

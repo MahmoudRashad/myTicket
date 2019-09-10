@@ -7,6 +7,8 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -65,6 +67,9 @@ public class Login extends AppCompatActivity implements
     private Intent intent;
     private Boolean flag;
 
+    private ImageView visiblity;
+    private boolean shown = true;
+
     ///////////////////////////////////////////////////////////////
 
     SessionManager sessionManager;
@@ -75,6 +80,7 @@ public class Login extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        getSupportActionBar().hide();
+        setTheme(R.style.AppTheme_green);
 
         intent = getIntent();
         flag = handleIntent();
@@ -96,6 +102,13 @@ public class Login extends AppCompatActivity implements
         registerTv.setTypeface(myfont);
         forgetPasswordTv = findViewById(R.id.forget_password);
         forgetPasswordTv.setTypeface(myfont);
+        visiblity = findViewById(R.id.visible_pass_login);
+        visiblity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shown = showAndHide(password,visiblity,shown);
+            }
+        });
 
         setToolbar();
 
@@ -145,6 +158,21 @@ public class Login extends AppCompatActivity implements
         });
 
 
+    }
+
+    private boolean showAndHide(EditText Et, ImageView visiblity, boolean shown) {
+        if (shown){
+            Et.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            visiblity.setImageDrawable(getResources().getDrawable(R.drawable.ic_visibility_off_24dp));
+            Et.setSelection(Et.getText().length());
+            return false;
+        }
+        else{
+            Et.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            visiblity.setImageDrawable(getResources().getDrawable(R.drawable.ic_visibilit_24dp));
+            Et.setSelection(Et.getText().length());
+            return true;
+        }
     }
 
     private boolean handleIntent() {

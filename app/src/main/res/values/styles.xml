@@ -39,5 +39,11 @@
         <item name="android:layout_marginStart">32dp</item>
     </style>
 
+    <style name="AppTheme.green" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorPrimary">@color/green_tab</item>
+        <item name="colorPrimaryDark">@color/green_tab</item>
+        <item name="colorAccent">@color/green_tab</item>
+    </style>
+
 
 </resources>

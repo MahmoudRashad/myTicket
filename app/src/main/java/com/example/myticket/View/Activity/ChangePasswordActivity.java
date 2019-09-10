@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -51,12 +53,17 @@ public class ChangePasswordActivity extends AppCompatActivity
     private ImageView searchIcon;
     private TextView toolbarTitle;
     private Intent intent;
+    private ImageView visibleOld,visibleNew,visibleConfirm;
+    private boolean shownOld = true;
+    private boolean shownNew = true;
+    private boolean shownConfirm = true;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         changeStatusBarColor();
+        setTheme(R.style.AppTheme_green);
         intent = getIntent();
         if (intent.hasExtra("flag")){
             setContentView(R.layout.activity_change_password_stad);
@@ -96,10 +103,14 @@ public class ChangePasswordActivity extends AppCompatActivity
         TextView enterpassword = findViewById(R.id.textView22);
         TextView newPassword = findViewById(R.id.textView27);
         TextView confirmPassword = findViewById(R.id.textView28);
+        visibleOld = findViewById(R.id.visiblity_old);
+        visibleNew = findViewById(R.id.visiblity_new);
+        visibleConfirm = findViewById(R.id.visiblity_confirm);
         enterpassword.setTypeface(myfont);
         newPassword.setTypeface(myfont);
         confirmPassword.setTypeface(myfont);
         sendBtn.setTypeface(myfont);
+
 //        chnagePb= findViewById(R.id.progressBar2);
 
     }
@@ -267,6 +278,40 @@ public class ChangePasswordActivity extends AppCompatActivity
 //                finish();
 //            }
 //        });
+    visibleOld.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            shownOld = showAndHide(oldEt,visibleOld,shownOld);
+        }
+    });
+    visibleNew.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            shownNew = showAndHide(newEt,visibleNew,shownNew);
+        }
+    });
+    visibleConfirm.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            shownConfirm = showAndHide(confirmEt,visibleConfirm,shownConfirm);
+        }
+    });
+
+    }
+
+    private boolean showAndHide(EditText Et, ImageView visiblity, boolean shown) {
+        if (shown){
+            Et.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            visiblity.setImageDrawable(getResources().getDrawable(R.drawable.ic_visibility_off_24dp));
+            Et.setSelection(Et.getText().length());
+            return false;
+        }
+        else{
+            Et.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            visiblity.setImageDrawable(getResources().getDrawable(R.drawable.ic_visibilit_24dp));
+            Et.setSelection(Et.getText().length());
+            return true;
+        }
     }
 
 //    @Override

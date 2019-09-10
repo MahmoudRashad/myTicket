@@ -54,7 +54,6 @@
         app:layout_constraintTop_toBottomOf="@id/text_vs"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Stadium Name"
         android:textAlignment="center"
         android:minLines="2"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -67,7 +66,6 @@
         android:id="@+id/team_one_image"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/ic_profile_1"
         android:scaleType="fitXY"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/vs_image"
@@ -87,7 +85,7 @@
         app:layout_constraintEnd_toStartOf="@id/text_vs"
         android:textStyle="bold"
         android:textAlignment="center"
-        android:text="Team One"/>
+    />
 
     <!--<TextView-->
         <!--android:id="@+id/team_one_country"-->
@@ -104,7 +102,6 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_profile_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/vs_image"
         app:layout_constraintTop_toTopOf="parent"
@@ -123,7 +120,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/text_vs"
         android:textAlignment="center"
-        android:text="Team Two"/>
+   />
 
     <TextView
         android:id="@+id/cardView_time"

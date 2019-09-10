@@ -104,32 +104,32 @@ public class StadHomeFragment extends Fragment implements
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
         progressBar.setVisibility(View.GONE);
-        if (tApiResponse instanceof MainMatches) {
-            MainMatches sliderResponce = (MainMatches) tApiResponse;
-            listSlide = (ArrayList<MatchDetails>) sliderResponce.getResult();
-            if (listSlide.size() > 0) {
-                stadiumSliderAdapter = new StadiumSliderAdapter(getContext(), listSlide);
-                sliderPager.setAdapter(stadiumSliderAdapter);
-                timer = new Timer();
-                timer.scheduleAtFixedRate(new StadHomeFragment.SliderTimer(), 3000, 4000);
-            }
-            else{
-                matches_now.setVisibility(View.VISIBLE);
-            }
-        }
-      else// if (message.contains("connection abort")|| message.contains("Failed to connect"))
-            {
-            Toast.makeText(getContext(),getResources().getString(R.string.check_connection), Toast.LENGTH_SHORT).show();
-            retry.setVisibility(View.VISIBLE);
-            retry.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getContext(), HomeStadBottomNav.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+        if (getContext() != null) {
+            if (tApiResponse instanceof MainMatches) {
+                MainMatches sliderResponce = (MainMatches) tApiResponse;
+                listSlide = (ArrayList<MatchDetails>) sliderResponce.getResult();
+                if (listSlide.size() > 0) {
+                    stadiumSliderAdapter = new StadiumSliderAdapter(getContext(), listSlide);
+                    sliderPager.setAdapter(stadiumSliderAdapter);
+                    timer = new Timer();
+                    timer.scheduleAtFixedRate(new StadHomeFragment.SliderTimer(), 3000, 4000);
+                } else {
+                    matches_now.setVisibility(View.VISIBLE);
                 }
-            });
+            } else// if (message.contains("connection abort")|| message.contains("Failed to connect"))
+            {
+                Toast.makeText(getContext(), getResources().getString(R.string.check_connection), Toast.LENGTH_SHORT).show();
+                retry.setVisibility(View.VISIBLE);
+                retry.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getContext(), HomeStadBottomNav.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                    }
+                });
+            }
         }
     }
 

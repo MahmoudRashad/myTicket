@@ -85,6 +85,9 @@ public class Register extends AppCompatActivity implements
     private UserRegister userRegister;
     ApiCalling apiCalling;
 
+    private ImageView visiblePass;
+    private ImageView visibleRepPass;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,6 +124,7 @@ public class Register extends AppCompatActivity implements
         loginTv.setTypeface(myfont);
         progressBar = findViewById(R.id.progressBar_reg);
         progressBar.setVisibility(View.GONE);
+
         setToolbar();
 
         macAddress = getMacAddress();

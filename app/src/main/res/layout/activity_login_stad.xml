@@ -54,6 +54,8 @@
         android:drawablePadding="8dp"
         android:textColorHint="@color/grey_star"
         android:drawableStart="@drawable/ic_person_black_24dp"
+        android:singleLine="true"
+
         >
 
     </EditText>
@@ -77,7 +79,18 @@
         android:textColor="@color/stad_grey_text"
         android:drawablePadding="8dp"
         android:textColorHint="@color/grey_star"
+        android:singleLine="true"
         />
+    <ImageView
+        android:id="@+id/visible_pass_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/password_login"
+        app:layout_constraintTop_toTopOf="@id/password_login"
+        app:layout_constraintBottom_toBottomOf="@id/password_login"
+        android:padding="16dp"
+        android:src="@drawable/ic_visibility_off_24dp"/>
+    
 
 
     <FrameLayout
