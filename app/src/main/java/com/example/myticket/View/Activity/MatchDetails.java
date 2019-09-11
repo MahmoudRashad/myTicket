@@ -212,6 +212,12 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        bookPb.setVisibility(View.GONE);
+    }
+
+    @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
         progressBar.setVisibility(View.GONE);
         notificationPb.setVisibility(View.GONE);
