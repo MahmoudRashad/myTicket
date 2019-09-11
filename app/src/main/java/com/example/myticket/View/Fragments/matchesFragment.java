@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -33,7 +34,7 @@ import java.util.List;
 import java.util.Timer;
 
 public class matchesFragment extends Fragment implements
-        GeneralListener {
+        GeneralListener, SwipeRefreshLayout.OnRefreshListener {
     private RecyclerView mainBtolatRv;
     private HomeStadiumMainAdapter adapter;
     private List<Leagues> todayList;
@@ -50,6 +51,7 @@ public class matchesFragment extends Fragment implements
     private int dir = 0;
     private Typeface myfont;
     private TextView noMatches;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public matchesFragment() {
         // Required empty public constructor
@@ -73,7 +75,10 @@ public class matchesFragment extends Fragment implements
             flag = this.getArguments().getInt("flag");
         }
         id = view.getLayoutDirection();
+        mSwipeRefreshLayout = view.findViewById(R.id.refresh_container);
+        mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.green_tab));
 
+        mSwipeRefreshLayout.setOnRefreshListener(this);
         sessionManager = new SessionManager(getContext());
         lang = sessionManager.getDeviceLanguage();
         token = sessionManager.getUserToken();
@@ -170,5 +175,12 @@ public class matchesFragment extends Fragment implements
                 });
             }
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        apiCalling.getHomeMatches("1",String.valueOf(flag),lang,token ,this);
+        mSwipeRefreshLayout.setRefreshing(false);
+
     }
 }

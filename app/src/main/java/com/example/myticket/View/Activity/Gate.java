@@ -70,16 +70,18 @@ public class Gate extends AppCompatActivity {
         toolbarTitle.setTypeface(myfont);
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);
-
+        backBtn.setVisibility(View.GONE);
         searchIcon.setVisibility(View.GONE);
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
     }
 
+    @Override
+    public void onBackPressed(){
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+    }
     private boolean checkInternetConnection () {
         ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();

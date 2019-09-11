@@ -24,7 +24,7 @@ import com.example.myticket.View.Fragments.StadHomeFragment;
 import com.example.myticket.View.Fragments.StadiumList;
 import com.example.myticket.View.Fragments.FragmentMyTicketsStad;
 
-public class HomeStadBottomNav extends AppCompatActivity {
+public class HomeStadBottomNav extends AppCompatActivity  {
 
     private ImageView backBtn;
     private ImageView searchIcon;
@@ -79,25 +79,28 @@ public class HomeStadBottomNav extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        changeStatusBarColor();
-        setContentView(R.layout.activity_home_stad_bottom_nav);
-
-        navView = findViewById(R.id.nav_view);
         Intent intent = getIntent();
         if (intent.hasExtra("name")){
             previousPlace = intent.getStringExtra("name");
 
         }
-
+        changeStatusBarColor();
+        setContentView(R.layout.activity_home_stad_bottom_nav);
+        navView = findViewById(R.id.nav_view);
         tag = "home";
-
         setToolbar();
 
 
     }
 
     public void getPreviousPlace() {
-        if (previousPlace.equals("stads")){
+        if (previousPlace.equals("")){
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, new StadHomeFragment())
+                    .commit();
+            navView.setSelectedItemId(R.id.navigation_home);
+        }
+        else if (previousPlace.equals("stads")){
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new StadiumList())
                     .commit();
@@ -122,12 +125,7 @@ public class HomeStadBottomNav extends AppCompatActivity {
             navView.setSelectedItemId(R.id.my_tickets);
 
         }
-        else if (previousPlace.equals("")){
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, new StadHomeFragment())
-                    .commit();
-            navView.setSelectedItemId(R.id.navigation_home);
-        }
+
         else {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, new StadHomeFragment())
@@ -140,15 +138,7 @@ public class HomeStadBottomNav extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        if (previousPlace.equals("") || previousPlace == null){
-//            getSupportFragmentManager().beginTransaction()
-//                    .add(R.id.fragment_container, new StadHomeFragment())
-//                    .commit();
-//            navView.setSelectedItemId(R.id.navigation_home);
-//        }
-//        else {
             start();
-       // }
     }
 
     private void changeStatusBarColor(){
@@ -168,8 +158,6 @@ public class HomeStadBottomNav extends AppCompatActivity {
     }
 
     private void setToolbar() {
-//        toolbarTitle.setText(getString(R.string.all_results));
-//        toolbarTitle.setTypeface(myfont);
         logo = findViewById(R.id.logo_toolbar);
         searchIcon = findViewById(R.id.toolbar_Search);
         backBtn = findViewById(R.id.toolbar_back);

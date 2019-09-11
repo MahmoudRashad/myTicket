@@ -32,7 +32,7 @@
         android:paddingBottom="16dp"
         android:layout_marginTop="32dp"
         >
-        
+
         <ImageView
             android:id="@+id/stad_details_image"
             android:layout_width="350dp"

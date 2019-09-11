@@ -67,6 +67,7 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
 
     private ProgressBar notificationPb;
     private ProgressBar progressBar;
+    private ProgressBar bookPb;
     private Button retry;
     private String token;
     private TextView categoriesTitle;
@@ -206,6 +207,7 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
         stadiumTitle.setTypeface(myfont);
         mapBtn = findViewById(R.id.location_on_map);
         mapBtn.setTypeface(myfont);
+        bookPb = findViewById(R.id.pb_book_details);
 
     }
 
@@ -261,6 +263,7 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
                 Toast.makeText(MatchDetails.this,getResources().getString(R.string.limit_warning),Toast.LENGTH_LONG).show();
             }
         }
+            bookPb.setVisibility(View.GONE);
         }
         else// if (message.contains("connection abort")|| message.contains("Failed to connect"))
         {
@@ -306,6 +309,7 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
             bookBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    bookPb.setVisibility(View.VISIBLE);
                     if (!sessionManager.handleLogin().equals("")) {
                         apiCalling.getLimit(matchId, sessionManager.handleLogin(), sessionManager.getDeviceLanguage(), MatchDetails.this::getApiResponse);
                     } else {
@@ -315,6 +319,7 @@ public class MatchDetails extends AppCompatActivity implements GeneralListener {
                         intent.putExtra("matchId", matchId);
                         startActivity(intent);
                     }
+
                 }
             });
         }

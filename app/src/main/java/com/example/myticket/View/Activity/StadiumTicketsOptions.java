@@ -379,6 +379,7 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
                         if (!url.equals("")) {
                             Picasso.get().load(url).into(stadImage);
                         }
+                        progressBar.setVisibility(View.VISIBLE);
                         apiCalling.getChairs(stadiumId, reservation.getName(), matchId,"Bearer " + sessionManager.getUserToken(),
                                 StadiumTicketsOptions.this::getApiResponse);
                     }
