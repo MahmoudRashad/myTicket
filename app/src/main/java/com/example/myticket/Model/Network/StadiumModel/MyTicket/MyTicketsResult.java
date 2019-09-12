@@ -15,6 +15,19 @@ public class MyTicketsResult implements Serializable
     @SerializedName("coming")
     @Expose
     private List<Past> coming = null;
+
+    @SerializedName("pending")
+    @Expose
+    private List<Past> pending = null;
+
+    public List<Past> getPending() {
+        return pending;
+    }
+
+    public void setPending(List<Past> pending) {
+        this.pending = pending;
+    }
+
     private final static long serialVersionUID = -3598838758896061184L;
 
     /**

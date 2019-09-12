@@ -26,11 +26,16 @@ public class StadMyTickets extends Fragment {
     private ArrayList<Past> list;
     private TextView noBookedTickets;
     private Typeface myfont;
+    boolean isPending = false;
 
 
     public StadMyTickets() {
 
     }
+
+//    public StadMyTickets(boolean isPending) {
+//        this.isPending = isPending;
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,11 +62,13 @@ public class StadMyTickets extends Fragment {
         super.onResume();
         if (this.getArguments() != null) {
             dumb = this.getArguments().getString("list");
+            isPending = this.getArguments().getBoolean("isPending",false);
             GsonBuilder gsonBuilder = new GsonBuilder();
             Gson gson = gsonBuilder.create();
             Past[] results = gson.fromJson(dumb,Past[].class);
             list = new ArrayList<>(Arrays.asList(results));
-            myTicketsStadAdapter = new MyTicketsStadAdapter(list, getContext());
+            myTicketsStadAdapter = new MyTicketsStadAdapter(list, getContext(),
+                    isPending);
             ticketsRV.setAdapter(myTicketsStadAdapter);
         }
         else{

@@ -11,24 +11,40 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.myticket.Enum.ClubReservationEnum;
+import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
+import com.example.myticket.Model.Network.Retrofit.ApiCalling;
+import com.example.myticket.Model.Network.Retrofit.GeneralListener;
 import com.example.myticket.Model.Network.StadiumModel.MyTicket.Past;
 import com.example.myticket.R;
+import com.example.myticket.View.Activity.HomeStadBottomNav;
 import com.example.myticket.View.Activity.StadPaymentConfirm;
+import com.example.myticket.View.Activity.tler.MainPaymentActivity;
+import com.example.myticket.View.Activity.tler.SuccessTransationActivity;
 
 import org.w3c.dom.Text;
 
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 
-public class MyTicketsStadAdapter  extends RecyclerView.Adapter<MyTicketsStadAdapter.TicketsViewHolder> {
+import static com.example.myticket.View.Activity.StadiumTicketsOptions.keyReservation;
+
+public class MyTicketsStadAdapter  extends
+        RecyclerView.Adapter<MyTicketsStadAdapter.TicketsViewHolder>
+{
     private ArrayList<Past> tickets;
     private Context context;
     private Typeface myfont;
+    boolean isPending = false;
+    ApiCalling apiCalling;
 
-    public MyTicketsStadAdapter(ArrayList<Past> tickets, Context context) {
+    public MyTicketsStadAdapter(ArrayList<Past> tickets, Context context,boolean isPending) {
         this.tickets = tickets;
         this.context = context;
+        this.isPending =isPending;
+        apiCalling = new ApiCalling(context);
         if (context!= null)
         myfont = Typeface.createFromAsset(context.getAssets(),"fonts/segoe_ui.ttf");
 
@@ -43,8 +59,48 @@ public class MyTicketsStadAdapter  extends RecyclerView.Adapter<MyTicketsStadAda
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TicketsViewHolder TicketsViewHolder, int i) {
+    public void onBindViewHolder(@NonNull TicketsViewHolder TicketsViewHolder
+            , int i) {
+
         Past ticket = tickets.get(i);
+
+        if(this.isPending)
+        {
+            TicketsViewHolder.details.setBackground(context.getResources().
+                    getDrawable(R.drawable.rounded_red));
+
+            TicketsViewHolder.details.
+                    setText(context.getString(R.string.re_pay));
+
+            TicketsViewHolder.details.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v)
+                {
+                    keyReservation = ticket.getKey();
+                    Intent intent = new Intent(context, MainPaymentActivity.class);
+                    intent.putExtra("amount","20");
+                    context.startActivity(intent);
+                }
+            });
+        }
+        else {
+            TicketsViewHolder.details.
+                    setText(context.getString(R.string.details));
+
+            TicketsViewHolder.details.setBackground(context.getResources().
+                    getDrawable(R.drawable.green_rect));
+            TicketsViewHolder.details.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, StadPaymentConfirm.class);
+                    intent.putExtra("matchId",ticket.getMatchId());
+                    context.startActivity(intent);
+                }
+            });
+
+        }
+
+
         TicketsViewHolder.teamOne.setText(ticket.getTeam1Name());
         TicketsViewHolder.teamTwo.setText(ticket.getTeam2Name());
         TicketsViewHolder.time.setText(ticket.getTime());
@@ -58,14 +114,7 @@ public class MyTicketsStadAdapter  extends RecyclerView.Adapter<MyTicketsStadAda
                 TicketsViewHolder.seats.append(ticket.getSeats().get(j).getSymbol_chair()+"-" +ticket.getSeats().get(j).getSeatNum());
             }
         }
-        TicketsViewHolder.details.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, StadPaymentConfirm.class);
-                intent.putExtra("matchId",ticket.getMatchId());
-                context.startActivity(intent);
-            }
-        });
+
 
     }
 
@@ -73,6 +122,8 @@ public class MyTicketsStadAdapter  extends RecyclerView.Adapter<MyTicketsStadAda
     public int getItemCount() {
         return tickets.size();
     }
+
+
 
     public class TicketsViewHolder extends RecyclerView.ViewHolder {
         private ImageView fieldImage;

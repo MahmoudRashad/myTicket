@@ -102,7 +102,8 @@ public class FragmentMyTicketsStad extends Fragment implements GeneralListener {
             MyTicketsResult myTicketsResult = myTicketMain.getMyTicketsResult();
             List<Past> pastTickets = myTicketsResult.getPast();
             List<Past> upcomingTickets = myTicketsResult.getComing();
-            setData(pastTickets,upcomingTickets);
+            List<Past> pendingTickets = myTicketsResult.getPending();
+            setData(pastTickets,upcomingTickets,pendingTickets);
         }
         else// if (message.contains("connection abort")|| message.contains("Failed to connect"))
         {
@@ -120,11 +121,24 @@ public class FragmentMyTicketsStad extends Fragment implements GeneralListener {
         }
     }
 
-    private void setData(List<Past> pastTickets, List<Past> upcomingTickets) {
+    private void setData(List<Past> pastTickets
+            , List<Past> upcomingTickets
+            ,List<Past> pendingTickets)
+    {
         if (getContext() != null) {
             viewPagerAdapter.clear();
-            viewPagerAdapter.addFragment(new StadMyTickets(), getResources().getString(R.string.upcoming), upcomingTickets);
-            viewPagerAdapter.addFragment(new StadMyTickets(), getResources().getString(R.string.past), pastTickets);
+            viewPagerAdapter.addFragment(new StadMyTickets()
+                    , getResources().getString(R.string.upcoming)
+                    , upcomingTickets
+            ,false);
+            viewPagerAdapter.addFragment(new StadMyTickets()
+                    , getResources().getString(R.string.past)
+                    , pastTickets,
+                    false);
+            viewPagerAdapter.addFragment(new StadMyTickets()
+                    , getResources().getString(R.string.pending)
+                    , pendingTickets
+                    ,true);
             viewPagerAdapter.notifyDataSetChanged();
             ticketsViewPager.setAdapter(viewPagerAdapter);
             ticketsTab.setupWithViewPager(ticketsViewPager);
