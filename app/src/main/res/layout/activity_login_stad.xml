@@ -71,7 +71,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="32dp"
         android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:paddingEnd="42dp"
         android:drawableStart="@drawable/ic_lock_black_24dp"
         android:background="@drawable/green_rect_bk"
         android:drawableTint="@color/green_tab"
