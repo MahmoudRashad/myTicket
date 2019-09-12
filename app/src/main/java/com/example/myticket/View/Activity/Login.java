@@ -258,6 +258,7 @@ public class Login extends AppCompatActivity implements
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
         progressBar.setVisibility(View.GONE);
+
         MainResponceReg responceReg = (MainResponceReg) tApiResponse;
         if (status == ErrorTypeEnum.noError.getValue()) {
             progressBar.setVisibility(View.GONE);

@@ -179,7 +179,8 @@ public interface ApiInterface {
     Call<MainMatches> getMatchesSlider();
 
     @POST("matches")
-    Call<MainHomeMatches> getHomeMatches(@Header("lang") String lang, @Header("Authorization") String authTtoken,@QueryMap Map<String, String> queryMap);
+    Call<MainHomeMatches> getHomeMatches(@Header("lang") String lang, @Header("Authorization") String authTtoken,
+                                         @QueryMap Map<String, String> queryMap);
 
     @POST("stadium_detail")
     Call<StadiumDetailsByID> getStadiumDetails(@QueryMap Map<String, String> queryMap);
