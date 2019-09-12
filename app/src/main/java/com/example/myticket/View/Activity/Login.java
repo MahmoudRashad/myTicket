@@ -102,13 +102,15 @@ public class Login extends AppCompatActivity implements
         registerTv.setTypeface(myfont);
         forgetPasswordTv = findViewById(R.id.forget_password);
         forgetPasswordTv.setTypeface(myfont);
-        visiblity = findViewById(R.id.visible_pass_login);
-        visiblity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                shown = showAndHide(password,visiblity,shown);
-            }
-        });
+        if (flag) {
+            visiblity = findViewById(R.id.visible_pass_login);
+            visiblity.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    shown = showAndHide(password, visiblity, shown);
+                }
+            });
+        }
 
         setToolbar();
 

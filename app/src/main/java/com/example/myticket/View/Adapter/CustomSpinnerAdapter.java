@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.myticket.Model.Network.DataModel.Chairs.HallTypeResult;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ResultReserveCinema;
 import com.example.myticket.R;
 
@@ -24,6 +25,8 @@ public class CustomSpinnerAdapter extends BaseAdapter
     List<ResultReserveCinema> selectors;
     LayoutInflater inflter;
     private Typeface myfont;
+    List<HallTypeResult> hallSelectors;
+    Boolean type = false;
 
 
     public CustomSpinnerAdapter(Context context, List<ResultReserveCinema> selectors) {
@@ -34,9 +37,21 @@ public class CustomSpinnerAdapter extends BaseAdapter
 
     }
 
+    public CustomSpinnerAdapter(Context context, List<HallTypeResult> selectors,boolean type) {
+        this.context = context;
+        this.hallSelectors =  selectors;
+        inflter = (LayoutInflater.from(context));
+        myfont = Typeface.createFromAsset(context.getAssets(),"fonts/segoe_ui.ttf");
+        this.type = type;
+
+    }
+
     @Override
     public int getCount() {
+        if (selectors != null)
         return selectors.size();
+        else
+            return hallSelectors.size();
     }
 
     @Override
@@ -55,7 +70,11 @@ public class CustomSpinnerAdapter extends BaseAdapter
         view = inflter.inflate(R.layout.row_filter, null);
         TextView title =  view.findViewById(R.id.textView13);
         title.setTypeface(myfont);
+        if (selectors != null)
         title.setText(selectors.get(i).getName());
+        else
+            title.setText(hallSelectors.get(i).getName());
+
 
         return view;
     }

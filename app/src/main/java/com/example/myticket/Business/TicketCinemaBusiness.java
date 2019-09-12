@@ -13,7 +13,7 @@ public class TicketCinemaBusiness
     public static int movieId=-1,reserveCinemaId=-1,reserveDateId=-1,reserveTimeId=-1,
     ticketLimits = 0;
     public static String reserveCinema ,
-            reserveDate , reserveTime ,movieName  , hallName , cinemaLocation = "test";
+            reserveDate , reserveTime ,movieName  , hallName , cinemaLocation = "test",typeName;
 
 //    public static Map<String , Chair> avilableChairsMap = new HashMap<>() ;
 

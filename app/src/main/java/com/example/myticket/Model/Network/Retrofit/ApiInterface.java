@@ -3,6 +3,7 @@ package com.example.myticket.Model.Network.Retrofit;
 import com.example.myticket.Model.MainResult;
 import com.example.myticket.Model.Network.DataModel.BaseNoResult.BaseNoResult;
 import com.example.myticket.Model.Network.DataModel.Chairs.ChairResponse2;
+import com.example.myticket.Model.Network.DataModel.Chairs.MainHallType;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
 
 import com.example.myticket.Model.Network.DataModel.DetailsCinema.DetailsCinema;
@@ -165,10 +166,10 @@ public interface ApiInterface {
     Call<MyTicketsResponse> getMyTickets(@Header("lang") String lang,
                                             @Header("Authorization") String authorization);
 
-    @POST("type_chair")
-    Call<ChairResponse> getChairType(@Header("lang") String lang,
-                                               @Header("Authorization") String authorization,
-                                               @QueryMap Map<String, String> queryMap);
+    @POST("show_halltype")
+    Call<MainHallType> getHallType(@Header("lang") String lang,
+                                   @Header("Authorization") String authorization,
+                                   @QueryMap Map<String, String> queryMap);
 
     ////// Stadiums Api ////////////
 

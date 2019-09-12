@@ -9,7 +9,6 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -26,7 +25,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:theme">
-        <activity android:name=".View.Activity.StadiumChairs"></activity>
+        <activity android:name=".View.Activity.CinemaChairsActivity"></activity>
+        <activity android:name=".View.Activity.StadiumChairs" />
         <activity
             android:name=".View.Activity.HomeStadBottomNav"
             android:label="@string/title_activity_home_stad_bottom_nav" />
@@ -44,18 +44,19 @@
             android:launchMode="singleTop" />
         <activity android:name=".View.Activity.StadPaymentConfirm" />
         <activity android:name=".View.Activity.MyNotifications" />
-        <activity android:name=".View.Activity.StadiumTicketsOptions"
-            android:noHistory="false"/>
+        <activity
+            android:name=".View.Activity.StadiumTicketsOptions"
+            android:noHistory="false" />
         <activity android:name=".View.Fragments.StadiumList" />
         <activity android:name=".View.Activity.StadiumDetails" />
-
-        <activity android:name=".View.Activity.MatchDetails"
-            android:parentActivityName=".View.Activity.HomeStadBottomNav"
+        <activity
+            android:name=".View.Activity.MatchDetails"
             android:launchMode="singleTop"
+            android:parentActivityName=".View.Activity.HomeStadBottomNav"
             android:theme="@style/AppTheme">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".View.Activity.HomeStadBottomNav" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".View.Activity.HomeStadBottomNav" />
         </activity>
         <activity android:name=".View.Activity.StadAllResults" />
         <activity
@@ -73,7 +74,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".View.Activity.HomeCinema" />
         </activity>
-
         <activity
             android:name=".View.Activity.ChairsActivity"
             android:launchMode="singleTop" />
@@ -148,28 +148,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
-
-
         <activity
             android:name=".View.Activity.tler.MainPaymentActivity"
             android:label="@string/app_name"
-            android:noHistory="true"
             android:launchMode="singleInstance"
-
-            android:theme="@style/TelrTheme.NoActionBar">
-
-        </activity>
+            android:noHistory="true"
+            android:theme="@style/TelrTheme.NoActionBar"></activity>
         <activity
             android:name=".View.Activity.tler.SuccessTransationActivity"
-            android:label="@string/title_activity_result">
-        </activity>
+            android:label="@string/title_activity_result"></activity>
         <activity
             android:name=".View.Activity.tler.FailedTransationActivity"
-            android:label="@string/title_activity_result">
-        </activity>
+            android:label="@string/title_activity_result"></activity>
     </application>
 
 </manifest>

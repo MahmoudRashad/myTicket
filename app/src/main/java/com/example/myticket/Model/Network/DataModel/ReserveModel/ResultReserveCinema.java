@@ -7,6 +7,7 @@ public class ResultReserveCinema {
     @SerializedName("id")
     @Expose
     private Integer id;
+
     @SerializedName("hall")
     @Expose
     private String hall;
@@ -14,6 +15,18 @@ public class ResultReserveCinema {
     @SerializedName("image")
     @Expose
     private String image;
+
+    @SerializedName("name")
+    @Expose
+    private String name;
+
+    @SerializedName("address")
+    @Expose
+    private String address;
+
+    @SerializedName("limit_reserv")
+    @Expose
+    private String limit;
 
     public String getImage() {
         return image;
@@ -30,14 +43,6 @@ public class ResultReserveCinema {
     public void setAddress(String address) {
         this.address = address;
     }
-
-    @SerializedName("name")
-    @Expose
-    private String name;
-
-    @SerializedName("address")
-    @Expose
-    private String address;
 
     public Integer getId() {
         return id;
@@ -61,5 +66,13 @@ public class ResultReserveCinema {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLimit() {
+        return limit;
+    }
+
+    public void setLimit(String limit) {
+        this.limit = limit;
     }
 }

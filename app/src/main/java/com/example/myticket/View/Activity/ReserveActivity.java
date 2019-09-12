@@ -51,6 +51,8 @@ import com.example.myticket.Business.TicketCinemaBusiness;
 import com.example.myticket.Enum.ErrorTypeEnum;
 import com.example.myticket.Enum.ReservetypeEnum;
 import com.example.myticket.Model.Data.SessionManager;
+import com.example.myticket.Model.Network.DataModel.Chairs.HallTypeResult;
+import com.example.myticket.Model.Network.DataModel.Chairs.MainHallType;
 import com.example.myticket.Model.Network.DataModel.EditUserData.EditUserDataResponse;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ChairResponse;
 import com.example.myticket.Model.Network.DataModel.ReserveModel.ReserveCinemaResponse;
@@ -66,6 +68,7 @@ import com.example.myticket.helper.Variables;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -93,15 +96,17 @@ public class ReserveActivity extends AppCompatActivity
             reserveTimeResponse;
     ChairResponse chairResponse;
     CustomSpinnerAdapter customSpinnerAdapter,
-            dateSpinnerAdapter,timeSpinnerAdapter;
+            dateSpinnerAdapter,timeSpinnerAdapter,typeSpinnerAdapter;
+
+    List<HallTypeResult> hallTypeResult;
     ChairTypeAdapter2 chairTypeAdapter2;
 
     //--------------------------------  references of views -------------------------------------------------//
     private ConstraintLayout layout ;
 //    EditText nameTv , phoneTv,emailTv,addressTv;
     ImageView movieIv ;/*, editImageIv , nameIv,phoneIv,emailIv,addressIv;*/
-    Button nextBtn,cinemaMapBtn;
-    Spinner cinemaS , dateS , timeS;
+    Button chairsBtn,cinemaMapBtn;
+    Spinner cinemaS , dateS , timeS,typeS;
     TextView hallTv;
 
     private ImageView backBtn;
@@ -118,7 +123,7 @@ public class ReserveActivity extends AppCompatActivity
         myfont = Typeface.createFromAsset(this.getAssets(),"fonts/segoe_ui.ttf");
 
         findViewsToReferences();
-//        setListenerOfViews();
+        setListenerOfViews();
         setToolbar();
 
         if( getIntent().getExtras() != null )
@@ -131,14 +136,14 @@ public class ReserveActivity extends AppCompatActivity
         apiCalling = new ApiCalling(this);
 
 
-//        RequestOptions options = new RequestOptions()
-//                .centerCrop()
-//                .placeholder(R.drawable.my_ticket_white_logo)
-//                .error(R.drawable.my_ticket_white_logo)
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .priority(Priority.HIGH);
-//
-//
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .placeholder(R.drawable.my_ticket_white_logo)
+                .error(R.drawable.my_ticket_white_logo)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .priority(Priority.HIGH);
+
+
 //        Glide.with(this)
 //                .load(movieImagePath)
 ////                        .error(R.drawable.arrow_back)
@@ -159,14 +164,14 @@ public class ReserveActivity extends AppCompatActivity
 ////                    .diskCacheStrategy(DiskCacheStrategy.NONE)
 ////                    .skipMemoryCache(true)
 //                .into(movieIv);
-//
-//        showWatingDialog();
-//        type = ReservetypeEnum.cinema.getValue();
-//        Map <String , String> queryMap = new HashMap();
-//        queryMap.put("film_id" , TicketCinemaBusiness.movieId+"");
-//        apiCalling.getCinemasOfMovie("Bearer " +sessionManager.getUserToken()
-//                 ,
-//                queryMap ,this);
+
+        showWatingDialog();
+        type = ReservetypeEnum.cinema.getValue();
+        Map <String , String> queryMap = new HashMap();
+        queryMap.put("film_id" , TicketCinemaBusiness.movieId+"");
+        apiCalling.getCinemasOfMovie("Bearer " +sessionManager.getUserToken()
+                 ,
+                queryMap ,this);
     }
 
     @Override
@@ -252,31 +257,24 @@ public class ReserveActivity extends AppCompatActivity
 
     public void findViewsToReferences()
     {
-//        try {
+        try {
 
 
 
-//        layout = findViewById(R.id.container);
-////        nameTv = findViewById(R.id.name);
-////        phoneTv = findViewById(R.id.phone);
-////        emailTv = findViewById(R.id.email);
-////        addressTv = findViewById(R.id.address);
-////        userIv = findViewById(R.id.profile_image);
-////        editImageIv = findViewById(R.id.profile_pen);
-////        nameIv = findViewById(R.id.arrowOne);
-////        phoneIv= findViewById(R.id.arrowTwo);
-////        emailIv= findViewById(R.id.arrowThree);
-////        addressIv = findViewById(R.id.arrowFour);
-//        nextBtn = findViewById(R.id.button3);
-//        cinemaS = findViewById(R.id.spinner);
-//        dateS = findViewById(R.id.spinner2);
-//        timeS = findViewById(R.id.spinner3);
-//        movieIv = findViewById(R.id.cover_photo);
-//        hallTv = findViewById(R.id.textView26);
-//        hallTv.setTypeface(myfont);
-//        TextView textView = findViewById(R.id.details_cinema_title);
-//        textView.setTypeface(myfont);
-//
+        layout = findViewById(R.id.container);
+        chairsBtn = findViewById(R.id.btn_select_chairs);
+        cinemaS = findViewById(R.id.spinner_cinema);
+        hallTv = findViewById(R.id.hall_name);
+        hallTv.setTypeface(myfont);
+        dateS = findViewById(R.id.spinner_date);
+        timeS = findViewById(R.id.spinner_time);
+        typeS = findViewById(R.id.spinner_ticket_type);
+        movieIv = findViewById(R.id.cover_photo);
+
+
+        TextView textView = findViewById(R.id.details_cinema_title);
+        textView.setTypeface(myfont);
+
 //        cinemaMapBtn = findViewById(R.id.button9);
 //        cinemaMapBtn.setTypeface(myfont);
 //        typesRv = findViewById(R.id.recyclerView);
@@ -284,11 +282,11 @@ public class ReserveActivity extends AppCompatActivity
                 reserveDate , reserveTime ;
 
 
-//        }
-//        catch ( Exception e)
-//        {
-//            Log.e("exception" , e.getMessage());
-//        }
+        }
+        catch ( Exception e)
+        {
+            Log.e("exception" , e.getMessage());
+        }
 
     }
 
@@ -317,10 +315,10 @@ public class ReserveActivity extends AppCompatActivity
     }
 
 
-//    public void setListenerOfViews()
-//    {
-////        try {
-//
+    public void setListenerOfViews()
+    {
+//        try {
+
 //        cinemaMapBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -329,128 +327,139 @@ public class ReserveActivity extends AppCompatActivity
 //                startActivity(intent);
 //            }
 //        });
-//
-//        cinemaS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-//                // your code here
-//
-//                hallTv.setText(reserveCinemaResponse.getResult().get(position).getHall());
-//
-//
-//                TicketCinemaBusiness.hallName =
-//                        reserveCinemaResponse.getResult().get(position).getHall();
-//
-//                TicketCinemaBusiness.reserveCinemaId =
-//                        reserveCinemaResponse.getResult().get(position).getId();
-//
-//                TicketCinemaBusiness.reserveCinema =
-//                        reserveCinemaResponse.getResult().get(position).getName();
-//
-//                TicketCinemaBusiness.cinemaLocation =
-//                        reserveCinemaResponse.getResult().get(position).getAddress();
-//
-//                if( TicketCinemaBusiness.reserveCinemaId != -1)
-//                {
-//                    showWatingDialog();
-//                    type = ReservetypeEnum.date.getValue();
-//                    Map <String , String> queryMap = new HashMap();
-//                    queryMap.put("cinema_id" , TicketCinemaBusiness.reserveCinemaId+"");
-//                    apiCalling.getDatesOfMovie("Bearer " +sessionManager.getUserToken()
-//                            ,
-//                            queryMap ,ReserveActivity.this);
-//
-//                    apiCalling.getDatesOfMovie("Bearer " +sessionManager.getUserToken()
-//                            ,
-//                            queryMap ,ReserveActivity.this);
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parentView) {
-//                // your code here
-//            }
-//
-//        });
-//
-//
-//
-//        dateS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-//                // your code here
-//
-//                TicketCinemaBusiness.reserveDateId =
-//                        reserveDateResponse.getResult().get(position).getId();
-//
-//                TicketCinemaBusiness.reserveDate =
-//                        reserveDateResponse.getResult().get(position).getName();
-//
-//                if( TicketCinemaBusiness.reserveDateId != -1)
+
+        cinemaS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+
+                hallTv.setText(reserveCinemaResponse.getResult().get(position).getHall());
+
+
+                TicketCinemaBusiness.hallName =
+                        reserveCinemaResponse.getResult().get(position).getHall();
+
+                TicketCinemaBusiness.reserveCinemaId =
+                        reserveCinemaResponse.getResult().get(position).getId();
+
+                TicketCinemaBusiness.reserveCinema =
+                        reserveCinemaResponse.getResult().get(position).getName();
+
+                TicketCinemaBusiness.cinemaLocation =
+                        reserveCinemaResponse.getResult().get(position).getAddress();
+
+                if( TicketCinemaBusiness.reserveCinemaId != -1)
+                {
+                    showWatingDialog();
+                    type = ReservetypeEnum.date.getValue();
+                    Map <String , String> queryMap = new HashMap();
+                    queryMap.put("cinema_id" , TicketCinemaBusiness.reserveCinemaId+"");
+                    apiCalling.getDatesOfMovie("Bearer " +sessionManager.getUserToken()
+                            ,
+                            queryMap ,ReserveActivity.this);
+
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+
+        dateS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+
+                TicketCinemaBusiness.reserveDateId =
+                        reserveDateResponse.getResult().get(position).getId();
+
+                TicketCinemaBusiness.reserveDate =
+                        reserveDateResponse.getResult().get(position).getName();
+
+                if( TicketCinemaBusiness.reserveDateId != -1)
+                {
+                    showWatingDialog();
+                    type = ReservetypeEnum.time.getValue();
+                    Map <String , String> queryMap = new HashMap();
+                    queryMap.put("day_id" , TicketCinemaBusiness.reserveDateId+"");
+                    apiCalling.getTimesOfMovie("Bearer " +sessionManager.getUserToken(),
+                            queryMap ,ReserveActivity.this);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+
+
+        timeS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // your code here
+
+                TicketCinemaBusiness.reserveTimeId =
+                        reserveTimeResponse.getResult().get(position).getId();
+
+                TicketCinemaBusiness.reserveTime =
+                        reserveTimeResponse.getResult().get(position).getName();
+
+
+                if( TicketCinemaBusiness.reserveTimeId != -1)
+                {
+                    showWatingDialog();
+                    type = ReservetypeEnum.type.getValue();
+                    Map <String , String> queryMap = new HashMap();
+                    queryMap.put("cinema_id" , TicketCinemaBusiness.reserveCinemaId+"");
+                    queryMap.put("hall_name",TicketCinemaBusiness.hallName);
+                    apiCalling.getTypeOfHall("Bearer " +sessionManager.getUserToken(),
+                            queryMap ,ReserveActivity.this);
+                }
+
+//                if( reserveDateId != -1)
 //                {
 //                    showWatingDialog();
 //                    type = ReservetypeEnum.time.getValue();
 //                    Map <String , String> queryMap = new HashMap();
-//                    queryMap.put("day_id" , TicketCinemaBusiness.reserveDateId+"");
-//                    apiCalling.getTimesOfMovie("Bearer " +sessionManager.getUserToken(),
+//                    queryMap.put("day_id" , reserveDateId+"");
+//                    apiCalling.getTimesOfMovie("Bearer " +sessionManager.getUserToken()
+//                            , "ar" ,
 //                            queryMap ,ReserveActivity.this);
 //                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
+
+        typeS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                TicketCinemaBusiness.typeName = hallTypeResult.get(position).getName();
+                Intent intent = new Intent(ReserveActivity.this,CinemaChairsActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 //
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parentView) {
-//                // your code here
-//            }
-//
-//        });
-//
-//
-//
-//        timeS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-//                // your code here
-//
-//                TicketCinemaBusiness.reserveTimeId =
-//                        reserveTimeResponse.getResult().get(position).getId();
-//
-//                TicketCinemaBusiness.reserveTime =
-//                        reserveTimeResponse.getResult().get(position).getName();
-//
-//
-//                if( TicketCinemaBusiness.reserveTimeId != -1)
-//                {
-//                    showWatingDialog();
-//                    type = ReservetypeEnum.chairs.getValue();
-//                    Map <String , String> queryMap = new HashMap();
-//                    queryMap.put("id" , TicketCinemaBusiness.reserveCinemaId+"");
-//                    apiCalling.getTypeOfChair("Bearer " +sessionManager.getUserToken(),
-//                            queryMap ,ReserveActivity.this);
-//                }
-//
-////                if( reserveDateId != -1)
-////                {
-////                    showWatingDialog();
-////                    type = ReservetypeEnum.time.getValue();
-////                    Map <String , String> queryMap = new HashMap();
-////                    queryMap.put("day_id" , reserveDateId+"");
-////                    apiCalling.getTimesOfMovie("Bearer " +sessionManager.getUserToken()
-////                            , "ar" ,
-////                            queryMap ,ReserveActivity.this);
-////                }
-//
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parentView) {
-//                // your code here
-//            }
-//
-//        });
-//
-//        nextBtn.setOnClickListener(new View.OnClickListener() {
+//        chairsBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                if(TicketCinemaBusiness.reserveTimeId!=-1&&
@@ -461,124 +470,131 @@ public class ReserveActivity extends AppCompatActivity
 //                            ChairsActivity.class);
 //                    startActivity(intent);
 //                }
-//                else {
-//                    Toast.makeText(ReserveActivity.this,
-//                            "please select all fields." ,
-//                            Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        });
-//
-//
-//
-////        saveEditBtn.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View v) {
-////
-////                if (TextUtils.isEmpty(nameTv.getText()) ||
-////                        TextUtils.isEmpty(phoneTv.getText()) ||
-////                        TextUtils.isEmpty(emailTv.getText()) ||
-////                        TextUtils.isEmpty(addressTv.getText() ))
-////                {
-////                    Toast.makeText(ReserveActivity.this
-////                            , "Please fill all fields"
-////                            , Toast.LENGTH_LONG).show();
-////                }
-////
-////                else if (!isEmailValid(emailTv.getText().toString())){
-////                    Toast.makeText(ReserveActivity.this
-////                            , "Email Not Valid",
+////                else {
+////                    Toast.makeText(ReserveActivity.this,
+////                            "please select all fields." ,
 ////                            Toast.LENGTH_LONG).show();
 ////                }
-////                else {
-////                    showWatingDialog();
-////
-////                    Map<String , String> queryMap = new HashMap<>();
-////                    queryMap.put("name" , nameTv.getText().toString());
-////                    queryMap.put("phone" , phoneTv.getText().toString());
-////                    queryMap.put("email" , emailTv.getText().toString());
-////                    queryMap.put("address" , addressTv.getText().toString());
-////
-////                    apiCalling.editUserData("Bearer " +sessionManager.getUserToken()
-////                            , "ar" ,
-////                            queryMap , ReserveActivity.this );
-////                }
-////
-////            }
-////        });
+//            }
+//        });
+
+
+
+//        saveEditBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
 //
+//                if (TextUtils.isEmpty(nameTv.getText()) ||
+//                        TextUtils.isEmpty(phoneTv.getText()) ||
+//                        TextUtils.isEmpty(emailTv.getText()) ||
+//                        TextUtils.isEmpty(addressTv.getText() ))
+//                {
+//                    Toast.makeText(ReserveActivity.this
+//                            , "Please fill all fields"
+//                            , Toast.LENGTH_LONG).show();
+//                }
 //
+//                else if (!isEmailValid(emailTv.getText().toString())){
+//                    Toast.makeText(ReserveActivity.this
+//                            , "Email Not Valid",
+//                            Toast.LENGTH_LONG).show();
+//                }
+//                else {
+//                    showWatingDialog();
 //
+//                    Map<String , String> queryMap = new HashMap<>();
+//                    queryMap.put("name" , nameTv.getText().toString());
+//                    queryMap.put("phone" , phoneTv.getText().toString());
+//                    queryMap.put("email" , emailTv.getText().toString());
+//                    queryMap.put("address" , addressTv.getText().toString());
 //
-////        }
-////        catch ( Exception e)
-////        {
-////            Log.e("exception" , e.getMessage());
-////        }
-//    }
+//                    apiCalling.editUserData("Bearer " +sessionManager.getUserToken()
+//                            , "ar" ,
+//                            queryMap , ReserveActivity.this );
+//                }
+//
+//            }
+//        });
+
+
+
+
+//        }
+//        catch ( Exception e)
+//        {
+//            Log.e("exception" , e.getMessage());
+//        }
+    }
 
     @Override
     public void getApiResponse(int status, String message, Object tApiResponse) {
-//        dialog.dismiss();
-//        if(status == ErrorTypeEnum.noError.getValue())
-//        {
-//            if( type == ReservetypeEnum.cinema.getValue())
-//            {
-//                this.reserveCinemaResponse =
-//                        (ReserveCinemaResponse) tApiResponse;
-//
-//                ResultReserveCinema resultReserveCinema =
-//                        new ResultReserveCinema();
-//                //TODO: make string
-//                resultReserveCinema.setName("select cinema");
-//                resultReserveCinema.setId(-1);
-//                this.reserveCinemaResponse.getResult().add(0,resultReserveCinema);
-//                customSpinnerAdapter = new CustomSpinnerAdapter(
-//                        this, this.reserveCinemaResponse.getResult() );
-//                cinemaS.setAdapter(customSpinnerAdapter);
-//
-//            }
-//            else if( type == ReservetypeEnum.date.getValue())
-//            {
-//                this.reserveDateResponse =
-//                        (ReserveCinemaResponse) tApiResponse;
-//
-//                ResultReserveCinema resultReserveCinema =
-//                        new ResultReserveCinema();
-//                //TODO: make string
-//                resultReserveCinema.setName("select Date");
-//                resultReserveCinema.setId(-1);
-//                this.reserveDateResponse.getResult().add(0,resultReserveCinema);
-//                dateSpinnerAdapter = new CustomSpinnerAdapter(
-//                        this, this.reserveDateResponse.getResult() );
-//                dateS.setAdapter(dateSpinnerAdapter);
-//
-//            }
-//
-//            else if( type == ReservetypeEnum.time.getValue())
-//            {
-//                this.reserveTimeResponse =
-//                        (ReserveCinemaResponse) tApiResponse;
-//
-//                ResultReserveCinema resultReserveCinema =
-//                        new ResultReserveCinema();
-//                //TODO: make String
-//                resultReserveCinema.setName("select Time");
-//                resultReserveCinema.setId(-1);
-//                this.reserveTimeResponse.getResult().add(0,resultReserveCinema);
-//                timeSpinnerAdapter = new CustomSpinnerAdapter(
-//                        this, this.reserveTimeResponse.getResult() );
-//                timeS.setAdapter(timeSpinnerAdapter);
-//
-//            }
-//
-//            else if( type == ReservetypeEnum.chairs.getValue())
-//            {
-//                this.chairResponse =
-//                        (ChairResponse) tApiResponse;
-//
-//                TicketCinemaBusiness.ticketLimits =
-//                        chairResponse.getResult().getLimitReserve();
+        dialog.dismiss();
+        if(status == ErrorTypeEnum.noError.getValue())
+        {
+            if( type == ReservetypeEnum.cinema.getValue())
+            {
+                this.reserveCinemaResponse =
+                        (ReserveCinemaResponse) tApiResponse;
+
+                ResultReserveCinema resultReserveCinema =
+                        new ResultReserveCinema();
+                //TODO: make string
+                resultReserveCinema.setName("select cinema");
+                resultReserveCinema.setId(-1);
+                this.reserveCinemaResponse.getResult().add(0,resultReserveCinema);
+                customSpinnerAdapter = new CustomSpinnerAdapter(
+                        this, this.reserveCinemaResponse.getResult() );
+                cinemaS.setAdapter(customSpinnerAdapter);
+
+            }
+            else if( type == ReservetypeEnum.date.getValue())
+            {
+                this.reserveDateResponse =
+                        (ReserveCinemaResponse) tApiResponse;
+
+                ResultReserveCinema resultReserveCinema =
+                        new ResultReserveCinema();
+                //TODO: make string
+                resultReserveCinema.setName("select Date");
+                resultReserveCinema.setId(-1);
+                this.reserveDateResponse.getResult().add(0,resultReserveCinema);
+                dateSpinnerAdapter = new CustomSpinnerAdapter(
+                        this, this.reserveDateResponse.getResult() );
+                dateS.setAdapter(dateSpinnerAdapter);
+
+            }
+
+            else if( type == ReservetypeEnum.time.getValue())
+            {
+                this.reserveTimeResponse =
+                        (ReserveCinemaResponse) tApiResponse;
+
+                ResultReserveCinema resultReserveCinema =
+                        new ResultReserveCinema();
+                //TODO: make String
+                resultReserveCinema.setName("select Time");
+                resultReserveCinema.setId(-1);
+                this.reserveTimeResponse.getResult().add(0,resultReserveCinema);
+                timeSpinnerAdapter = new CustomSpinnerAdapter(
+                        this, this.reserveTimeResponse.getResult() );
+                timeS.setAdapter(timeSpinnerAdapter);
+
+            }
+
+            else if( type == ReservetypeEnum.type.getValue())
+            {
+                MainHallType mainHallType = (MainHallType) tApiResponse;
+                hallTypeResult = mainHallType.getResult();
+
+                dateSpinnerAdapter = new CustomSpinnerAdapter(
+                        this, this.reserveDateResponse.getResult() );
+                dateS.setAdapter(dateSpinnerAdapter);
+
+                typeSpinnerAdapter = new CustomSpinnerAdapter(this,hallTypeResult,false);
+                typeS.setAdapter(typeSpinnerAdapter);
+
+
+
 //
 //
 //                chairTypeAdapter2 = new ChairTypeAdapter2(
@@ -593,16 +609,16 @@ public class ReserveActivity extends AppCompatActivity
 //                typesRv.setLayoutManager(chairTypeLayoutManger);
 //                typesRv.setHasFixedSize(false);
 //                typesRv.setNestedScrollingEnabled(false);
-//
-//            }
-//
-////            Toast.makeText(this , "updated successfully"
-////                    , Toast.LENGTH_LONG).show();
-//        }
-//        else
-//        {
-//            Toast.makeText(this , getString(R.string.failed_to_update)
+
+            }
+
+//            Toast.makeText(this , "updated successfully"
 //                    , Toast.LENGTH_LONG).show();
-//        }
+        }
+        else
+        {
+            Toast.makeText(this , getString(R.string.failed_to_update)
+                    , Toast.LENGTH_LONG).show();
+        }
     }
 }

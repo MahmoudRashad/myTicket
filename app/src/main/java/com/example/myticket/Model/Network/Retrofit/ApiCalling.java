@@ -10,6 +10,7 @@ import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.MainResult;
 import com.example.myticket.Model.Network.DataModel.BaseNoResult.BaseNoResult;
 import com.example.myticket.Model.Network.DataModel.Chairs.ChairResponse2;
+import com.example.myticket.Model.Network.DataModel.Chairs.MainHallType;
 import com.example.myticket.Model.Network.DataModel.CommentsModel.Comments;
 import com.example.myticket.Model.Network.DataModel.DetailsCinema.DetailsCinema;
 import com.example.myticket.Model.Network.DataModel.EditUserData.EditUserDataResponse;
@@ -1270,16 +1271,16 @@ public class ApiCalling
     }
 
 
-    public void getTypeOfChair(String authToken ,
+    public void getTypeOfHall(String authToken ,
                                 Map<String, String> queryMap ,
                                 final GeneralListener generalListener )
     {
-        Call<ChairResponse> call =
-                apiInterface.getChairType( lang ,authToken , queryMap );
+        Call<MainHallType> call =
+                apiInterface.getHallType( lang ,authToken , queryMap );
 
-        call.enqueue(new Callback<ChairResponse>() {
+        call.enqueue(new Callback<MainHallType>() {
             @Override
-            public void onResponse(Call<ChairResponse> call, Response<ChairResponse> response)
+            public void onResponse(Call<MainHallType> call, Response<MainHallType> response)
             {
                 Log.e("onResponse" ,response.raw().toString());
                 if(response.isSuccessful())
@@ -1311,7 +1312,7 @@ public class ApiCalling
                 }
             }
             @Override
-            public void onFailure(Call<ChairResponse> call, Throwable t)
+            public void onFailure(Call<MainHallType> call, Throwable t)
             {
                 Log.e("onResponse" ,call.request().toString());
                 //fail internet connection

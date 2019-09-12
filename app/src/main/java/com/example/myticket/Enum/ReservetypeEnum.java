@@ -9,7 +9,8 @@ public enum ReservetypeEnum
     cinema(0),
     date  (1) ,
     time  (2) ,
-    chairs (3);
+    chairs (3),
+    type(4);
 
     private final int value;
 
