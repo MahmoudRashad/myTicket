@@ -37,6 +37,19 @@ public class Past implements Serializable
     @SerializedName("symbol_chair")
     @Expose
     private String symbol_chair;
+
+    @SerializedName("key")
+    @Expose
+    private String key;
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
     private final static long serialVersionUID = -6308416309511160434L;
 
     /**

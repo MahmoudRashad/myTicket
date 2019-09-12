@@ -41,10 +41,12 @@ public class StadMyTicketsViewPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         return fragmentTitles.get(position);
     }
-    public void addFragment(Fragment fragment, String fragmentTitle, List<Past> pastTickets){
+    public void addFragment(Fragment fragment, String fragmentTitle, List<Past> pastTickets,
+                            boolean isPending){
         Bundle bundle = new Bundle();
         String ListDumb = new Gson().toJson(pastTickets);
         bundle.putString("list",ListDumb);
+        bundle.putBoolean("isPending",isPending);
         fragment.setArguments(bundle);
         fragmentList.add(fragment);
         fragmentTitles.add(fragmentTitle);

@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myticket.Enum.ClubReservationEnum;
 import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.Network.DataModel.BaseNoResult.BaseNoResult;
 import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
@@ -72,7 +73,8 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
     private String choosenThree;
     private String blockImage;
     private String action;
-    static public ArrayList<ResultTicketsStad> resultTicketsStads;
+    public ArrayList<ResultTicketsStad> resultTicketsStads;
+    public static String keyReservation="";
     static final int PICK_CHAIRS_REQUEST = 111;
     private View view1;
     private TextView yourSeats;
@@ -331,14 +333,16 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
                 @Override
                 public void onClick(View v) {
 
-                    Intent intent = new Intent(StadiumTicketsOptions.this,
-                            MainPaymentActivity.class);
-                    intent.putExtra("amount" , priceTotal.getText().toString());
-                    startActivity(intent);
+//                    Intent intent = new Intent(StadiumTicketsOptions.this,
+//                            MainPaymentActivity.class);
+//                    intent.putExtra("amount" , priceTotal.getText().toString());
+//                    startActivity(intent);
 
 //                    progressBar.setVisibility(View.VISIBLE);
-//                    apiCalling.clubReservation("Bearer " + sessionManager.getUserToken(), sessionManager.getDeviceLanguage(),
-//                            resultTicketsStads, StadiumTicketsOptions.this);
+                    apiCalling.clubReservation("Bearer " + sessionManager.getUserToken()
+                            , sessionManager.getDeviceLanguage(),
+                            resultTicketsStads, null, ClubReservationEnum.pending.getValue()
+                            ,StadiumTicketsOptions.this);
                 }
             });
 
@@ -439,12 +443,19 @@ public class StadiumTicketsOptions extends AppCompatActivity implements GeneralL
 
         }
 
-        else if (tApiResponse instanceof GeneralApiesponse){
+        else if (tApiResponse instanceof GeneralApiesponse)
+        {
             GeneralApiesponse generalApiesponse = (GeneralApiesponse) tApiResponse;
-            Intent intent = new Intent(StadiumTicketsOptions.this,HomeStadBottomNav.class);
-            startActivity(intent);
+//            Intent intent = new Intent(StadiumTicketsOptions.this,HomeStadBottomNav.class);
+//            startActivity(intent);
             String msg = generalApiesponse.getMessage();
             Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
+
+
+            Intent intent = new Intent(StadiumTicketsOptions.this,
+                    MainPaymentActivity.class);
+            intent.putExtra("amount" , priceTotal.getText().toString());
+            startActivity(intent);
         }
 
         else if (tApiResponse instanceof MainChairs) {

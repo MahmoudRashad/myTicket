@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.example.myticket.Enum.ClubReservationEnum;
 import com.example.myticket.Enum.ErrorTypeEnum;
 import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.MainResult;
@@ -1409,7 +1410,10 @@ public class ApiCalling
         });
     }
 
-    public void getHomeMatches(String gameID , String flag, String lang , String auth, final GeneralListener generalListener) {
+    public void getHomeMatches(String gameID
+            , String flag
+            , String lang
+            , String auth, final GeneralListener generalListener) {
         Map<String, String> queryMap = new HashMap<>();
         queryMap.put("game_id" , gameID);
         queryMap.put("flag" , flag);
@@ -1725,16 +1729,36 @@ public class ApiCalling
 
     }
 
-    public void clubReservation(String authorization , String lang , List<ResultTicketsStad> resultItemList
+    public void clubReservation(String authorization ,
+                                String lang ,
+                                List<ResultTicketsStad> resultItemList,
+            String key,
+            Integer status
             , final GeneralListener generalListener )
     {
 
         Gson gson = new Gson();
 
-        JsonElement jsonObject = gson.toJsonTree(resultItemList);
+        JsonElement jsonObject;
 
-        Map<String, JsonElement> queryMap = new HashMap<>();
-        queryMap.put("ticket" , jsonObject);
+        Map<String, Object> queryMap = new HashMap<>();
+
+        queryMap.put("status" , status);
+
+        if( status == ClubReservationEnum.pending.getValue())
+        {
+             gson = new Gson();
+
+             jsonObject = gson.toJsonTree(resultItemList);
+
+
+            queryMap.put("ticket" , jsonObject);
+        }
+        else if(status == ClubReservationEnum.accept.getValue())
+        {
+            queryMap.put("key" , key);
+        }
+
 
         jsonObject = gson.toJsonTree(queryMap);
 

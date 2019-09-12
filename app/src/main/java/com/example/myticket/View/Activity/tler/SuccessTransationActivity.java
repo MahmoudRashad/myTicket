@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.myticket.Enum.ClubReservationEnum;
 import com.example.myticket.Model.Data.SessionManager;
 import com.example.myticket.Model.Network.DataModel.GeneralApiesponse;
 import com.example.myticket.Model.Network.Retrofit.ApiCalling;
@@ -20,7 +21,7 @@ import com.example.myticket.View.Activity.HomeStadBottomNav;
 import com.telr.mobile.sdk.activty.WebviewActivity;
 import com.telr.mobile.sdk.entity.response.status.StatusResponse;
 
-import static com.example.myticket.View.Activity.StadiumTicketsOptions.resultTicketsStads;
+import static com.example.myticket.View.Activity.StadiumTicketsOptions.keyReservation;
 
 public class SuccessTransationActivity extends Activity implements GeneralListener {
 
@@ -52,8 +53,11 @@ public class SuccessTransationActivity extends Activity implements GeneralListen
                     status.getAuth().getStatus().equals("H"))
             {
                 // call api register
-                apiCalling.clubReservation("Bearer " + sessionManager.getUserToken(), sessionManager.getDeviceLanguage(),
-                            resultTicketsStads, SuccessTransationActivity.this::getApiResponse);
+                apiCalling.clubReservation("Bearer " + sessionManager.getUserToken()
+                        , sessionManager.getDeviceLanguage(),
+                            null,keyReservation
+                        ,ClubReservationEnum.accept.getValue()
+                        ,SuccessTransationActivity.this::getApiResponse);
             }
             status.getAuth().getStatus();   // Authorisation status. A indicates an authorised transaction. H also indicates an authorised transaction, but where the transaction has been placed on hold. Any other value indicates that the request could not be processed.
             status.getAuth().getAvs();      /* Result of the AVS check:
