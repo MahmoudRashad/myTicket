@@ -224,5 +224,8 @@ public interface ApiInterface {
     Call<MainLimit> getLimit(@Header("lang") String lang, @Header("Authorization") String authTtoken,
                              @QueryMap Map<String, String> queryMap);
 
+    @POST("chair")
+    Call<ChairResponse2> getChairsHall(@Header("lang") String lang, @Header("Authorization") String authTtoken,
+                             @QueryMap Map<String, String> queryMap);
 
 }

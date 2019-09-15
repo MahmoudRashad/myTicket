@@ -1972,4 +1972,48 @@ public class ApiCalling
         });
 
     }
+
+
+    public void getChairsOfHall(String cinemaId , String hall , String type,String authorization ,
+                                String lang,final GeneralListener generalListener ) {
+
+        Map<String,String> map = new HashMap<>();
+        map.put("cinema_id",cinemaId);
+        map.put("hall",hall);
+        map.put("type",type);
+
+        Call<ChairResponse2> call = apiInterface.getChairsHall(lang,authorization,map);
+
+        call.enqueue(new Callback<ChairResponse2>() {
+            @Override
+            public void onResponse(Call<ChairResponse2> call, Response<ChairResponse2> response) {
+                if (response.isSuccessful()) {
+                    Log.e("onResponse", response.raw().toString());
+                    if (response.body().getSuccess()) {
+                        generalListener.getApiResponse(ErrorTypeEnum.noError.getValue(),
+                                null, response.body());
+                    } else {
+                        generalListener.getApiResponse(ErrorTypeEnum.BackendLogicFail.getValue(),
+                                response.body().getMessage(), response.body());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ChairResponse2> call, Throwable t) {
+                //fail internet connection
+                if (t instanceof IOException) {
+                    Log.e("ApiCheck**", "no internet connection");
+                    generalListener.getApiResponse(ErrorTypeEnum.InternetConnectionFail.getValue(),
+                            t.getMessage(), null);
+                }
+                //fail conversion issue
+                else {
+                    generalListener.getApiResponse(ErrorTypeEnum.other.getValue(),
+                            t.getMessage(), null);
+                }
+            }
+        });
+
+    }
  }

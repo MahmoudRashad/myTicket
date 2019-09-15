@@ -114,6 +114,7 @@ public class ReserveActivity extends AppCompatActivity
     private TextView toolbarTitle;
     RecyclerView typesRv;
     private Typeface myfont;
+    private int CHAIRS_REQUEST_CODE = 112;
 
 
     @Override
@@ -449,13 +450,19 @@ public class ReserveActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 TicketCinemaBusiness.typeName = hallTypeResult.get(position).getName();
-                Intent intent = new Intent(ReserveActivity.this,CinemaChairsActivity.class);
-                startActivity(intent);
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+        chairsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ReserveActivity.this,CinemaChairsActivity.class);
+                startActivityForResult(intent,CHAIRS_REQUEST_CODE);
             }
         });
 //
